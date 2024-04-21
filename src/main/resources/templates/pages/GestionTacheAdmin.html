@@ -1,0 +1,2083 @@
+<!DOCTYPE html>
+
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+        lang="en"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="utf-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>TaskMaster</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+
+    <link href="css/datatables.min.css" rel="stylesheet">
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="css/boxicons.css" />
+    <link rel="stylesheet" href="css/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="css/perfect-scrollbar.css" />
+
+    <link rel="stylesheet" href="css/apex-charts.css" />
+    <link rel="stylesheet" href="css/myCss.css" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="js/config.js"></script>
+</head>
+<body>
+<!--/spinner div-->
+<div class="spinner-wrapper">
+    <div id="loading-spinner" class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<!--/spinner div-->
+
+<!--nav-->
+<div class="container-fluid h-px-75   px-0" >
+    <nav class="navbar navbar-expand-lg bg-dark fixed-top">
+        <div class="container-fluid">
+            <a href="javascript:void(0);" class="app-brand-link gap-2">
+              <span class="app-brand-logo demo">
+                <svg
+                        width="25"
+                        viewBox="0 0 25 42"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <defs>
+                    <path
+                            d="M13.7918663,0.358365126 L3.39788168,7.44174259 C0.566865006,9.69408886 -0.379795268,12.4788597 0.557900856,15.7960551 C0.68998853,16.2305145 1.09562888,17.7872135 3.12357076,19.2293357 C3.8146334,19.7207684 5.32369333,20.3834223 7.65075054,21.2172976 L7.59773219,21.2525164 L2.63468769,24.5493413 C0.445452254,26.3002124 0.0884951797,28.5083815 1.56381646,31.1738486 C2.83770406,32.8170431 5.20850219,33.2640127 7.09180128,32.5391577 C8.347334,32.0559211 11.4559176,30.0011079 16.4175519,26.3747182 C18.0338572,24.4997857 18.6973423,22.4544883 18.4080071,20.2388261 C17.963753,17.5346866 16.1776345,15.5799961 13.0496516,14.3747546 L10.9194936,13.4715819 L18.6192054,7.984237 L13.7918663,0.358365126 Z"
+                            id="path-1"
+                    ></path>
+                    <path
+                            d="M5.47320593,6.00457225 C4.05321814,8.216144 4.36334763,10.0722806 6.40359441,11.5729822 C8.61520715,12.571656 10.0999176,13.2171421 10.8577257,13.5094407 L15.5088241,14.433041 L18.6192054,7.984237 C15.5364148,3.11535317 13.9273018,0.573395879 13.7918663,0.358365126 C13.5790555,0.511491653 10.8061687,2.3935607 5.47320593,6.00457225 Z"
+                            id="path-3"
+                    ></path>
+                    <path
+                            d="M7.50063644,21.2294429 L12.3234468,23.3159332 C14.1688022,24.7579751 14.397098,26.4880487 13.008334,28.506154 C11.6195701,30.5242593 10.3099883,31.790241 9.07958868,32.3040991 C5.78142938,33.4346997 4.13234973,34 4.13234973,34 C4.13234973,34 2.75489982,33.0538207 2.37032616e-14,31.1614621 C-0.55822714,27.8186216 -0.55822714,26.0572515 -4.05231404e-15,25.8773518 C0.83734071,25.6075023 2.77988457,22.8248993 3.3049379,22.52991 C3.65497346,22.3332504 5.05353963,21.8997614 7.50063644,21.2294429 Z"
+                            id="path-4"
+                    ></path>
+                    <path
+                            d="M20.6,7.13333333 L25.6,13.8 C26.2627417,14.6836556 26.0836556,15.9372583 25.2,16.6 C24.8538077,16.8596443 24.4327404,17 24,17 L14,17 C12.8954305,17 12,16.1045695 12,15 C12,14.5672596 12.1403557,14.1461923 12.4,13.8 L17.4,7.13333333 C18.0627417,6.24967773 19.3163444,6.07059163 20.2,6.73333333 C20.3516113,6.84704183 20.4862915,6.981722 20.6,7.13333333 Z"
+                            id="path-5"
+                    ></path>
+                  </defs>
+                  <g id="g-app-brand" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Brand-Logo" transform="translate(-27.000000, -15.000000)">
+                      <g id="Icon" transform="translate(27.000000, 15.000000)">
+                        <g id="Mask" transform="translate(0.000000, 8.000000)">
+                          <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                          </mask>
+                          <use fill="#696cff" xlink:href="#path-1"></use>
+                          <g id="Path-3" mask="url(#mask-2)">
+                            <use fill="#696cff" xlink:href="#path-3"></use>
+                            <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-3"></use>
+                          </g>
+                          <g id="Path-4" mask="url(#mask-2)">
+                            <use fill="#696cff" xlink:href="#path-4"></use>
+                            <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-4"></use>
+                          </g>
+                        </g>
+                        <g
+                                id="Triangle"
+                                transform="translate(19.000000, 11.000000) rotate(-300.000000) translate(-19.000000, -11.000000) "
+                        >
+                          <use fill="#696cff" xlink:href="#path-5"></use>
+                          <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-5"></use>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </span>
+                <span class="app-brand-text demo menu-text fw-bolder ms-2">TaskMaster</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse  " id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto px-lg-5  mb-2 mb-lg-0"  >
+                    <!--Mes Tâches-->
+                    <li class="nav-item">
+                        <a class=" btn  btn-dark" th:href="@{/}" style="display: flex; align-items: center;">
+                            <i class="menu-icon tf-icons bx bx-task me-1" style="margin-right: 5px;"></i>
+                            <div data-i18n="Analytics">Mes Tâches</div>
+                        </a>
+                    </li>
+                    <!--Suivie Des Tâches-->
+                    <li class="nav-item">
+                        <a class="btn btn-dark " th:href="@{/CreerTache}" style="display: flex; align-items: center;">
+                            <i class="menu-icon tf-icons bx bx-copy-alt me-1" style="margin-right: 5px;"></i>
+                            <div data-i18n="Analytics">Suivie Des Tâches</div>
+                        </a>
+                    </li>
+                    <!--Button Créer Une Tâche-->
+                    <li class="nav-item">
+                        <!-- Vertically Centered Modal -->
+                        <!-- Button trigger modal -->
+                        <button
+                                type="button"
+                                class="btn btn-dark"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exLargeModal1"
+                                id="creertache"
+                        >
+                            <i class="bx bx-add-to-queue me-1"></i> Créer Une Tâche
+                        </button>
+                    </li>
+                    <!---->
+
+                </ul>
+
+                <div class="navbar-nav d-flex">
+                    <ul class="navbar-nav d-flex align-items-center">
+
+
+                        <!--Menu-->
+                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                            <button type="button" class="btn btn-icon bg-dark  position-relative dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="bx bx-list-ul me-2" style="font-size: 25px;color: #FFFFFF"></i>
+                                <span id="t" class="badge nav-pills badge-notification bg-danger" ></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-sm-end py-0 overflow-auto mb-4">
+                                <li><a class="dropdown-item" th:href="@{/Memoir}" >
+                                    <i class='bx bx-notepad'></i> Memoir
+                                </a>
+                                </li>
+                                <!--Mon Equipe-->
+                                <li class="nav-item">
+                                    <a class="dropdown-item " th:href="@{/MonEquipe}">
+                                        <i class=" bx   bxs-user-account" ></i> Mon Équipe
+                                    </a>
+                                </li>
+                                <div sec:authorize="hasAnyRole('ADMIN')">
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" th:href="@{/gestUtilisateur}">
+                                            <i class="bx bx-group me-1"></i> Comptes
+                                        </a>
+                                    </li>
+                                    <li><a class="dropdown-item" th:href="@{/societe}">
+                                        <i class="bx bx-buildings me-1"></i>Societes
+                                    </a>
+                                    </li>
+                                    <li><a class="dropdown-item" th:href="@{/domaine}">
+                                        <i class="bx bx-briefcase me-1"></i>Domaines
+                                    </a>
+                                    </li>
+                                    <li><a class="dropdown-item" th:href="@{/departement}">
+                                        <i class="bx bxs-institution me-1"></i>Departements
+                                    </a>
+                                    </li>
+                                    <li><a class="dropdown-item" th:href="@{/gestionEquipe}">
+                                        <i class="bx bxs-user-account me-1"></i> Equipes
+                                    </a>
+                                    </li>
+                                    <li><a class="dropdown-item"  th:href="@{/GestionTacheAdmin}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ui-checks" viewBox="0 0 16 16">
+                                            <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                                        </svg>
+                                        Tâches
+                                    </a>
+                                    </li>
+                                </div>
+
+
+                            </ul>
+                        </li>
+                        <!--Menu-->
+
+                        <!--notif-->
+                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                            <button onclick="readNotif()" type="button" class="btn btn-icon bg-dark position-relative dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="bx bxs-bell-ring me-2" style="font-size: 25px;color: #FFFFFF"></i>
+                                <span id="spanNotifNum" class="badge nav-pills badge-notification bg-danger" th:value="${nbrNotifNonLu}" th:text="${nbrNotifNonLu}"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end py-0 overflow-auto mb-4" id="vertical-example" style="width: 400px; max-height: 500px;">
+                                <li class="dropdown-menu-header border-bottom">
+                                    <div class="dropdown-header d-flex align-items-center py-3">
+                                        <h5 class="text-body mb-0 me-auto">notifications</h5>
+                                        <a href="javascript:void(0);" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Mark All as read" data-bs-original-title="Mark All as read">
+                                            <i class="bx bx-envelope-open"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                                <div class="notification-list-wrapper"> <!-- Wrapper with fixed height for scroll -->
+                                    <li class="dropdown-notifications-list scrollable-container ps" th:each="p, iterStat : ${notificationList}">
+                                        <ul class="list-group list-group-flush">
+                                            <li th:class="${p.estLu == true ? 'list-group-item list-group-item-action dropdown-notifications-item marked-as-read' : 'list-group-item list-group-item-action dropdown-notifications-item marked-as-read bg-primary text-white '}">
+                                                <div class="d-flex">
+                                                    <div class="flex-shrink-0 me-3">
+                                                        <div class="avatar">
+                                                            <img src="img/1.png" alt="" class="w-px-40 h-auto rounded-circle">
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex-grow-1">
+                                                        <h6 th:class="${p.estLu == true ? 'mb-1' : ' mb-1 text-white '}" th:text="${p.emetteur.prenom+' '+p.emetteur.nom+' 🔔'}"> </h6>
+                                                        <p class="mb-0" th:text="${p.detail}"></p>
+                                                        <small th:class="${p.estLu == true ? 'text-muted' : ' text-white '}" th:utext="${#temporals.format(p.datenotif, 'dd-MM-yyyy HH:mm:ss')}"></small>
+                                                    </div>
+                                                    <div class="flex-shrink-0 dropdown-notifications-actions">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </div>
+                            </ul>
+                        </li>
+                        <!--/notif-->
+
+                        <!-- User -->
+                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                                <div class="avatar avatar-online">
+                                    <img src="img/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" th:href="@{/MonProfile}">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar avatar-online">
+                                                    <img src="img/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <span class="fw-semibold d-block" sec:authentication="name"></span>
+                                                <small class="text-muted" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Administrateur</small>
+                                                <small class="text-muted" th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Utilisateur</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <form class="dropdown-item" th:action="@{/logout}" method="post">
+                                        <button class="btn btn-primary float-right w-100" type="submit"> <i class="bx bx-power-off me-2"></i>Déconnexion</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--/ User -->
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+    </nav>
+
+</div>
+<!--/nav-->
+
+<!-- Extra Large Modal pour Creer une Tache -->
+<div class="modal fade" id="exLargeModal1" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                <form id="formAccountSettings1" method="POST" th:action="@{CreateTache}" >
+                    <input type="hidden" class="form-control" name="idtache">
+                    <input type="hidden" th:value="${utilisateurC.idutilisateur}"  class="form-control" name="Utilisateur">
+                    <input type="hidden"  name="ismemoire" id="ismemoire1" value="false" required />
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="nomtache1" class="form-label">Tache</label>
+                            <textarea type="text" class="form-control h-px-100"  name="nomtache" id="nomtache1" required></textarea>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col mb-0">
+                            <label  for="idrecepteur1" class="form-label">Destinataire de la tâche</label>
+                            <select  id="idrecepteur1" name="recepteur" class="select2 form-select" required >
+                                <option th:each="p:${Recepteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                            </select>
+                        </div>
+                        <div class="col mb-0">
+                            <label class="form-label" for="Durée Estimée1">Durée Estimée</label>
+                            <div class="input-group input-group-merge">
+                                <input type="number" id="Durée Estimée1" required
+                                       min="1"  name="dureestime" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="col mb-0">
+                            <label  for="DateOuverture1" class="form-label">Date Ouverture</label>
+                            <input class="form-control" type="date" name="dateouverture" min="" id="DateOuverture1" required>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col mb-0">
+                            <label for="Priorite1" class="form-label">Priorité</label>
+                            <select  id="Priorite1" class="select2 form-select" name="priorite" required>
+                                <option th:each="p:${priorites}" th:value="${p.idpriorite}" th:text="${p.nompriorite}" ></option>
+                            </select>
+                        </div>
+                        <div class="col mb-0">
+                            <label  for="Proprietaires1" class="form-label">Propriétaire</label>
+                            <select  id="Proprietaires1" name="proprietaire" class="select2 form-select"  required="required"  th:with="selectedValue=${utilisateurC.idutilisateur}">
+                                <option th:each="p:${utilisateurList2}" th:value="${p.idutilisateur}"  th:selected="${selectedValue == p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                            </select>
+                        </div>
+                        <div class="col mb-0">
+                            <label for="tacheparente1" class="form-label">Tâche parente</label>
+                            <select id="tacheparente1" class="select2 form-select" name="tacheparente">
+                                <!-- <option  value="">Selectionner la tâche parente</option>
+                                 <option th:each="TacheParents:${lesTacheParents}" th:value="${TacheParents.idtache}" th:text="${TacheParents.nomtache}"></option>-->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col mb-0">
+                            <label for="type1" class="form-label">Type</label>
+                            <input class="form-control" type="text" id="type1" name="type" placeholder="Projet,Opérationnel.." value="" />
+                        </div>
+                        <div class="col mb-0">
+                            <label for="commentaire1" class="form-label">commentaire</label>
+                            <input
+                                    type="text" class="form-control" id="commentaire1"
+                                    name="commentaire" value=""/>
+                        </div>
+                        <div class="col mb-0">
+                            <br>
+                            <label class="form-label" for="Aunetachesuccessive1">À une tache successive</label>
+                            <input id="Aunetachesuccessive1" type="checkbox"  name="aunetachesuccessive" >
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="submit1" class="btn btn-primary me-2"> Envoyer</button>
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        onclick="annuler1()"
+                >Annuler</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Extra Large Modal pour Creer une Tache -->
+
+<!-- content div-->
+<div class="container-fluid h-auto">
+    <div class="content-wrapper">
+        <!--chemin-->
+        <h6 class="fw-bold fw-bold py-0  my-0">
+        <span class="text-muted fw-light">
+         <i class="bx bx-cog" style="margin-right: 5px;"></i>
+            Administration /</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ui-checks" viewBox="0 0 16 16">
+                <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+            </svg>
+            Tâches
+        </h6>
+        <!--/chemin-->
+        <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+
+            <div class="row">
+                <div class="col-md-12">
+
+
+                    <!-- Modal old
+                                        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button
+                                            type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"
+                                    ></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="formAccountSettings" method="POST" th:action="@{UpdateTacheAdmin}" >
+                                        <input type="hidden" class="form-control" name="idtache">
+                                        <input type="hidden" class="form-control" name="Utilisateur">
+                                        <input type="hidden"  name="ismemoire" id="ismemoire" value="false" required />
+                                        <div class="row">
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="nomtache" class="form-label">Tache </label>
+                                                <input class="form-control" type="text" name="nomtache" id="nomtache" required />
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label  for="idrecepteur" class="form-label">Destinataire de la tâche</label>
+                                                <select  id="idrecepteur" name="recepteur" class="select2 form-select" required >
+                                                    <option ></option>
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label  for="DateOuverture" class="form-label">Date Ouverture</label>
+                                                <input class="form-control" type="date" name="dateouverture"  id="DateOuverture" >
+                                            </div>
+
+                                            <div class="col mb-0">
+                                                <label for="Priorite" class="form-label">Priorité</label>
+                                                <select  id="Priorite" class="select2 form-select" name="priorite" required>
+                                                    <option th:each="p:${priorites}" th:value="${p.idpriorite}" th:text="${p.nompriorite}" ></option>
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label" for="Durée Estimée">Durée Estimée</label>
+                                                <div class="input-group input-group-merge">
+                                                    <input type="number" min="0" id="Durée Estimée" required
+                                                           name="dureestime" class="form-control"/>
+                                                </div>
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label  for="Proprietaires" class="form-label">Propriétaire</label>
+                                                <select  id="Proprietaires" name="proprietaire" class="select2 form-select"  required>
+                                                    <option></option>
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="tacheparente" class="form-label">Tâche parente</label>
+                                                <select id="tacheparente" class="select2 form-select" name="tacheparente">
+                                                    <option  value="">Sans tâche parente</option>
+                                                </select>
+                                                <small class="alert-danger" id="messageconfirme"></small>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="statut" class="form-label">statut</label>
+                                                <select id="statut" class="select2 form-select" name="statut">
+                                                    <option value="En attente" id="attente" >En attente</option>
+                                                    <option value="En cours" >En cours</option>
+                                                    <option value="Termine" >Terminé</option>
+                                                    <option value="Programme">Programmé</option>
+                                                    <option value="Refaire" >Refaire</option>
+                                                    <option value="Valide" >Validé</option>
+                                                    <option value="Annuler" >Annulée</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="type" class="form-label">Type</label>
+                                                <input class="form-control" type="text" id="type" name="type" placeholder="Projet,Opérationnel.." value="" />
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="commentaire" class="form-label">commentaire</label>
+                                                <input
+                                                        type="text" class="form-control" id="commentaire"
+                                                        name="commentaire" value=""/>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label" for="Aunetachesuccessive">À une tache successive</label>
+                                                <input id="Aunetachesuccessive" type="checkbox"  name="aunetachesuccessive" >
+                                            </div>
+                                            <div class="mb-3 col-md-12">
+                                                <div th:if="${not #strings.isEmpty(supmessage)}">
+                                                    <div class="alert alert-danger alert-primary" th:text="${supmessage}"></div>
+                                                </div>
+                                                <div th:if="${not #strings.isEmpty(error)}">
+                                                    <div class="alert alert-danger alert-dismissible" th:text="${error}"></div>
+                                                </div>
+                                                <div th:if="${not #strings.isEmpty(msg1)}">
+                                                    <div class="alert alert-success alert-dismissible" role="alert" th:text="${msg1}"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <button type="submit" id="submit" class="btn btn-primary me-2">Mettre à jour</button>
+                                            <button type="reset"
+                                                    class="btn btn-outline-secondary"
+                                                    onclick="annuler()"
+                                                    data-bs-dismiss="modal"
+                                            >Annuler</button>
+
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    -->
+
+                    <!-- Modal new-->
+                    <!-- Extra Large Modal -->
+                    <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-xl" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button
+                                            type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"
+                                    ></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="formAccountSettings" method="POST"  th:action="@{UpdateTacheAdmin}" >
+                                        <input type="hidden" class="form-control" name="idtache">
+                                        <input type="hidden" class="form-control" name="Utilisateur">
+                                        <input type="hidden"  name="ismemoire" id="ismemoire" value="false" required />
+                                        <div class="row">
+                                            <div class="col mb-3">
+                                                <label for="nomtache" class="form-label">Tache</label>
+                                                <textarea type="text" class="form-control h-px-100"  name="nomtache" id="nomtache" required></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row g-3">
+                                            <div class="col mb-0">
+                                                <label  for="idrecepteur" class="form-label">Destinataire de la tâche</label>
+                                                <select  id="idrecepteur" name="recepteur" class="select2 form-select" required >
+
+                                                </select>
+                                            </div>
+                                            <div class="col mb-0">
+                                                <label class="form-label" for="Durée Estimée">Durée Estimée</label>
+                                                <div class="input-group input-group-merge">
+                                                    <input type="number" id="Durée Estimée" required
+                                                           min="0"  name="dureestime" class="form-control"/>
+                                                </div>
+                                            </div>
+                                            <div class="col mb-0">
+                                                <label  for="DateOuverture" class="form-label">Date Ouverture</label>
+                                                <input class="form-control" type="date" name="dateouverture" min="" id="DateOuverture" required>
+                                            </div>
+                                        </div>
+                                        <div class="row g-3">
+                                            <div class="col mb-0">
+                                                <label for="Priorite" class="form-label">Priorité</label>
+                                                <select  id="Priorite" class="select2 form-select" name="priorite" required>
+                                                    <option th:each="p:${priorites}" th:value="${p.idpriorite}" th:text="${p.nompriorite}" ></option>
+                                                </select>
+                                            </div>
+                                            <div class="col mb-0">
+                                                <label  for="Proprietaires" class="form-label">Propriétaire</label>
+                                                <select  id="Proprietaires" name="proprietaire" class="select2 form-select"  required="required"  >
+                                                    <option ></option>
+                                                </select>
+                                            </div>
+                                            <div class="col mb-0">
+                                                <label for="statut" class="form-label">statut</label>
+                                                <select id="statut" class="select2 form-select" name="statut">
+                                                    <option value="En attente" id="attente" >En attente</option>
+                                                    <option value="En cours" >En cours</option>
+                                                    <option value="Termine" >Terminé</option>
+                                                    <option value="Programme">Programmé</option>
+                                                    <option value="Refaire" >Refaire</option>
+                                                    <option value="Valide" >Validé</option>
+                                                    <option value="Annuler" >Annulée</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                        <div class="row g-3">
+                                            <div class="col mb-0">
+                                                <label for="tacheparente" class="form-label">Tâche parente</label>
+                                                <select id="tacheparente" class="select2 form-select" name="tacheparente">
+                                                    <!-- <option  value="">Selectionner la tâche parente</option>
+                                                     <option th:each="TacheParents:${lesTacheParents}" th:value="${TacheParents.idtache}" th:text="${TacheParents.nomtache}"></option>-->
+                                                </select>
+                                                <small class="alert-danger" id="messageconfirme"></small>
+                                            </div>
+                                            <div class="col mb-0">
+                                                <label for="type" class="form-label">Type</label>
+                                                <input class="form-control" type="text" id="type" name="type" placeholder="Projet,Opérationnel.." value="" />
+                                            </div>
+                                            <div class="col mb-0">
+                                                <label for="commentaire" class="form-label">commentaire</label>
+                                                <input
+                                                        type="text" class="form-control" id="commentaire"
+                                                        name="commentaire" value=""/>
+                                            </div>
+                                        </div>
+                                        <div class="col mb-0">
+                                            <br>
+                                            <label class="form-label" for="Aunetachesuccessive">À une tache successive</label>
+                                            <input id="Aunetachesuccessive" type="checkbox"  name="aunetachesuccessive" >
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" id="submit" class="btn btn-primary me-2"> Mettre à jour</button>
+                                    <button type="reset"
+                                            class="btn btn-outline-secondary"
+                                            onclick="annuler()"
+                                            data-bs-dismiss="modal"
+                                    >Annuler</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                        <!-- /Account -->
+                    </div>
+                    <!-- Basic Bootstrap Table -->
+                    <div class="card small">
+                        <!--<h5 class="card-header">Table Basic</h5>-->
+                        <div class="card-body">
+                            <div th:if="${not #strings.isEmpty(msg)}" class="show-message">
+                                <div class="alert alert-primary alert-dismissible" th:text="${msg}" role="alert">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+                            <div th:if="${not #strings.isEmpty(erreurMessage)}" class="show-message">
+                                <div class="alert alert-danger alert-dismissible" th:text="${erreurMessage}" role="alert">
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            </div>
+                            <div class="table-responsive text-nowrap">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <label for="membreSelect" class="form-label">Sélectionner un utilisateur </label>
+                                        <select  multiple="multiple" id="membreSelect"  class=" form-select"  >
+                                            <option value="" selected="selected">Tout sélectionner</option >
+                                            <option th:each="p:${utilisateurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="statutSelect" class="form-label">Sélectionner un statut</label>
+                                        <select  multiple="multiple" id="statutSelect"  class=" form-select">
+                                            <option value="" selected="selected">Tout sélectionner</option>
+                                            <option value="Valide" >Validé</option>
+                                            <option value="Termine" >Terminé</option>
+                                            <option value="En cours" >En cours</option>
+                                            <option value="En attente" >En attente</option>
+                                            <option value="Programme" >Programme</option>
+                                            <option value="Refaire" >Refaire</option>
+                                            <option value="Annuler" >Annuleé</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <label for="dateMinSelect" class="form-label">Sélectionner la date d'ouverture MIN</label>
+                                        <input class="form-control" type="date"  id="dateMinSelect">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label  for="dateMaxSelect" class="form-label">SÉLECTIONNER LA DATE d'ouverture MAX</label>
+                                        <input class="form-control" type="date"  id="dateMaxSelect" >
+                                    </div>
+                                </div>
+                                <br>
+                                <table  id="example" style="width:100%" class="table table-bordered table-sm">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 100%;"
+                                            class="text-center"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-offset="0,4"
+                                            data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<span>Tâches</span>">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-task" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5zM3 3H2v1h1z"/>
+                                                <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1z"/>
+                                                <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5zM2 7h1v1H2zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm1 .5H2v1h1z"/>
+                                            </svg> Tâches
+                                            <!--Tache-->
+                                        <th class="text-center"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-offset="0,4"
+                                            data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<span>Id tâche</span>"
+                                        > <!--idTache-->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key-fill" viewBox="0 0 16 16">
+                                            <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                                        </svg>
+                                        </th>
+                                        <th class="text-center"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-offset="0,4"
+                                            data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<span>Tâche mère</span>"
+                                        > <!--tâche mère-->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bezier2" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M1 2.5A1.5 1.5 0 0 1 2.5 1h1A1.5 1.5 0 0 1 5 2.5h4.134a1 1 0 1 1 0 1h-2.01q.269.27.484.605C8.246 5.097 8.5 6.459 8.5 8c0 1.993.257 3.092.713 3.7.356.476.895.721 1.787.784A1.5 1.5 0 0 1 12.5 11h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5H6.866a1 1 0 1 1 0-1h1.711a3 3 0 0 1-.165-.2C7.743 11.407 7.5 10.007 7.5 8c0-1.46-.246-2.597-.733-3.355-.39-.605-.952-1-1.767-1.112A1.5 1.5 0 0 1 3.5 5h-1A1.5 1.5 0 0 1 1 3.5zM2.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm10 10a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
+                                            </svg>
+                                        </th>
+                                        <th class="text-center"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-offset="0,4"
+                                            data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<span>Émetteur</span>"
+                                        > <!--émetteur-->
+                                            <svg    style="margin-right: 0;margin-left: 0;"
+                                                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                                                <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
+                                            </svg>
+                                        </th>
+                                        <th class="text-center"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-offset="0,4"
+                                            data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<span>Recepteur</span>"
+                                        > <!--Recepteur-->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-arrow-down-fill" viewBox="0 0 16 16">
+                                                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zm.192 8.159 6.57-4.027L8 9.586l1.239-.757.367.225A4.49 4.49 0 0 0 8 12.5c0 .526.09 1.03.256 1.5H2a2 2 0 0 1-1.808-1.144M16 4.697v4.974A4.5 4.5 0 0 0 12.5 8a4.5 4.5 0 0 0-1.965.45l-.338-.207z"/>
+                                                <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-1.646a.5.5 0 0 1-.722-.016l-1.149-1.25a.5.5 0 1 1 .737-.676l.28.305V11a.5.5 0 0 1 1 0v1.793l.396-.397a.5.5 0 0 1 .708.708z"/>
+                                            </svg>
+                                        </th>
+                                        <th style="margin-right: 0;margin-left: 0;"
+                                            class="text-center"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-offset="0,4"
+                                            data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<span>Priorité</span>"><!--Priorité-->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                                                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                                            </svg>
+                                        </th>
+                                        <th class="text-center"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-offset="0,4"
+                                            data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<span>Date objectif</span>"
+                                        ><!--date objectif-->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar4-event" viewBox="0 0 16 16">
+                                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                                                <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+                                            </svg>
+                                        </th>
+                                        <th class="text-center"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-offset="0,4"
+                                            data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<span>Date ouverture</span>"
+                                        ><!--date ouverture-->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-open" viewBox="0 0 16 16">
+                                                <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882zM15 7.383l-4.778 2.867L15 13.117zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765z"/>
+                                            </svg>
+                                        </th>
+                                        <th  class="text-center"
+                                             data-bs-toggle="tooltip"
+                                             data-bs-offset="0,4"
+                                             data-bs-placement="top"
+                                             data-bs-html="true"
+                                             title="<span>Durée estime</span>"
+                                        ><!--durée estime-->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                                                <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/>
+                                            </svg>
+                                        </th>
+                                        <th class="text-center"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-offset="0,4"
+                                            data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<span>Date cloture</span>"
+                                        ><!--date cloture-->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
+                                                <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                                            </svg>
+                                        </th>
+                                        <th class="text-center"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-offset="0,4"
+                                            data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<span>Status</span>"><!--Status-->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                            </svg>
+                                        </th>
+                                        <th class="text-center"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-offset="0,4"
+                                            data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<span>Dure retarde</span>"><!--dure retarde-->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-x" viewBox="0 0 16 16">
+                                                <path d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708"/>
+                                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                                            </svg>
+                                        </th>
+                                        <th class="text-center"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-offset="0,4"
+                                            data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<span>Performance</span>"
+                                        > <!--performance-->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-battery-charging" viewBox="0 0 16 16">
+                                                <path d="M9.585 2.568a.5.5 0 0 1 .226.58L8.677 6.832h1.99a.5.5 0 0 1 .364.843l-5.334 5.667a.5.5 0 0 1-.842-.49L5.99 9.167H4a.5.5 0 0 1-.364-.843l5.333-5.667a.5.5 0 0 1 .616-.09z"/>
+                                                <path d="M2 4h4.332l-.94 1H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.38l-.308 1H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2"/>
+                                                <path d="M2 6h2.45L2.908 7.639A1.5 1.5 0 0 0 3.313 10H2zm8.595-2-.308 1H12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H9.276l-.942 1H12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
+                                                <path d="M12 10h-1.783l1.542-1.639q.146-.156.241-.34zm0-3.354V6h-.646a1.5 1.5 0 0 1 .646.646M16 8a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8"/>
+                                            </svg>
+                                        </th>
+                                        <th class="text-center"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-offset="0,4"
+                                            data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<span>a une tâches successive</span>"
+                                        > <!--tâches successif-->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5"/>
+                                            </svg>
+                                        </th>
+                                        <th class="text-center"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-offset="0,4"
+                                            data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<span>Actions</span>"
+                                        > <!--Actions-->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                                                <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+                                                <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+                                            </svg>
+                                        </th>                                    </tr>
+                                    </thead>
+                                    <tbody  class="table-border" id="tbody">
+                                    <!--<tr th:each="p:${tacheList}">
+                                        <td style=" display: flex;">
+                                            <p th:text="${p.nomtache}" style="white-space: pre-wrap;margin: 0;max-width: 170px;min-height: 35px;height: auto"></p>
+                                        </td>
+
+                                        <td th:text="${p.idtache}"></td>
+                                        <td th:text="${p.tacheparente != null ? p.tacheparente.idtache: ''}"></td>
+                                        <td th:text="${p.utilisateur != null ? p.utilisateur.prenom + ' ' + p.utilisateur.nom : ''}"></td>
+                                        <td th:text="${p.recepteur != null ? p.recepteur.prenom + ' ' + p.recepteur.nom : ''}"></td>
+                                        <td th:text="${p.priorite != null ? p.priorite.nompriorite: ''}"></td>
+                                        <td th:text="${p.dateobjectif != null ? #dates.format(p.dateobjectif, 'dd/MM/yy') : ''}"></td>
+                                        <td th:text="${p.dateouverture != null ? #dates.format(p.dateouverture, 'dd/MM/yy') : ''}"></td>
+                                        <td th:text="${p.dureestime != null ? p.dureestime : ''}"></td>
+                                        <td th:text="${p.dateTermineTache != null ? #dates.format(p.dateTermineTache, 'dd/MM/yy') : ''}"></td>
+
+                                        <td>
+                                            <span th:if="${p.statut =='En cours'}" class=" btn btn-xs bg-label-info  me-1 ">En cours</span>
+                                            <span th:if="${p.statut == 'Termine'}"  class="btn btn-xs bg-label-success me-1">Terminé</span>
+                                            <span th:if="${p.statut == 'Programme'}" class="btn btn-xs bg-label-primary me-1">Programmé</span>
+                                            <span th:if="${p.statut == 'Valide'}" class="btn btn-xs bg-label-secondary me-1">Validé</span>
+                                            <span th:if="${p.statut == 'Refaire'}" class="btn btn-xs bg-label-danger me-1">Refaire</span>
+                                            <span th:if="${p.statut =='En attente'}" class="btn btn-xs bg-label-warning me-1">En attente</span>
+                                            <span th:if="${p.statut =='Annuler'}" class="btn btn-xs bg-dark me-1" style="color: white !important;">Annulée</span>
+                                        </td>
+                                        <td th:text="${p.dureretarde != null  && p.dureretarde>=0  ? p.dureretarde : ''}"></td>
+                                        <td th:text="${p.performance != null ? p.performance : '(Non défini)'}"></td>
+                                        <td th:text="${p.performance != null ? p.aunetachesuccessive : '(Non défini)'}"></td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a  class="dropdown-item" th:attr="data-id=${p.idtache}" onclick="editerTache(this)"
+                                                    ><i class="bx bx-edit-alt me-2"></i> Éditer</a>
+
+                                                    <a class="dropdown-item"  onclick="confirmDelete(event)" th:href="@{/deleteTache/{id}(id=${p.idtache})}">
+                                                        <i class="bx bx-trash me-2"></i> Supprimer</a>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+            <!--/ Basic Bootstrap Table -->
+                </div>
+            </div>
+        </div>
+        <!-- /content-->
+    </div>
+    <!--/ content div-->
+<ul class="nav nav-pills flex-column flex-md-row mb-3 " style="display: none">
+    <li>
+        <!-- Vertically Centered Modal -->
+        <!-- Button trigger modal -->
+        <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exLargeModal"
+                id="editertache"
+
+        >
+            <i class="bx bx-add-to-queue me-1"></i> Mettre à jour une Tache
+        </button>
+    </li>
+
+</ul>
+
+<!-- Core JS -->
+<!-- build:js assets/vendor/js/core.js -->
+<script src="js/jquery.js"></script>
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/perfect-scrollbar.js"></script>
+
+<script src="js/menu.js"></script>
+<!-- endbuild -->
+
+<!-- Vendors JS -->
+<script src="js/apexcharts.js"></script>
+
+<!-- Main JS -->
+<script src="js/main.js"></script>
+
+<!-- Page JS -->
+<script src="js/dashboards-analytics.js"></script>
+<script src="js/pages-account-settings-account.js"></script>
+
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script src="js/myJs.js"></script>
+<script src="js/jquery.min.js"></script>>
+<!-- liens pour les websoket + Stom +Jquery. -->
+<!-- liens pour les websoket + Stom +Jquery. -->
+<script src="js/jquery.min.js"></script>
+<script src="js/sockjs.min.js"></script>
+<script src="js/stomp.min.js" ></script>
+<!-- le script des websoket notification. -->
+<script src="js/notifWebSocket.js"></script>
+<!-- Data table -->
+<script src="js/jquery.min.js"></script>
+<script src="js/datatables.min.js"></script>
+<script>
+    //--------les var
+    var selecteTacheParente = document.getElementById("tacheparente");
+    var selecteStatut = document.getElementById("statut");
+    var submitBoutton = document.getElementById("submit");
+    var message=document.getElementById("messageconfirme");
+
+
+    //-------------
+
+    //pour les filtre du tab avec DataTable
+    new DataTable('#example');
+
+    //pour la date douverture
+    // Obtenez la date actuelle au format YYYY-MM-DD
+    var currentDate = new Date().toISOString().split('T')[0];
+    // Mettez à jour l'attribut 'min' du champ de saisie de date avec la date actuelle
+    //document.getElementById('DateOuverture').min = currentDate;
+    // Mettez à jour l'attribut 'value' du champ de saisie de date avec la date actuelle
+    document.getElementById('DateOuverture').value = currentDate;
+    //Pour editer une departement dans la meme forme
+
+
+
+
+   //--------------------------pour Edite une tache dans la meme forme
+    function editerTache(idtache) {
+        //const idtache = button.getAttribute("data-id");
+        const form = document.getElementById("formAccountSettings");
+
+        // Set the idDepartement input field value and update the button text
+        form.querySelector("input[name='idtache']").value = idtache;
+
+        // Fetch Domaine details using AJAX
+        $.ajax({
+            type: "GET", // You may need to adjust this to your backend API
+            url: `get-Tache/${idtache}`, // Replace with your API endpoint
+            success: function(data) {
+
+                // Pre-fill the form fields
+                form.querySelector("input[name='Utilisateur']").value = data.utilisateur.idutilisateur;
+                form.querySelector("textarea[name='nomtache']").value = data.nomtache;
+                form.querySelector("input[name='dureestime']").value = data.dureestime;
+                form.querySelector("input[name='dateouverture']").value = data.dateouverture;
+                if(data.commentaire!=null)
+                {form.querySelector("input[name='commentaire']").value = data.commentaire;}
+                if (data.type != null)
+                {form.querySelector("input[name='type']").value = data.type;}
+
+                var selectTacheparente = $("#tacheparente")
+                selectTacheparente.empty(); // Efface toutes les options actuelles
+
+
+
+                // Set the selected value for the 'statut' dropdown
+                if (data.statut != null) {
+                    // Pre-select the Societe in the dropdown
+                    const selectStatut = form.querySelector("select[name='statut']");
+                    // Efface la sélection précédente en supprimant l'attribut "selected" de toutes les options
+                    Array.from(selectStatut.options).forEach(option => option.removeAttribute("selected"));
+                    const statutOption = selectStatut.querySelector(`option[value="${data.statut}"]`);
+                    statutOption.setAttribute("selected", "selected");
+                } else {
+                    // Pre-select the Societe in the dropdown
+                    const selectStatut = form.querySelector("select[name='statut']");
+                    // Efface la sélection précédente en supprimant l'attribut "selected" de toutes les options
+                    Array.from(selectStatut.options).forEach(option => option.removeAttribute("selected"));
+                    attente=document.getElementById('attente');
+                    attente.setAttribute("selected","selected");
+                }
+
+                // Set the selected value for the 'priorite' dropdown
+                if (data.priorite != null) {
+                    // Pre-select the Societe in the dropdown
+                    const selectPriorite = form.querySelector("select[name='priorite']");
+                    // Efface la sélection précédente en supprimant l'attribut "selected" de toutes les options
+                    Array.from(selectPriorite.options).forEach(option => option.removeAttribute("selected"));
+                    const statutOption = selectPriorite.querySelector(`option[value="${data.priorite.idpriorite}"]`);
+                    statutOption.setAttribute("selected", "selected");
+                } else {
+                    // Pre-select the Societe in the dropdown
+                    const selectPriorite = form.querySelector("select[name='priorite']");
+                    // Efface la sélection précédente en supprimant l'attribut "selected" de toutes les options
+                    Array.from(selectPriorite.options).forEach(option => option.removeAttribute("selected"));
+                }
+
+
+                // a une tache successive
+                if (data.aunetachesuccessive === false) {
+                    form.querySelector("input[name='aunetachesuccessive']").removeAttribute("checked");
+                } else {
+                    form.querySelector("input[name='aunetachesuccessive']").setAttribute("checked", "checked");
+                }
+
+                //tache parent selecte
+                findTacheParents(data);
+                //proprietaire et destinatair selecte
+                findPropritairByIdTache(data.utilisateur.idutilisateur,data);
+                findRecepteurByIdTache(data.utilisateur.idutilisateur,data);
+
+            },
+            error: function(err) {
+                // Handle the error if needed
+                console.error(err);
+            }
+        });
+
+        //pour afficher le form
+        // Récupérer l'élément du bouton par son attribut 'class'
+        var bouton = document.getElementById("editertache");
+
+        // Vérifier si le bouton a été trouvé
+        if (bouton) {
+            // Déclencher le clic sur le bouton
+            bouton.click();
+        } else {
+            console.error('Le bouton n\'a pas été trouvé.');
+        }
+
+        //srcipt permet de défiler la page vers le haut lorsque l'utilisateur clique sur un bouton
+        // Faites défiler la page vers le haut
+        window.scrollTo({
+            top: 0, // La position en pixels en haut de la page
+            behavior: "smooth" // Option pour un défilement fluide
+        });
+    }
+
+
+
+
+    function validationTacheParente() {
+       // console.log(selecteTacheParente.value);
+        //console.log(selecteStatut.value);
+
+        if (selecteTacheParente.value ==(-1)
+            && selecteStatut.value != "Programme") {
+            //console.log("test1");
+            message.innerText = "";
+            submitBoutton.disabled = false;
+        } if(selecteTacheParente.value !=(-1)
+            && selecteStatut.value != "Programme") {
+           // console.log("test2");
+            message.innerText = "Vous ne pouvez pas.";
+            submitBoutton.disabled = true;
+
+        }
+        if(selecteTacheParente.value ==(-1)
+            && selecteStatut.value == "Programme") {
+           // console.log("test3");
+            message.innerText = "Vous ne pouvez pas.";
+            submitBoutton.disabled = true;
+
+        }
+        if(selecteTacheParente.value !=(-1)
+            && selecteStatut.value == "Programme") {
+           // console.log("test4");
+            message.innerText = "";
+            submitBoutton.disabled = false;
+
+        }
+    }
+
+    // Ajouter un écouteur d'événements à l'élément selecteTacheParente
+    selecteTacheParente.addEventListener("change", validationTacheParente);
+    selecteStatut.addEventListener("change", validationTacheParente);
+
+
+    //Pour afficher les propriétaires et les destinataires de la société de la tâche sélectionnée dans le champ de select
+   function findPropritairByIdTache(idUtilisateur,tache)
+   {
+       // Utilisez AJAX pour obtenir la liste des TacheParent de l utilisateur
+       $.ajax({
+           type: "GET",
+           url: "get-Propritair-by-idUtilisateur/" + idUtilisateur, // Remplacez cette URL par votre endpoint
+           success: function(data) {
+
+               //
+               var selectProprietaire = $("#Proprietaires")
+               selectProprietaire.empty(); // Efface toutes les options actuelles
+               for (var i = 0; i < data.length; i++) {
+                   var option= new Option(data[i].nom+' '+data[i].prenom, data[i].idutilisateur);
+                   selectProprietaire.append(option);
+                   // Vérifier si l'utilisateur est le propriétaire de la tâche
+                   if (tache.proprietaire && tache.proprietaire.idutilisateur === data[i].idutilisateur) {
+                       option.selected = true; // Sélectionne automatiquement l'option
+                   }
+               }
+           }
+
+
+       });
+   }
+
+
+   //Pour afficher les propriétaires et les destinataires de la société de la tâche sélectionnée dans le champ de select
+   function findRecepteurByIdTache(idUtilisateur,tache)
+   {
+       // Utilisez AJAX pour obtenir la liste des TacheParent de l utilisateur
+       $.ajax({
+           type: "GET",
+           url: "get-Destinatair-by-idUtilisateur/" + idUtilisateur, // Remplacez cette URL par votre endpoint
+           success: function(data) {
+
+               var selectDestinatair = $("#idrecepteur");
+               selectDestinatair.empty(); // Efface toutes les options actuelles
+               for (var i = 0; i < data.length; i++) {
+                   var option = new Option(data[i].nom + ' ' + data[i].prenom, data[i].idutilisateur);
+                   selectDestinatair.append(option);
+
+                   // Vérifier si l'utilisateur est le propriétaire de la tâche
+                   if (tache.recepteur && tache.recepteur.idutilisateur === data[i].idutilisateur) {
+                       option.selected = true; // Sélectionne automatiquement l'option
+                   }
+
+               }
+
+
+
+
+           }
+
+       });
+   }
+    function findTacheParents(tache)
+    {
+        var idUtilisateur=tache.utilisateur.idutilisateur;
+        var tacheParent=tache.tacheparente
+        // Utilisez AJAX pour obtenir la liste des TacheParent de l utilisateur
+        $.ajax({
+            type: "GET",
+            url: "get-tachesParents-by-idUtilisateur/" + idUtilisateur, // Remplacez cette URL par votre endpoint
+            success: function(data) {
+
+              //  console.log(data)
+
+                var selectTacheparente = $("#tacheparente")
+                selectTacheparente.empty(); // Efface toutes les options actuelles
+                selectTacheparente.append (new Option("Sans tâche parente",-1));
+                for (var i = 0; i < data.length; i++) {
+               /*     selectTacheparente.append (new Option(data[i].nomtache, data[i].idtache));
+                    if (data[i].idtache===tacheParent.idtache) {
+
+                    }*/
+                    var option = new Option(data[i].nomtache+' '+data[i].idtache, data[i].idtache);
+                    selectTacheparente.append(option);
+                    if (tacheParent!=null) {
+                        if (data[i].idtache === tacheParent.idtache) {
+                            option.selected = true;
+                        }
+                    }
+
+                }
+            }
+        });
+    }
+
+
+   function annuler()
+   {
+       // Récupérer l'élément du formulaire par son ID
+       var formulaire = document.getElementById('formAccountSettings');
+
+       // Vérifier si le formulaire a été trouvé
+       if (formulaire) {
+           // Réinitialiser le formulaire
+           formulaire.reset();
+
+           if ( formulaire.querySelector("button[type='submit']").textContent === "Mettre à jour") {
+               formulaire.querySelector("button[type='submit']").textContent = "envoyer";
+
+
+               const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
+               idTacheInput.value=null;
+               idTacheInput.textContent="";
+
+           }
+           dateOuvertureactuelle();
+       } else {
+           console.error('Le formulaire n\'a pas été trouvé.');
+       }
+   }
+
+
+   // Sélectionnez tous les éléments avec la classe "show-message"
+   var messageElements = document.querySelectorAll('.show-message');
+
+   // Parcourir chaque élément et ajouter la classe "show" (pour l'animation)
+   messageElements.forEach(function(element) {
+       element.classList.add('show');
+
+       // Supprimer la classe "show" après 5 secondes
+       setTimeout(function() {
+           element.classList.remove('show');
+       }, 5000);
+   });
+   // Sélectionnez l'élément avec l'id "messages"
+   var messagesDiv = document.getElementById("messages");
+
+   // Supprimez la div après 5 secondes (5000 millisecondes)
+   setTimeout(function() {
+       if (messagesDiv) {
+           messagesDiv.remove();
+       }
+   }, 5500);
+
+
+    //----- script pour les filtres et la validation , Refair et editer les taches
+    var membreSelect = document.getElementById('membreSelect');
+    const statutSelect = document.getElementById('statutSelect');
+    var tbody = document.querySelector("#example tbody");
+    var dateMinSelect = document.querySelector("#dateMinSelect");
+    var dateMaxSelect = document.querySelector("#dateMaxSelect");
+    var AllTasks=[];
+    var selectedStatuts=[""];
+    var selectedMembres;
+    var tacheOfselectedMembres=AllTasks;
+    var dateMin="";
+    var dateMax="";
+    var utilisateurConnecte=[];
+    var membres=[];
+
+    console.log(new Date());
+    //Trouver le role d utilisateur connecté
+    function getRole() {
+        $.ajax({
+            url: `Role`,
+            method: 'GET',
+            success: function (data) {
+                utilisateurConnecte.push(data);
+            },
+            error: function (error) {
+                console.error("Une erreur s'est produite lors de la récupération du rôle :", error);
+            }
+        });
+    }
+    getRole();
+
+
+    // Appel de la fonction fetch pour récupérer les membres de l'équipe de l'utilisateur connecté
+    fetch('membresDeLequipeDutilisateur', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // Vous pouvez également ajouter des en-têtes supplémentaires si nécessaire
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur de réseau');
+            }
+            return response.json();
+        })
+        .then(data => {
+
+            // Les données récupérées (liste de membres) sont stockées dans la variable data
+            data.forEach(user=>{
+                membres.push(user)
+                console.log(user)
+
+            })
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération des membres:', error);
+        });
+
+    //pour l affichage initial du table
+    function getAllTasks(){
+        fetch('getAllTasks')
+            .then(response => response.json())
+            .then(data => {
+                // Redraw the table
+                $('#example').DataTable().destroy();
+                // For example, you can clear the table content
+                tbody.innerHTML = '';
+                // Update the table with the new data
+                data.forEach(tache => {
+                    AllTasks.push(tache);
+                    createTableRow(tache);
+                });
+                // Redraw the table
+                $('#example').DataTable().draw();
+            })
+    }
+    //affichage initial du tableau
+    getAllTasks();
+
+
+
+    //______________________script:pour filtré les Taches Par utilisateurs___________________
+    // Function to handle the change event on membreSelect
+    membreSelect.addEventListener('change', () => {
+
+        // Check if "tout sélectionner" is selected
+        if (membreSelect.value === "") {
+            // Redraw the table
+            $('#example').DataTable().destroy();
+            tbody.innerHTML = '';
+            console.log(selectedStatuts);
+            // Perform actions when "tout sélectionner" is selected
+            //getAllTasks();
+            tacheOfselectedMembres= AllTasks;
+            const isStatutsSelectionneTousSelected=contientValeurVide(selectedStatuts);
+            if (isStatutsSelectionneTousSelected && dateMin=="" && dateMax=="") {
+                // Clear existing data
+                AllTasks.forEach(tache => {
+                    createTableRow(tache);
+                });
+
+            }
+            if (isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
+                $('#example').DataTable().clear();
+                AllTasks.forEach(tache => {
+                    if (tache.dateouverture<=dateMax) {
+                        createTableRow(tache);
+                    }
+                });
+
+            }
+            if (isStatutsSelectionneTousSelected && dateMin!="" && dateMax=="") {
+                AllTasks.forEach(tache => {
+                    if (tache.dateouverture>=dateMin) {
+                        createTableRow(tache);
+                    }
+                });
+            }
+            if (isStatutsSelectionneTousSelected && dateMin!="" && dateMax!="") {
+                AllTasks.forEach(tache => {
+                    if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                        createTableRow(tache);
+                    }
+                });
+            }
+            if (!isStatutsSelectionneTousSelected && dateMin=="" && dateMax=="") {
+                AllTasks.forEach(tache => {
+                    const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                    if (TacheWitheSelectedStatut) {
+                        createTableRow(tache);
+                    }
+                });
+            }
+            if (!isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
+                AllTasks.forEach(tache => {
+                    const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                    if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax) {
+                        createTableRow(tache);
+                    }
+                });
+            }
+            if (!isStatutsSelectionneTousSelected && dateMin!="" && dateMax=="") {
+                AllTasks.forEach(tache => {
+                    const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                    if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin) {
+                        createTableRow(tache);
+                    }
+                });
+            }
+            if (!isStatutsSelectionneTousSelected && dateMin!="" && dateMax!="") {
+                AllTasks.forEach(tache => {
+                    const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                    if (TacheWitheSelectedStatut &&  dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                        createTableRow(tache);
+                    }
+                });
+            }// Redraw the table
+            $('#example').DataTable().draw();
+
+        } else {
+
+            // Récupérer les départements sélectionnés
+            //membreSelect.selectedOptions: est une propriété de l'élément <select> qui renvoie une collection de toutes les options sélectionnées.
+            //Array.from(): est utilisé pour convertir la collection renvoyée par selectedOptions en un tableau JavaScript.
+            // Les collections d'éléments DOM ne sont pas des tableaux
+            // (option => option.value). Elle prend chaque élément (dans ce cas, une option) de la collection selectedOptions et renvoie la valeur de l'attribut value de cet élément.
+            // Cela permet d'extraire la valeur de chaque option sélectionnée et de la stocker dans un nouveau tableau.
+
+            //selectedMembres: un tableau des id valeur sélectionnées
+            selectedMembres = Array.from(membreSelect.selectedOptions).map(option => option.value);
+
+            // Appeler l'API backend pour récupérer les utilisateurs en fonction des départements sélectionnés
+            // envoie une requête GET à l'URL /utilisateurs
+            //selectedMembres.join(',')prend le tableau selectedMembres le transforme en une chaîne en joignant ses éléments avec des virgules.["informatique", "mathematiques"]
+            //then(response => response.json()):cette partie du code gère la réponse. lorsque la réponse HTTP est reçue.
+            //La fonction fléchée ici prend la réponse response et utilise la méthode .json() pour extraire le contenu JSON de la réponse.
+            fetch(`taches2?utilisateur=${selectedMembres.join(',')}`)
+                .then(response => response.json())
+                .then(data => {
+
+                    //stocker les tache des membres selectionné
+                    tacheOfselectedMembres=data;
+                    // Redraw the table
+                    $('#example').DataTable().destroy();
+                    // Effacer le contenu actuel
+                    tbody.innerHTML = '';
+                    const isStatutsSelectionneTousSelected=contientValeurVide(selectedStatuts);
+
+                    if (isStatutsSelectionneTousSelected && dateMin=="" && dateMax=="") {
+                        data.forEach(tache => {
+                            createTableRow(tache);
+                        });
+                    }
+                    if (isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
+                        data.forEach(tache => {
+                            if (tache.dateouverture<=dateMax) {
+                                createTableRow(tache);
+                            }
+                        });
+                    }
+                    if (isStatutsSelectionneTousSelected && dateMin!="" && dateMax=="") {
+                        data.forEach(tache => {
+                            if (tache.dateouverture>=dateMin) {
+                                createTableRow(tache);
+                            }
+                        });
+                    }
+                    if (isStatutsSelectionneTousSelected && dateMin!="" && dateMax!="") {
+                        data.forEach(tache => {
+                            if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                                createTableRow(tache);
+                            }
+                        });
+                    }
+                    if (!isStatutsSelectionneTousSelected && dateMin=="" && dateMax=="") {
+                        data.forEach(tache => {
+                            const TacheWitheSelectedStatut = selectedStatuts.some(x => x === tache.statut);
+                            if (TacheWitheSelectedStatut) {
+                                createTableRow(tache);
+                            }
+                        });
+                    }
+                    if (!isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
+                        data.forEach(tache => {
+                            const TacheWitheSelectedStatut = selectedStatuts.some(x => x === tache.statut);
+                            if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax) {
+                                createTableRow(tache);
+                            }
+                        });
+                    }
+                    if (!isStatutsSelectionneTousSelected && dateMin!="" && dateMax=="") {
+                        data.forEach(tache => {
+                            const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                            if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin) {
+                                createTableRow(tache);
+                            }
+                        });
+                    }
+                    if (!isStatutsSelectionneTousSelected && dateMin!="" && dateMax!="") {
+                        data.forEach(tache => {
+                            const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                            if (TacheWitheSelectedStatut &&  dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                                createTableRow(tache);
+                            }
+                        });
+                    }// Redraw the table
+                    $('#example').DataTable().draw();
+                })
+        }
+
+    });
+
+
+    //pour filtrer les taches par statuts
+    statutSelect.addEventListener('change',()=>{
+        // Redraw the table
+        $('#example').DataTable().destroy();
+        // Effacer le contenu actuel
+        tbody.innerHTML = '';
+        //selectedStatuts: un tableau des valeurs sélectionnées
+        selectedStatuts = Array.from(statutSelect.selectedOptions).map(option => option.value);
+
+        // Check if "tout sélectionner" is selected
+        if (statutSelect.value == "" && dateMin=="" && dateMax=="") {
+            tacheOfselectedMembres.forEach(tache => {
+                createTableRow(tache);
+            });
+        }
+        if (statutSelect.value == "" && dateMin=="" && dateMax!="") {
+            tacheOfselectedMembres.forEach(tache => {
+                if (tache.dateouverture<=dateMax) {
+                    createTableRow(tache);
+                }
+            });
+        }
+        if (statutSelect.value == "" && dateMin!="" && dateMax=="") {
+            tacheOfselectedMembres.forEach(tache => {
+                if (tache.dateouverture>=dateMin) {
+                    createTableRow(tache);
+                }
+
+            });
+        }
+        if (statutSelect.value == "" && dateMin!="" && dateMax!="") {
+            tacheOfselectedMembres.forEach(tache => {
+                if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                    createTableRow(tache);
+                }
+            });
+        }
+
+        // Check if "tout sélectionner" is selected
+        if (statutSelect.value != "" && dateMin=="" && dateMax=="") {
+            //lister les tache des membres selectionné
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                if (TacheWitheSelectedStatut ){
+                    createTableRow(tache);
+                }
+            });
+        }
+        if (statutSelect.value != "" && dateMin=="" && dateMax!="") {
+            //lister les tache des membres selectionné
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax ){
+                    createTableRow(tache);
+                }
+            });
+        }
+        if (statutSelect.value != "" && dateMin!="" && dateMax=="") {
+            //lister les tache des membres selectionné
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin){
+                    createTableRow(tache);
+                }
+            });
+        }
+        if (statutSelect.value != "" && dateMin!="" && dateMax!="") {
+            //lister les tache des membres selectionné
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                if (TacheWitheSelectedStatut &&  dateMin<=tache.dateouverture && tache.dateouverture<=dateMax){
+                    createTableRow(tache);
+                }
+            });
+        }
+        // Redraw the table
+        $('#example').DataTable().draw();
+    })
+
+
+    //pour filtrer les taches par la date D'OUVERTURE max
+    dateMaxSelect.addEventListener('change',()=>{
+        // Redraw the table
+        $('#example').DataTable().destroy();
+        // Effacer le contenu actuel
+        tbody.innerHTML = '';
+        // Stoker la date sélectionnée
+        dateMax = dateMaxSelect.value;
+        if (dateMin == "" && selectedStatuts=="") {
+
+            //lister les tache des membres & statuts selectionnés
+            tacheOfselectedMembres.forEach(tache => {
+                if (tache.dateouverture<=dateMax) {
+                    createTableRow(tache);
+                }
+            });
+        }
+        if (dateMin != "" && selectedStatuts == "") {
+            //lister les tache des membres & statuts selectionnés
+            tacheOfselectedMembres.forEach(tache => {
+                if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                    createTableRow(tache);
+                }
+            })
+        }
+        if (dateMin == "" && selectedStatuts!="") {
+            //lister les tache des membres & statuts selectionnés
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax ){
+                    createTableRow(tache);
+                }
+            });
+        }
+        if (dateMin != "" && selectedStatuts != "") {
+            //lister les tache des membres & statuts selectionnés
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                if (TacheWitheSelectedStatut && dateMin<=tache.dateouverture && tache.dateouverture<=dateMax ){
+                    createTableRow(tache);
+                }
+            });
+        }
+        // Redraw the table
+        $('#example').DataTable().draw();
+    })
+
+    //pour filtrer les taches par la date D'OUVERTURE  min
+    dateMinSelect.addEventListener('change',()=>{
+        // Redraw the table
+        $('#example').DataTable().destroy();
+        // Effacer le contenu actuel
+        tbody.innerHTML = '';
+        // Stoker la date sélectionnée
+        dateMin = dateMinSelect.value;
+        if (dateMax == "" && selectedStatuts=="") {
+            //lister les tache des membres & statuts selectionnés
+            tacheOfselectedMembres.forEach(tache => {
+                if (tache.dateouverture>=dateMin) {
+                    createTableRow(tache);
+                }
+            });
+        }
+        if (dateMax != "" && selectedStatuts == "") {
+            //lister les tache des membres & statuts selectionnés
+            tacheOfselectedMembres.forEach(tache => {
+                if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                    createTableRow(tache);
+                }
+            })
+        }
+        if (dateMax == "" && selectedStatuts!="") {
+            //lister les tache des membres & statuts selectionnés
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin ){
+                    createTableRow(tache);
+                }
+            });
+        }
+        if (dateMax != "" && selectedStatuts != "") {
+
+            //lister les tache des membres & statuts selectionnés
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                if (TacheWitheSelectedStatut && dateMin<=tache.dateouverture && tache.dateouverture<=dateMax ){
+                    createTableRow(tache);
+                }
+            });
+        }
+        // Redraw the table
+        $('#example').DataTable().draw();
+    })
+
+    //fonction verifier si une liste contient valeur vide
+    function contientValeurVide(liste) {
+        // Vérifie chaque élément de la liste
+        for (let i = 0; i < liste.length; i++) {
+            // Si l'élément est vide (null, undefined ou une chaîne vide), retourne true
+            if (liste[i] === null || liste[i] === undefined || liste[i] === '') {
+                return true;
+            }
+        }
+        // Si aucun élément vide n'est trouvé, retourne false
+        return false;
+    }
+
+    //fonction pours creer les linges de tableau
+    function createTableRow(tache) {
+        // Créer une nouvelle ligne pour chaque tâche
+        var newRow = document.createElement("tr");
+
+        //ID TACHE
+        /* var cellId = document.createElement("td");
+         cellId.innerText = tache.utilisateur != null ? tache.idtache:'';
+         newRow.appendChild(cellId);
+         */
+        // Ajouter les cellules avec les données de la tâche à la nouvelle ligne
+        var cellNomTache = document.createElement("td");
+        cellNomTache.setAttribute("style"," display: flex;")
+        cellNomTache.innerHTML = '     <p style="white-space: pre-wrap;margin: 0;max-width: 350px;min-height: 35px;height: auto">' + tache.nomtache + '</p>';
+        newRow.appendChild(cellNomTache);
+
+        var cellIdTache = document.createElement("td");
+        cellIdTache.innerText = tache.idtache;
+        newRow.appendChild(cellIdTache);
+
+        var cellIdTacheMere = document.createElement("td");
+        cellIdTacheMere.innerText = tache.tacheparente!=null?tache.tacheparente.idtache:'';
+        newRow.appendChild(cellIdTacheMere);
+
+        var cellEmetteur = document.createElement("td");
+        cellEmetteur.innerText = tache.utilisateur != null ? tache.utilisateur.prenom + ' ' + tache.utilisateur.nom : '';
+        newRow.appendChild(cellEmetteur);
+
+        var cellRecepteur = document.createElement("td");
+        cellRecepteur.innerText = tache.recepteur != null ? tache.recepteur.prenom + ' ' + tache.recepteur.nom : '';
+        newRow.appendChild(cellRecepteur);
+
+        var cellPiorite = document.createElement("td");
+        cellPiorite.innerText = tache.priorite != null ? tache.priorite.nompriorite : '';
+        newRow.appendChild(cellPiorite);
+
+        var cellDateOuverture = document.createElement("td");
+        var dateOuverture = new Date(tache.dateouverture);
+        // Formatage de la date au format "mm/dd/yy"
+        var formattedDate =  ('0' + dateOuverture.getDate()).slice(-2) + '/' +('0' + (dateOuverture.getMonth() + 1)).slice(-2) + '/' + dateOuverture.getFullYear().toString().slice(-2);
+        cellDateOuverture.innerText = formattedDate;
+        //cellDateOuverture.innerText = tache.dateouverture;
+        newRow.appendChild(cellDateOuverture);
+
+        var cellDateObjectif = document.createElement("td");
+        var dateObjectif = new Date(tache.dateobjectif);
+        //cellDateObjectif.innerText = tache.dateobjectif;
+        // Formatage de la date au format "mm/dd/yy"
+        var formattedDate =  ('0' + dateObjectif.getDate()).slice(-2) + '/' +('0' + (dateObjectif.getMonth() + 1)).slice(-2) + '/' + dateObjectif.getFullYear().toString().slice(-2);
+        cellDateObjectif.innerText = formattedDate;
+        newRow.appendChild(cellDateObjectif);
+
+        var cellDureeEstimee = document.createElement("td");
+        cellDureeEstimee.innerText = tache.dureestime;
+        newRow.appendChild(cellDureeEstimee);
+
+
+        var cellDateCloture = document.createElement("td");
+        if (tache.dateTermineTache == null) {
+            cellDateCloture.innerText = '';
+            newRow.appendChild(cellDateCloture);
+        } else {
+            var dateCloture = new Date(tache.dateTermineTache);
+            var formattedDate =  ('0' + dateCloture.getDate()).slice(-2) +'/'+('0' + (dateCloture.getMonth() + 1)).slice(-2) +'/' +dateCloture.getFullYear().toString().slice(-2);
+            cellDateCloture.innerText = formattedDate;
+            newRow.appendChild(cellDateCloture);
+        }
+
+        var cellStatut = document.createElement("td");
+        var statutBadge = document.createElement("span");
+        statutBadge.setAttribute("data-id", tache.idtache);
+        statutBadge.className = "";
+
+        switch (tache.statut) {
+            case "En cours":
+                statutBadge.classList.add("btn","bg-label-info","btn-xs", "me-1");
+                statutBadge.innerText = "En cours";
+                break;
+            case "Termine":
+                statutBadge.classList.add("btn","bg-label-success","btn-xs", "me-1");
+                statutBadge.innerText = "Terminé";
+                break;
+            case "Programme":
+                statutBadge.classList.add("btn","bg-label-primary","btn-xs", "me-1");
+                statutBadge.innerText = "Programmé";
+                break;
+            case "Valide":
+                statutBadge.classList.add("btn","bg-label-secondary","btn-xs", "me-1");
+                statutBadge.innerText = "Validé";
+                break;
+            case "Refaire":
+                statutBadge.classList.add("btn","bg-label-danger","btn-xs","me-1");
+                statutBadge.innerText = "Refaire";
+                break;
+            case "En attente":
+                statutBadge.classList.add("btn","bg-label-warning","btn-xs", "me-1");
+                statutBadge.innerText = "En attente";
+                break;
+            case "Annuler":
+                statutBadge.classList.add("btn","bg-dark","btn-xs", "me-1");
+                statutBadge.setAttribute("style","color: white !important");
+                statutBadge.innerText = "Annulée";
+                break;
+            default:
+                statutBadge.innerText = "Statut inconnu";
+        }
+        statutBadge.classList.add("statutsClasse");
+
+        cellStatut.appendChild(statutBadge);
+        newRow.appendChild(cellStatut);
+
+        var cellDureeRetarde = document.createElement("td");
+        if (tache.dureretarde > 0) {
+            cellDureeRetarde.innerText = tache.dureretarde;
+            newRow.appendChild(cellDureeRetarde);
+        } else {
+            cellDureeRetarde.innerText = "";
+            newRow.appendChild(cellDureeRetarde);
+        }
+
+        var cellPerformance = document.createElement("td");
+        cellPerformance.innerText = tache.performance + '%';
+        newRow.appendChild(cellPerformance);
+
+        var cellTacheSucc = document.createElement("td");
+        cellTacheSucc.innerText = tache.aunetachesuccessive;
+        newRow.appendChild(cellTacheSucc);
+
+        var cellAction = creationTdAction(tache);
+        newRow.appendChild(cellAction);
+
+        // Ajouter la nouvelle ligne au corps du tableau
+        var tableBody = document.querySelector("#example tbody");
+        tableBody.appendChild(newRow);
+    }
+
+    /**/
+
+    //pour creer le champ action (les trois butons)
+    function creationTdAction(tache) {
+        //console.log(tache.utilisateur.role.role)
+        var cellAction = document.createElement("td");
+        //dropdown div
+        var divDropdown=document.createElement("div");
+        divDropdown.classList.add("dropdown");
+        var button = document.createElement("button");
+        button.setAttribute("type", "button");
+        button.setAttribute("class", "btn p-0 dropdown-toggle hide-arrow");
+        button.setAttribute("data-bs-toggle", "dropdown");
+
+
+            //creer la Menu
+            creerMenu(button,cellAction,divDropdown,tache);
+
+
+        return cellAction;
+    }
+
+    function SupprimerTache(idtache) {
+        // Fonction de confirmation avant la suppression
+        confirmDelete(event, function() {
+            // Si la suppression est confirmée, effectuer une requête AJAX pour supprimer la tâche
+            $.ajax({
+                url: `deleteTache/${idtache}`,
+                method: 'GET',
+                success: function (tache) {
+                    // Après la suppression réussie, actualiser la liste des tâches
+                    getAllTasks();
+                    // Afficher le message de validation
+                    messageNotif();
+                    // Mettre à jour l'élément HTML correspondant au statut (si nécessaire)
+                    // updateStatutElement(tacheId, tache.statut);
+                }
+            });
+        });
+    }
+
+    // Fonction de confirmation de suppression
+    function confirmDelete(event, callback) {
+        // Afficher la boîte de dialogue de confirmation
+        var confirmDelete = confirm("Voulez-vous vraiment supprimer cet élément ?");
+
+        // Si l'utilisateur clique sur "Annuler", annuler l'événement de suppression
+        if (!confirmDelete) {
+            event.preventDefault();
+        } else {
+            // Si la suppression est confirmée, exécuter le callback
+            callback();
+        }
+    }
+
+
+
+    function creerMenu(button, cellAction, divDropdown, tache) {
+        //creer la Menu
+        var icon = document.createElement("i");
+        icon.setAttribute("class", "bx bx-dots-vertical-rounded");
+        button.appendChild(icon);
+        divDropdown.appendChild(button);
+
+        //Menu
+        var MenuDiv=document.createElement("div");
+        MenuDiv.classList.add("dropdown-menu");
+
+
+        // Créer le lien lienEditer
+            var lienEditer = document.createElement("a");
+            lienEditer.setAttribute("class", "dropdown-item");
+            var iconeEditer = document.createElement("i");
+            iconeEditer.setAttribute("class", "bx bx-edit-alt");
+            lienEditer.appendChild(iconeEditer);
+            var texteEditer = document.createTextNode("  Éditer");
+            lienEditer.appendChild(texteEditer);
+            lienEditer.setAttribute("data-id", tache.idtache);
+            lienEditer.addEventListener('click', () => editerTache(tache.idtache));
+            MenuDiv.appendChild(lienEditer);
+
+
+        // Créer le lien Supprimer
+            var lienAnnuler = document.createElement("a");
+            lienAnnuler.setAttribute("class", "dropdown-item");
+            var iconeAnnuler = document.createElement("i");
+            iconeAnnuler.setAttribute("class", "bx bx-trash me-2");
+            lienAnnuler.appendChild(iconeAnnuler);
+            var texteEditer = document.createTextNode(" Supprimer");
+            lienAnnuler.appendChild(texteEditer);
+            lienAnnuler.setAttribute("data-id", tache.idtache);
+            lienAnnuler.addEventListener('click', () => SupprimerTache(tache.idtache));
+            MenuDiv.appendChild(lienAnnuler);
+
+
+        divDropdown.appendChild(MenuDiv);
+        cellAction.appendChild(divDropdown);
+    }
+
+
+    function reinitialiserFiltre() {
+        //----/reselectionné les premieres valeurs des filtres
+        // Parcourez toutes les options de la liste déroulante
+        for (var i = 0; i < membreSelect.options.length; i++) {
+            // Définissez la propriété selected de chaque option sur false
+            membreSelect.options[i].selected = false;
+        }
+        // Définissez la première option comme sélectionnée
+        membreSelect.options[0].selected = true;
+
+        // Parcourez toutes les options de la liste déroulante
+        for (var i = 0; i < statutSelect.options.length; i++) {
+            // Définissez la propriété selected de chaque option sur false
+            statutSelect.options[i].selected = false;
+        }
+        // Définissez la première option comme sélectionnée
+        statutSelect.options[0].selected = true;
+        //----/reselectionné les premieres valeurs des filtres
+    }
+
+    //fonction pour afficher les msgs
+    function messageNotif(){
+        // Create an instance of Notyf
+        var notyf = new Notyf();
+        // Display a success notification
+        notyf.success('Opération terminée avec succès.');
+    }
+
+
+
+    //--------------------pour le formulaire Creer une tâche
+    //Pour afficher les taches parentes dans
+    // la selelecte dans le formulaire qui permet de creer une tache et actualiser la liste lorsqu'une indexation
+    tacheParentes();
+    function tacheParentes() {
+        $.ajax({
+            url: `tachesParentes/`,
+            method: 'GET',
+            success: function (taches) {
+
+                var tachesParentSelect = $("#tacheparente1");
+                tachesParentSelect.empty(); // Efface toutes les options actuelles
+                tachesParentSelect.append (new Option("Selectionner la tâche parente",-1));
+                for (var i = 0; i < taches.length; i++) {
+                    var option = new Option(taches[i].nomtache, taches[i].idtache);
+                    tachesParentSelect.append(option);
+                }
+            }
+        });
+    }
+
+    function annuler1()
+    {
+        // Récupérer l'élément du formulaire par son ID
+        var formulaire = document.getElementById('formAccountSettings1');
+        var   btnSubmit= document.getElementById('submit');
+
+        // Vérifier si le formulaire a été trouvé
+        if (formulaire) {
+            // Réinitialiser le formulaire
+            formulaire.reset();
+
+            if ( btnSubmit.textContent === "Mettre à jour") {
+
+                btnSubmit.textContent = "Créer";
+
+
+
+                const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
+                idTacheInput.value=null;
+                idTacheInput.textContent="";
+
+            }
+        } else {
+            console.error('Le formulaire na pas été trouvé.');
+        }
+    }
+    //pour regler la douverture
+    dateOuvertureactuelle();
+    function dateOuvertureactuelle(){
+
+        //pour la date douverture
+        // Obtenez la date actuelle au format YYYY-MM-DD
+        var currentDate = new Date().toISOString().split('T')[0];
+
+        // Mettez à jour l'attribut 'min' du champ de saisie de date avec la date actuelle
+        document.getElementById('DateOuverture1').min = currentDate;
+
+        // Mettez à jour l'attribut 'value' du champ de saisie de date avec la date actuelle
+        document.getElementById('DateOuverture1').value = currentDate;
+
+    }
+
+
+
+</script>
+</body>
+</html>

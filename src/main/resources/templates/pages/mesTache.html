@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+        lang="en"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+  <meta charset="utf-8" />
+  <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+  />
+
+  <title>TaskMaster</title>
+
+  <meta name="description" content="" />
+
+  <!--notif Js-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+
+  <!-- Data table ikns-->
+  <link href="css/datatables.min.css" rel="stylesheet">
+
+  <!-- Icons. Uncomment required icon fonts -->
+  <link rel="stylesheet" href="css/boxicons.css" />
+  <link rel="stylesheet" href="css/boxicons.css" />
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="css/core.css" class="template-customizer-core-css" />
+  <link rel="stylesheet" href="css/theme-default.css" class="template-customizer-theme-css" />
+  <link rel="stylesheet" href="css/demo.css" />
+
+
+  <!-- Vendors CSS -->
+  <link rel="stylesheet" href="css/perfect-scrollbar.css" />
+
+  <link rel="stylesheet" href="css/apex-charts.css" />
+
+  <!-- Page CSS -->
+  <link rel="stylesheet" href="css/myCss.css" />
+
+  <!-- Helpers -->
+  <script src="js/helpers.js"></script>
+
+  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+  <script src="js/config.js"></script>
+</head>
+<style>
+  .dropdown-menu .dropdown-submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: -7px;
+  }
+  .dropdown-menu .dropdown-submenu-left {
+    right: 100%;
+    left: auto;
+  }
+  .dropdown-menu > li:hover > .dropdown-submenu {
+    display: block;
+  }
+</style>
+<body>
+<!--/spinner div-->
+<div class="spinner-wrapper">
+  <div id="loading-spinner" class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<!--/spinner div-->
+<!--nav-->
+<div class="container-fluid h-px-75   px-0" >
+  <nav class="navbar navbar-expand-lg bg-dark fixed-top">
+    <div class="container-fluid">
+      <a href="javascript:void(0);" class="app-brand-link gap-2">
+              <span class="app-brand-logo demo">
+                <svg
+                        width="25"
+                        viewBox="0 0 25 42"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <defs>
+                    <path
+                            d="M13.7918663,0.358365126 L3.39788168,7.44174259 C0.566865006,9.69408886 -0.379795268,12.4788597 0.557900856,15.7960551 C0.68998853,16.2305145 1.09562888,17.7872135 3.12357076,19.2293357 C3.8146334,19.7207684 5.32369333,20.3834223 7.65075054,21.2172976 L7.59773219,21.2525164 L2.63468769,24.5493413 C0.445452254,26.3002124 0.0884951797,28.5083815 1.56381646,31.1738486 C2.83770406,32.8170431 5.20850219,33.2640127 7.09180128,32.5391577 C8.347334,32.0559211 11.4559176,30.0011079 16.4175519,26.3747182 C18.0338572,24.4997857 18.6973423,22.4544883 18.4080071,20.2388261 C17.963753,17.5346866 16.1776345,15.5799961 13.0496516,14.3747546 L10.9194936,13.4715819 L18.6192054,7.984237 L13.7918663,0.358365126 Z"
+                            id="path-1"
+                    ></path>
+                    <path
+                            d="M5.47320593,6.00457225 C4.05321814,8.216144 4.36334763,10.0722806 6.40359441,11.5729822 C8.61520715,12.571656 10.0999176,13.2171421 10.8577257,13.5094407 L15.5088241,14.433041 L18.6192054,7.984237 C15.5364148,3.11535317 13.9273018,0.573395879 13.7918663,0.358365126 C13.5790555,0.511491653 10.8061687,2.3935607 5.47320593,6.00457225 Z"
+                            id="path-3"
+                    ></path>
+                    <path
+                            d="M7.50063644,21.2294429 L12.3234468,23.3159332 C14.1688022,24.7579751 14.397098,26.4880487 13.008334,28.506154 C11.6195701,30.5242593 10.3099883,31.790241 9.07958868,32.3040991 C5.78142938,33.4346997 4.13234973,34 4.13234973,34 C4.13234973,34 2.75489982,33.0538207 2.37032616e-14,31.1614621 C-0.55822714,27.8186216 -0.55822714,26.0572515 -4.05231404e-15,25.8773518 C0.83734071,25.6075023 2.77988457,22.8248993 3.3049379,22.52991 C3.65497346,22.3332504 5.05353963,21.8997614 7.50063644,21.2294429 Z"
+                            id="path-4"
+                    ></path>
+                    <path
+                            d="M20.6,7.13333333 L25.6,13.8 C26.2627417,14.6836556 26.0836556,15.9372583 25.2,16.6 C24.8538077,16.8596443 24.4327404,17 24,17 L14,17 C12.8954305,17 12,16.1045695 12,15 C12,14.5672596 12.1403557,14.1461923 12.4,13.8 L17.4,7.13333333 C18.0627417,6.24967773 19.3163444,6.07059163 20.2,6.73333333 C20.3516113,6.84704183 20.4862915,6.981722 20.6,7.13333333 Z"
+                            id="path-5"
+                    ></path>
+                  </defs>
+                  <g id="g-app-brand" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Brand-Logo" transform="translate(-27.000000, -15.000000)">
+                      <g id="Icon" transform="translate(27.000000, 15.000000)">
+                        <g id="Mask" transform="translate(0.000000, 8.000000)">
+                          <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                          </mask>
+                          <use fill="#696cff" xlink:href="#path-1"></use>
+                          <g id="Path-3" mask="url(#mask-2)">
+                            <use fill="#696cff" xlink:href="#path-3"></use>
+                            <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-3"></use>
+                          </g>
+                          <g id="Path-4" mask="url(#mask-2)">
+                            <use fill="#696cff" xlink:href="#path-4"></use>
+                            <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-4"></use>
+                          </g>
+                        </g>
+                        <g
+                                id="Triangle"
+                                transform="translate(19.000000, 11.000000) rotate(-300.000000) translate(-19.000000, -11.000000) "
+                        >
+                          <use fill="#696cff" xlink:href="#path-5"></use>
+                          <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-5"></use>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </span>
+        <span class="app-brand-text demo menu-text fw-bolder ms-2">TaskMaster</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse  " id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto px-lg-5  mb-2 mb-lg-0"  >
+          <!--Mes Tâches-->
+          <li class="nav-item">
+            <a class=" btn  btn-primary" th:href="@{/}" style="display: flex; align-items: center;">
+              <i class="menu-icon tf-icons bx bx-task me-1" style="margin-right: 5px;"></i>
+              <div data-i18n="Analytics">Mes Tâches</div>
+            </a>
+          </li>
+          <!--Suivie Des Tâches-->
+          <li class="nav-item">
+            <a class="btn btn-dark " th:href="@{/CreerTache}" style="display: flex; align-items: center;">
+              <i class="menu-icon tf-icons bx bx-copy-alt me-1" style="margin-right: 5px;"></i>
+              <div data-i18n="Analytics">Suivie Des Tâches</div>
+            </a>
+          </li>
+          <!--Button Créer Une Tâche-->
+          <li class="nav-item">
+            <!-- Vertically Centered Modal -->
+            <!-- Button trigger modal -->
+            <button
+                    type="button"
+                    class="btn btn-dark"
+                    data-bs-toggle="modal"
+                    data-bs-target="#exLargeModal"
+                    id="creertache"
+            >
+              <i class="bx bx-add-to-queue me-1"></i> Créer Une Tâche
+            </button>
+          </li>
+          <!---->
+
+        </ul>
+
+        <div class="navbar-nav d-flex">
+          <ul class="navbar-nav d-flex align-items-center">
+
+
+            <!--Menu-->
+            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+              <button type="button" class="btn btn-icon bg-dark  position-relative dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                <i class="bx bx-list-ul me-2" style="font-size: 25px;color: #FFFFFF"></i>
+                <span id="t" class="badge nav-pills badge-notification bg-danger" ></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-sm-end py-0 overflow-auto mb-4">
+                <li><a class="dropdown-item" th:href="@{/Memoir}" >
+                  <i class='bx bx-notepad'></i> Memoir
+                </a>
+                </li>
+                <!--Mon Equipe-->
+                <li class="nav-item">
+                  <a class="dropdown-item " th:href="@{/MonEquipe}">
+                    <i class=" bx   bxs-user-account" ></i> Mon Équipe
+                  </a>
+                </li>
+                <div sec:authorize="hasAnyRole('ADMIN')">
+                  <li>
+                    <div class="dropdown-divider"></div>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" th:href="@{/gestUtilisateur}">
+                      <i class="bx bx-group me-1"></i> Comptes
+                    </a>
+                  </li>
+                  <li><a class="dropdown-item" th:href="@{/societe}">
+                    <i class="bx bx-buildings me-1"></i>Societes
+                  </a>
+                  </li>
+                  <li><a class="dropdown-item" th:href="@{/domaine}">
+                    <i class="bx bx-briefcase me-1"></i>Domaines
+                  </a>
+                  </li>
+                  <li><a class="dropdown-item" th:href="@{/departement}">
+                    <i class="bx bxs-institution me-1"></i>Departements
+                  </a>
+                  </li>
+                  <li><a class="dropdown-item" th:href="@{/gestionEquipe}">
+                    <i class="bx bxs-user-account me-1"></i> Equipes
+                  </a>
+                  </li>
+                  <li><a class="dropdown-item"  th:href="@{/GestionTacheAdmin}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ui-checks" viewBox="0 0 16 16">
+                      <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                    </svg>
+                    Tâches
+                  </a>
+                  </li>
+                </div>
+
+
+              </ul>
+            </li>
+            <!--Menu-->
+
+            <!--notif-->
+            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+              <button onclick="readNotif()" type="button" class="btn btn-icon bg-dark position-relative dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                <i class="bx bxs-bell-ring me-2" style="font-size: 25px;color: #FFFFFF"></i>
+                <span id="spanNotifNum" class="badge nav-pills badge-notification bg-danger" th:value="${nbrNotifNonLu}" th:text="${nbrNotifNonLu}"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end py-0 overflow-auto mb-4" id="vertical-example" style="width: 400px; max-height: 500px;">
+                <li class="dropdown-menu-header border-bottom">
+                  <div class="dropdown-header d-flex align-items-center py-3">
+                    <h5 class="text-body mb-0 me-auto">notifications</h5>
+                    <a href="javascript:void(0);" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Mark All as read" data-bs-original-title="Mark All as read">
+                      <i class="bx bx-envelope-open"></i>
+                    </a>
+                  </div>
+                </li>
+                <div class="notification-list-wrapper"> <!-- Wrapper with fixed height for scroll -->
+                  <li class="dropdown-notifications-list scrollable-container ps" th:each="p, iterStat : ${notificationList}">
+                    <ul class="list-group list-group-flush">
+                      <li th:class="${p.estLu == true ? 'list-group-item list-group-item-action dropdown-notifications-item marked-as-read' : 'list-group-item list-group-item-action dropdown-notifications-item marked-as-read bg-primary text-white '}">
+                        <div class="d-flex">
+                          <div class="flex-shrink-0 me-3">
+                            <div class="avatar">
+                              <img src="img/1.png" alt="" class="w-px-40 h-auto rounded-circle">
+                            </div>
+                          </div>
+                          <div class="flex-grow-1">
+                            <h6 th:class="${p.estLu == true ? 'mb-1' : ' mb-1 text-white '}" th:text="${p.emetteur.prenom+' '+p.emetteur.nom+' 🔔'}"> </h6>
+                            <p class="mb-0" th:text="${p.detail}"></p>
+                            <small th:class="${p.estLu == true ? 'text-muted' : ' text-white '}" th:utext="${#temporals.format(p.datenotif, 'dd-MM-yyyy HH:mm:ss')}"></small>
+                          </div>
+                          <div class="flex-shrink-0 dropdown-notifications-actions">
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                </div>
+              </ul>
+            </li>
+            <!--/notif-->
+
+            <!-- User -->
+            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+              <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                <div class="avatar avatar-online">
+                  <img src="img/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                </div>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" th:href="@{/MonProfile}">
+                    <div class="d-flex">
+                      <div class="flex-shrink-0 me-3">
+                        <div class="avatar avatar-online">
+                          <img src="img/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                        </div>
+                      </div>
+                      <div class="flex-grow-1">
+                        <span class="fw-semibold d-block" sec:authentication="name"></span>
+                        <small class="text-muted" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Administrateur</small>
+                        <small class="text-muted" th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Utilisateur</small>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <div class="dropdown-divider"></div>
+                </li>
+                <li>
+                  <form class="dropdown-item" th:action="@{/logout}" method="post">
+                    <button class="btn btn-primary float-right w-100" type="submit"> <i class="bx bx-power-off me-2"></i>Déconnexion</button>
+                  </form>
+                </li>
+              </ul>
+            </li>
+            <!--/ User -->
+          </ul>
+        </div>
+
+
+      </div>
+    </div>
+  </nav>
+
+</div>
+<!--/nav-->
+
+<!--Filtre-->
+<div class="d-flex flex-row-reverse bd-highlight " style="margin-right: 20px;">
+  <button
+          class="btn btn-sm btn-secondary me-1 mb-1"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseExample"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+  >
+    <i class='bx bxs-filter-alt'></i> Filter
+  </button>
+</div>
+<!--/Filtre-->
+
+
+
+
+<!-- content div-->
+<div class="container-fluid h-auto m-0">
+  <div class="content-wrapper">
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 " STYLE="padding-top: 0px;margin-top: 2px;padding:0px;">
+      <div class="row">
+        <div class="col-md-12">
+          <!-- Basic Bootstrap Table -->
+          <div class="card small">
+              <div class="card-body">
+
+                <!--collapseExample-->
+                <div class="collapse" id="collapseExample">
+
+                    <div class="row g-3 d-flex justify-content-between">
+                      <div class="col-3">
+                        <label for="membreSelect" class="form-label">Émetteur</label>
+                        <select  multiple="multiple" id="membreSelect"  class=" form-select"  >
+                          <option value="" selected="selected">Tout sélectionner</option >
+                          <option th:each="p:${Emetteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                        </select>
+                      </div>
+                      <div class="col-3">
+                        <label for="statutSelect" class="form-label">Statut</label>
+                        <select  multiple="multiple" id="statutSelect"  class=" form-select">
+                          <option value="" selected="selected">Tout sélectionner</option>
+                          <option value="Valide" >Validé</option>
+                          <option value="Termine" >Terminé</option>
+                          <option value="En cours" >En cours</option>
+                          <option value="En attente" >En attente</option>
+                          <option value="Programme" >Programme</option>
+                          <option value="Refaire" >Refaire</option>
+                          <option value="Annuler" >Annuleé</option>
+                        </select>
+                      </div>
+                      <div class="col-4 ">
+                          <label class="form-label">Date</label>
+                            <ul class="nav nav-tabs nav-fill" role="tablist">
+                              <li class="nav-item">
+                                <button STYLE="weight: 7px;"
+                                        type="button"
+                                        class="nav-link active small"
+                                        role="tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#navs-justified-home"
+                                        aria-controls="navs-justified-home"
+                                        aria-selected="true"
+                                >
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-open" viewBox="0 0 16 16">
+                                    <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882zM15 7.383l-4.778 2.867L15 13.117zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765z"/>
+                                  </svg> Ouverture
+                                </button>
+                              </li>
+                              <li class="nav-item">
+                                <button STYLE="weight: 20px;"
+                                        type="button"
+                                        class="nav-link small"
+                                        role="tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#navs-justified-profile"
+                                        aria-controls="navs-justified-profile"
+                                        aria-selected="false"
+                                >
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar4-event" viewBox="0 0 16 16">
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                                    <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+                                  </svg> Objectif
+                                </button>
+                              </li>
+                              <li class="nav-item">
+                                <button STYLE="weight: 20px;"
+                                        type="button"
+                                        class="nav-link small"
+                                        role="tab"
+                                        data-bs-toggle="tab"
+                                        data-bs-target="#navs-justified-messages"
+                                        aria-controls="navs-justified-messages"
+                                        aria-selected="false"
+                                >
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
+                                    <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                                  </svg> Cloture
+                                </button>
+                              </li>
+                            </ul>
+                            <div class="tab-content">
+                              <div class="tab-pane fade show active" id="navs-justified-home" role="tabpanel">
+                                  <div class="d-flex justify-content-between row g-4">
+                                    <div class="col-2">
+                                      <label for="dateMinSelect" class="form-label">De :</label>
+                                    </div>
+                                    <div class="col-4">
+                                      <input class="form-control" type="date"  id="dateMinSelect">
+                                    </div>
+                                    <div class="col-md-2">
+                                      <label  for="dateMaxSelect" class="form-label">À :</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input class="form-control" type="date"  id="dateMaxSelect" >
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="tab-pane fade" id="navs-justified-profile" role="tabpanel">
+                                <p>
+                                  test2
+                                </p>
+                              </div>
+                              <div class="tab-pane fade" id="navs-justified-messages" role="tabpanel">
+                                <p class="mb-0">
+                                  test3
+                                </p>
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <br>
+
+                <!--collapseExample-->
+
+
+                <!--les filtres
+                   <div class="d-flex justify-content-between " STYLE="margin-top-top: 0px">
+                    <a
+                            class="link link-secondary "
+                            data-bs-toggle="collapse"
+                            href="#multiCollapseExample1"
+                            role="button"
+                            aria-expanded="false"
+                            aria-controls="multiCollapseExample1">
+                      <samp >
+                        <i class='bx bxs-filter-alt'></i> Émetteur
+                      </samp>
+                    </a>
+
+                    <a
+                            class="link link-secondary "
+                            role="button"
+                            data-bs-toggle="collapse"
+                            href="#multiCollapseExample2"
+                            aria-expanded="false"
+                            aria-controls="multiCollapseExample2"
+                    ><samp  >
+                      <i class='bx bxs-filter-alt'></i> Statut
+                    </samp>
+                    </a>
+
+                    <a
+                            class="link  link-secondary"
+                            role="button"
+                            data-bs-toggle="collapse"
+                            href="#multiCollapseExample3"
+                            aria-expanded="false"
+                            aria-controls="multiCollapseExample3"
+                    >
+                      <samp  >
+                        <i class='bx bxs-filter-alt'></i> Date
+                      </samp>
+                    </a>
+                  </div>
+                  <div class="row g-3 ">
+
+                    <div class="col mb-0">
+                      <div class="collapse multi-collapse " id="multiCollapseExample1">
+                        <select  multiple="multiple" id="membreSelect1"  class=" form-select"  >
+                          <option value="" selected="selected">Tout sélectionner</option >
+                          <option th:each="p:${Emetteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col mb-0">
+                      <div class="collapse multi-collapse " id="multiCollapseExample2">
+
+                        <select  multiple="multiple" id="statutSelect1"  class=" form-select">
+                          <option value="" selected="selected">Tout sélectionner</option>
+                          <option value="Valide" >Validé</option>
+                          <option value="Termine" >Terminé</option>
+                          <option value="En cours" >En cours</option>
+                          <option value="En attente" >En attente</option>
+                          <option value="Programme" >Programme</option>
+                          <option value="Refaire" >Refaire</option>
+                          <option value="Annuler" >Annuleé</option>
+                        </select>
+
+                      </div>
+                    </div>
+
+                    <div class="col mb-0">
+                      <div class="collapse multi-collapse " id="multiCollapseExample3">
+            <span>
+              3
+              </span>
+                      </div>
+                    </div>
+
+                  </div>-->
+                <!--/les filtres-->
+
+                <div  class="table-responsive text-nowrap">
+                <div class="row">
+                  <!-- Extra Large Modal -->
+                  <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-xl" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                          ></button>
+                        </div>
+                        <div class="modal-body">
+                          <form id="formAccountSettings" method="POST" th:action="@{CreateTache}" >
+                            <input type="hidden" class="form-control" name="idtache">
+                            <input type="hidden" th:value="${utilisateurC.idutilisateur}"  class="form-control" name="Utilisateur">
+                            <input type="hidden"  name="ismemoire" id="ismemoire" value="false" required />
+                            <div class="row">
+                              <div class="col mb-3">
+                                <label for="nomtache" class="form-label">Tache</label>
+                                <textarea type="text" class="form-control h-px-100"  name="nomtache" id="nomtache" required></textarea>
+                              </div>
+                            </div>
+                            <div class="row g-3">
+                              <div class="col mb-0">
+                                <label  for="idrecepteur" class="form-label">Destinataire de la tâche</label>
+                                <select  id="idrecepteur" name="recepteur" class="select2 form-select" required >
+                                  <option th:each="p:${Recepteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                                </select>
+                              </div>
+                              <div class="col mb-0">
+                                <label class="form-label" for="Durée Estimée">Durée Estimée</label>
+                                <div class="input-group input-group-merge">
+                                  <input type="number" id="Durée Estimée" required
+                                         min="1"  name="dureestime" class="form-control"/>
+                                </div>
+                              </div>
+                              <div class="col mb-0">
+                                <label  for="DateOuverture" class="form-label">Date Ouverture</label>
+                                <input class="form-control" type="date" name="dateouverture" min="" id="DateOuverture" required>
+                              </div>
+                            </div>
+                            <div class="row g-3">
+                              <div class="col mb-0">
+                                <label for="Priorite" class="form-label">Priorité</label>
+                                <select  id="Priorite" class="select2 form-select" name="priorite" required>
+                                  <option th:each="p:${priorites}" th:value="${p.idpriorite}" th:text="${p.nompriorite}" ></option>
+                                </select>
+                              </div>
+                              <div class="col mb-0">
+                                <label  for="Proprietaires" class="form-label">Propriétaire</label>
+                                <select  id="Proprietaires" name="proprietaire" class="select2 form-select"  required="required"  th:with="selectedValue=${utilisateurC.idutilisateur}">
+                                  <option th:each="p:${utilisateurList}" th:value="${p.idutilisateur}"  th:selected="${selectedValue == p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                                </select>
+                              </div>
+                              <div class="col mb-0">
+                                <label for="tacheparente" class="form-label">Tâche parente</label>
+                                <select id="tacheparente" class="select2 form-select" name="tacheparente">
+                                  <!-- <option  value="">Selectionner la tâche parente</option>
+                                   <option th:each="TacheParents:${lesTacheParents}" th:value="${TacheParents.idtache}" th:text="${TacheParents.nomtache}"></option>-->
+                                </select>
+                              </div>
+                            </div>
+                            <div class="row g-3">
+                              <div class="col mb-0">
+                                <label for="type" class="form-label">Type</label>
+                                <input class="form-control" type="text" id="type" name="type" placeholder="Projet,Opérationnel.." value="" />
+                              </div>
+                              <div class="col mb-0">
+                                <label for="commentaire" class="form-label">commentaire</label>
+                                <input
+                                        type="text" class="form-control" id="commentaire"
+                                        name="commentaire" value=""/>
+                              </div>
+                              <div class="col mb-0">
+                                <br>
+                                <label class="form-label" for="Aunetachesuccessive">À une tache successive</label>
+                                <input id="Aunetachesuccessive" type="checkbox"  name="aunetachesuccessive" >
+                              </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" id="submit" class="btn btn-primary me-2"> Envoyer</button>
+                          <button type="button"
+                                  class="btn btn-outline-secondary"
+                                  onclick="annuler()"
+                          >Annuler</button>
+                        </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Les filtre
+                  <div class="col-3">
+                    <label for="membreSelect" class="form-label">Sélectionner un émetteur</label>
+                    <select  multiple="multiple" id="membreSelect1"  class=" form-select"  >
+                      <option value="" selected="selected">Tout sélectionner</option >
+                      <option th:each="p:${Emetteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                    </select>
+                  </div>
+                  <div class="col-3">
+                    <label for="statutSelect" class="form-label">Sélectionner un statut</label>
+                    <select  multiple="multiple" id="statutSelect1"  class=" form-select">
+                      <option value="" selected="selected">Tout sélectionner</option>
+                      <option value="Valide" >Validé</option>
+                      <option value="Termine" >Terminé</option>
+                      <option value="En cours" >En cours</option>
+                      <option value="En attente" >En attente</option>
+                      <option value="Programme" >Programme</option>
+                      <option value="Refaire" >Refaire</option>
+                      <option value="Annuler" >Annuleé</option>
+                    </select>
+                  </div>
+                  <div class="col-3">
+                    <label for="dateMinSelect" class="form-label">Sélectionner la date d'ouverture MIN</label>
+                    <input class="form-control" type="date"  id="dateMinSelect">
+                  </div>
+                  <div class="col-md-3">
+                    <label  for="dateMaxSelect" class="form-label">SÉLECTIONNER LA DATE d'ouverture MAX</label>
+                    <input class="form-control" type="date"  id="dateMaxSelect" >
+                  </div>-->
+                </div>
+                <table id="example" style="width:100%" class="table table-bordered table-sm">
+                  <thead>
+                  <tr>
+                    <th style="width: 100%;"
+                        class="text-center"
+                        data-bs-toggle="tooltip"
+                        data-bs-offset="0,4"
+                        data-bs-placement="top"
+                        data-bs-html="true"
+                        title="<span>Tâches</span>">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-task" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5zM3 3H2v1h1z"/>
+                        <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1z"/>
+                        <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5zM2 7h1v1H2zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm1 .5H2v1h1z"/>
+                      </svg> Tâches
+                      <!--Tache-->
+                    </th>
+                    <th class="text-center"
+                        data-bs-toggle="tooltip"
+                        data-bs-offset="0,4"
+                        data-bs-placement="top"
+                        data-bs-html="true"
+                        title="<span>Émetteur</span>"
+                    > <!--émetteur-->
+                      <svg    style="margin-right: 0;margin-left: 0;"
+                              xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+                        <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
+                      </svg>
+                    </th>
+                    <th style="margin-right: 0;margin-left: 0;"
+                        class="text-center"
+                        data-bs-toggle="tooltip"
+                        data-bs-offset="0,4"
+                        data-bs-placement="top"
+                        data-bs-html="true"
+                        title="<span>Priorité</span>"><!--Priorité-->
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                      </svg>
+                    </th>
+                    <th class="text-center"
+                        data-bs-toggle="tooltip"
+                        data-bs-offset="0,4"
+                        data-bs-placement="top"
+                        data-bs-html="true"
+                        title="<span>Date ouverture</span>"
+                    ><!--date ouverture-->
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-open" viewBox="0 0 16 16">
+                        <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882zM15 7.383l-4.778 2.867L15 13.117zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765z"/>
+                      </svg>
+                    </th>
+                    <th class="text-center"
+                        data-bs-toggle="tooltip"
+                        data-bs-offset="0,4"
+                        data-bs-placement="top"
+                        data-bs-html="true"
+                        title="<span>Date objectif</span>"
+                    ><!--date objectif-->
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar4-event" viewBox="0 0 16 16">
+                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                        <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+                      </svg>
+                    </th>
+                    <th  class="text-center"
+                         data-bs-toggle="tooltip"
+                         data-bs-offset="0,4"
+                         data-bs-placement="top"
+                         data-bs-html="true"
+                         title="<span>Dure estime</span>"
+                    ><!--dure estime-->
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                        <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/>
+                      </svg>
+                    </th>
+                    <th class="text-center"
+                        data-bs-toggle="tooltip"
+                        data-bs-offset="0,4"
+                        data-bs-placement="top"
+                        data-bs-html="true"
+                        title="<span>Date cloture</span>"
+                    ><!--date cloture-->
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
+                        <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                      </svg>
+                    </th>
+                    <th class="text-center"
+                        data-bs-toggle="tooltip"
+                        data-bs-offset="0,4"
+                        data-bs-placement="top"
+                        data-bs-html="true"
+                        title="<span>Status</span>"><!--Status-->
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                      </svg>
+                    </th>
+                    <th class="text-center"
+                         data-bs-toggle="tooltip"
+                         data-bs-offset="0,4"
+                         data-bs-placement="top"
+                         data-bs-html="true"
+                         title="<span>Dure retarde</span>"><!--dure retarde-->
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-x" viewBox="0 0 16 16">
+                        <path d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708"/>
+                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                      </svg>
+                    </th>
+                    <th class="text-center"
+                        data-bs-toggle="tooltip"
+                        data-bs-offset="0,4"
+                        data-bs-placement="top"
+                        data-bs-html="true"
+                        title="<span>Performance</span>"
+                    > <!--performance-->
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-battery-charging" viewBox="0 0 16 16">
+                      <path d="M9.585 2.568a.5.5 0 0 1 .226.58L8.677 6.832h1.99a.5.5 0 0 1 .364.843l-5.334 5.667a.5.5 0 0 1-.842-.49L5.99 9.167H4a.5.5 0 0 1-.364-.843l5.333-5.667a.5.5 0 0 1 .616-.09z"/>
+                      <path d="M2 4h4.332l-.94 1H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.38l-.308 1H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2"/>
+                      <path d="M2 6h2.45L2.908 7.639A1.5 1.5 0 0 0 3.313 10H2zm8.595-2-.308 1H12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H9.276l-.942 1H12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
+                      <path d="M12 10h-1.783l1.542-1.639q.146-.156.241-.34zm0-3.354V6h-.646a1.5 1.5 0 0 1 .646.646M16 8a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8"/>
+                    </svg></th>
+                  </tr>
+                  </thead>
+                  <tbody class="table-border" id="tbody">
+                 <!-- <tr th:each="p:${tacheList}">
+                      <td style=" display: flex;">
+                      <p th:text="${p.nomtache+' .'}" style="white-space: pre-wrap;margin: 0;max-width: 350px;min-height: 35px;height: auto"></p>
+                    </td>
+
+                    <td th:text="${p.utilisateur != null ? p.utilisateur.nom + ' ' + p.utilisateur.prenom : 'émetteur nul'}"></td>
+
+                    <td th:if="${p.priorite.nompriorite =='Urgent'}" th:text="${p.priorite != null ? p.priorite.nompriorite : 'priorité nulle'}" class="bg-label-danger"></td>
+                    <td th:if="${p.priorite.nompriorite =='Important'}" th:text="${p.priorite != null ? p.priorite.nompriorite : 'priorité nulle'}" class="bg-label-success"></td>
+                    <td th:if="${p.priorite.nompriorite =='Normal'}" th:text="${p.priorite != null ? p.priorite.nompriorite : 'priorité nulle'}" class="bg-label-info"></td>
+                    <td th:if="${p.priorite.nompriorite =='En attente'}" th:text="${p.priorite != null ? p.priorite.nompriorite : 'priorité nulle'}" class="bg-label-primary"></td>
+
+                    <td th:text="${p.dateouverture}"></td>
+                    <td th:text="${p.dateobjectif}"></td>
+                    <td th:text="${p.dureestime}"></td>
+                    <td th:text="${p.dateTermineTache}"></td>
+                    <td>
+                 <button th:attr="data-id=${p.idtache}" onclick="modifyStatus(this)" class="btn btn-xs bg-label-info me-1" th:if="${p.statut =='En cours'}">En cours</button>
+                 <button th:attr="data-id=${p.idtache}"  class="btn btn-xs bg-label-primary me-1" th:if="${p.statut == 'Programme'}">Programmé</button>
+                 <button th:attr="data-id=${p.idtache}" onclick="modifyStatus(this)" class="btn btn-xs  bg-label-warning me-1" th:if="${p.statut == 'En attente'}">En attente</button>
+                 <button th:attr="data-id=${p.idtache}" onclick="modifyStatus(this)"  class="btn btn-xs bg-label-danger me-1" th:if="${p.statut == 'Refair'}">Refair</button>
+                 <button th:if="${p.statut == 'Termine'}" class="btn btn-xs bg-label-success me-1" >Terminé</button>
+                 <button th:if="${p.statut == 'Valide'}" class="btn btn-xs bg-label-secondary me-1">Validé</button>
+
+                 </td>
+                 <td th:id="'dureretardeCol_' + ${p.idtache}" th:text="${p.dureretarde}"></td>
+                 <td th:id="'performanceCol_' + ${p.idtache}" th:text="${p.performance+'%'}"></td>
+
+                 </tr>-->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!--/ Basic Bootstrap Table -->
+
+          <!-- / Content -->
+
+
+          <div class="content-backdrop fade"></div>
+        </div>
+        <!-- Content wrapper -->
+      </div>
+      <!-- / Layout page -->
+    </div>
+    <!-- /content-->
+  </div>
+  <!--/ content div-->
+</body>
+
+<!-- les scripte du tamplet JS -->
+<!-- build:js assets/vendor/js/core.js -->
+<script src="js/jquery.js"></script>
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/perfect-scrollbar.js"></script>
+<script src="js/menu.js"></script>
+<!-- endbuild -->
+<!-- Vendors JS -->
+<script src="js/apexcharts.js"></script>
+<!-- Main JS -->
+<script src="js/main.js"></script>
+<!-- Page JS -->
+<script src="js/dashboards-analytics.js"></script>
+<script src="js/pages-account-settings-account.js"></script>
+
+<!-- Myjs pour le spinnerWrapperEl d actualisation+mes script. -->
+<script src="js/myJs.js"></script>
+<!-- liens pour les websoket + Stom +Jquery. -->
+<script src="js/jquery.min.js"></script>
+<script src="js/sockjs.min.js"></script>
+<script src="js/stomp.min.js" ></script>
+
+<!-- le script des websoket notification. -->
+<script src="js/notifWebSocket.js"></script>
+<!-- Data table -->
+<script src="js/datatables.min.js"></script>
+
+<!--notif Js-->
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+
+<script>
+
+  //----- script pour les filtres et la validation , Refair et editer les taches
+  var membreSelect = document.getElementById('membreSelect');
+  const statutSelect = document.getElementById('statutSelect');
+  var tbody = document.querySelector("#example tbody");
+  var dateMinSelect = document.querySelector("#dateMinSelect");
+  var dateMaxSelect = document.querySelector("#dateMaxSelect");
+  var AllMembersTask=[];
+  var selectedStatuts=[""];
+  var selectedMembres;
+  var tacheOfselectedMembres=AllMembersTask;
+  var dateMin="";
+  var dateMax="";
+  var utilisateurConnecte=[];
+  var membres=[];
+
+  //Trouver le role d utilisateur connecté
+  function getRole(callback) {
+    $.ajax({
+      url: `Role`,
+      method: 'GET',
+      success: function (data) {
+        utilisateurConnecte.push(data);
+      },
+      error: function (error) {
+        console.error("Une erreur s'est produite lors de la récupération du rôle :", error);
+      }
+    });
+  }
+  getRole();
+
+
+  // Appel de la fonction fetch pour récupérer les membres de l'équipe de l'utilisateur connecté
+  fetch('membresDeLequipeDutilisateur', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      // Vous pouvez également ajouter des en-têtes supplémentaires si nécessaire
+    },
+  })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Erreur de réseau');
+            }
+            return response.json();
+          })
+          .then(data => {
+
+            // Les données récupérées (liste de membres) sont stockées dans la variable data
+            data.forEach(user=>{
+              membres.push(user)
+              console.log(user)
+
+            })
+          })
+          .catch(error => {
+            console.error('Erreur lors de la récupération des membres:', error);
+          });
+
+  //pour l affichage initial du table
+  function getAllMyTask(){
+    fetch('getAllMyTask')
+            .then(response => response.json())
+            .then(data => {
+
+              // Redraw the table
+              $('#example').DataTable().destroy();
+              // For example, you can clear the table content
+              tbody.innerHTML = '';
+              // Update the table with the new data
+              data.forEach(tache => {
+                AllMembersTask.push(tache);
+                createTableRow(tache);
+              });
+              // Redraw the table
+              $('#example').DataTable().draw();
+            })
+  }
+  //affichage initial du tableau
+  getAllMyTask();
+
+
+  //______________________script2:pour filtré les Taches Par utilisateurs___________________
+  // Function to handle the change event on membreSelect
+  membreSelect.addEventListener('change', () => {
+
+
+    // Check if "tout sélectionner" is selected
+    if (membreSelect.value === "") {
+      // Redraw the table
+      $('#example').DataTable().destroy();
+      tbody.innerHTML = '';
+      console.log(selectedStatuts);
+      // Perform actions when "tout sélectionner" is selected
+      //getAllMembersTask();
+      tacheOfselectedMembres= AllMembersTask;
+      const isStatutsSelectionneTousSelected=contientValeurVide(selectedStatuts);
+      if (isStatutsSelectionneTousSelected && dateMin=="" && dateMax=="") {
+        // Clear existing data
+        AllMembersTask.forEach(tache => {
+          createTableRow(tache);
+        });
+
+      }
+      if (isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
+        $('#example').DataTable().clear();
+        AllMembersTask.forEach(tache => {
+          if (tache.dateouverture<=dateMax) {
+            createTableRow(tache);
+          }
+        });
+
+      }
+      if (isStatutsSelectionneTousSelected && dateMin!="" && dateMax=="") {
+        AllMembersTask.forEach(tache => {
+          if (tache.dateouverture>=dateMin) {
+            createTableRow(tache);
+          }
+        });
+      }
+      if (isStatutsSelectionneTousSelected && dateMin!="" && dateMax!="") {
+        AllMembersTask.forEach(tache => {
+          if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+            createTableRow(tache);
+          }
+        });
+      }
+      if (!isStatutsSelectionneTousSelected && dateMin=="" && dateMax=="") {
+        AllMembersTask.forEach(tache => {
+          const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+          if (TacheWitheSelectedStatut) {
+            createTableRow(tache);
+          }
+        });
+      }
+      if (!isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
+        AllMembersTask.forEach(tache => {
+          const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+          if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax) {
+            createTableRow(tache);
+          }
+        });
+      }
+      if (!isStatutsSelectionneTousSelected && dateMin!="" && dateMax=="") {
+        AllMembersTask.forEach(tache => {
+          const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+          if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin) {
+            createTableRow(tache);
+          }
+        });
+      }
+      if (!isStatutsSelectionneTousSelected && dateMin!="" && dateMax!="") {
+        AllMembersTask.forEach(tache => {
+          const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+          if (TacheWitheSelectedStatut &&  dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+            createTableRow(tache);
+          }
+        });
+      }// Redraw the table
+      $('#example').DataTable().draw();
+
+    } else {
+
+      // Récupérer les départements sélectionnés
+      //membreSelect.selectedOptions: est une propriété de l'élément <select> qui renvoie une collection de toutes les options sélectionnées.
+      //Array.from(): est utilisé pour convertir la collection renvoyée par selectedOptions en un tableau JavaScript.
+      // Les collections d'éléments DOM ne sont pas des tableaux
+      // (option => option.value). Elle prend chaque élément (dans ce cas, une option) de la collection selectedOptions et renvoie la valeur de l'attribut value de cet élément.
+      // Cela permet d'extraire la valeur de chaque option sélectionnée et de la stocker dans un nouveau tableau.
+
+      //selectedMembres: un tableau des id valeur sélectionnées
+      selectedMembres = Array.from(membreSelect.selectedOptions).map(option => option.value);
+
+      //
+      fetch(`tachesEmeteur?utilisateur=${selectedMembres.join(',')}`)
+              .then(response => response.json())
+              .then(data => {
+
+                //stocker les tache des membres selectionné
+                tacheOfselectedMembres=data;
+                // Redraw the table
+                $('#example').DataTable().destroy();
+                // Effacer le contenu actuel
+                tbody.innerHTML = '';
+                const isStatutsSelectionneTousSelected=contientValeurVide(selectedStatuts);
+
+                if (isStatutsSelectionneTousSelected && dateMin=="" && dateMax=="") {
+                  data.forEach(tache => {
+                    createTableRow(tache);
+                  });
+                }
+                if (isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
+                  data.forEach(tache => {
+                    if (tache.dateouverture<=dateMax) {
+                      createTableRow(tache);
+                    }
+                  });
+                }
+                if (isStatutsSelectionneTousSelected && dateMin!="" && dateMax=="") {
+                  data.forEach(tache => {
+                    if (tache.dateouverture>=dateMin) {
+                      createTableRow(tache);
+                    }
+                  });
+                }
+                if (isStatutsSelectionneTousSelected && dateMin!="" && dateMax!="") {
+                  data.forEach(tache => {
+                    if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                      createTableRow(tache);
+                    }
+                  });
+                }
+                if (!isStatutsSelectionneTousSelected && dateMin=="" && dateMax=="") {
+                  data.forEach(tache => {
+                    const TacheWitheSelectedStatut = selectedStatuts.some(x => x === tache.statut);
+                    if (TacheWitheSelectedStatut) {
+                      createTableRow(tache);
+                    }
+                  });
+                }
+                if (!isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
+                  data.forEach(tache => {
+                    const TacheWitheSelectedStatut = selectedStatuts.some(x => x === tache.statut);
+                    if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax) {
+                      createTableRow(tache);
+                    }
+                  });
+                }
+                if (!isStatutsSelectionneTousSelected && dateMin!="" && dateMax=="") {
+                  data.forEach(tache => {
+                    const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                    if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin) {
+                      createTableRow(tache);
+                    }
+                  });
+                }
+                if (!isStatutsSelectionneTousSelected && dateMin!="" && dateMax!="") {
+                  data.forEach(tache => {
+                    const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                    if (TacheWitheSelectedStatut &&  dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                      createTableRow(tache);
+                    }
+                  });
+                }// Redraw the table
+                $('#example').DataTable().draw();
+              })
+    }
+
+  });
+
+
+  //pour filtrer les taches par statuts
+  statutSelect.addEventListener('change',()=>{
+    // Redraw the table
+    $('#example').DataTable().destroy();
+    // Effacer le contenu actuel
+    tbody.innerHTML = '';
+    //selectedStatuts: un tableau des valeurs sélectionnées
+    selectedStatuts = Array.from(statutSelect.selectedOptions).map(option => option.value);
+
+    // Check if "tout sélectionner" is selected
+    if (statutSelect.value == "" && dateMin=="" && dateMax=="") {
+      tacheOfselectedMembres.forEach(tache => {
+        createTableRow(tache);
+      });
+    }
+    if (statutSelect.value == "" && dateMin=="" && dateMax!="") {
+      tacheOfselectedMembres.forEach(tache => {
+        if (tache.dateouverture<=dateMax) {
+          createTableRow(tache);
+        }
+      });
+    }
+    if (statutSelect.value == "" && dateMin!="" && dateMax=="") {
+      tacheOfselectedMembres.forEach(tache => {
+        if (tache.dateouverture>=dateMin) {
+          createTableRow(tache);
+        }
+
+      });
+    }
+    if (statutSelect.value == "" && dateMin!="" && dateMax!="") {
+      tacheOfselectedMembres.forEach(tache => {
+        if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+          createTableRow(tache);
+        }
+      });
+    }
+
+    // Check if "tout sélectionner" is selected
+    if (statutSelect.value != "" && dateMin=="" && dateMax=="") {
+      //lister les tache des membres selectionné
+      tacheOfselectedMembres.forEach(tache => {
+        const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+        if (TacheWitheSelectedStatut ){
+          createTableRow(tache);
+        }
+      });
+    }
+    if (statutSelect.value != "" && dateMin=="" && dateMax!="") {
+      //lister les tache des membres selectionné
+      tacheOfselectedMembres.forEach(tache => {
+        const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+        if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax ){
+          createTableRow(tache);
+        }
+      });
+    }
+    if (statutSelect.value != "" && dateMin!="" && dateMax=="") {
+      //lister les tache des membres selectionné
+      tacheOfselectedMembres.forEach(tache => {
+        const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+        if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin){
+          createTableRow(tache);
+        }
+      });
+    }
+    if (statutSelect.value != "" && dateMin!="" && dateMax!="") {
+      //lister les tache des membres selectionné
+      tacheOfselectedMembres.forEach(tache => {
+        const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+        if (TacheWitheSelectedStatut &&  dateMin<=tache.dateouverture && tache.dateouverture<=dateMax){
+          createTableRow(tache);
+        }
+      });
+    }
+    // Redraw the table
+    $('#example').DataTable().draw();
+  })
+
+
+  //pour filtrer les taches par datemax
+  dateMaxSelect.addEventListener('change',()=>{
+    // Redraw the table
+    $('#example').DataTable().destroy();
+    // Effacer le contenu actuel
+    tbody.innerHTML = '';
+    // Stoker la date sélectionnée
+    dateMax = dateMaxSelect.value;
+    if (dateMin == "" && selectedStatuts=="") {
+
+      //lister les tache des membres & statuts selectionnés
+      tacheOfselectedMembres.forEach(tache => {
+        if (tache.dateouverture<=dateMax) {
+          createTableRow(tache);
+        }
+      });
+    }
+    if (dateMin != "" && selectedStatuts == "") {
+      //lister les tache des membres & statuts selectionnés
+      tacheOfselectedMembres.forEach(tache => {
+        if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+          createTableRow(tache);
+        }
+      })
+    }
+    if (dateMin == "" && selectedStatuts!="") {
+      //lister les tache des membres & statuts selectionnés
+      tacheOfselectedMembres.forEach(tache => {
+        const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+        if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax ){
+          createTableRow(tache);
+        }
+      });
+    }
+    if (dateMin != "" && selectedStatuts != "") {
+      //lister les tache des membres & statuts selectionnés
+      tacheOfselectedMembres.forEach(tache => {
+        const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+        if (TacheWitheSelectedStatut && dateMin<=tache.dateouverture && tache.dateouverture<=dateMax ){
+          createTableRow(tache);
+        }
+      });
+    }
+    // Redraw the table
+    $('#example').DataTable().draw();
+  })
+
+  //pour filtrer les taches par datemin
+  dateMinSelect.addEventListener('change',()=>{
+    // Redraw the table
+    $('#example').DataTable().destroy();
+    // Effacer le contenu actuel
+    tbody.innerHTML = '';
+    // Stoker la date sélectionnée
+    dateMin = dateMinSelect.value;
+    if (dateMax == "" && selectedStatuts=="") {
+      //lister les tache des membres & statuts selectionnés
+      tacheOfselectedMembres.forEach(tache => {
+        if (tache.dateouverture>=dateMin) {
+          createTableRow(tache);
+        }
+      });
+    }
+    if (dateMax != "" && selectedStatuts == "") {
+      //lister les tache des membres & statuts selectionnés
+      tacheOfselectedMembres.forEach(tache => {
+        if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+          createTableRow(tache);
+        }
+      })
+    }
+    if (dateMax == "" && selectedStatuts!="") {
+      //lister les tache des membres & statuts selectionnés
+      tacheOfselectedMembres.forEach(tache => {
+        const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+        if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin ){
+          createTableRow(tache);
+        }
+      });
+    }
+    if (dateMax != "" && selectedStatuts != "") {
+
+      //lister les tache des membres & statuts selectionnés
+      tacheOfselectedMembres.forEach(tache => {
+        const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+        if (TacheWitheSelectedStatut && dateMin<=tache.dateouverture && tache.dateouverture<=dateMax ){
+          createTableRow(tache);
+        }
+      });
+    }
+    // Redraw the table
+    $('#example').DataTable().draw();
+  })
+
+  //fonction verifier si une liste contient valeur vide
+  function contientValeurVide(liste) {
+    // Vérifie chaque élément de la liste
+    for (let i = 0; i < liste.length; i++) {
+      // Si l'élément est vide (null, undefined ou une chaîne vide), retourne true
+      if (liste[i] === null || liste[i] === undefined || liste[i] === '') {
+        return true;
+      }
+    }
+    // Si aucun élément vide n'est trouvé, retourne false
+    return false;
+  }
+
+  //fonction pours creer les linges de tableau
+  function createTableRow(tache) {
+    // Créer une nouvelle ligne pour chaque tâche
+    var newRow = document.createElement("tr");
+
+    // Ajouter les cellules avec les données de la tâche à la nouvelle ligne
+    var cellNomTache = document.createElement("td");
+    cellNomTache.setAttribute("style"," display: flex;")
+    cellNomTache.innerHTML = '     <p style="white-space: pre-wrap;margin: 0;max-width: 350px;min-height: 35px;height: auto">' + tache.nomtache + '</p>';
+    newRow.appendChild(cellNomTache);
+
+    var cellEmetteur = document.createElement("td");
+    cellEmetteur.innerText = tache.utilisateur != null ? tache.utilisateur.prenom + ' ' + tache.utilisateur.nom : 'émetteur nul';
+    newRow.appendChild(cellEmetteur);
+
+    var cellPriorite = document.createElement("td");
+    cellPriorite.innerText = tache.priorite != null ? tache.priorite.nompriorite : 'Priorite nul';
+    newRow.appendChild(cellPriorite);
+
+    var cellDateOuverture = document.createElement("td");
+    var dateOuverture = new Date(tache.dateouverture);
+    // Formatage de la date au format "mm/dd/yy"
+    var formattedDate =  ('0' + dateOuverture.getDate()).slice(-2) + '/' +('0' + (dateOuverture.getMonth() + 1)).slice(-2) + '/' + dateOuverture.getFullYear().toString().slice(-2);
+    cellDateOuverture.innerText = formattedDate;
+    //cellDateOuverture.innerText = tache.dateouverture;
+    newRow.appendChild(cellDateOuverture);
+
+    var cellDateObjectif = document.createElement("td");
+    var dateObjectif = new Date(tache.dateobjectif);
+    //cellDateObjectif.innerText = tache.dateobjectif;
+    // Formatage de la date au format "mm/dd/yy"
+    var formattedDate =  ('0' + dateObjectif.getDate()).slice(-2) + '/' +('0' + (dateObjectif.getMonth() + 1)).slice(-2) + '/' + dateObjectif.getFullYear().toString().slice(-2);
+    cellDateObjectif.innerText = formattedDate;
+    newRow.appendChild(cellDateObjectif);
+
+    var cellDureeEstimee = document.createElement("td");
+    cellDureeEstimee.innerText = tache.dureestime;
+    newRow.appendChild(cellDureeEstimee);
+
+    var cellDateCloture = document.createElement("td");
+    if (tache.dateTermineTache == null) {
+      cellDateCloture.innerText = '';
+      newRow.appendChild(cellDateCloture);
+    } else {
+      var dateCloture = new Date(tache.dateTermineTache);
+      var formattedDate =  ('0' + dateCloture.getDate()).slice(-2) +'/'+('0' + (dateCloture.getMonth() + 1)).slice(-2) +'/' +dateCloture.getFullYear().toString().slice(-2);
+      cellDateCloture.innerText = formattedDate;
+      newRow.appendChild(cellDateCloture);
+    }
+
+    var cellStatut = document.createElement("td");
+    var statutBadge = document.createElement("button");
+    statutBadge.setAttribute("data-id", tache.idtache);
+    statutBadge.className = "";
+    statutBadge.addEventListener('click', () => modifyStatus(statutBadge));
+    switch (tache.statut) {
+      case "En cours":
+        statutBadge.classList.add("btn","bg-label-info","btn-xs", "me-1");
+        statutBadge.innerText = "En cours";
+        break;
+      case "Termine":
+        statutBadge.classList.add("btn","bg-label-success","btn-xs", "me-1");
+        statutBadge.innerText = "Terminé";
+        break;
+      case "Programme":
+        statutBadge.classList.add("btn","bg-label-primary","btn-xs", "me-1");
+        statutBadge.innerText = "Programmé";
+        break;
+      case "Valide":
+        statutBadge.classList.add("btn","bg-label-secondary","btn-xs", "me-1");
+        statutBadge.innerText = "Validé";
+        break;
+      case "Refaire":
+        statutBadge.classList.add("btn","bg-label-danger","btn-xs","me-1");
+        statutBadge.innerText = "Refaire";
+        break;
+      case "En attente":
+        statutBadge.classList.add("btn","bg-label-warning","btn-xs", "me-1");
+        statutBadge.innerText = "En attente";
+        break;
+      case "Annuler":
+        statutBadge.classList.add("btn","bg-dark","btn-xs", "me-1");
+        statutBadge.setAttribute("style","color: white !important");
+        statutBadge.innerText = "Annulée";
+        break;
+      default:
+        statutBadge.innerText = "Statut inconnu";
+    }
+    statutBadge.classList.add("statutsClasse");
+
+    cellStatut.appendChild(statutBadge);
+    newRow.appendChild(cellStatut);
+
+    var cellDureeRetarde = document.createElement("td");
+    if (tache.dureretarde > 0) {
+      cellDureeRetarde.innerText = tache.dureretarde;
+      newRow.appendChild(cellDureeRetarde);
+    } else {
+      cellDureeRetarde.innerText = "";
+      newRow.appendChild(cellDureeRetarde);
+    }
+
+
+    var cellPerformance = document.createElement("td");
+    cellPerformance.innerText = tache.performance + '%';
+    newRow.appendChild(cellPerformance);
+
+
+    // Ajouter la nouvelle ligne au corps du tableau
+    var tableBody = document.querySelector("#example tbody");
+    tableBody.appendChild(newRow);
+  }
+
+//Pour afficher les taches parentes dans
+  // la selelecte dans le formulaire qui permet de creer une tache et actualiser la liste lorsqu'une indexation
+  tacheParentes();
+  function tacheParentes() {
+    $.ajax({
+      url: `tachesParentes/`,
+      method: 'GET',
+      success: function (taches) {
+
+        var tachesParentSelect = $("#tacheparente");
+        tachesParentSelect.empty(); // Efface toutes les options actuelles
+        tachesParentSelect.append (new Option("Selectionner la tâche parente",-1));
+        for (var i = 0; i < taches.length; i++) {
+          var option = new Option(taches[i].nomtache, taches[i].idtache);
+          tachesParentSelect.append(option);
+        }
+      }
+    });
+  }
+
+  function annuler() {
+    // Récupérer l'élément du formulaire par son ID
+    var formulaire = document.getElementById('formAccountSettings');
+    var   btnSubmit= document.getElementById('submit');
+
+    // Vérifier si le formulaire a été trouvé
+    if (formulaire) {
+      // Réinitialiser le formulaire
+      formulaire.reset();
+
+      if ( btnSubmit.textContent === "Mettre à jour") {
+        btnSubmit.textContent = "envoyer";
+
+        // Pre-select the Proprietaire in the dropdown
+        const select1 = formulaire.querySelector("select[name='proprietaire']");
+        select1.removeAttribute("readonly");
+        select1.onmousedown = null;
+        select1.style.cursor = "default";
+
+        // Pre-select the Recepteur in the dropdown
+        const select = formulaire.querySelector("select[name='recepteur']");
+        select.removeAttribute("readonly");
+        select.onmousedown = null;
+        select.style.cursor = "default";
+
+        //remove Disable editing and selection for nomtache
+        const inputField = formulaire.querySelector(`textarea[name='nomtache']`);
+        inputField.removeAttribute("readonly");
+        inputField.onmousedown = null; // Supprimer l'événement onmousedown
+        inputField.style.cursor = "text"; // Changer le style du curseur en mode édition
+
+        const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
+        idTacheInput.value=null;
+        idTacheInput.textContent="";
+
+      }
+    } else {
+      console.error('Le formulaire n\'a pas été trouvé.');
+    }
+
+    //pour regler la douverture
+    dateOuvertureactuelle();
+
+  }
+
+  //pour regler la douverture
+  dateOuvertureactuelle();
+  function dateOuvertureactuelle(){
+    //pour la date douverture
+    // Obtenez la date actuelle au format YYYY-MM-DD
+    var currentDate = new Date().toISOString().split('T')[0];
+
+    // Mettez à jour l'attribut 'min' du champ de saisie de date avec la date actuelle
+    document.getElementById('DateOuverture').min = currentDate;
+
+    // Mettez à jour l'attribut 'value' du champ de saisie de date avec la date actuelle
+    document.getElementById('DateOuverture').value = currentDate;
+  }
+
+
+</script>
+
+
+
+
+</html>
+
+
+

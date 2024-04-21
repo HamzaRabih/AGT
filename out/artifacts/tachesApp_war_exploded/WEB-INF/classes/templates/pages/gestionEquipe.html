@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+ -->
+<!-- beautify ignore:start -->
+<html
+        lang="en"
+        class="light-style layout-menu-fixed"
+        dir="ltr"
+        data-theme="theme-default"
+        data-assets-path="../assets/"
+        data-template="vertical-menu-template-free"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+
+>
+<head>
+    <meta charset="utf-8" />
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>TaskMaster</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico" />
+
+    <!-- Data table ikns-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="/css/boxicons.css" />
+    <link rel="stylesheet" href="/fonts/boxicons.eot" />
+    <link rel="stylesheet" href="/css/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="/css/perfect-scrollbar.css" />
+
+    <link rel="stylesheet" href="/css/apex-charts.css" />
+
+    <!-- Page CSS -->
+
+    <link rel="stylesheet" href="/css/myCss.css" />
+    <!-- Helpers -->
+    <script src="/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="/js/config.js"></script>
+</head>
+
+<body>
+<div class="spinner-wrapper">
+    <div id="loading-spinner" class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <!-- Menu -->
+
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+            <div class="app-brand demo">
+                <a href="index.html" class="app-brand-link">
+              <span class="app-brand-logo demo">
+                <svg
+                        width="25"
+                        viewBox="0 0 25 42"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                >
+                  <defs>
+                    <path
+                            d="M13.7918663,0.358365126 L3.39788168,7.44174259 C0.566865006,9.69408886 -0.379795268,12.4788597 0.557900856,15.7960551 C0.68998853,16.2305145 1.09562888,17.7872135 3.12357076,19.2293357 C3.8146334,19.7207684 5.32369333,20.3834223 7.65075054,21.2172976 L7.59773219,21.2525164 L2.63468769,24.5493413 C0.445452254,26.3002124 0.0884951797,28.5083815 1.56381646,31.1738486 C2.83770406,32.8170431 5.20850219,33.2640127 7.09180128,32.5391577 C8.347334,32.0559211 11.4559176,30.0011079 16.4175519,26.3747182 C18.0338572,24.4997857 18.6973423,22.4544883 18.4080071,20.2388261 C17.963753,17.5346866 16.1776345,15.5799961 13.0496516,14.3747546 L10.9194936,13.4715819 L18.6192054,7.984237 L13.7918663,0.358365126 Z"
+                            id="path-1"
+                    ></path>
+                    <path
+                            d="M5.47320593,6.00457225 C4.05321814,8.216144 4.36334763,10.0722806 6.40359441,11.5729822 C8.61520715,12.571656 10.0999176,13.2171421 10.8577257,13.5094407 L15.5088241,14.433041 L18.6192054,7.984237 C15.5364148,3.11535317 13.9273018,0.573395879 13.7918663,0.358365126 C13.5790555,0.511491653 10.8061687,2.3935607 5.47320593,6.00457225 Z"
+                            id="path-3"
+                    ></path>
+                    <path
+                            d="M7.50063644,21.2294429 L12.3234468,23.3159332 C14.1688022,24.7579751 14.397098,26.4880487 13.008334,28.506154 C11.6195701,30.5242593 10.3099883,31.790241 9.07958868,32.3040991 C5.78142938,33.4346997 4.13234973,34 4.13234973,34 C4.13234973,34 2.75489982,33.0538207 2.37032616e-14,31.1614621 C-0.55822714,27.8186216 -0.55822714,26.0572515 -4.05231404e-15,25.8773518 C0.83734071,25.6075023 2.77988457,22.8248993 3.3049379,22.52991 C3.65497346,22.3332504 5.05353963,21.8997614 7.50063644,21.2294429 Z"
+                            id="path-4"
+                    ></path>
+                    <path
+                            d="M20.6,7.13333333 L25.6,13.8 C26.2627417,14.6836556 26.0836556,15.9372583 25.2,16.6 C24.8538077,16.8596443 24.4327404,17 24,17 L14,17 C12.8954305,17 12,16.1045695 12,15 C12,14.5672596 12.1403557,14.1461923 12.4,13.8 L17.4,7.13333333 C18.0627417,6.24967773 19.3163444,6.07059163 20.2,6.73333333 C20.3516113,6.84704183 20.4862915,6.981722 20.6,7.13333333 Z"
+                            id="path-5"
+                    ></path>
+                  </defs>
+                  <g id="g-app-brand" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Brand-Logo" transform="translate(-27.000000, -15.000000)">
+                      <g id="Icon" transform="translate(27.000000, 15.000000)">
+                        <g id="Mask" transform="translate(0.000000, 8.000000)">
+                          <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                          </mask>
+                          <use fill="#696cff" xlink:href="#path-1"></use>
+                          <g id="Path-3" mask="url(#mask-2)">
+                            <use fill="#696cff" xlink:href="#path-3"></use>
+                            <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-3"></use>
+                          </g>
+                          <g id="Path-4" mask="url(#mask-2)">
+                            <use fill="#696cff" xlink:href="#path-4"></use>
+                            <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-4"></use>
+                          </g>
+                        </g>
+                        <g
+                                id="Triangle"
+                                transform="translate(19.000000, 11.000000) rotate(-300.000000) translate(-19.000000, -11.000000) "
+                        >
+                          <use fill="#696cff" xlink:href="#path-5"></use>
+                          <use fill-opacity="0.2" fill="#FFFFFF" xlink:href="#path-5"></use>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </span>
+                    <span class="app-brand-text demo menu-text fw-bolder ms-2">TaskMaster</span>
+                </a>
+
+                <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                </a>
+            </div>
+
+            <div class="menu-inner-shadow"></div>
+
+            <ul class="menu-inner py-1">
+                <!-- Dashboard -->
+                <li class="menu-item ">
+                    <a href="javascript:void(0)" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-copy-alt"></i>
+                        <div data-i18n="Analytics">Gestion des tâches</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item ">
+                            <a th:href="@{/}" class="menu-link">
+                                <i class="bx bx-task me-1"></i> Mes Taches
+                            </a>
+                        </li>
+                        <li class="menu-item ">
+                            <a class="menu-link" th:href="@{/CreerTache}">
+                                <i class="bx bx-add-to-queue me-1"></i> Créer une Tache
+                            </a>
+                        </li>
+                        <li class="menu-item ">
+                            <a class="menu-link" th:href="@{/Memoir}"
+                            > <i class='bx bx-notepad'></i> Memoir</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="menu-item " style="display: none">
+                    <a th:href="@{/performance}" class="menu-link">
+                        <i class="menu-icon tf-icons bx bxs-zap"></i>
+                        <div data-i18n="Analytics">Performance</div>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a th:href="@{/MonProfile}" class="menu-link">
+                        <i class="menu-icon tf-icons bx  bxs-user"></i>
+                        <div data-i18n="Analytics">Mon Profile</div>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a th:href="@{/MonEquipe}" class="menu-link">
+                        <i class="menu-icon tf-icons bx   bxs-user-account"></i>
+                        <div data-i18n="Analytics">Mon Equipe</div>
+                    </a>
+                </li>
+                <li class="menu-item ">
+                    <a th:href="@{/notifications}" class="menu-link" onclick="readNotif()">
+                        <i class="bx bx-bell me-2"></i>
+                        <div data-i18n="Analytics" >Notifications
+                            <span id="spanNotifNum"  th:value="${nbrNotifNonLu}" th:text="${nbrNotifNonLu}"  class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20" ></span>
+                        </div>
+                    </a>
+                </li>
+
+                <li sec:authorize="hasAnyRole('ADMIN')" class="menu-item active open">
+                    <a th:href="@{/gestUtilisateur}" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx  bx-cog"></i>
+                        <div data-i18n="Analytics">Administration</div>
+                    </a>
+
+                    <ul class="menu-sub">
+                        <li class="menu-item ">
+                            <a class="menu-link" th:href="@{/gestUtilisateur}">
+                                <i class="bx bx-group me-1"></i> Comptes
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a class="menu-link" th:href="@{/societe}"
+                            ><i class="bx bx-buildings me-1"></i>Societes</a
+                            >
+                        </li>
+                        <li class="menu-item">
+                            <a class="menu-link" th:href="@{/domaine}"
+                            ><i class="bx bx-briefcase me-1"></i>Domaines</a>
+                        </li>
+                        <li class="menu-item">
+                            <a class="menu-link" th:href="@{/departement}"
+                            ><i class="bx bxs-institution me-1"></i>Departements</a>
+                        </li>
+                        <li class="menu-item active">
+                            <a class="menu-link" th:href="@{/gestionEquipe}"
+                            ><i class="bx bxs-user-account me-1"></i> Equipes</a>
+                        </li>
+                        <li class="menu-item">
+                            <a class="menu-link "  th:href="@{/GestionTacheAdmin}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ui-checks" viewBox="0 0 16 16">
+                                    <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                                </svg>
+                                Tâches</a>
+                        </li>
+
+                    </ul>
+        </aside>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+            <!-- Navbar -->
+
+            <nav
+                    class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+                    id="layout-navbar"
+            >
+                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                        <i class="bx bx-menu bx-sm"></i>
+                    </a>
+                </div>
+
+                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                    <!-- Search -->
+                    <div class="navbar-nav align-items-center">
+                        <div class="nav-item d-flex align-items-center">
+                            <i class="bx bx-search fs-4 lh-0"></i>
+                            <input
+                                    type="text"
+                                    class="form-control border-0 shadow-none"
+                                    placeholder="Search..."
+                                    aria-label="Search..."
+                            />
+                        </div>
+                    </div>
+                    <!-- /Search -->
+                    <span  class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20" onclick="playNotificationSound()"  id="notification"></span>
+                    <ul class="navbar-nav flex-row align-items-center ms-auto">
+                        <!-- User -->
+                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                                <div class="avatar avatar-online">
+                                    <img src="/img/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <div class="d-flex">
+                                            <div class="flex-shrink-0 me-3">
+                                                <div class="avatar avatar-online">
+                                                    <img src="/img/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <span class="fw-semibold d-block">John Doe</span>
+                                                <small class="text-muted">Admin</small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bx bx-user me-2"></i>
+                                        <span class="align-middle">My Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bx bx-cog me-2"></i>
+                                        <span class="align-middle">Settings</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                        <span class="d-flex align-items-center align-middle">
+                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                          <span class="flex-grow-1 align-middle">Billing</span>
+                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                </li>
+                                <li>
+                                    <form   class="dropdown-item" th:action="@{/logout}" method="post" >
+                                        <button class="btn btn-primary float-right" type="submit"> <i class="bx bx-power-off me-2"></i>Déconnexion</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--/ User -->
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- / Navbar -->
+
+            <!-- Content wrapper -->
+            <div class="content-wrapper">
+                <!-- Content -->
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                                <li class="nav-item">
+                                    <a class="nav-link " th:href="@{/gestUtilisateur}"><i class="bx bx-group me-1"></i> Comptes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/societe}"
+                                    ><i class="bx bx-buildings me-1"></i>Societes</a
+                                    >
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/domaine}"
+                                    ><i class="bx bx-briefcase me-1"></i>Domaines</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" th:href="@{/departement}"
+                                    ><i class="bx bxs-institution me-1"></i>Departement</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" th:href="@{/gestionEquipe}"
+                                    ><i class="bx bxs-user-account me-1"></i> Equipe</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " th:href="@{/GestionTacheAdmin}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ui-checks" viewBox="0 0 16 16">
+                                            <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                                        </svg>
+                                        Tâches</a>
+                                </li>
+                            </ul>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <form id="formAccountSettings" th:action="@{CreateEquipe}"  th:object="${equipe}" method="post" >
+                                        <input id="idequipe" type="hidden" class="form-control" name="idequipe">
+                                        <div class="row">
+                                            <div class="mb-3 col-md-12">
+                                                <label for="firstName" class="form-label">nom d'equipe</label>
+                                                <input
+                                                        class="form-control"
+                                                        type="text"
+                                                        id="firstName"
+                                                        name="nomequipe"
+                                                        placeholder="nom d'équipe "
+                                                        autofocus required="required"
+                                                />
+                                            </div>
+
+                                            <!---->
+                                            <div class="mb-3 col-md-12">
+                                                <label for="societeSelect" class="form-label">Société</label>
+                                                <select id="societeSelect"  class="select2 form-select" >
+                                                    <option  value="" selected="selected">Sélectionnez une société</option >
+                                                    <option th:each="p:${societeList}"  th:text="${p.nomsociete}" th:value="${p.idsociete}" ></option>
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-3 col-md-12">
+                                                <label for="DepartementSelect" class="form-label">Departement</label>
+                                                <select  multiple="multiple" id="DepartementSelect"  class=" form-select "  >
+                                                    <option value="" selected="selected">Sélectionnez une departement</option >
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 col-md-12">
+                                                <label for="utilisateurSelect" class="form-label">responsable d'équipe </label>
+                                                <select required="required" id="utilisateurSelect"  class="select2 form-select" name="idutilresponsabledequipe">
+                                                </select>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <small class="text-light fw-semibold">Sélectionner les membres d'équipe </small>
+                                                <div id="userCheckboxes"  class="col-md">
+
+                                                </div>
+                                            </div>
+                                            <div id="messages" class="mb-3 col-md-12">
+                                                <br>
+                                                <div th:if="${not #strings.isEmpty(msg)}" class="form-group">
+                                                    <div class="alert alert-info" th:text="${msg}"></div>
+                                                </div>
+                                                <div th:if="${not #strings.isEmpty(msg1)}" class="form-group ">
+                                                    <div class="alert alert-danger" th:text="${msg1}"></div>
+                                                </div>
+                                                <div th:if="${not #strings.isEmpty(msg2)}" class="form-group ">
+                                                    <div class="alert alert-success" th:text="${msg2}"></div>
+                                                </div>
+                                            </div>
+                                            </div>
+
+
+                                        <div class="mt-2">
+                                            <button id="sub" type="submit" class="btn btn-primary me-2">Créer</button>
+                                            <button onclick="CancelButton()" id="Cancel" type="reset" class="btn btn-outline-secondary">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- /Account -->
+                            </div>
+                            <div class="card mb-4">
+                                <div class="card-body">
+                            <table  id="example" style="width:100%" class="table table-active table-bordered" >
+                                <thead>
+                                <tr>
+                                    <th>Nom d'équipe </th>
+                                    <th>Responsable d'équipe </th>
+                                    <th>Société</th>
+                                    <th>Memebres</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody class="table-border-bottom-0">
+                                <tr th:each="p:${equipeList}">
+                                    <td><i class="fab fa-vuejs fa-lg text-success me-3"></i><strong th:text="${p.nomequipe}" ></strong></td>
+                                    <td th:text="${p.responsable !=null ?p.responsable.nom:'(Sans responsable)'}"></td>
+                                    <td th:text="${p.responsable!=null && p.responsable.societe!=null ?p.responsable.societe.nomsociete:'Sans société'}"></td>
+                                    <td>
+                                        <!-- Boucle sur les membres de l'équipe -->
+                                        <li th:each="membre : ${p.membres}" th:text="${membre.nom+' '+membre.prenom}"></li>
+                                    </td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a   class="dropdown-item" th:attr="data-id=${p.idequipe}" onclick="editEquipe(this)"
+                                                ><i class="bx bx-edit-alt me-2"></i> Edit</a
+                                                >
+                                                <a class="dropdown-item" onclick="confirmDelete(event)" th:href="@{/deleteEquipe/{id}(id=${p.idequipe})}"
+                                                ><i class="bx bx-trash me-2"></i> Delete</a
+                                                >
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                               </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Content -->
+
+
+                <div class="content-backdrop fade"></div>
+            </div>
+            <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+    </div>
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+
+<!-- Footer -->
+<footer class="content-footer footer bg-footer-theme">
+
+</footer>
+<!-- / Footer -->
+<!-- / Layout wrapper -->
+<!-- / Layout wrapper -->
+
+
+<!-- Core JS -->
+<!-- build:js assets/vendor/js/core.js -->
+<script src="/js/jquery.js"></script>
+<script src="/js/popper.js"></script>
+<script src="/js/bootstrap.js"></script>
+<script src="/js/perfect-scrollbar.js"></script>
+
+<script src="/js/menu.js"></script>
+<!-- endbuild -->
+
+<!-- Vendors JS -->
+<script src="/js/apexcharts.js"></script>
+
+<!-- Main JS -->
+<script src="/js/main.js"></script>
+
+<!-- Page JS -->
+<script src="/js/dashboards-analytics.js"></script>
+<script src="/js/pages-account-settings-account.js"></script>
+
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script src="/js/myJs.js"></script>
+
+<!-- Data table -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+<!-- liens pour les websoket + Stom . -->
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.1/dist/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- le script des websoket notification. -->
+<script src="/js/notifWebSocket.js"></script>
+
+<!--script pour les filtres -->
+<!---->
+<script type="text/javascript">
+    //______________________script1___________________
+    //un variable pour stocker tous les idutilisateur des responsables
+    var AllRespoIds=[];
+
+    //fonction  pour récupérer tous les idutilisateur des responsable
+    fetch('/getAllIdresponsable')
+        .then(response => response.json())  // Parsez la réponse en tant que JSON
+        .then(data => {
+            // Manipulez les données ici
+            //console.log(data);  // Affichez les données dans la console
+            for (var j=0;j<data.length;j++)
+            {if (data[j].responsable!=null) {AllRespoIds.push(data[j].responsable.idutilisateur)}}
+            //console.log(AllRespoIds);
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération des données :', error);
+        });
+
+    // Fonction pour récupérer les utilisateurs et les départements associés aux Societe sélectionnés
+    // $(document).ready(function() {..}) en jQuery est utilisée pour exécuter du code JavaScript lorsque:
+    // le document HTML (la page web) est entièrement chargé et prêt à être manipulé par le code JavaScript
+    $(document).ready(function()
+    {
+        $("#societeSelect").change(function() {
+            var selectedSocieteId = $(this).val();
+            if (selectedSocieteId=="")
+            {
+                document.getElementById("utilisateurSelect").innerHTML = "";
+                document.getElementById("DepartementSelect").innerHTML = "";
+                document.getElementById("userCheckboxes").innerHTML = "";
+            }else {
+                updateDepartemensOptions(selectedSocieteId);
+                updateUtilisateursOptions(selectedSocieteId);
+            }
+         });
+    });
+
+        function updateUtilisateursOptions(selectedSocieteId) {
+            // Utilisez AJAX pour obtenir la liste des départements de la société sélectionnée depuis le serveur
+            $.ajax({
+                type: "GET",
+                url: "/get-utilisateur-by-societe/" + selectedSocieteId, // Remplacez cette URL par votre endpoint
+                success: function(data)
+                {
+                    var utilisateurSelect = $("#utilisateurSelect");
+
+                    utilisateurSelect.empty(); // Efface toutes les options actuelles
+                    //ajouter une option qui permet de creer une equipe sans responsable
+                    utilisateurSelect.append(new Option("Sans responsable",-1));
+
+                    // Ajoutez les nouvelles options basées sur les données reçuesb (pour select)
+                    for (var i = 0; i < data.length; i++) {
+                        const isResbon = AllRespoIds.some(x => x == data[i].idutilisateur);
+                        if (isResbon) {continue;} // Si l'utilisateur est responsable, passez à l'itération suivante
+                        else {utilisateurSelect.append(new Option(data[i].nom, data[i].idutilisateur));}
+                        }
+
+
+                    // Effacez d'abord la liste actuelle d'utilisateurs
+                    $(".form-check").remove();
+
+                    // Ajoutez les nouvelles options basées sur les données reçues (pour chekbox)
+                    for (var i = 0; i < data.length; i++) {
+                        var utilisateur = data[i];
+                        var checkboxHtml = '<div class="form-check mt-3">' +
+                            '<input class="form-check-input" type="checkbox" id="utilisateurCheckbox' + utilisateur.idutilisateur + '" value="' + utilisateur.idutilisateur + '" name="idutilisateur" />' +
+                            '<label class="form-check-label" for="utilisateurCheckbox' + utilisateur.idutilisateur + '">' + utilisateur.nom +' '+utilisateur.prenom+ '</label>' +
+                            '</div>';
+                        $(".col-md").append(checkboxHtml);
+                    }
+             }
+            });
+       }
+
+        function updateDepartemensOptions(selectedSocieteId) {
+            // Utilisez AJAX pour obtenir la liste des départements de la société sélectionnée depuis le serveur
+            $.ajax({
+                type: "GET",
+                url: "/get-Departement-by-societe/" + selectedSocieteId, // Remplacez cette URL par votre endpoint
+                success: function(data) {
+                    var DepartementSelect = $("#DepartementSelect");
+
+                    DepartementSelect.empty(); // Efface toutes les options actuelles
+                    // Ajoutez les nouvelles options basées sur les données reçuesb (pour select)
+                    for (var i = 0; i < data.length; i++) {
+                        DepartementSelect.append(new Option(data[i].nomdepartement, data[i].iddepartement));
+                    }
+                }
+            });
+        }
+
+
+
+
+    //______________________script2___________________
+    // Fonction pour récupérer les utilisateurs associés aux départements sélectionnés
+    var departementSelect = document.getElementById('DepartementSelect');
+    const utilisateurSelect = document.getElementById('utilisateurSelect');
+    const userCheckboxes = document.getElementById('userCheckboxes');
+    var submitTexteContent=document.getElementById('sub').textContent;
+
+
+         departementSelect.addEventListener('change', () => {
+                // Récupérer les départements sélectionnés
+                //departementSelect.selectedOptions: est une propriété de l'élément <select> qui renvoie une collection de toutes les options sélectionnées.
+                //Array.from(): est utilisé pour convertir la collection renvoyée par selectedOptions en un tableau JavaScript.
+                // Les collections d'éléments DOM ne sont pas des tableaux
+                // (option => option.value). Elle prend chaque élément (dans ce cas, une option) de la collection selectedOptions et renvoie la valeur de l'attribut value de cet élément.
+                // Cela permet d'extraire la valeur de chaque option sélectionnée et de la stocker dans un nouveau tableau.
+
+                //selectedDepartements: un tableau des valeur sélectionnées
+                const selectedDepartements = Array.from(departementSelect.selectedOptions).map(option => option.value);
+
+                if (submitTexteContent=="Créer") {
+
+                    //console.log(selectedDepartements)
+                    // Appeler l'API backend pour récupérer les utilisateurs en fonction des départements sélectionnés
+                    // envoie une requête GET à l'URL /utilisateurs
+                    //selectedDepartements.join(',')prend le tableau selectedDepartementset le transforme en une chaîne en joignant ses éléments avec des virgules.["informatique", "mathematiques"]
+                    /*then(response => response.json()):cette partie du code gère la réponse. lorsque la réponse HTTP est reçue.
+                    La fonction fléchée ici prend la réponse response et utilise la méthode .json() pour extraire le contenu JSON de la réponse. */
+                    fetch(`/utilisateurs?departements=${selectedDepartements.join(',')}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Effacer le contenu actuel du select des utilisateurs
+                            utilisateurSelect.innerHTML = '';
+                            // Effacer le contenu actuel des cases à cocher des utilisateurs
+                            userCheckboxes.innerHTML = '';
+
+                            //ajouter une option qui permet de creer une equipe sans responsable
+                            utilisateurSelect.append(new Option("Sans responsable",-1));
+
+                            // Ajouter les utilisateurs récupérés au select des utilisateurs
+                            data.forEach(user => {
+                                const option = document.createElement('option');
+                                const isResbon = AllRespoIds.some(x => x == user.idutilisateur);
+                                if (isResbon ) {
+                                    return; // Si l'utilisateur est responsable, passez à l'itération suivante
+                                }
+                                option.value = user.idutilisateur; // Remplacez cela par la propriété appropriée de l'utilisateur
+                                option.text = user.nom; // Remplacez cela par la propriété appropriée de l'utilisateur
+                                utilisateurSelect.appendChild(option);
+
+                            });
+                            data.forEach(user => {
+                                const userCheckbox = document.createElement('div');
+                                userCheckbox.innerHTML = `
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="utilisateurCheckbox${user.idutilisateur}" value="${user.idutilisateur}" name="idutilisateur" />
+                        <label class="form-check-label" for="utilisateurCheckbox${user.idutilisateur}">${user.nom} ${user.prenom}</label>
+                    </div>
+                `;
+                                userCheckboxes.appendChild(userCheckbox);
+                                //console.log(typeof (user.idutilisateur));
+                            });
+                        })
+
+                        .catch(error => console.error('Erreur lors de la récupération des utilisateurs :', error));
+                }
+            });
+
+
+
+        //---------------------Script3
+    //Pour editer une equipe dans le meme formulaire
+
+    //pour le responsable d'équipe
+    var responsableVar;
+    //pour stocker les membres d'équipe
+    var MembresEquipe;
+    //un variable pour stocker l'id de departement de l'utilisateur edité;
+    var DepartementId;
+
+    function editEquipe(button){
+        const idEquipe = button.getAttribute("data-id");
+        const form = document.getElementById("formAccountSettings");
+        // Set the idDepartement input field value and update the button text
+        form.querySelector("input[name='idequipe']").value = idEquipe;
+        form.querySelector("button[type='submit']").textContent = "Mettre à jour";
+        submitTexteContent=document.getElementById('sub').textContent;
+        console.log(submitTexteContent);
+        // Fetch Domaine details using AJAX
+        $.ajax({
+            type: "GET",
+            url: `/get-Equipe/${idEquipe}`, //  API endpoint
+            success: function(data) {
+                // verifier l API retourné une format JSON
+                const nomeEquipe = data.nomequipe;
+                responsableVar = data.responsable;
+                //console.log(data);
+                // console.log(data.responsable);
+                // Pre-fill the form fields
+                form.querySelector("input[name='nomequipe']").value = nomeEquipe;
+                const select = form.querySelector("select[id='societeSelect']");
+           if (data.membres!= null || data.responsable!= null) {
+               var idSociete;
+               //Si les mambres existe
+                if (data.membres!=null){
+                    for (i = 0; i < data.membres.length; i++) {
+                        //si les membre posede une societe
+                        if (data.membres[i].societe != null) {
+                            //pour stoker l'idsociete de l'equipe edité appartir les mambres
+                            idSociete = data.membres[i].societe.idsociete;
+                            break;
+                           }
+                    }
+                }
+               //Si le responsable existe
+               if (data.responsable!= null) {
+                   //pour stoker l'idsociete de l'equipe edité appartir le respo s'il existe
+                   if (data.responsable.societe != null) {
+                       idSociete = data.responsable.societe.idsociete;
+                   }
+                   if (data.responsable.departement != null) {
+                       // pour stocke l'id de departement du responsable edité;
+                       DepartementId = data.responsable.departement.iddepartement;
+                   }
+               }
+
+               const SocieteOption = select.querySelector(`option[value="${idSociete}"]`);
+               if (SocieteOption != null) {
+                        //supprimer l'attribut selected de Societe
+                        SocieteOption.removeAttribute("selected");
+                        //donne la valeur selected pour l'attribut selected
+                        SocieteOption.setAttribute("selected", "selected");
+               }
+
+               //un variable pour stocke les departements des membres de l'equipe edité;
+               MembresEquipe = data.membres;
+
+               if (idSociete!=null)
+               {updateDepartementOptions(idSociete)}
+               else
+               {
+                   document.getElementById("utilisateurSelect").innerHTML = "";
+                   document.getElementById("DepartementSelect").innerHTML = "";
+                   $(".form-check").remove();
+               }
+                }
+            },
+            error: function(err) {
+                // Handle the error if needed
+                console.error(err);
+            }
+        });
+        scrollToTop()
+    }
+
+    //fonction pour:
+    // parcourir les Departement de la societe par l idSociete de l'equipe edité
+    // selectionné les departements des membre et de responsable de l'equipe edité
+    // et afficher les utilisateurs de lequipe edité;
+    function updateDepartementOptions(idSociete) {
+        // Utilisez AJAX pour obtenir la liste des départements de la société sélectionnée depuis le serveur
+        $.ajax({
+            type: "GET",
+            url: "/get-departements-by-societe/" + idSociete, //  endpoint
+            success: function(data1) {
+                var departementSelect = $("#DepartementSelect");
+                departementSelect.empty(); // Efface toutes les options actuelles
+
+                 //un vriable de type array pour stocker les variable selectionné
+                DepartementsSelected=[];
+
+                // Ajoutez les nouvelles options basées sur les données reçues
+                //parcourir tous les departements de la societe
+                for (var i = 0; i < data1.length; i++) {
+                    addDepartementOption(departementSelect, data1[i].nomdepartement, data1[i].iddepartement);
+
+                    if (DepartementId!=null)
+                    {
+                        // Sélectionner le département du responsable si applicable
+                        selectDepartementOption(DepartementId, data1[i].iddepartement, DepartementsSelected);
+                    }
+                    //selectionner les departements des membres
+                    selectDepartementOptionsForMembers(data1[i].iddepartement, MembresEquipe, DepartementsSelected);
+                }
+                // Appeler la fonction pour afficher les utilisateurs des départements sélectionnés
+                displayUsersForSelectedDepartements(DepartementsSelected);
+
+                //pour afficher les utilisateurs des départements sélectionnés lorsque je navige entre les departement
+                departementSelect = document.getElementById('DepartementSelect');
+                departementSelect.addEventListener('change', () => {
+                    //selectedDepartements: un tableau des valeur sélectionnées
+                    const selectedDepartements = Array.from(departementSelect.selectedOptions).map(option => option.value);
+
+                    if (submitTexteContent=="Mettre à jour") {
+                        // Fonction pour afficher les utilisateurs des départements sélectionnés lorsque je navige entre les departement
+                        displayUsersWhenTheDepartementSelectedSavingTheMembersChecked(selectedDepartements)
+                    }
+                });
+            }
+        });
+    }
+
+    // Fonction pour ajouter une option de département
+    function addDepartementOption(selectElement, nomDepartement, idDepartement) {
+        selectElement.append(new Option(nomDepartement, idDepartement));
+    }
+
+    // Fonction pour sélectionner une option de département
+    function selectDepartementOption(selectedId, optionId, selectedDepartements) {
+        if (selectedId == optionId) {
+            const select3 = document.querySelector("select[id='DepartementSelect']");
+            var departementOption = select3.querySelector(`option[value="${optionId}"]`);
+            departementOption.setAttribute("selected", "selected");
+            selectedDepartements.push(optionId);
+        }
+    }
+
+    // Fonction pour sélectionner les options de département pour les membres d'équipe
+    function selectDepartementOptionsForMembers(optionId, membresEquipe, selectedDepartements) {
+        for (var j = 0; j < membresEquipe.length; j++) {
+            if (membresEquipe[j].departement != null && membresEquipe[j].departement.iddepartement == optionId) {
+                const select3 = document.querySelector("select[id='DepartementSelect']");
+                var departementOption = select3.querySelector(`option[value="${membresEquipe[j].departement.iddepartement}"]`);
+                departementOption.setAttribute("selected", "selected");
+                selectedDepartements.push(membresEquipe[j].departement.iddepartement);
+            }
+        }
+    }
+
+
+    // Fonction pour afficher les utilisateurs des départements sélectionnés de l equipe edité
+    function displayUsersForSelectedDepartements(selectedDepartements) {
+        fetch(`/utilisateurs?departements=${DepartementsSelected.join(',')}`)
+            .then(response => response.json())
+            .then(data => {
+
+                // Effacer le contenu actuel du select des utilisateurs
+                utilisateurSelect.innerHTML = '';
+                // Effacer le contenu actuel des cases à cocher des utilisateurs
+                userCheckboxes.innerHTML = '';
+
+                var isResbonsable;
+                //ajouter une option qui permet de creer une equipe sans responsable (idresponsable=null)
+                utilisateurSelect.append(new Option("Sans responsable",-1));
+                //parcourir les utilisateur des departements selectionné
+                data.forEach(user => {
+                    //afficher les utilisateur des departements selectionné
+                    const option = document.createElement('option');
+                    if (responsableVar != null) {
+                        if (user.idutilisateur == responsableVar.idutilisateur) {
+                            option.selected = true;
+                        }
+                    }
+
+                    const isResbonsable = AllRespoIds.some(x => x == user.idutilisateur);
+                    if (isResbonsable && responsableVar!=null && user.idutilisateur != responsableVar.idutilisateur) {
+                        return; // Si l'utilisateur est responsable, passez à l'itération suivante
+                    }
+
+                    if (isResbonsable && responsableVar==null ) {
+                        return; // Si l'utilisateur est responsable, passez à l'itération suivante
+                    }
+
+                    option.value = user.idutilisateur;
+                    option.text = user.nom;
+                    utilisateurSelect.appendChild(option);
+
+
+
+
+                });
+                data.forEach(user => {
+                    //verifier si l utilisateur est membre de cette equipe ou non
+                    const isMember = MembresEquipe.some(membre => membre.idutilisateur === user.idutilisateur);
+
+                    //selectionner le checkbox si l utilisateur est un membre cette equipe
+                    const userCheckbox = document.createElement('div');
+                    userCheckbox.innerHTML = `
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="utilisateurCheckbox${user.idutilisateur}" value="${user.idutilisateur}" name="idutilisateur" ${isMember ? 'checked="checked"' : ''} />
+                        <label class="form-check-label" for="utilisateurCheckbox${user.idutilisateur}">${user.nom} ${user.prenom}</label>
+                    </div>`;
+
+                    userCheckboxes.appendChild(userCheckbox);
+                });
+
+            });
+    }
+
+   // Fonction pour afficher les utilisateurs des départements sélectionnés lorsque je navige entre les departement
+    function displayUsersWhenTheDepartementSelectedSavingTheMembersChecked(selectedDepartements) {
+        fetch(`/utilisateurs?departements=${selectedDepartements.join(',')}`)
+            .then(response => response.json())
+            .then(data => {
+                // Effacer le contenu actuel du select des utilisateurs
+                utilisateurSelect.innerHTML = '';
+                // Effacer le contenu actuel des cases à cocher des utilisateurs
+                userCheckboxes.innerHTML = '';
+
+                // Ajoutez les nouvelles options basées sur les données reçuesb (pour select)
+                utilisateurSelect.append(new Option("Sans responsable",-1));
+
+                // Ajouter les utilisateurs récupérés au select des utilisateurs
+                data.forEach(user => {
+                    const option = document.createElement('option');
+                    if (responsableVar != null) {
+                        if (user.idutilisateur == responsableVar.idutilisateur) {
+                            option.selected = true;
+                        }
+                    }
+                    const isResbonsable = AllRespoIds.some(x => x == user.idutilisateur);
+                    if (isResbonsable && responsableVar!=null && user.idutilisateur != responsableVar.idutilisateur) {
+                        return; // Si l'utilisateur est responsable, passez à l'itération suivante
+                    }
+
+                    if (isResbonsable && responsableVar==null ) {
+                        return; // Si l'utilisateur est responsable, passez à l'itération suivante
+                    }
+                    option.value = user.idutilisateur; // Remplacez cela par la propriété appropriée de l'utilisateur
+                    option.text = user.nom; // Remplacez cela par la propriété appropriée de l'utilisateur
+                    utilisateurSelect.appendChild(option);
+                });
+                data.forEach(user => {
+                    //verifier si l utilisateur est membre de cette equipe ou non
+                    const isMember = MembresEquipe.some(membre => membre.idutilisateur === user.idutilisateur);
+
+                    //selectionner le checkbox si l utilisateur est un membre cette equipe
+                    const userCheckbox = document.createElement('div');
+                    userCheckbox.innerHTML = `
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="utilisateurCheckbox${user.idutilisateur}" value="${user.idutilisateur}" name="idutilisateur" ${isMember ? 'checked="checked"' : ''} />
+                                                            <label class="form-check-label" for="utilisateurCheckbox${user.idutilisateur}">${user.nom} ${user.prenom}</label>
+                                                        </div>`;
+
+                    userCheckboxes.appendChild(userCheckbox);
+                    //console.log(typeof (user.idutilisateur));
+                });
+            })
+
+            .catch(error => console.error('Erreur lors de la récupération des utilisateurs :', error));
+    }
+
+        //fonction permet de défiler la page vers le haut lorsque l'utilisateur clique sur un bouton
+    function scrollToTop(){
+        window.scrollTo({
+            top: 0, // La position en pixels en haut de la page
+            behavior: "smooth" // Option pour un défilement fluide
+        });
+    }
+
+    //-----fonction pour la button cancel
+     function CancelButton()
+    {
+        const form = document.getElementById("formAccountSettings");
+        document.getElementById("idequipe").value = null;
+        document.getElementById("utilisateurSelect").innerHTML = "";
+        document.getElementById("DepartementSelect").innerHTML = "";
+        $(".form-check").remove();
+        form.querySelector("button[type='submit']").textContent = "Créer";
+    }
+
+    //pour les filtre du tab avec DataTable
+    new DataTable('#example');
+
+
+</script>
+
+
+</body>
+</html>
