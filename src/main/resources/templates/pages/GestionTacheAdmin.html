@@ -181,7 +181,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-sm-end py-0 overflow-auto mb-4">
                                 <li><a class="dropdown-item" th:href="@{/Memoir}" >
-                                    <i class='bx bx-notepad'></i> Memoir
+                                    <i class='bx bx-notepad'></i> Mémoire
                                 </a>
                                 </li>
                                 <!--Mon Equipe-->
@@ -212,7 +212,7 @@
                                     </a>
                                     </li>
                                     <li><a class="dropdown-item" th:href="@{/gestionEquipe}">
-                                        <i class="bx bxs-user-account me-1"></i> Equipes
+                                        <i class="bx bxs-user-account me-1"></i> Équipes
                                     </a>
                                     </li>
                                     <li><a class="dropdown-item"  th:href="@{/GestionTacheAdmin}">
@@ -410,22 +410,43 @@
 </div>
 <!-- /Extra Large Modal pour Creer une Tache -->
 
-<!-- content div-->
-<div class="container-fluid h-auto">
-    <div class="content-wrapper">
-        <!--chemin-->
-        <h6 class="fw-bold fw-bold py-0  my-0">
+<div class="d-flex justify-content-between">
+    <!--chemin-->
+    <h6 class="fw-bold fw-bold" style="margin-left: 20px;">
         <span class="text-muted fw-light">
          <i class="bx bx-cog" style="margin-right: 5px;"></i>
             Administration /</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ui-checks" viewBox="0 0 16 16">
-                <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
-            </svg>
-            Tâches
-        </h6>
-        <!--/chemin-->
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ui-checks" viewBox="0 0 16 16">
+            <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+        </svg>
+        Tâches
+    </h6>
+    <!--/chemin-->
+
+    <!--Filtre-->
+    <div class="d-flex flex-row-reverse bd-highlight " style="margin-right: 20px;">
+        <button
+                class="btn btn-sm btn-secondary me-1 mb-1"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseExample"
+                aria-expanded="false"
+                aria-controls="collapseExample"
+        >
+            <i class='bx bxs-filter-alt'></i> Filtre
+        </button>
+    </div>
+    <!--/Filtre-->
+
+</div>
+
+
+<!-- content div-->
+<div class="container-fluid h-auto">
+    <div class="content-wrapper">
+
         <!-- Content -->
-        <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="container-xxl flex-grow-1 " STYLE="padding-top: 0px;margin-top: 2px;padding:0px;">
 
             <div class="row">
                 <div class="col-md-12">
@@ -655,7 +676,7 @@
                                             class="btn btn-outline-secondary"
                                             onclick="annuler()"
                                             data-bs-dismiss="modal"
-                                    >Annuler</button>
+                                    >Annuler  </button>
                                 </div>
                                 </form>
                             </div>
@@ -682,7 +703,7 @@
                                 </div>
                             </div>
                             <div class="table-responsive text-nowrap">
-                                <div class="row">
+                                <!--                                <div class="row">
                                     <div class="col-3">
                                         <label for="membreSelect" class="form-label">Sélectionner un utilisateur </label>
                                         <select  multiple="multiple" id="membreSelect"  class=" form-select"  >
@@ -712,6 +733,113 @@
                                         <input class="form-control" type="date"  id="dateMaxSelect" >
                                     </div>
                                 </div>
+ -->
+                                <!--collapseExample-->
+                                <div class="collapse" id="collapseExample">
+
+                                    <div class="row g-3 d-flex justify-content-between">
+                                        <div class="col-3">
+                                            <label for="membreSelect" class="form-label">utilisateur</label>
+                                            <select  multiple="multiple" id="membreSelect"  class=" form-select"  >
+                                                <option value="" selected="selected">Tout sélectionner</option >
+                                                <option th:each="p:${utilisateurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-3">
+                                            <label for="statutSelect" class="form-label">Statut</label>
+                                            <select  multiple="multiple" id="statutSelect"  class=" form-select">
+                                                <option value="" selected="selected">Tout sélectionner</option>
+                                                <option value="Valide" >Validé</option>
+                                                <option value="Termine" >Terminé</option>
+                                                <option value="En cours" >En cours</option>
+                                                <option value="En attente" >En attente</option>
+                                                <option value="Programme" >Programme</option>
+                                                <option value="Refaire" >Refaire</option>
+                                                <option value="Annuler" >Annuleé</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-4 ">
+                                            <label class="form-label">Date</label>
+                                            <ul class="nav nav-tabs nav-fill" role="tablist">
+                                                <li class="nav-item">
+                                                    <button STYLE="weight: 7px;"
+                                                            type="button"
+                                                            class="nav-link active small"
+                                                            role="tab"
+                                                            data-bs-toggle="tab"
+                                                            data-bs-target="#navs-justified-home"
+                                                            aria-controls="navs-justified-home"
+                                                            aria-selected="true"
+                                                    >
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-open" viewBox="0 0 16 16">
+                                                            <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882zM15 7.383l-4.778 2.867L15 13.117zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765z"/>
+                                                        </svg> Ouverture
+                                                    </button>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <button STYLE="weight: 20px;"
+                                                            type="button"
+                                                            class="nav-link small"
+                                                            role="tab"
+                                                            data-bs-toggle="tab"
+                                                            data-bs-target="#navs-justified-profile"
+                                                            aria-controls="navs-justified-profile"
+                                                            aria-selected="false"
+                                                    >
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar4-event" viewBox="0 0 16 16">
+                                                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                                                            <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+                                                        </svg> Objectif
+                                                    </button>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <button STYLE="weight: 20px;"
+                                                            type="button"
+                                                            class="nav-link small"
+                                                            role="tab"
+                                                            data-bs-toggle="tab"
+                                                            data-bs-target="#navs-justified-messages"
+                                                            aria-controls="navs-justified-messages"
+                                                            aria-selected="false"
+                                                    >
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
+                                                            <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                                                        </svg> Cloture
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade show active" id="navs-justified-home" role="tabpanel">
+                                                    <div class="d-flex justify-content-between row g-4">
+                                                        <div class="col-2">
+                                                            <label for="dateMinSelect" class="form-label">De :</label>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input class="form-control" type="date"  id="dateMinSelect">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <label  for="dateMaxSelect" class="form-label">À :</label>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <input class="form-control" type="date"  id="dateMaxSelect" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="navs-justified-profile" role="tabpanel">
+                                                    <p>
+                                                        test2
+                                                    </p>
+                                                </div>
+                                                <div class="tab-pane fade" id="navs-justified-messages" role="tabpanel">
+                                                    <p class="mb-0">
+                                                        test3
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--collapseExample-->
                                 <br>
                                 <table  id="example" style="width:100%" class="table table-bordered table-sm">
                                     <thead>
@@ -768,7 +896,7 @@
                                             data-bs-offset="0,4"
                                             data-bs-placement="top"
                                             data-bs-html="true"
-                                            title="<span>Recepteur</span>"
+                                            title="<span>Récepteur</span>"
                                         > <!--Recepteur-->
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-arrow-down-fill" viewBox="0 0 16 16">
                                                 <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zm.192 8.159 6.57-4.027L8 9.586l1.239-.757.367.225A4.49 4.49 0 0 0 8 12.5c0 .526.09 1.03.256 1.5H2a2 2 0 0 1-1.808-1.144M16 4.697v4.974A4.5 4.5 0 0 0 12.5 8a4.5 4.5 0 0 0-1.965.45l-.338-.207z"/>
