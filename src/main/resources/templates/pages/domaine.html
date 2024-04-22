@@ -414,42 +414,49 @@
 </div>
 <!--/ Extra Large Modal pour Creer une Tache -->
 
+<div class="d-flex justify-content-between">
+
+    <!--chemin-->
+    <P class="fw-bold   "  style="margin-left: 20px;">
+        <span class="text-muted fw-light">
+         <i class="bx bx-cog" style="margin-right: 5px;"></i>
+            Administration /</span>
+        <i class="bx bx-briefcase me-1"></i>Domaines
+    </P>
+    <!--/chemin-->
+
+
+    <ul class="nav nav-pills flex-column flex-md-row " style="margin-right: 20px;">
+        <li>
+            <!-- Vertically Centered Modal -->
+            <!-- Button trigger modal -->
+            <button
+                    type="button"
+                    class="btn btn-sm  me-1 mb-1  btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalCenter"
+                    id="creerDomaine"
+
+            >
+                <i class="bx bx-add-to-queue me-1"></i> Créer un Domaine
+            </button>
+        </li>
+
+    </ul>
+
+</div>
+
 
 <!-- content div-->
 <div class="container-fluid h-auto">
     <div class="content-wrapper">
-        <!--chemin-->
-        <h6 class="fw-bold fw-bold py-0  my-0">
-        <span class="text-muted fw-light">
-         <i class="bx bx-cog" style="margin-right: 5px;"></i>
-            Administration /</span>
-            <i class="bx bx-briefcase me-1"></i>Domaines
-        </h6>
-        <!--/chemin-->
+
         <!-- Content -->
-        <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="container-xxl flex-grow-1 " STYLE="padding-top: 0px;margin-top: 2px;padding:0px;">
 
             <div class="row">
+
                 <div class="col-md-12">
-                    <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                        <li>
-                            <!-- Vertically Centered Modal -->
-                            <!-- Button trigger modal -->
-                            <button
-                                    type="button"
-                                    class="btn btn-primary"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modalCenter"
-                                    id="creerDomaine"
-
-                            >
-                                <i class="bx bx-add-to-queue me-1"></i> Créer un Domaine
-                            </button>
-                        </li>
-
-                    </ul>
-
-
                     <!-- Modal -->
                     <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -502,10 +509,7 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
