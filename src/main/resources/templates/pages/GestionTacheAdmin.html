@@ -891,49 +891,6 @@
                                         </th>                                    </tr>
                                     </thead>
                                     <tbody  class="table-border" id="tbody">
-                                    <!--<tr th:each="p:${tacheList}">
-                                        <td style=" display: flex;">
-                                            <p th:text="${p.nomtache}" style="white-space: pre-wrap;margin: 0;max-width: 170px;min-height: 35px;height: auto"></p>
-                                        </td>
-
-                                        <td th:text="${p.idtache}"></td>
-                                        <td th:text="${p.tacheparente != null ? p.tacheparente.idtache: ''}"></td>
-                                        <td th:text="${p.utilisateur != null ? p.utilisateur.prenom + ' ' + p.utilisateur.nom : ''}"></td>
-                                        <td th:text="${p.recepteur != null ? p.recepteur.prenom + ' ' + p.recepteur.nom : ''}"></td>
-                                        <td th:text="${p.priorite != null ? p.priorite.nompriorite: ''}"></td>
-                                        <td th:text="${p.dateobjectif != null ? #dates.format(p.dateobjectif, 'dd/MM/yy') : ''}"></td>
-                                        <td th:text="${p.dateouverture != null ? #dates.format(p.dateouverture, 'dd/MM/yy') : ''}"></td>
-                                        <td th:text="${p.dureestime != null ? p.dureestime : ''}"></td>
-                                        <td th:text="${p.dateTermineTache != null ? #dates.format(p.dateTermineTache, 'dd/MM/yy') : ''}"></td>
-
-                                        <td>
-                                            <span th:if="${p.statut =='En cours'}" class=" btn btn-xs bg-label-info  me-1 ">En cours</span>
-                                            <span th:if="${p.statut == 'Termine'}"  class="btn btn-xs bg-label-success me-1">Terminé</span>
-                                            <span th:if="${p.statut == 'Programme'}" class="btn btn-xs bg-label-primary me-1">Programmé</span>
-                                            <span th:if="${p.statut == 'Valide'}" class="btn btn-xs bg-label-secondary me-1">Validé</span>
-                                            <span th:if="${p.statut == 'Refaire'}" class="btn btn-xs bg-label-danger me-1">Refaire</span>
-                                            <span th:if="${p.statut =='En attente'}" class="btn btn-xs bg-label-warning me-1">En attente</span>
-                                            <span th:if="${p.statut =='Annuler'}" class="btn btn-xs bg-dark me-1" style="color: white !important;">Annulée</span>
-                                        </td>
-                                        <td th:text="${p.dureretarde != null  && p.dureretarde>=0  ? p.dureretarde : ''}"></td>
-                                        <td th:text="${p.performance != null ? p.performance : '(Non défini)'}"></td>
-                                        <td th:text="${p.performance != null ? p.aunetachesuccessive : '(Non défini)'}"></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a  class="dropdown-item" th:attr="data-id=${p.idtache}" onclick="editerTache(this)"
-                                                    ><i class="bx bx-edit-alt me-2"></i> Éditer</a>
-
-                                                    <a class="dropdown-item"  onclick="confirmDelete(event)" th:href="@{/deleteTache/{id}(id=${p.idtache})}">
-                                                        <i class="bx bx-trash me-2"></i> Supprimer</a>
-
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>-->
                                     </tbody>
                                 </table>
                             </div>
