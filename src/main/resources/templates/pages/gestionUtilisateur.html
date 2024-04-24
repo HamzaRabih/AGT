@@ -598,6 +598,7 @@
                     <th>departement</th>
                     <th>Domaine</th>
                     <th>Role</th>
+                    <th>Actif</th>
                     <th>Actions</th>
                   </tr>
                   </thead>
@@ -606,10 +607,11 @@
                     <td th:text="${p.nom}" ></td>
                     <td th:text="${p.prenom}"  ></td>
                     <td  th:text="${p.mail}" ></td>
-                    <td th:text="${p.societe != null ? p.societe.nomsociete : '(sans société)'}"></td>
-                    <td th:text="${p.departement != null ? p.departement.nomdepartement : '(sans departement)'}"></td>
-                    <td th:text="${p.domaine != null ? p.domaine.nomdomaine : '(sans domaine)'}"></td>
-                    <td th:text="${p.role != null ? p.role.role:'(sans Role)'}"></td>
+                    <td th:text="${p.societe != null ? p.societe.nomsociete : ''}"></td>
+                    <td th:text="${p.departement != null ? p.departement.nomdepartement : ''}"></td>
+                    <td th:text="${p.domaine != null ? p.domaine.nomdomaine : ''}"></td>
+                    <td th:text="${p.role != null ? p.role.role:''}"></td>
+                    <td th:text="${p.actif == true  ? '✔':'✘'}"></td>
                     <td>
                       <div class="dropdown">
                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

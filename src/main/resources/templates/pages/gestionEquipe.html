@@ -646,6 +646,23 @@
     //______________________script1___________________
     //un variable pour stocker tous les idutilisateur des responsables
     var AllRespoIds=[];
+    var departementSelect = document.getElementById('DepartementSelect');
+    const utilisateurSelect = document.getElementById('utilisateurSelect');
+    const userCheckboxes = document.getElementById('userCheckboxes');
+    var submitTexteContent=document.getElementById('sub').textContent;
+    var LesSuperieurs=[];
+    var utilisateurMembrePourChekBoxe=[];
+    //pour le responsable d'équipe
+    var responsableVar;
+    //pour stocker les membres d'équipe
+    var MembresEquipe;
+    //un variable pour stocker l'id de departement de l'utilisateur edité;
+    var DepartementId;
+
+    var selectedSociete;
+
+    var utilisateursDeSocieteSelectionne;
+
 
     //fonction pour récupérer tous les idutilisateur des responsable
     fetch('getAllIdresponsable')
@@ -668,6 +685,7 @@
     {
         $("#societeSelect").change(function() {
             var selectedSocieteId = $(this).val();
+
             if (selectedSocieteId=="")
             {
                 document.getElementById("utilisateurSelect").innerHTML = "";
@@ -712,12 +730,20 @@
                             '<label class="form-check-label" for="utilisateurCheckbox' + utilisateur.idutilisateur + '">' + utilisateur.nom +' '+utilisateur.prenom+ '</label>' +
                             '</div>';
                         $(".col-md").append(checkboxHtml);
+
                     }
-             }
+                        selectedSociete=utilisateur.societe;
+                    console.log(selectedSociete.nomsociete);
+                    utilisateursDeSocieteSelectionne=data;
+
+                }
+
             });
        }
 
-        function updateDepartemensOptions(selectedSocieteId) {
+
+
+    function updateDepartemensOptions(selectedSocieteId) {
             // Utilisez AJAX pour obtenir la liste des départements de la société sélectionnée depuis le serveur
             $.ajax({
                 type: "GET",
@@ -729,7 +755,9 @@
                     // Ajoutez les nouvelles options basées sur les données reçuesb (pour select)
                     for (var i = 0; i < data.length; i++) {
                         DepartementSelect.append(new Option(data[i].nomdepartement, data[i].iddepartement));
+
                     }
+                    //sotocker la societé selectionné
                 }
             });
         }
@@ -739,12 +767,7 @@
 
     //______________________script2___________________
     // Fonction pour récupérer les utilisateurs associés aux départements sélectionnés
-    var departementSelect = document.getElementById('DepartementSelect');
-    const utilisateurSelect = document.getElementById('utilisateurSelect');
-    const userCheckboxes = document.getElementById('userCheckboxes');
-    var submitTexteContent=document.getElementById('sub').textContent;
-    var LesSuperieurs=[];
-    var utilisateurMembrePourChekBoxe;
+
 
          departementSelect.addEventListener('change', () => {
                 // Récupérer les départements sélectionnés
@@ -808,6 +831,9 @@
             });
 
 
+
+
+
     // Fonction pour éviter qu'un utilisateur soit responsable envers ses supérieurs
     utilisateurSelect.addEventListener('change', () => {
         // Récupérer l'ID de l'utilisateur sélectionné
@@ -830,8 +856,11 @@
                 data.forEach(x=>{
                     ListeSuperieur.push(x.idutilisateur);
                 })
+
+                  //  console.log(utilisateursDeSocieteSelectionne)
+
                 // Parcourir tous les utilisateurs membres pour les cases à cocher
-                utilisateurMembrePourChekBoxe.forEach(user => {
+                utilisateursDeSocieteSelectionne.forEach(user => {
                     // Vérifier si l'utilisateur actuel est un supérieur
                     const isSuperieur = ListeSuperieur.some(x => x == user.idutilisateur);
                     if (!isSuperieur) {
@@ -858,13 +887,6 @@
 
     //---------------------Script3
     //Pour editer une equipe dans le meme formulaire
-
-    //pour le responsable d'équipe
-    var responsableVar;
-    //pour stocker les membres d'équipe
-    var MembresEquipe;
-    //un variable pour stocker l'id de departement de l'utilisateur edité;
-    var DepartementId;
 
     function editEquipe(button){
         const idEquipe = button.getAttribute("data-id");

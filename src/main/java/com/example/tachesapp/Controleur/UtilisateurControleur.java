@@ -59,8 +59,15 @@ EquipeService equipeService;
     @Autowired
     PrioriteRepo prioriteRepo;
 
+    // Constantes
+    private static final String MAIL_EXISTE_DEJA = "Ce mail existe déjà. Veuillez saisir une nouvelle adresse mail.";
+    private static final String UTILISATEUR_AJOUTE = "Utilisateur ajouté avec succès.";
+    private static final String UTILISATEUR_MODIFIE = "L'utilisateur a été modifié avec succès.";
 
-//--------------------------------------------------- Administration
+
+
+
+    //--------------------------------------------------- Administration
 //----gestion utilisateur
     //Affichage
     @GetMapping("/gestUtilisateur")
@@ -128,60 +135,52 @@ EquipeService equipeService;
 // Créer ou mettre à jour un Utilisateur
 // -----------------------------------
     @PostMapping("/CreateUtilisateur")
-    public String CreeUtilisateur(@ModelAttribute Utilisateur utilisateur, RedirectAttributes redirectAttributes, Authentication authentication) {
-        // Récupérer l'utilisateur connecté
+    public String creerUtilisateur(@ModelAttribute Utilisateur utilisateur, RedirectAttributes redirectAttributes, Authentication authentication) {
         String login = authentication.getName();
         Utilisateur utilisateurConnecte = utilisateurRepo.findUtilisateursByMail(login);
 
-        /*
-        // Hasher le mot de passe
-        String hashedPassword = new BCryptPasswordEncoder().encode(utilisateur.getMotdepasse());
-        utilisateur.setMotdepasse(hashedPassword);
-         */
+        if (utilisateur.getIdutilisateur() == null) {
+            creerNouvelUtilisateur(utilisateur, utilisateurConnecte, redirectAttributes);
+        } else {
+            modifierUtilisateur(utilisateur, utilisateurConnecte, redirectAttributes);
+        }
 
-        //verifier si le mail  est existe
-        Boolean existsByMail=utilisateurRepo.existsByMail(utilisateur.getMail());
-
-
-
-            // DéTerminer si c'est une mise à jour ou une création
-            if (utilisateur.getIdutilisateur() == null) {
-                // Cas de la création
-                if (existsByMail) {
-                    // si le mail  est existe déjà
-                    redirectAttributes.addFlashAttribute("msgError", "Ce mail existe déjà. Veuillez saisir une nouvelle adresse mail.");
-                } else {
-                    //sinon
-                    utilisateur.setCreerpar(utilisateurConnecte);
-                    utilisateurRepo.save(utilisateur);
-                    redirectAttributes.addFlashAttribute("msg", "Utilisateur ajouté avec succès.");
-                }
-            } else {
-                // Cas de la mise à jour
-                Utilisateur utilisateurExist = utilisateurRepo.findById(utilisateur.getIdutilisateur()).orElse(null);
-                // Réinitialiser creerpar pour éviter qu'il devienne null lors de la mise à jour
-                utilisateurExist.setCreerpar(utilisateurExist.getCreerpar());
-                // Mettre à jour le reste des champs
-                utilisateurExist.setModifierpar(utilisateurConnecte);
-                // Mettre à jour le reste des champs
-                utilisateurExist.setNom(utilisateur.getNom());
-                utilisateurExist.setMail(utilisateur.getMail());
-                utilisateurExist.setMotdepasse(utilisateur.getMotdepasse());
-                utilisateurExist.setSociete(utilisateur.getSociete());
-                utilisateurExist.setDomaine(utilisateur.getDomaine());
-                utilisateurExist.setDepartement(utilisateur.getDepartement());
-                utilisateurExist.setPrenom(utilisateur.getPrenom());
-                utilisateurExist.setActif(utilisateur.isActif());
-                utilisateurExist.setRole(utilisateur.getRole());
-
-                utilisateur.setDepartement(utilisateur.getDepartement());
-                 utilisateurRepo.save(utilisateurExist);
-                redirectAttributes.addFlashAttribute("msg2", "L'utilisateur a été modifié avec succès.");
-
-            }
-
-        // Redirection
         return "redirect:/gestUtilisateur";
+    }
+
+    private void creerNouvelUtilisateur(Utilisateur utilisateur, Utilisateur utilisateurConnecte, RedirectAttributes redirectAttributes) {
+        Boolean existsByMail = utilisateurRepo.existsByMail(utilisateur.getMail());
+        if (existsByMail) {
+            redirectAttributes.addFlashAttribute("msgError", MAIL_EXISTE_DEJA);
+        } else {
+            utilisateur.setCreerpar(utilisateurConnecte);
+            utilisateurRepo.save(utilisateur);
+            redirectAttributes.addFlashAttribute("msg", UTILISATEUR_AJOUTE);
+        }
+    }
+
+    private void modifierUtilisateur(Utilisateur nouvelleUtilisateur, Utilisateur utilisateurConnecte, RedirectAttributes redirectAttributes) {
+        Utilisateur utilisateurAModifie = utilisateurRepo.findByIdutilisateur(nouvelleUtilisateur.getIdutilisateur());
+        Boolean existsByMail = utilisateurRepo.existsByMailAndIdutilisateurNot(nouvelleUtilisateur.getMail(), utilisateurAModifie.getIdutilisateur());
+
+        if (existsByMail) {
+            redirectAttributes.addFlashAttribute("msgError", MAIL_EXISTE_DEJA);
+        } else {
+            utilisateurAModifie.setCreerpar(utilisateurConnecte.getCreerpar());
+            utilisateurAModifie.setModifierpar(utilisateurConnecte);
+            utilisateurAModifie.setNom(nouvelleUtilisateur.getNom());
+            utilisateurAModifie.setMail(nouvelleUtilisateur.getMail());
+            utilisateurAModifie.setMotdepasse(nouvelleUtilisateur.getMotdepasse());
+            utilisateurAModifie.setSociete(nouvelleUtilisateur.getSociete());
+            utilisateurAModifie.setDomaine(nouvelleUtilisateur.getDomaine());
+            utilisateurAModifie.setDepartement(nouvelleUtilisateur.getDepartement());
+            utilisateurAModifie.setPrenom(nouvelleUtilisateur.getPrenom());
+            utilisateurAModifie.setActif(nouvelleUtilisateur.isActif());
+            utilisateurAModifie.setRole(nouvelleUtilisateur.getRole());
+
+            utilisateurRepo.save(utilisateurAModifie);
+            redirectAttributes.addFlashAttribute("msg2", UTILISATEUR_MODIFIE);
+        }
     }
 
 

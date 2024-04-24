@@ -23,4 +23,6 @@ public interface DepartementRepo extends JpaRepository<Departement,Long> {
 
 
     public  boolean existsByNomdepartementAndSociete(String dep,Societe societe);
+
+    Boolean existsByNomdepartementAndSocieteAndIddepartementNot(String nomdepartement, Societe societe,Long iddepartement);
 }

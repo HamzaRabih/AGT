@@ -12,6 +12,7 @@ public interface DomaineRepo extends JpaRepository<Domaine,Long> {
 
     public Domaine save(Domaine domaine);
 
+
     public List<Domaine> findAll();
 
     public List<Domaine> findAllByOrderByNomdomaine();
@@ -22,5 +23,5 @@ public interface DomaineRepo extends JpaRepository<Domaine,Long> {
     public  boolean existsByNomdomaine(String nom);
 
 
-
+    Boolean existsByNomdomaineAndIddomaineNot(String nomdomaine, Long iddomaine);
 }

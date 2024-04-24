@@ -1967,7 +1967,12 @@
         newRow.appendChild(cellPerformance);
 
         var cellTacheSucc = document.createElement("td");
-        cellTacheSucc.innerText = tache.aunetachesuccessive;
+        if (tache.aunetachesuccessive) {
+            cellTacheSucc.innerText = '✔';
+        } else {
+            cellTacheSucc.innerText = '✘';
+        }
+        //cellTacheSucc.innerText = tache.aunetachesuccessive;
         newRow.appendChild(cellTacheSucc);
 
         var cellAction = creationTdAction(tache);

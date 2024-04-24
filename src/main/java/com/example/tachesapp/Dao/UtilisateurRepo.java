@@ -41,5 +41,7 @@ public interface UtilisateurRepo extends JpaRepository<Utilisateur,Long> {
 
     public Long countBySociete(Societe societe);
 
+    public boolean existsByMailAndIdutilisateurNot(String mail,Long id);
+
 
 }

@@ -37,6 +37,13 @@ public class DepartemenControleur {
     @Autowired
     TacheService tacheService;
 
+    // Constantes
+    private static final String DEPARTEMENT_EXISTE_DEJA = "Cette département existe déjà dans la société.";
+    private static final String DEPARTEMENT_AJOUTE = "Département ajoutée avec succès";
+    private static final String DEPARTEMENT_MODIFIE = "La département a été modifiée avec succès.";
+
+
+
     //l'Affichage de la page departement.html
     @GetMapping("/departement")
     public String departement (Model model,Authentication authentication)
@@ -98,6 +105,8 @@ public class DepartemenControleur {
     }
 
 
+
+
     //Supprimer une departement
     @Transactional
     @GetMapping(value = "/deleteDepartement/{id}")
@@ -120,6 +129,73 @@ public class DepartemenControleur {
 
      //créér ou mettre a jour Departement
     @PostMapping("/CreateDepartement")
+    public String creerDomaine(@ModelAttribute Departement departement, RedirectAttributes redirectAttributes, Authentication authentication) {
+        String login = authentication.getName();
+        Utilisateur utilisateurConnecte = utilisateurRepo.findUtilisateursByMail(login);
+
+        //verifier si le DOMAINE  est existe
+        Boolean existsByNomDepAndSociete=departementRepo.existsByNomdepartementAndSociete(departement.getNomdepartement(),departement.getSociete());
+
+        if (departement.getIddepartement() == null) {
+            creerNouvelDepartement(departement, utilisateurConnecte, redirectAttributes);
+        } else {
+            modifierDepartement(departement, utilisateurConnecte, redirectAttributes);
+        }
+
+        return "redirect:/departement";
+    }
+
+    private void creerNouvelDepartement(Departement departement, Utilisateur utilisateurConnecte, RedirectAttributes redirectAttributes) {
+        Boolean existsByNomDepAndSociete=departementRepo.existsByNomdepartementAndSociete(departement.getNomdepartement(),departement.getSociete());
+        if (existsByNomDepAndSociete) {
+            redirectAttributes.addFlashAttribute("msgError", DEPARTEMENT_EXISTE_DEJA);
+        } else {
+            departement.setCreerpar(utilisateurConnecte);
+            departementRepo.save(departement);
+            redirectAttributes.addFlashAttribute("msg", DEPARTEMENT_AJOUTE);
+        }
+    }
+
+    private void modifierDepartement(Departement  nouvelleDepartement, Utilisateur utilisateurConnecte, RedirectAttributes redirectAttributes) {
+        Departement departementAModifie = departementRepo.findById(nouvelleDepartement.getIddepartement()).orElse(null);
+
+        Boolean existsByNomDepAndSociete = departementRepo.existsByNomdepartementAndSocieteAndIddepartementNot(nouvelleDepartement.getNomdepartement(),nouvelleDepartement.getSociete(), departementAModifie.getIddepartement());
+
+        if (existsByNomDepAndSociete) {
+            redirectAttributes.addFlashAttribute("msgError", DEPARTEMENT_EXISTE_DEJA);
+        } else {
+
+            // Réinitialiser creerpar pour éviter qu'il devienne null lors de la mise à jour
+            departementAModifie.setCreerpar(utilisateurConnecte);
+            // Mettre à jour le reste des champs
+            departementAModifie.setModifierpar(utilisateurConnecte);
+
+            departementAModifie.setSociete(nouvelleDepartement.getSociete());
+            departementAModifie.setNomdepartement(nouvelleDepartement.getNomdepartement());
+            departementRepo.save(departementAModifie);
+
+            redirectAttributes.addFlashAttribute("msg2", DEPARTEMENT_MODIFIE);
+        }
+    }
+
+    //recuperer une Departement par id (utiliser par ajax pour modifie les departements dans la meme forme)
+    @GetMapping("/get-Departement/{idDepartement}")
+    @ResponseBody
+    public Departement getDepartement(@PathVariable Long idDepartement) {
+        // Récupérez la liste des départements
+       Departement departement=deparetementService.findDepById(idDepartement);
+       System.out.println(departement);
+          return departement;
+    }
+
+
+
+
+
+}
+
+
+/* @PostMapping("/CreateDepartement")
     public String createOrUpdateDepartement(@ModelAttribute Departement departement, Authentication authentication, RedirectAttributes redirectAttributes) {
         // Récupérer l'utilisateur connecté
         String login = authentication.getName();
@@ -161,20 +237,4 @@ public class DepartemenControleur {
         }
         return "redirect:/departement";
     }
-
-
-    //recuperer une Departement par id (utiliser par ajax pour modifie les departements dans la meme forme)
-    @GetMapping("/get-Departement/{idDepartement}")
-    @ResponseBody
-    public Departement getDepartement(@PathVariable Long idDepartement) {
-        // Récupérez la liste des départements
-       Departement departement=deparetementService.findDepById(idDepartement);
-       System.out.println(departement);
-          return departement;
-    }
-
-
-
-
-
-}
+*/

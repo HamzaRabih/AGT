@@ -199,19 +199,8 @@ public class TacheControleur {
     {
         String login = authentication.getName();
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         List<Tache> tacheList=tacheRepo.findAllByRecepteur(utilisateur);
-/*
-        List<Tache> tacheList1=new ArrayList<>();
-
-        tacheList.forEach(t -> {
-            if (t.getUtilisateur()!=utilisateur) {
-                tacheList1.add(t);
-            }
-        });
-*/
         model.addAttribute("tacheList",tacheList);
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         return ResponseEntity.ok(tacheList);
     }
 

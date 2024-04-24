@@ -130,7 +130,7 @@ public class SocieteControleur {
         String login = authentication.getName();
         Utilisateur utilisateurConnecte = utilisateurRepo.findUtilisateursByMail(login);
         Societe Existesociete=societeRepo.findByIdsociete(societe.getIdsociete());
-        //verifier si la société  est existe
+        //verifier si la société est existé déjà
         Boolean existsByNomsociete=societeRepo.existsByNomsociete(societe.getNomsociete());
 
         // Cas de la création
@@ -139,13 +139,13 @@ public class SocieteControleur {
         }
         // Cas de la mise à jour
         else {
-            handleSocieteModification(societe,existsByNomsociete,utilisateurConnecte,redirectAttributes);
+            modifierSociete(Existesociete,societe,utilisateurConnecte,redirectAttributes);
         }
         return "redirect:/societe";
     }
 
     public void handleSocieteCreation(Societe societe,Boolean existsByNomsociete,Utilisateur utilisateurConnecte,RedirectAttributes redirectAttributes) {
-        if (existsByNomsociete) {  // si le DOMAINE  est existe déjà
+        if (existsByNomsociete) {  // si la société est existé déjà
             redirectAttributes.addFlashAttribute("msgError", "Cette société existe déjà.");
         }
         else {//sinon
@@ -155,34 +155,34 @@ public class SocieteControleur {
         }
     }
 
-    public  void handleSocieteModification(Societe societe,Boolean existsByNomsociete,Utilisateur utilisateurConnecte,RedirectAttributes redirectAttributes) {
-        Societe societeExist = societeRepo.findById(societe.getIdsociete()).orElse(null);
-        //System.out.println();
-        if (societeExist == null)
-        { // Gérer le cas où la societé n'existe pas
-            redirectAttributes.addFlashAttribute("msgError", "La société n'a pas été trouvé.");
-        }
 
-        // si la societe  est existe déjà //
-        if (existsByNomsociete && !Objects.equals(societe.getIdsociete(), Objects.requireNonNull(societeExist).getIdsociete())) {
-            redirectAttributes.addFlashAttribute("msgError", "Cette société existe déjà.");
-        }
-        else {//sinon
-            // Réinitialiser creerpar pour éviter qu'il devienne null lors de la mise à jour
-            //assert societeExist != null;
-            societeExist.setCreerpar(societeExist.getCreerpar());
-            // Mettre à jour le reste des champs
-            societeExist.setModifierpar(utilisateurConnecte);
+    public void modifierSociete(Societe societeAModifier, Societe nouvelleSociete, Utilisateur utilisateurConnecte, RedirectAttributes redirectAttributes) {
+        // Vérifier si une autre société avec le même nom existe déjà
+        Boolean existeSocieteAvecMemeNom = societeRepo.existsByNomsocieteAndIdsocieteNot(nouvelleSociete.getNomsociete(), nouvelleSociete.getIdsociete());
 
-            societeExist.setAdressesociete(societe.getAdressesociete());
-            societeExist.setMailsociete(societe.getMailsociete());
-            societeExist.setNomsociete(societe.getNomsociete());
-            societeExist.setTelephone(societe.getTelephone());
-            societeRepo.save(societeExist);
-            redirectAttributes.addFlashAttribute("msg1", "La société a été modifiée avec succès.");
+        if (existeSocieteAvecMemeNom) {
+            redirectAttributes.addFlashAttribute("msgError", "Une société avec ce nom existe déjà.");
+        } else {
+            // Récupérer la société à modifier
+            Societe societeExistante = societeRepo.findById(societeAModifier.getIdsociete()).orElse(null);
+
+            if (societeExistante != null) {
+                // Mettre à jour les informations de la société existante
+                societeExistante.setModifierpar(utilisateurConnecte);
+                societeExistante.setAdressesociete(nouvelleSociete.getAdressesociete());
+                societeExistante.setMailsociete(nouvelleSociete.getMailsociete());
+                societeExistante.setNomsociete(nouvelleSociete.getNomsociete());
+                societeExistante.setTelephone(nouvelleSociete.getTelephone());
+
+                // Sauvegarder les modifications
+                societeRepo.save(societeExistante);
+
+                redirectAttributes.addFlashAttribute("msgSuccess", "La société a été modifiée avec succès.");
+            } else {
+                redirectAttributes.addFlashAttribute("msgError", "La société à modifier n'a pas été trouvée.");
+            }
         }
     }
-
 
     //recuperer une societe par id (utiliser par ajax pour modifie dans la meme forme)
     @GetMapping("/get-Societe/{idSociete}")

@@ -24,4 +24,5 @@ public interface SocieteRepo extends JpaRepository<Societe,Long> {
     public  boolean existsByNomsociete(String nom);
 
 
+    Boolean existsByNomsocieteAndIdsocieteNot(String nomsociete, Long idsociete);
 }

@@ -123,6 +123,8 @@ public class GestionEquieControleur {
         return departements;
     }
 
+
+
     //pour le script de filtrage d utilisteur par societé
     @GetMapping("/get-utilisateur-by-Departement/{departementId}")
     @ResponseBody
