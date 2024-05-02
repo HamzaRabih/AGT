@@ -70,8 +70,6 @@ public class TacheControleur {
             }
         });
 
-
-
         //Cette fonction a pour but d'obtenir l'équipe et les sous-équipes(si l'un des membres est responsable d'une équipe) de l'utilisateur,
         // afin que l'utilisateur puisse envoyer les tâches uniquement à ses équipes.
         List<Utilisateur> Recepteurs=tacheService.findRecepteurs(utilisateur);
@@ -98,7 +96,6 @@ public class TacheControleur {
             List<Utilisateur> membres=null;
             model.addAttribute("membres",membres);
         }
-
 
         //les taches de mon equipe
         //List<Tache> equipeTaches=tacheRepo.findAllByUtilisateurInAndIsmemoire(Recepteurs,false);

@@ -152,6 +152,7 @@
                                 data-bs-toggle="modal"
                                 data-bs-target="#exLargeModal"
                                 id="creertache"
+                                onclick="annuler2()"
                         >
                             <i class="bx bx-add-to-queue me-1"></i> Créer Une Tâche
                         </button>
@@ -550,8 +551,8 @@
                                                 <div class="col mb-0">
                                                     <label class="form-label" for="Aunetachesuccessive">Tâche indexée</label>
                                                     <select class="select2 form-select" required="required" id="Aunetachesuccessive" name="aunetachesuccessive">
-                                                        <option value="true">Oui</option>
                                                         <option value="false">Non</option>
+                                                        <option value="true">Oui</option>
                                                     </select>
                                                 </div>
 
@@ -746,7 +747,7 @@
             formulaire.reset();
 
             if ( formulaire.querySelector("button[type='submit']").textContent === "Mettre à jour") {
-                formulaire.querySelector("button[type='submit']").textContent = "envoyer";
+                formulaire.querySelector("button[type='submit']").textContent = "Créér";
 
 
                 const idTacheInput = formulaire.querySelector(`input[name='idsociete']`);
@@ -810,44 +811,56 @@
         // Récupérer l'élément du formulaire par son ID
         var formulaire = document.getElementById('formAccountSettings2');
         var   btnSubmit= document.getElementById('submit2');
+        var inputEDateOuverture = document.getElementById("DateOuverture");
 
         // Vérifier si le formulaire a été trouvé
         if (formulaire) {
             // Réinitialiser le formulaire
             formulaire.reset();
 
-            if ( btnSubmit.textContent === "Mettre à jour") {
-                btnSubmit.textContent = "envoyer";
+            if ( btnSubmit.textContent === "Mettre à jour") {btnSubmit.textContent = "Envoyer";}
 
-                // Pre-select the Proprietaire in the dropdown
-                const select1 = formulaire.querySelector("select[name='proprietaire']");
-                select1.removeAttribute("readonly");
-                select1.onmousedown = null;
-                select1.style.cursor = "default";
+            // Pre-select the Proprietaire in the dropdown
+            const select1 = formulaire.querySelector("select[name='proprietaire']");
+            select1.removeAttribute("readonly");
+            select1.onmousedown = null;
+            select1.style.cursor = "default";
 
-                // Pre-select the Recepteur in the dropdown
-                const select = formulaire.querySelector("select[name='recepteur']");
-                select.removeAttribute("readonly");
-                select.onmousedown = null;
-                select.style.cursor = "default";
+            // Pre-select the Recepteur in the dropdown
+            const select = formulaire.querySelector("select[name='recepteur']");
+            select.removeAttribute("readonly");
+            select.onmousedown = null;
+            select.style.cursor = "default";
 
-                //remove Disable editing and selection for nomtache
-                const inputField = formulaire.querySelector(`textarea[name='nomtache']`);
-                inputField.removeAttribute("readonly");
-                inputField.onmousedown = null; // Supprimer l'événement onmousedown
-                inputField.style.cursor = "text"; // Changer le style du curseur en mode édition
+            //remove Disable editing and selection for nomtache
+            const inputField = formulaire.querySelector(`input[name='nomtache']`);
+            inputField.removeAttribute("readonly");
+            inputField.onmousedown = null; // Supprimer l'événement onmousedown
+            inputField.style.cursor = "text"; // Changer le style du curseur en mode édition
 
-                const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
-                idTacheInput.value=null;
-                idTacheInput.textContent="";
+            const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
+            idTacheInput.value=null;
+            idTacheInput.textContent="";
 
-            }
+
+            // Disable editing and selection for tacheparente
+            const selec = formulaire.querySelector("select[name='tacheparente']");
+            selec.removeAttribute("readonly");
+            selec.onmousedown = null;
+            selec.style.cursor = "default";
+
+            //Date d ouverture
+            const inputEDateOuverture = formulaire.querySelector(`input[name='dateouverture']`);
+            inputEDateOuverture.removeAttribute("readonly");
+            inputEDateOuverture.onmousedown = null;
+            inputEDateOuverture.style.cursor = "default";
+            inputEDateOuverture.disabled=false;
+            inputEDateOuverture.onmousedown = null; // Supprimer l'événement onmousedown
+            //inputEDateOuverture.style.cursor = "text"; // Changer le style du curseur en mode édition
+            dateOuvertureactuelle();
         } else {
             console.error('Le formulaire n\'a pas été trouvé.');
         }
-
-        //pour regler la douverture
-        dateOuvertureactuelle();
 
     }
 

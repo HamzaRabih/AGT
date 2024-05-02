@@ -162,6 +162,7 @@
                                 data-bs-toggle="modal"
                                 data-bs-target="#exLargeModal"
                                 id="creertache"
+                                onclick="annuler2()"
                         >
                             <i class="bx bx-add-to-queue me-1"></i> Créer Une Tâche
                         </button>
@@ -350,6 +351,7 @@
                                                 name="motdepasse"
                                                 autofocus
                                                 required="required"
+                                                onkeyup="confirmeMotDePasse()"
                                         />
                                     </div>
                                     <div class="mb-3 col-md-12">
@@ -373,9 +375,9 @@
 
                                 <div class="mt-2">
                                     <button type="submit" id="submitChangPassWord" class="btn btn-primary me-2">Modifier le mot de passe</button>
-                                    <button type="reset"
+                                    <button
+                                            onclick="annulerMotDePasse()"
                                             class="btn btn-outline-secondary"
-                                            onclick="annuler()"
                                             data-bs-dismiss="modal"
                                     >Annuler</button>
                                     <!--<button type="button" class="btn btn-outline-secondary" >
@@ -515,7 +517,7 @@
                                                         <label for="Proprietaires" class="form-label">Propriétaire</label>
                                                         <select id="Proprietaires" name="proprietaire" class="select2 form-select"
                                                                 required="required" th:with="selectedValue=${utilisateur.idutilisateur}">
-                                                            <option th:each="p:${utilisateurList}" th:value="${p.idutilisateur}"
+                                                            <option th:each="p:${utilisateurList2}" th:value="${p.idutilisateur}"
                                                                     th:selected="${selectedValue == p.idutilisateur}"
                                                                     th:text="${p.prenom + ' ' + p.nom}"></option>
                                                         </select>
@@ -539,8 +541,8 @@
                                                     <div class="col mb-0">
                                                         <label class="form-label" for="Aunetachesuccessive">Tâche indexée</label>
                                                         <select class="select2 form-select" required="required" id="Aunetachesuccessive" name="aunetachesuccessive">
-                                                            <option value="true">Oui</option>
                                                             <option value="false">Non</option>
+                                                            <option value="true">Oui</option>
                                                         </select>
                                                     </div>
 
@@ -700,12 +702,12 @@
 
             // Votre logique de vérification des mots de passe ici
             if (motdepasse === confmotdepasse) {
-                console.log("Les mots de passe correspondent.");
+               // console.log("Les mots de passe correspondent.");
                 message.innerText=""
                 // Pour réactiver le bouton
                 submit.disabled = false;
             } else {
-                console.log("Les mots de passe ne correspondent pas.");
+              //  console.log("Les mots de passe ne correspondent pas.");
                 message.innerText="Les mots de passe ne correspondent pas."
                 // Pour désactiver le bouton
                 submit.disabled = true;
@@ -751,44 +753,72 @@
             var formulaire = document.getElementById('formAccountSettings2');
             var   btnSubmit= document.getElementById('submit2');
 
+            var inputEDateOuverture = document.getElementById("DateOuverture");
+
             // Vérifier si le formulaire a été trouvé
             if (formulaire) {
                 // Réinitialiser le formulaire
                 formulaire.reset();
 
-                if ( btnSubmit.textContent === "Mettre à jour") {
-                    btnSubmit.textContent = "envoyer";
+                if ( btnSubmit.textContent === "Mettre à jour") {btnSubmit.textContent = "Envoyer";}
 
-                    // Pre-select the Proprietaire in the dropdown
-                    const select1 = formulaire.querySelector("select[name='proprietaire']");
-                    select1.removeAttribute("readonly");
-                    select1.onmousedown = null;
-                    select1.style.cursor = "default";
+                // Pre-select the Proprietaire in the dropdown
+                const select1 = formulaire.querySelector("select[name='proprietaire']");
+                select1.removeAttribute("readonly");
+                select1.onmousedown = null;
+                select1.style.cursor = "default";
 
-                    // Pre-select the Recepteur in the dropdown
-                    const select = formulaire.querySelector("select[name='recepteur']");
-                    select.removeAttribute("readonly");
-                    select.onmousedown = null;
-                    select.style.cursor = "default";
+                // Pre-select the Recepteur in the dropdown
+                const select = formulaire.querySelector("select[name='recepteur']");
+                select.removeAttribute("readonly");
+                select.onmousedown = null;
+                select.style.cursor = "default";
 
-                    //remove Disable editing and selection for nomtache
-                    const inputField = formulaire.querySelector(`textarea[name='nomtache']`);
-                    inputField.removeAttribute("readonly");
-                    inputField.onmousedown = null; // Supprimer l'événement onmousedown
-                    inputField.style.cursor = "text"; // Changer le style du curseur en mode édition
+                //remove Disable editing and selection for nomtache
+                const inputField = formulaire.querySelector(`input[name='nomtache']`);
+                inputField.removeAttribute("readonly");
+                inputField.onmousedown = null; // Supprimer l'événement onmousedown
+                inputField.style.cursor = "text"; // Changer le style du curseur en mode édition
 
-                    const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
-                    idTacheInput.value=null;
-                    idTacheInput.textContent="";
+                const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
+                idTacheInput.value=null;
+                idTacheInput.textContent="";
 
-                }
+
+                // Disable editing and selection for tacheparente
+                const selec = formulaire.querySelector("select[name='tacheparente']");
+                selec.removeAttribute("readonly");
+                selec.onmousedown = null;
+                selec.style.cursor = "default";
+
+                //Date d ouverture
+                const inputEDateOuverture = formulaire.querySelector(`input[name='dateouverture']`);
+                inputEDateOuverture.removeAttribute("readonly");
+                inputEDateOuverture.onmousedown = null;
+                inputEDateOuverture.style.cursor = "default";
+                inputEDateOuverture.disabled=false;
+                inputEDateOuverture.onmousedown = null; // Supprimer l'événement onmousedown
+                //inputEDateOuverture.style.cursor = "text"; // Changer le style du curseur en mode édition
+                dateOuvertureactuelle();
             } else {
                 console.error('Le formulaire n\'a pas été trouvé.');
             }
+        }
 
-            //pour regler la douverture
-            dateOuvertureactuelle();
 
+        function annulerMotDePasse() {
+            var formulaire = document.getElementById('formAccountSettingss');
+            var message=document.getElementById("messageconfirme");
+            var submit=document.getElementById("submitChangPassWord");
+            // Vérifier si le formulaire a été trouvé
+            if (formulaire) {
+                // Réinitialiser le formulaire
+                formulaire.reset();
+                    // console.log("Les mots de passe correspondent.");
+                    message.innerText=""
+                    // Pour réactiver le bouton
+                    submit.disabled = false;
+            }
         }
 
         //pour regler la douverture
