@@ -3,7 +3,8 @@
 //-------------------------------------------
 
 var i = 0;
-var tbody = document.getElementById('tbody');
+var tbody = document.getElementById('tbody1');
+
 //Un élément span avec l'id 'notification' a été utilisé pour appliquer la fonction playNotificationSound(), permettant ainsi que le son de la notification soit entendu sur toutes les pages HTML.' +
 var notificationNumber = document.getElementById('notification');
 if (notificationNumber!=null) {
@@ -36,7 +37,7 @@ var stompClient = Stomp.over(socket);//crée un client STOMP sur le dessus du so
 
 // Connexion au serveur WebSocket
 stompClient.connect({}, function (frame) {
-    console.log('WebSocket connection opened.');
+    //console.log('WebSocket connection opened.');
 
     i = 0;
     // Abonnement à la destination spécifique de l'utilisateur
@@ -70,7 +71,7 @@ stompClient.connect({}, function (frame) {
 
 // Gestion de la fermeture de la connexion WebSocket
 socket.onclose = function (event) {
-    console.log('WebSocket connection closed: ', event);
+  //  console.log('WebSocket connection closed: ', event);
 };
 
 
@@ -91,10 +92,13 @@ function showNotification(notif) {
 
 // Fonction pour mettre à jour le tableau avec une nouvelle tâche
 function updateTable(tache) {
-    var tbody = document.getElementById('tbody');
+    var tbody = document.getElementById('tbody1');
     // Vérifier si le tbody existe dans la page html
     if (tbody != null) {
         var tr = document.createElement('tr');
+        //tr.classList.add('table-border');
+
+
         var td1 = document.createElement('td');
         var td2 = document.createElement('td');
         var td3 = document.createElement('td');
@@ -105,17 +109,38 @@ function updateTable(tache) {
         var td7 = document.createElement('td');
         var td9 = document.createElement('td');
         var td8 = document.createElement('td');
+        var td10 = document.createElement('td');
         var i = document.createElement('i');
         var StrongforTd1 = document.createElement('strong');
         StrongforTd1.textContent = tache.nomtache;
         i.appendChild(StrongforTd1);
         td1.appendChild(i);
         td7.textContent = tache.utilisateur.prenom+" "+tache.utilisateur.nom;
-        td2.textContent = tache.dateouverture;
-        td3.textContent = tache.dateobjectif;
         td4.textContent = tache.dureestime;
-        tdT.textContent = tache.dateTermineTache;
         td9.textContent=tache.priorite.nompriorite;
+        td10.textContent = tache.idtache;
+        if (tache.dateouverture == null) {td2.textContent = '';}
+        else {
+            var dateOuverture = new Date(tache.dateouverture);
+            var formattedDate =  ('0' + dateOuverture.getDate()).slice(-2) + '/' +('0' + (dateOuverture.getMonth() + 1)).slice(-2) + '/' + dateOuverture.getFullYear().toString().slice(-2);
+            td2.textContent = formattedDate;
+        }
+        if (tache.dateobjectif == null) {td3.textContent = '';}
+        else {
+            var dateObjectif = new Date(tache.dateobjectif);
+            var formattedDate =  ('0' + dateObjectif.getDate()).slice(-2) + '/' +('0' + (dateObjectif.getMonth() + 1)).slice(-2) + '/' + dateObjectif.getFullYear().toString().slice(-2);
+            td3.textContent = formattedDate;
+        }
+        if (tache.dateTermineTache == null) {tdT.textContent = '';}
+        else {
+            var dateCloture = new Date(tache.dateTermineTache);
+            var formattedDate =  ('0' + dateCloture.getDate()).slice(-2) + '/' +('0' + (dateCloture.getMonth() + 1)).slice(-2) + '/' + dateCloture.getFullYear().toString().slice(-2);
+            tdT.textContent = formattedDate;
+        }
+
+
+
+
 
         /*
         // Définir le contenu et les attributs de la colonne de statut
@@ -130,42 +155,46 @@ function updateTable(tache) {
         if (tache.statut === "En attente") {
             var btn = document.createElement('button');
             btn.textContent="En attente";
-            btn.setAttribute("class", "btn btn-xs bg-label-warning me-1");
+            btn.setAttribute("class", "btn rounded-pill badge bg-warning ");
+            btn.setAttribute("style","width: 100px !important");
             btn.setAttribute("data-id", tache.idtache);
             btn.addEventListener('click', () => modifyStatus(btn));
+            td5.classList.add("text-sm-center")
             td5.appendChild(btn);
         }
         if (tache.statut === "Programme") {
             var btn = document.createElement('button');
             btn.textContent="Programmé";
-            btn.setAttribute("class", "btn btn-xs bg-label-primary me-1");
+            btn.setAttribute("class", "btn rounded-pill bg-primary badge");
             btn.setAttribute("data-id", tache.idtache);
             btn.addEventListener('click', () => modifyStatus(btn));
+            td5.classList.add("text-sm-center")
             td5.appendChild(btn);
         }
 
        //Priorité
         if (tache.priorite.nompriorite=== "Urgent") {
-            td9.setAttribute("class", "bg-label-danger");
+            td9.setAttribute("class", "");
         }
 
         if (tache.priorite.nompriorite=== "Important") {
-            td9.setAttribute("class", "bg-label-success");
+            td9.setAttribute("class", "");
         }
 
         if (tache.priorite.nompriorite=== "Normal") {
-            td9.setAttribute("class", "bg-label-info");
+            td9.setAttribute("class", "");
         }
         if (tache.priorite.nompriorite=== "En attente") {
-            td9.setAttribute("class", "bg-label-primary");
+            td9.setAttribute("class", "");
         }
 
         td6.textContent = tache.dureretarde;
-        td8.textContent = tache.performance;
+        td8.textContent = tache.performance+"%";
 
 
         // Ajouter les éléments à la ligne et la ligne au tbody
         tr.appendChild(td1);
+        tr.appendChild(td10);
         tr.appendChild(td7);
         tr.appendChild(td9);
         tr.appendChild(td2);
@@ -175,7 +204,10 @@ function updateTable(tache) {
         tr.appendChild(td5);
         tr.appendChild(td6);
         tr.appendChild(td8);
-        tbody.appendChild(tr);
+       // tbody.appendChild(tr);
+
+        tbody.insertBefore(tr, tbody.firstChild);
+
     }
 }
 
@@ -245,19 +277,28 @@ function modifyStatus(button) {
             // Mettre à jour l'attribut data-statut du bouton cliqué
             var Varclasss;
             if (data.statut === "En cours") {
-                Varclasss = "btn btn-xs bg-label-info me-1";
+                Varclasss = "btn rounded-pill badge bg-info ";
                 button.textContent = data.statut;
                 button.setAttribute("class", Varclasss);
+                button.setAttribute("style","width: 100px !important");
+                messageNotif();
+
             }
             if (data.statut === "Termine") {
-                Varclasss = "btn btn-xs bg-label-success me-1";
+                Varclasss = "btn rounded-pill bg-success badge";
                 button.textContent = data.statut;
                 button.setAttribute("class", Varclasss);
+                button.setAttribute("style","width: 100px !important");
+                messageNotif();
+
             }
             if (data.statut === "Refaire") {
-                Varclasss = "btn btn-xs bg-label-danger me-1";
+                Varclasss = "btn rounded-pill bg-danger badge";
                 button.textContent = data.statut;
                 button.setAttribute("class", Varclasss);
+                button.setAttribute("style","width: 100px !important");
+                messageNotif();
+
             }
 
             <!--th:id="'dureretardeCol_' + ${p.idtache}" pour recuperer la valeur par l attribut id avec l'idtache dans javacript-->
@@ -270,7 +311,6 @@ function modifyStatus(button) {
                 performanceCol.textContent = data.performance + '%';
             */
 
-            messageNotif();
 
 
         }

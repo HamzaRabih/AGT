@@ -2143,9 +2143,14 @@ progress {
 }
 .form-label {
   margin-bottom: 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: #566a7f;
+  font-size: 0.95rem!important;
+  font-weight: 600;
+  color: #5f61e6;
+  text-transform: lowercase!important;;
+}
+
+.form-label::first-letter {
+  text-transform: uppercase!important;
 }
 
 .col-form-label {

@@ -2177,7 +2177,15 @@ progress {
 }
 .form-label {
   margin-bottom: 0.5rem;
+  text-transform: lowercase!important;;
 }
+
+.form-label::first-letter {
+  text-transform: uppercase!important;
+}
+
+
+
 
 .col-form-label {
   padding-top: calc(0.467rem + 1px);

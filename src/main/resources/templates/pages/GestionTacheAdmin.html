@@ -204,7 +204,7 @@
                                     </a>
                                     </li>
                                     <li><a class="dropdown-item" th:href="@{/domaine}">
-                                        <i class="bx bx-briefcase me-1"></i>Domaines
+                                        <i class="bx bx-briefcase me-1"></i>Services
                                     </a>
                                     </li>
                                     <li><a class="dropdown-item" th:href="@{/departement}">
@@ -316,105 +316,14 @@
 </div>
 <!--/nav-->
 
-<!-- Extra Large Modal pour Creer une Tache -->
-<div class="modal fade" id="exLargeModal1" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                ></button>
-            </div>
-            <div class="modal-body">
-                <form id="formAccountSettings1" method="POST" th:action="@{CreateTache}" >
-                    <input type="hidden" class="form-control" name="idtache">
-                    <input type="hidden" th:value="${utilisateurC.idutilisateur}"  class="form-control" name="Utilisateur">
-                    <input type="hidden"  name="ismemoire" id="ismemoire1" value="false" required />
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label for="nomtache1" class="form-label">Tache</label>
-                            <textarea type="text" class="form-control h-px-100"  name="nomtache" id="nomtache1" required></textarea>
-                        </div>
-                    </div>
-                    <div class="row g-3">
-                        <div class="col mb-0">
-                            <label  for="idrecepteur1" class="form-label">Destinataire de la tâche</label>
-                            <select  id="idrecepteur1" name="recepteur" class="select2 form-select" required >
-                                <option th:each="p:${Recepteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
-                            </select>
-                        </div>
-                        <div class="col mb-0">
-                            <label class="form-label" for="Durée Estimée1">Durée Estimée</label>
-                            <div class="input-group input-group-merge">
-                                <input type="number" id="Durée Estimée1" required
-                                       min="1"  name="dureestime" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="col mb-0">
-                            <label  for="DateOuverture1" class="form-label">Date Ouverture</label>
-                            <input class="form-control" type="date" name="dateouverture" min="" id="DateOuverture1" required>
-                        </div>
-                    </div>
-                    <div class="row g-3">
-                        <div class="col mb-0">
-                            <label for="Priorite1" class="form-label">Priorité</label>
-                            <select  id="Priorite1" class="select2 form-select" name="priorite" required>
-                                <option th:each="p:${priorites}" th:value="${p.idpriorite}" th:text="${p.nompriorite}" ></option>
-                            </select>
-                        </div>
-                        <div class="col mb-0">
-                            <label  for="Proprietaires1" class="form-label">Propriétaire</label>
-                            <select  id="Proprietaires1" name="proprietaire" class="select2 form-select"  required="required"  th:with="selectedValue=${utilisateurC.idutilisateur}">
-                                <option th:each="p:${utilisateurList2}" th:value="${p.idutilisateur}"  th:selected="${selectedValue == p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
-                            </select>
-                        </div>
-                        <div class="col mb-0">
-                            <label for="tacheparente1" class="form-label">Tâche parente</label>
-                            <select id="tacheparente1" class="select2 form-select" name="tacheparente">
-                                <!-- <option  value="">Selectionner la tâche parente</option>
-                                 <option th:each="TacheParents:${lesTacheParents}" th:value="${TacheParents.idtache}" th:text="${TacheParents.nomtache}"></option>-->
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row g-3">
-                        <div class="col mb-0">
-                            <label for="type1" class="form-label">Type</label>
-                            <input class="form-control" type="text" id="type1" name="type" placeholder="Projet,Opérationnel.." value="" />
-                        </div>
-                        <div class="col mb-0">
-                            <label for="commentaire1" class="form-label">commentaire</label>
-                            <input
-                                    type="text" class="form-control" id="commentaire1"
-                                    name="commentaire" value=""/>
-                        </div>
-                        <div class="col mb-0">
-                            <br>
-                            <label class="form-label" for="Aunetachesuccessive1">À une tache successive</label>
-                            <input id="Aunetachesuccessive1" type="checkbox"  name="aunetachesuccessive" >
-                        </div>
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" id="submit1" class="btn btn-primary me-2"> Envoyer</button>
-                <button type="button"
-                        class="btn btn-outline-secondary"
-                        onclick="annuler1()"
-                >Annuler</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- /Extra Large Modal pour Creer une Tache -->
+
+
 
 <div class="d-flex justify-content-between">
     <!--chemin-->
-    <p class="fw-bold " style="margin-left: 20px;">
-        <span class="text-muted fw-light">
-         <i class="bx bx-cog" style="margin-right: 5px;"></i>
+    <p class="fw-bold my-primary" style="margin-left: 20px;">
+        <span class="text-muted fw-light my-primary">
+         <i class="bx bx-cog " style="margin-right: 5px;"></i>
             Administration /</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ui-checks" viewBox="0 0 16 16">
             <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
@@ -423,29 +332,29 @@
     </p>
     <!--/chemin-->
 
-    <!--Filtre-->
-    <div class="d-flex flex-row-reverse bd-highlight " style="margin-right: 20px;">
+    <!--Filtre
+        <div class="d-flex flex-row-reverse bd-highlight " style="margin-right: 20px;">
         <ul class="nav nav-pills flex-column flex-md-row " style="margin-right: 20px;">
             <li>
-                <!-- Vertically Centered Modal -->
-                <!-- Button trigger modal -->
-                <button
-                        class="btn btn-sm  me-1 mb-1 btn-secondary"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#collapseExample"
-                        aria-expanded="false"
-                        aria-controls="collapseExample"
 
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16">
-                        <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5z"/>
-                    </svg> Filtre
-                </button>
-            </li>
+    <button
+            class="btn btn-sm  me-1 mb-1 btn-secondary"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseExample"
+            aria-expanded="false"
+            aria-controls="collapseExample"
 
-        </ul>
-    </div>
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16">
+            <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5z"/>
+        </svg> Filtre
+    </button>
+    </li>
+
+    </ul>
+</div>
+-->
     <!--/Filtre-->
 
 </div>
@@ -605,7 +514,7 @@
                                         <div class="row">
                                             <div class="col mb-3">
                                                 <label for="nomtache" class="form-label">Tache</label>
-                                                <textarea type="text" class="form-control h-px-100"  name="nomtache" id="nomtache" required></textarea>
+                                                <input type="text" class="form-control"  name="nomtache" id="nomtache" required>
                                             </div>
                                         </div>
                                         <div class="row g-3">
@@ -665,20 +574,20 @@
                                             </div>
                                             <div class="col mb-0">
                                                 <label for="type" class="form-label">Type</label>
-                                                <input class="form-control" type="text" id="type" name="type" placeholder="Projet,Opérationnel.." value="" />
+                                                <select id="type" name="type" class=" form-select">
+                                                    <option value="Projet" selected="selected">Projet</option>
+                                                    <option value="Opérationnel" selected="Opérationnel">Opérationnel</option>
+                                                </select>
                                             </div>
                                             <div class="col mb-0">
-                                                <label for="commentaire" class="form-label">commentaire</label>
-                                                <input
-                                                        type="text" class="form-control" id="commentaire"
-                                                        name="commentaire" value=""/>
+                                                <label class="form-label" for="Aunetachesuccessive">Tâche indexée</label>
+                                                <select id="Aunetachesuccessive" name="aunetachesuccessive" class=" form-select">
+                                                    <option value="true" selected="selected">Oui</option>
+                                                    <option value="false" selected="selected">Non</option>
+                                                </select>
                                             </div>
                                         </div>
-                                        <div class="col mb-0">
-                                            <br>
-                                            <label class="form-label" for="Aunetachesuccessive">À une tache successive</label>
-                                            <input id="Aunetachesuccessive" type="checkbox"  name="aunetachesuccessive" >
-                                        </div>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" id="submit" class="btn btn-primary me-2"> Mettre à jour</button>
@@ -699,17 +608,20 @@
                         <!-- /Account -->
                     </div>
                     <!-- Basic Bootstrap Table -->
-                    <div class="card small">
+                    <div class="card">
                         <!--<h5 class="card-header">Table Basic</h5>-->
                         <div class="card-body">
-                            <div th:if="${not #strings.isEmpty(msg)}" class="show-message">
-                                <div class="alert alert-primary alert-dismissible" th:text="${msg}" role="alert">
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <div th:if="${not #strings.isEmpty(msg) or not #strings.isEmpty(msg1) }" id="messages" class="mb-3 col-md-12">
+
+                                <div th:if="${not #strings.isEmpty(msg)}" class="show-message">
+                                    <div class="alert alert-primary alert-dismissible" th:text="${msg}" role="alert">
+                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div th:if="${not #strings.isEmpty(erreurMessage)}" class="show-message">
-                                <div class="alert alert-danger alert-dismissible" th:text="${erreurMessage}" role="alert">
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                <div th:if="${not #strings.isEmpty(erreurMessage)}" class="show-message">
+                                    <div class="alert alert-danger alert-dismissible" th:text="${erreurMessage}" role="alert">
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="table-responsive text-nowrap">
@@ -744,8 +656,8 @@
                                     </div>
                                 </div>
  -->
-                                <!--collapseExample-->
-                                <div class="collapse" id="collapseExample">
+                                <!--collapseExample
+                                     <div class="collapse" id="collapseExample">
 
                                     <div class="row g-3 d-flex justify-content-between">
                                         <div class="col-3">
@@ -848,14 +760,211 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>-->
+
+                                <!--filtre-->
+                                <div class="d-flex align-content-between justify-content-between flex-wrap  pr-0 pl-0 ">
+                                    <div class=" align-content-center d-flex align-content-between justify-content-between flex-wrap">
+                                        <div><label for="membreSelect" class="form-label-sm my-primary" STYLE="margin-right: 15px;">Utilisateur</label></div>
+                                        <div>
+                                            <select id="membreSelect" class=" form-select form-select-sm Mycolor">
+                                                <option value="" selected="selected">Tout sélectionner</option>
+                                                <option th:each="p:${utilisateurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class=" align-content-center d-flex align-content-between justify-content-between flex-wrap">
+                                        <div><label for="statutSelect" class="form-label-sm my-primary" STYLE="margin-right: 15px;">Statut</label>
+                                        </div>
+                                        <div><select id="statutSelect" class="form-select  form-select-sm Mycolor">
+                                            <option value="" selected="selected">Tout sélectionner</option>
+                                            <option value="Valide">Validé</option>
+                                            <option value="Termine">Terminé</option>
+                                            <option value="En cours">En cours</option>
+                                            <option value="En attente">En attente</option>
+                                            <option value="Programme">Programme</option>
+                                            <option value="Refaire">Refaire</option>
+                                            <option value="Annuler">Annuleé</option>
+                                        </select></div>
+                                    </div>
+                                    <div class=" align-content-center d-flex align-content-between justify-content-between flex-wrap">
+                                        <div>
+                                            <label class="form-label-sm my-primary" STYLE="margin-right: 15px;">Date</label>
+                                        </div>
+                                        <div><select id="dateSelected" class="form-select  form-select-sm Mycolor">
+                                            <option value="ouverture" selected="selected"> Date ouverture
+                                            </option>
+                                            <option value="objectif"> Date objectif
+                                            </option>
+                                            <option value="cloture"> Date clôture
+                                            </option>
+                                        </select></div>
+                                    </div>
+                                    <div class=" align-content-center d-flex align-content-between justify-content-between flex-wrap">
+                                        <div><label for="dateMinSelect" class="form-label-sm my-primary" STYLE="margin-right: 10px;">De</label></div>
+                                        <div><input class="form-control form-control-sm Mycolor" type="date" id="dateMinSelect"></div>
+                                    </div>
+                                    <div class=" align-content-center d-flex align-content-between justify-content-between flex-wrap">
+                                        <div><label for="dateMaxSelect" class="form-label-sm my-primary" STYLE="margin-right: 10px;">À</label></div>
+                                        <div><input class="form-control form-control-sm Mycolor" type="date" id="dateMaxSelect"></div>
+                                    </div>
+                                    <div class=" align-content-center d-flex align-content-between justify-content-between flex-wrap">
+                                        <div><label for="rechercher" class="form-label-sm my-primary" STYLE="margin-right: 10px;">Rechercher:</label></div>
+                                        <div><input class="form-control form-control-sm Mycolor" type="text" id="rechercher"></div>
+                                    </div>
                                 </div>
-                                <!--collapseExample-->
-                                <br>
-                                <table  id="example" style="width:100%" class="table table-bordered table-sm">
+                                <!--/filtre-->
+                                <!-- Extra Large Modal pour Creer une Tache -->
+                                <div class="modal fade" id="exLargeModal1" tabindex="-1" aria-hidden="true" style="padding-top: 170px">
+                                    <div class="modal-dialog modal-xl" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button
+                                                        type="button"
+                                                        class="btn-close"
+                                                        data-bs-dismiss="modal"
+                                                        aria-label="Close"
+                                                ></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="formAccountSettings1" method="POST" th:action="@{CreateTache}">
+                                                    <input type="hidden" class="form-control" name="idtache">
+                                                    <input type="hidden" th:value="${utilisateurC.idutilisateur}" class="form-control"
+                                                           name="Utilisateur">
+                                                    <input type="hidden" name="ismemoire" id="ismemoire1" value="false" required/>
+
+                                                    <div class="d-flex align-content-between justify-content-between flex-wrap  pr-0 pl-0">
+                                                        <!-- Première div pour le destinataire -->
+                                                        <div class="d-flex justify-content-evenly align-content-center">
+                                                            <label for="idrecepteur" class="form-label align-content-center  "
+                                                                   STYLE="margin-right: 15px;">Destinataire</label>
+                                                            <select id="idrecepteur1" name="recepteur" class="select2 form-select w-px-250" required>
+                                                                <option th:each="p:${Recepteurs}" th:value="${p.idutilisateur}"
+                                                                        th:text="${p.prenom + ' ' + p.nom}"></option>
+                                                            </select>
+                                                        </div>
+
+
+                                                        <!-- Deuxième div pour la tâche à réaliser -->
+                                                        <div class="d-flex justify-content-evenly">
+                                                            <label for="nomtache" class="form-label align-content-center"
+                                                                   STYLE="margin-right: 15px;">Tâche à réaliser</label>
+                                                            <input type="text" class="form-control w-px-250" name="nomtache" id="nomtache1" required>
+                                                        </div>
+
+                                                        <!-- Troisième div pour la durée estimée -->
+                                                        <div class="d-flex justify-content-evenly">
+                                                            <label class="form-label align-content-center" for="dureeEstimee"
+                                                                   STYLE="margin-right: 15px;">EN</label>
+                                                            <div class="d-flex">
+                                                                <input type="number" placeholder="Durée Estimée " id="dureeEstimee" required min="1"
+                                                                       name="dureestime" class="form-control"/>
+                                                                <label class="form-label align-content-center" for="dureeEstimee"
+                                                                       STYLE="margin-left: 10px;">Jour(s)</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <br>
+                                                    <div class="row g-3">
+
+                                                        <div class="col mb-0">
+                                                            <label for="Priorite" class="form-label">Priorité</label>
+                                                            <select id="Priorite1" class="select2 form-select" name="priorite" required>
+                                                                <option th:each="p:${priorites}" th:value="${p.idpriorite}"
+                                                                        th:text="${p.nompriorite}"></option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col mb-0">
+                                                            <label for="DateOuverture" class="form-label">Date Ouverture</label>
+                                                            <input class="form-control" type="date" name="dateouverture" min="" id="DateOuverture1"
+                                                                   required>
+                                                        </div>
+
+                                                        <div class="col mb-0">
+                                                            <label for="Proprietaires" class="form-label">Propriétaire</label>
+                                                            <select id="Proprietaires1" name="proprietaire" class="select2 form-select"
+                                                                    required="required" th:with="selectedValue=${utilisateurC.idutilisateur}">
+                                                                <option th:each="p:${utilisateurList2}" th:value="${p.idutilisateur}"
+                                                                        th:selected="${selectedValue == p.idutilisateur}"
+                                                                        th:text="${p.prenom + ' ' + p.nom}"></option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col mb-0">
+                                                            <label for="tacheparente" class="form-label">Tâche parente</label>
+                                                            <select id="tacheparente1" class="select2 form-select" name="tacheparente">
+                                                                <!-- <option  value="">Selectionner la tâche parente</option>
+                                                                 <option th:each="TacheParents:${lesTacheParents}" th:value="${TacheParents.idtache}" th:text="${TacheParents.nomtache}"></option>-->
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col mb-0">
+                                                            <label for="type" class="form-label">Type</label>
+                                                            <select class="select2 form-select" required="required"  id="type1" name="type">
+                                                                <option value="Opérationnel">Opérationnel</option>
+                                                                <option value="Projet">Projet</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col mb-0">
+                                                            <label class="form-label" for="Aunetachesuccessive">Tâche indexée</label>
+                                                            <select class="select2 form-select" required="required" id="Aunetachesuccessive1" name="aunetachesuccessive">
+                                                                <option value="true">Oui</option>
+                                                                <option value="false">Non</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="col mb-0" style="padding-top: 30px;">
+                                                            <button type="submit" id="submit1" class="btn btn-primary "> Envoyer</button>
+                                                            <button type="button"
+                                                                    class="btn btn-outline-secondary"
+                                                                    onclick="annuler1()"
+                                                            >Annuler
+                                                            </button>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Les filtre
+                                    <div class="col-3">
+                                      <label for="membreSelect" class="form-label">Sélectionner un émetteur</label>
+                                      <select  multiple="multiple" id="membreSelect1"  class=" form-select"  >
+                                        <option value="" selected="selected">Tout sélectionner</option >
+                                        <option th:each="p:${Emetteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                                      </select>
+                                    </div>
+                                    <div class="col-3">
+                                      <label for="statutSelect" class="form-label">Sélectionner un statut</label>
+                                      <select  multiple="multiple" id="statutSelect1"  class=" form-select">
+                                        <option value="" selected="selected">Tout sélectionner</option>
+                                        <option value="Valide" >Validé</option>
+                                        <option value="Termine" >Terminé</option>
+                                        <option value="En cours" >En cours</option>
+                                        <option value="En attente" >En attente</option>
+                                        <option value="Programme" >Programme</option>
+                                        <option value="Refaire" >Refaire</option>
+                                        <option value="Annuler" >Annuleé</option>
+                                      </select>
+                                    </div>
+                                    <div class="col-3">
+                                      <label for="dateMinSelect" class="form-label">Sélectionner la date d'ouverture MIN</label>
+                                      <input class="form-control" type="date"  id="dateMinSelect">
+                                    </div>
+                                    <div class="col-md-3">
+                                      <label  for="dateMaxSelect" class="form-label">SÉLECTIONNER LA DATE d'ouverture MAX</label>
+                                      <input class="form-control" type="date"  id="dateMaxSelect" >
+                                    </div>-->
+                                </div>
+                                <!--/ Extra Large Modal pour Creer une Tache -->
+                                <table  id="example" style="width:100%" class="table table-bordered table-sm table-secondary">
                                     <thead>
                                     <tr>
-                                        <th style="width: 100%;"
-                                            class="text-center"
+                                        <th  style="width: 100%;"
+                                            class="text-center Mycolor"
                                             data-bs-toggle="tooltip"
                                             data-bs-offset="0,4"
                                             data-bs-placement="top"
@@ -865,9 +974,10 @@
                                                 <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5zM3 3H2v1h1z"/>
                                                 <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1z"/>
                                                 <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5zM2 7h1v1H2zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm1 .5H2v1h1z"/>
-                                            </svg> Tâches
+                                            </svg>
+                                            <label class="capitalize-first">Tâches</label>
                                             <!--Tache-->
-                                        <th class="text-center"
+                                        <th class="text-center Mycolor"
                                             data-bs-toggle="tooltip"
                                             data-bs-offset="0,4"
                                             data-bs-placement="top"
@@ -878,7 +988,7 @@
                                             <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
                                         </svg>
                                         </th>
-                                        <th class="text-center"
+                                        <th class="text-center Mycolor"
                                             data-bs-toggle="tooltip"
                                             data-bs-offset="0,4"
                                             data-bs-placement="top"
@@ -889,7 +999,7 @@
                                                 <path fill-rule="evenodd" d="M1 2.5A1.5 1.5 0 0 1 2.5 1h1A1.5 1.5 0 0 1 5 2.5h4.134a1 1 0 1 1 0 1h-2.01q.269.27.484.605C8.246 5.097 8.5 6.459 8.5 8c0 1.993.257 3.092.713 3.7.356.476.895.721 1.787.784A1.5 1.5 0 0 1 12.5 11h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5H6.866a1 1 0 1 1 0-1h1.711a3 3 0 0 1-.165-.2C7.743 11.407 7.5 10.007 7.5 8c0-1.46-.246-2.597-.733-3.355-.39-.605-.952-1-1.767-1.112A1.5 1.5 0 0 1 3.5 5h-1A1.5 1.5 0 0 1 1 3.5zM2.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm10 10a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z"/>
                                             </svg>
                                         </th>
-                                        <th class="text-center"
+                                        <th class="text-center Mycolor"
                                             data-bs-toggle="tooltip"
                                             data-bs-offset="0,4"
                                             data-bs-placement="top"
@@ -901,7 +1011,7 @@
                                                 <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
                                             </svg>
                                         </th>
-                                        <th class="text-center"
+                                        <th class="text-center Mycolor"
                                             data-bs-toggle="tooltip"
                                             data-bs-offset="0,4"
                                             data-bs-placement="top"
@@ -914,7 +1024,7 @@
                                             </svg>
                                         </th>
                                         <th style="margin-right: 0;margin-left: 0;"
-                                            class="text-center"
+                                            class="text-center Mycolor"
                                             data-bs-toggle="tooltip"
                                             data-bs-offset="0,4"
                                             data-bs-placement="top"
@@ -924,7 +1034,18 @@
                                                 <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
                                             </svg>
                                         </th>
-                                        <th class="text-center"
+                                        <th class="text-center Mycolor"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-offset="0,4"
+                                            data-bs-placement="top"
+                                            data-bs-html="true"
+                                            title="<span>Date ouverture</span>"
+                                        ><!--date ouverture-->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-open" viewBox="0 0 16 16">
+                                                <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882zM15 7.383l-4.778 2.867L15 13.117zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765z"/>
+                                            </svg>
+                                        </th>
+                                        <th class="text-center Mycolor"
                                             data-bs-toggle="tooltip"
                                             data-bs-offset="0,4"
                                             data-bs-placement="top"
@@ -936,18 +1057,7 @@
                                                 <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
                                             </svg>
                                         </th>
-                                        <th class="text-center"
-                                            data-bs-toggle="tooltip"
-                                            data-bs-offset="0,4"
-                                            data-bs-placement="top"
-                                            data-bs-html="true"
-                                            title="<span>Date ouverture</span>"
-                                        ><!--date ouverture-->
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-open" viewBox="0 0 16 16">
-                                                <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882zM15 7.383l-4.778 2.867L15 13.117zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765z"/>
-                                            </svg>
-                                        </th>
-                                        <th  class="text-center"
+                                        <th  class="text-center Mycolor"
                                              data-bs-toggle="tooltip"
                                              data-bs-offset="0,4"
                                              data-bs-placement="top"
@@ -958,7 +1068,7 @@
                                                 <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/>
                                             </svg>
                                         </th>
-                                        <th class="text-center"
+                                        <th class="text-center Mycolor"
                                             data-bs-toggle="tooltip"
                                             data-bs-offset="0,4"
                                             data-bs-placement="top"
@@ -969,7 +1079,7 @@
                                                 <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
                                             </svg>
                                         </th>
-                                        <th class="text-center"
+                                        <th class="text-center Mycolor"
                                             data-bs-toggle="tooltip"
                                             data-bs-offset="0,4"
                                             data-bs-placement="top"
@@ -979,7 +1089,7 @@
                                                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
                                             </svg>
                                         </th>
-                                        <th class="text-center"
+                                        <th class="text-center Mycolor"
                                             data-bs-toggle="tooltip"
                                             data-bs-offset="0,4"
                                             data-bs-placement="top"
@@ -990,7 +1100,7 @@
                                                 <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
                                             </svg>
                                         </th>
-                                        <th class="text-center"
+                                        <th class="text-center Mycolor"
                                             data-bs-toggle="tooltip"
                                             data-bs-offset="0,4"
                                             data-bs-placement="top"
@@ -1004,7 +1114,7 @@
                                                 <path d="M12 10h-1.783l1.542-1.639q.146-.156.241-.34zm0-3.354V6h-.646a1.5 1.5 0 0 1 .646.646M16 8a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8"/>
                                             </svg>
                                         </th>
-                                        <th class="text-center"
+                                        <th class="text-center Mycolor"
                                             data-bs-toggle="tooltip"
                                             data-bs-offset="0,4"
                                             data-bs-placement="top"
@@ -1015,7 +1125,7 @@
                                                 <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5"/>
                                             </svg>
                                         </th>
-                                        <th class="text-center"
+                                        <th class="text-center Mycolor"
                                             data-bs-toggle="tooltip"
                                             data-bs-offset="0,4"
                                             data-bs-placement="top"
@@ -1095,7 +1205,1954 @@
 <!-- Data table -->
 <script src="js/jquery.min.js"></script>
 <script src="js/datatables.min.js"></script>
+
+<style>
+
+
+    /* Réduisez la largeur de l'entrée de recherche */
+    div.dataTables_wrapper div.dataTables_filter input {
+        width: 122px; /* Ajustez la largeur selon vos besoins */
+        margin-top: 5px;!important; /* Ajustez la largeur selon vos besoins */
+    }
+
+</style>
 <script>
+    //--------les var
+    var selecteTacheParente = document.getElementById("tacheparente");
+    var selecteStatut = document.getElementById("statut");
+    var submitBoutton = document.getElementById("submit");
+    var message=document.getElementById("messageconfirme");
+    //-------------
+
+
+
+    //pour la date douverture
+    // Obtenez la date actuelle au format YYYY-MM-DD
+    var currentDate = new Date().toISOString().split('T')[0];
+    // Mettez à jour l'attribut 'min' du champ de saisie de date avec la date actuelle
+    //document.getElementById('DateOuverture').min = currentDate;
+    // Mettez à jour l'attribut 'value' du champ de saisie de date avec la date actuelle
+    document.getElementById('DateOuverture').value = currentDate;
+    //Pour editer une departement dans la meme forme
+
+
+    //--------------------------pour Edite une tache dans la meme forme
+    function editerTache(idtache) {
+        //const idtache = button.getAttribute("data-id");
+        const form = document.getElementById("formAccountSettings");
+
+        // Set the idDepartement input field value and update the button text
+        form.querySelector("input[name='idtache']").value = idtache;
+
+        // Fetch Domaine details using AJAX
+        $.ajax({
+            type: "GET", // You may need to adjust this to your backend API
+            url: `get-Tache/${idtache}`, // Replace with your API endpoint
+            success: function(data) {
+
+                // Pre-fill the form fields
+                form.querySelector("input[name='Utilisateur']").value = data.utilisateur.idutilisateur;
+                form.querySelector("input[name='nomtache']").value = data.nomtache;
+                form.querySelector("input[name='dureestime']").value = data.dureestime;
+                form.querySelector("input[name='dateouverture']").value = data.dateouverture;
+                if(data.commentaire!=null)
+                {form.querySelector("input[name='commentaire']").value = data.commentaire;}
+
+
+                var selectTacheparente = $("#tacheparente")
+                selectTacheparente.empty(); // Efface toutes les options actuelles
+
+
+
+                // Set the selected value for the 'statut' dropdown
+                if (data.statut != null) {
+                    // Pre-select the Societe in the dropdown
+                    const selectStatut = form.querySelector("select[name='statut']");
+                    // Efface la sélection précédente en supprimant l'attribut "selected" de toutes les options
+                    Array.from(selectStatut.options).forEach(option => option.removeAttribute("selected"));
+                    const statutOption = selectStatut.querySelector(`option[value="${data.statut}"]`);
+                    statutOption.setAttribute("selected", "selected");
+                } else {
+                    // Pre-select the Societe in the dropdown
+                    const selectStatut = form.querySelector("select[name='statut']");
+                    // Efface la sélection précédente en supprimant l'attribut "selected" de toutes les options
+                    Array.from(selectStatut.options).forEach(option => option.removeAttribute("selected"));
+                    attente=document.getElementById('attente');
+                    attente.setAttribute("selected","selected");
+                }
+
+                // Set the selected value for the 'priorite' dropdown
+                if (data.priorite != null) {
+                    // Pre-select the Societe in the dropdown
+                    const selectPriorite = form.querySelector("select[name='priorite']");
+                    // Efface la sélection précédente en supprimant l'attribut "selected" de toutes les options
+                    Array.from(selectPriorite.options).forEach(option => option.removeAttribute("selected"));
+                    const statutOption = selectPriorite.querySelector(`option[value="${data.priorite.idpriorite}"]`);
+                    statutOption.setAttribute("selected", "selected");
+                } else {
+                    // Pre-select the Societe in the dropdown
+                    const selectPriorite = form.querySelector("select[name='priorite']");
+                    // Efface la sélection précédente en supprimant l'attribut "selected" de toutes les options
+                    Array.from(selectPriorite.options).forEach(option => option.removeAttribute("selected"));
+                }
+
+                aunetachesuccessiveSelect= form.querySelector("select[name='aunetachesuccessive']");
+                // a une tache successive
+                if (data.aunetachesuccessive === false) {
+                    // Efface la sélection précédente en supprimant l'attribut "selected" de toutes les options
+                    Array.from(aunetachesuccessiveSelect.options).forEach(option => option.removeAttribute("selected"));
+                    const statutOption = aunetachesuccessiveSelect.querySelector(`option[value="false"]`);
+                    statutOption.setAttribute("selected", "selected");
+                } else {
+                    // Efface la sélection précédente en supprimant l'attribut "selected" de toutes les options
+                    // Efface la sélection précédente en supprimant l'attribut "selected" de toutes les options
+                    Array.from(aunetachesuccessiveSelect.options).forEach(option => option.removeAttribute("selected"));
+                    const statutOption = aunetachesuccessiveSelect.querySelector(`option[value="true"]`);
+                    statutOption.setAttribute("selected", "selected");
+                }
+
+                // Set the selected value for the 'statut' dropdown
+                if (data.type != null) {
+                    // Pre-select the Societe in the dropdown
+                    const selectType = form.querySelector("select[name='type']");
+                    // Efface la sélection précédente en supprimant l'attribut "selected" de toutes les options
+                    Array.from(selectType.options).forEach(option => option.removeAttribute("selected"));
+                    const statutOption = selectType.querySelector(`option[value="${data.type}"]`);
+                    statutOption.setAttribute("selected", "selected");
+                } else {
+                    // Pre-select the Societe in the dropdown
+                    const selectType = form.querySelector("select[name='type']");
+                    // Efface la sélection précédente en supprimant l'attribut "selected" de toutes les options
+                    Array.from(selectType.options).forEach(option => option.removeAttribute("selected"));
+                    attente=document.getElementById('attente');
+                    attente.setAttribute("selected","selected");
+                }
+
+                //tache parent selecte
+                findTacheParents(data);
+                //proprietaire et destinatair selecte
+                findPropritairByIdTache(data.utilisateur.idutilisateur,data);
+                findRecepteurByIdTache(data.utilisateur.idutilisateur,data);
+
+            },
+            error: function(err) {
+                // Handle the error if needed
+                console.error(err);
+            }
+        });
+
+        //pour afficher le form
+        // Récupérer l'élément du bouton par son attribut 'class'
+        var bouton = document.getElementById("editertache");
+
+        // Vérifier si le bouton a été trouvé
+        if (bouton) {
+            // Déclencher le clic sur le bouton
+            bouton.click();
+        } else {
+            console.error('Le bouton n\'a pas été trouvé.');
+        }
+
+        //srcipt permet de défiler la page vers le haut lorsque l'utilisateur clique sur un bouton
+        // Faites défiler la page vers le haut
+        window.scrollTo({
+            top: 0, // La position en pixels en haut de la page
+            behavior: "smooth" // Option pour un défilement fluide
+        });
+    }
+
+
+    function validationTacheParente() {
+        // console.log(selecteTacheParente.value);
+        //console.log(selecteStatut.value);
+
+        if (selecteTacheParente.value ==(-1)
+            && selecteStatut.value != "Programme") {
+            //console.log("test1");
+            message.innerText = "";
+            submitBoutton.disabled = false;
+        } if(selecteTacheParente.value !=(-1)
+            && selecteStatut.value != "Programme") {
+            // console.log("test2");
+            message.innerText = "Vous ne pouvez pas.";
+            submitBoutton.disabled = true;
+
+        }
+        if(selecteTacheParente.value ==(-1)
+            && selecteStatut.value == "Programme") {
+            // console.log("test3");
+            message.innerText = "Vous ne pouvez pas.";
+            submitBoutton.disabled = true;
+
+        }
+        if(selecteTacheParente.value !=(-1)
+            && selecteStatut.value == "Programme") {
+            // console.log("test4");
+            message.innerText = "";
+            submitBoutton.disabled = false;
+
+        }
+    }
+
+    // Ajouter un écouteur d'événements à l'élément selecteTacheParente
+    selecteTacheParente.addEventListener("change", validationTacheParente);
+    selecteStatut.addEventListener("change", validationTacheParente);
+
+
+
+    //Pour afficher les propriétaires et les destinataires de la société de la tâche sélectionnée dans le champ de select
+    function findPropritairByIdTache(idUtilisateur,tache)
+    {
+        // Utilisez AJAX pour obtenir la liste des TacheParent de l utilisateur
+        $.ajax({
+            type: "GET",
+            url: "get-Propritair-by-idUtilisateur/" + idUtilisateur, // Remplacez cette URL par votre endpoint
+            success: function(data) {
+
+                //
+                var selectProprietaire = $("#Proprietaires")
+                selectProprietaire.empty(); // Efface toutes les options actuelles
+                for (var i = 0; i < data.length; i++) {
+                    var option= new Option(data[i].nom+' '+data[i].prenom, data[i].idutilisateur);
+                    selectProprietaire.append(option);
+                    // Vérifier si l'utilisateur est le propriétaire de la tâche
+                    if (tache.proprietaire && tache.proprietaire.idutilisateur === data[i].idutilisateur) {
+                        option.selected = true; // Sélectionne automatiquement l'option
+                    }
+                }
+            }
+
+
+        });
+    }
+
+
+    //Pour afficher les propriétaires et les destinataires de la société de la tâche sélectionnée dans le champ de select
+    function findRecepteurByIdTache(idUtilisateur,tache)
+    {
+        // Utilisez AJAX pour obtenir la liste des TacheParent de l utilisateur
+        $.ajax({
+            type: "GET",
+            url: "get-Destinatair-by-idUtilisateur/" + idUtilisateur, // Remplacez cette URL par votre endpoint
+            success: function(data) {
+
+                var selectDestinatair = $("#idrecepteur");
+                selectDestinatair.empty(); // Efface toutes les options actuelles
+                for (var i = 0; i < data.length; i++) {
+                    var option = new Option(data[i].nom + ' ' + data[i].prenom, data[i].idutilisateur);
+                    selectDestinatair.append(option);
+
+                    // Vérifier si l'utilisateur est le propriétaire de la tâche
+                    if (tache.recepteur && tache.recepteur.idutilisateur === data[i].idutilisateur) {
+                        option.selected = true; // Sélectionne automatiquement l'option
+                    }
+
+                }
+
+
+
+
+            }
+
+        });
+    }
+    function findTacheParents(tache)
+    {
+        var idUtilisateur=tache.utilisateur.idutilisateur;
+        var tacheParent=tache.tacheparente
+        // Utilisez AJAX pour obtenir la liste des TacheParent de l utilisateur
+        $.ajax({
+            type: "GET",
+            url: "get-tachesParents-by-idUtilisateur/" + idUtilisateur, // Remplacez cette URL par votre endpoint
+            success: function(data) {
+
+                //  console.log(data)
+
+                var selectTacheparente = $("#tacheparente")
+                selectTacheparente.empty(); // Efface toutes les options actuelles
+                selectTacheparente.append (new Option("Sans tâche parente",-1));
+                for (var i = 0; i < data.length; i++) {
+                    /*     selectTacheparente.append (new Option(data[i].nomtache, data[i].idtache));
+                         if (data[i].idtache===tacheParent.idtache) {
+
+                         }*/
+                    var option = new Option(data[i].nomtache+' '+data[i].idtache, data[i].idtache);
+                    selectTacheparente.append(option);
+                    if (tacheParent!=null) {
+                        if (data[i].idtache === tacheParent.idtache) {
+                            option.selected = true;
+                        }
+                    }
+
+                }
+            }
+        });
+    }
+
+
+    function annuler()
+    {
+        // Récupérer l'élément du formulaire par son ID
+        var formulaire = document.getElementById('formAccountSettings');
+
+        // Vérifier si le formulaire a été trouvé
+        if (formulaire) {
+            // Réinitialiser le formulaire
+            formulaire.reset();
+
+            if ( formulaire.querySelector("button[type='submit']").textContent === "Mettre à jour") {
+                formulaire.querySelector("button[type='submit']").textContent = "envoyer";
+
+
+                const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
+                idTacheInput.value=null;
+                idTacheInput.textContent="";
+
+            }
+            dateOuvertureactuelle();
+        } else {
+            console.error('Le formulaire n\'a pas été trouvé.');
+        }
+    }
+
+
+    // Sélectionnez tous les éléments avec la classe "show-message"
+    var messageElements = document.querySelectorAll('.show-message');
+
+    // Parcourir chaque élément et ajouter la classe "show" (pour l'animation)
+    messageElements.forEach(function(element) {
+        element.classList.add('show');
+
+        // Supprimer la classe "show" après 5 secondes
+        setTimeout(function() {
+            element.classList.remove('show');
+        }, 5000);
+    });
+    // Sélectionnez l'élément avec l'id "messages"
+    var messagesDiv = document.getElementById("messages");
+
+    // Supprimez la div après 5 secondes (5000 millisecondes)
+    setTimeout(function() {
+        if (messagesDiv) {
+            messagesDiv.remove();
+        }
+    }, 5500);
+
+
+    //----- script pour les filtres et la validation , Refair et editer les taches
+    var membreSelect = document.getElementById('membreSelect');
+    const statutSelect = document.getElementById('statutSelect');
+    var tbody = document.querySelector("#example tbody");
+    var dateMinSelect = document.querySelector("#dateMinSelect");
+    var dateMaxSelect = document.querySelector("#dateMaxSelect");
+    var dateselect = document.querySelector("#dateSelected");
+    var AllTasks=[];
+    var selectedStatuts=[""];
+    var selectedMembres;
+    var tacheOfselectedMembres=AllTasks;
+    var dateMin="";
+    var dateMax="";
+    var utilisateurConnecte=[];
+    var membres=[];
+    var selectedDate="ouverture";
+
+
+    //console.log(new Date());
+    //Trouver le role d utilisateur connecté
+    function getRole() {
+        $.ajax({
+            url: `Role`,
+            method: 'GET',
+            success: function (data) {
+                utilisateurConnecte.push(data);
+            },
+            error: function (error) {
+                console.error("Une erreur s'est produite lors de la récupération du rôle :", error);
+            }
+        });
+    }
+    getRole();
+
+
+    // Appel de la fonction fetch pour récupérer les membres de l'équipe de l'utilisateur connecté
+    fetch('membresDeLequipeDutilisateur', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            // Vous pouvez également ajouter des en-têtes supplémentaires si nécessaire
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur de réseau');
+            }
+            return response.json();
+        })
+        .then(data => {
+
+            // Les données récupérées (liste de membres) sont stockées dans la variable data
+            data.forEach(user=>{
+                membres.push(user)
+                console.log(user)
+
+            })
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération des membres:', error);
+        });
+
+    //pour l affichage initial du table
+    function getAllTasks(){
+        fetch('getAllTasks')
+            .then(response => response.json())
+            .then(data => {
+                // Redraw the table
+                $('#example').DataTable().destroy();
+                // For example, you can clear the table content
+                tbody.innerHTML = '';
+                // Update the table with the new data
+                data.forEach(tache => {
+                    AllTasks.push(tache);
+                    createTableRow(tache);
+                });
+                // Redraw the table
+                datatableConf();
+            })
+    }
+    //affichage initial du tableau
+    getAllTasks();
+    function datatableConf(){
+        $(document).ready(function () {
+            var table = $('#example').DataTable({
+                info: false,
+                lengthMenu: [10, 25, 50],
+                language: {
+                    "lengthMenu": "Afficher _MENU_ entrées",
+                    "search": "Rechercher :",
+                    "paginate": {
+                        "first": "Première",
+                        "last": "Dernière",
+                        "next": "Suivant",
+                        "previous": "Précédent"
+                    }
+                },
+                dom: '<"top">t<"bottom"lp>',
+            });
+
+            $('#rechercher').on('keyup', function() {
+                table.search(this.value).draw();
+            });
+        });
+    }
+
+
+    //______________________script:pour filtré les Taches Par utilisateurs___________________
+    // Function to handle the change event on membreSelect
+    membreSelect.addEventListener('change', () => {
+        // Check if "tout sélectionner" is selected
+        if (membreSelect.value === "") {
+            // Redraw the table
+            $('#example').DataTable().destroy();
+            tbody.innerHTML = '';
+            console.log(selectedStatuts);
+            // Perform actions when "tout sélectionner" is selected
+            //getAllTasks();
+            tacheOfselectedMembres= AllTasks;
+            console.log(selectedDate)
+
+
+            const isStatutsSelectionneTousSelected=contientValeurVide(selectedStatuts);
+            if (isStatutsSelectionneTousSelected && dateMin=="" && dateMax=="") {
+                // Clear existing data
+                AllTasks.forEach(tache => {
+                    createTableRow(tache);
+                });
+
+            }
+            if (isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
+                //$('#example').DataTable().clear();
+                AllTasks.forEach(tache => {
+                    if (selectedDate=="ouverture") {
+                        if (tache.dateouverture<=dateMax) {
+                            createTableRow(tache);
+                        }
+
+                    }
+
+                    if (selectedDate=="objectif") {
+                        if (tache.dateobjectif!=null) {
+                            if ( tache.dateobjectif<=dateMax) {
+                                createTableRow(tache);
+                            }
+                        }
+                    }
+
+                    if (selectedDate==="cloture") {
+                        if (tache.dateTermineTache!=null) {
+                            if (tache.dateTermineTache<=dateMax) {
+                                createTableRow(tache);
+                            }
+                        }
+                    }
+                });
+
+            }
+            if (isStatutsSelectionneTousSelected && dateMin!="" && dateMax=="") {
+
+                AllTasks.forEach(tache => {
+
+                    if (selectedDate=="ouverture") {
+                        if (tache.dateouverture>=dateMin) {
+                            createTableRow(tache);
+                        }
+
+                    }
+
+                    if (selectedDate=="objectif") {
+                        if (tache.dateobjectif!=null) {
+                            if ( tache.dateobjectif>=dateMin) {
+                                createTableRow(tache);
+                            }
+                        }
+                    }
+
+                    if (selectedDate==="cloture") {
+                        if (tache.dateTermineTache!=null) {
+                            if (tache.dateTermineTache>=dateMin) {
+                                createTableRow(tache);
+                            }
+                        }
+                    }
+                });
+
+            }
+
+            if (isStatutsSelectionneTousSelected && dateMin!="" && dateMax!="") {
+                AllTasks.forEach(tache => {
+
+                    if (selectedDate=="ouverture") {
+                        if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                            createTableRow(tache);
+                        }
+
+                    }
+
+                    if (selectedDate=="objectif") {
+                        if (tache.dateobjectif!=null) {
+                            if ( dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax) {
+                                createTableRow(tache);
+                            }
+                        }
+                    }
+
+                    if (selectedDate==="cloture") {
+                        if (tache.dateTermineTache!=null) {
+                            if ( dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax) {
+                                createTableRow(tache);
+                            }
+                        }
+                    }
+
+                });
+            }
+
+            if (!isStatutsSelectionneTousSelected && dateMin=="" && dateMax=="") {
+                AllTasks.forEach(tache => {
+                    const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                    if (TacheWitheSelectedStatut) {
+                        createTableRow(tache);
+                    }
+                });
+            }
+
+            if (!isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
+                AllTasks.forEach(tache => {
+
+                    const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+                    if (selectedDate=="ouverture") {
+                        if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax) {
+                            createTableRow(tache);
+                        }
+                    }
+
+                    if (selectedDate=="objectif") {
+                        if (tache.dateobjectif!=null) {
+                            if (TacheWitheSelectedStatut && tache.dateobjectif<=dateMax) {
+                                createTableRow(tache);
+                            }
+                        }
+                    }
+
+                    if (selectedDate=="cloture") {
+                        if (tache.dateTermineTache!=null) {
+                            if (TacheWitheSelectedStatut && tache.dateTermineTache<=dateMax) {
+                                createTableRow(tache);
+                            }
+                        }
+                    }
+
+                });
+            }
+            if (!isStatutsSelectionneTousSelected && dateMin!="" && dateMax=="") {
+                AllTasks.forEach(tache => {
+                    const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+                    if (selectedDate=="ouverture") {
+                        if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin) {
+                            createTableRow(tache);
+                        }
+                    }
+
+                    if (selectedDate=="objectif") {
+                        if (tache.dateobjectif!=null) {
+                            if (TacheWitheSelectedStatut && tache.dateobjectif>=dateMin) {
+                                createTableRow(tache);
+                            }
+                        }
+                    }
+
+                    if (selectedDate=="cloture") {
+                        if (tache.dateTermineTache!=null) {
+                            if (TacheWitheSelectedStatut && tache.dateTermineTache>=dateMin) {
+                                createTableRow(tache);
+                            }
+                        }
+                    }
+
+                });
+            }
+            if (!isStatutsSelectionneTousSelected && dateMin!="" && dateMax!="") {
+                AllTasks.forEach(tache => {
+                    const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+                    if (selectedDate=="ouverture") {
+                        if (TacheWitheSelectedStatut && dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                            createTableRow(tache);
+                        }
+                    }
+
+                    if (selectedDate=="objectif") {
+                        if (tache.dateobjectif!=null) {
+                            if (TacheWitheSelectedStatut &&  dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax) {
+                                createTableRow(tache);
+                            }
+                        }
+                    }
+
+                    if (selectedDate=="cloture") {
+                        if (tache.dateTermineTache!=null) {
+                            if (TacheWitheSelectedStatut &&  dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax) {
+                                createTableRow(tache);
+                            }
+                        }
+                    }
+
+                });
+            }// Redraw the table
+            datatableConf();
+
+        } else {
+
+            // Récupérer les départements sélectionnés
+            //membreSelect.selectedOptions: est une propriété de l'élément <select> qui renvoie une collection de toutes les options sélectionnées.
+            //Array.from(): est utilisé pour convertir la collection renvoyée par selectedOptions en un tableau JavaScript.
+            // Les collections d'éléments DOM ne sont pas des tableaux
+            // (option => option.value). Elle prend chaque élément (dans ce cas, une option) de la collection selectedOptions et renvoie la valeur de l'attribut value de cet élément.
+            // Cela permet d'extraire la valeur de chaque option sélectionnée et de la stocker dans un nouveau tableau.
+
+            //selectedMembres: un tableau des id valeur sélectionnées
+            selectedMembres = Array.from(membreSelect.selectedOptions).map(option => option.value);
+
+            //
+            fetch(`taches2?utilisateur=${selectedMembres.join(',')}`)
+                .then(response => response.json())
+                .then(data => {
+
+                    //stocker les tache des membres selectionné
+                    tacheOfselectedMembres=data;
+                    // Redraw the table
+                    $('#example').DataTable().destroy();
+                    // Effacer le contenu actuel
+                    tbody.innerHTML = '';
+                    const isStatutsSelectionneTousSelected=contientValeurVide(selectedStatuts);
+
+                    if (isStatutsSelectionneTousSelected && dateMin=="" && dateMax=="") {
+                        data.forEach(tache => {
+                            createTableRow(tache);
+                        });
+                    }
+
+                    if (isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
+                        data.forEach(tache => {
+
+                            if (selectedDate=="ouverture") {
+                                if (tache.dateouverture<=dateMax) {
+                                    createTableRow(tache);
+                                }
+                            }
+
+
+                            if (selectedDate=="objectif") {
+                                if (tache.dateobjectif!=null) {
+                                    if (tache.dateobjectif<=dateMax) {
+                                        createTableRow(tache);
+                                    }
+                                }
+                            }
+
+                            if (selectedDate=="cloture") {
+                                if (tache.dateTermineTache!=null) {
+                                    if (tache.dateTermineTache<=dateMax) {
+                                        createTableRow(tache);
+                                    }
+                                }
+                            }
+
+
+                        });
+                    }
+
+                    if (isStatutsSelectionneTousSelected && dateMin!="" && dateMax=="") {
+
+                        data.forEach(tache => {
+
+                            if (selectedDate=="ouverture") {
+                                if (tache.dateouverture>=dateMin) {
+                                    createTableRow(tache);
+                                }
+                            }
+
+                            if (selectedDate=="objectif") {
+                                if (tache.dateobjectif!=null) {
+                                    if (tache.dateobjectif>=dateMin) {
+                                        createTableRow(tache);
+                                    }
+                                }
+                            }
+
+                            if (selectedDate=="cloture") {
+                                if (tache.dateTermineTache!=null) {
+                                    if (tache.dateTermineTache>=dateMin) {
+                                        createTableRow(tache);
+                                    }
+                                }
+                            }
+
+                        });
+
+
+                    }
+
+                    if (isStatutsSelectionneTousSelected && dateMin!="" && dateMax!="") {
+                        data.forEach(tache => {
+
+
+
+                            if (selectedDate=="ouverture") {
+                                if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                                    createTableRow(tache);
+                                }
+                            }
+
+                            if (selectedDate=="objectif") {
+                                if (tache.dateobjectif!=null) {
+                                    if (dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax) {
+                                        createTableRow(tache);
+                                    }
+                                }
+                            }
+
+                            if (selectedDate=="cloture") {
+                                if (tache.dateTermineTache!=null) {
+                                    if (dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax) {
+                                        createTableRow(tache);
+                                    }
+                                }
+                            }
+
+
+                        });
+                    }
+
+                    if (!isStatutsSelectionneTousSelected && dateMin=="" && dateMax=="") {
+                        data.forEach(tache => {
+                            const TacheWitheSelectedStatut = selectedStatuts.some(x => x === tache.statut);
+                            if (TacheWitheSelectedStatut) {
+                                createTableRow(tache);
+                            }
+                        });
+                    }
+
+                    if (!isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
+                        data.forEach(tache => {
+                            const TacheWitheSelectedStatut = selectedStatuts.some(x => x === tache.statut);
+
+                            if (selectedDate=="ouverture") {
+                                if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax) {
+                                    createTableRow(tache);
+                                }
+                            }
+
+
+                            if (selectedDate=="objectif") {
+                                if (tache.dateobjectif!=null) {
+                                    if (TacheWitheSelectedStatut && tache.dateobjectif<=dateMax) {
+                                        createTableRow(tache);
+                                    }
+                                }
+                            }
+
+                            if (selectedDate=="cloture") {
+                                if (tache.dateTermineTache!=null) {
+                                    if (TacheWitheSelectedStatut && tache.dateTermineTache<=dateMax) {
+                                        createTableRow(tache);
+                                    }
+                                }
+                            }
+
+                        });
+                    }
+
+                    if (!isStatutsSelectionneTousSelected && dateMin!="" && dateMax=="") {
+                        data.forEach(tache => {
+                            const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+
+                            if (selectedDate=="ouverture") {
+                                if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin) {
+                                    createTableRow(tache);
+                                }
+                            }
+
+                            if (selectedDate=="objectif") {
+                                if (tache.dateobjectif!=null) {
+                                    if (TacheWitheSelectedStatut && tache.dateobjectif>=dateMin) {
+                                        createTableRow(tache);
+                                    }
+                                }
+                            }
+
+                            if (selectedDate=="cloture") {
+                                if (tache.dateTermineTache!=null) {
+                                    if (TacheWitheSelectedStatut && tache.dateTermineTache>=dateMin) {
+                                        createTableRow(tache);
+                                    }
+                                }
+                            }
+
+
+                        });
+                    }
+
+                    if (!isStatutsSelectionneTousSelected && dateMin!="" && dateMax!="") {
+                        data.forEach(tache => {
+                            const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+
+                            if (selectedDate=="ouverture") {
+                                if (TacheWitheSelectedStatut &&  dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                                    createTableRow(tache);
+                                }
+                            }
+
+                            if (selectedDate=="objectif") {
+                                if (tache.dateobjectif!=null) {
+                                    if (TacheWitheSelectedStatut &&  dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax) {
+                                        createTableRow(tache);
+                                    }
+                                }
+                            }
+
+                            if (selectedDate=="cloture") {
+                                if (tache.dateTermineTache!=null) {
+                                    if (TacheWitheSelectedStatut &&  dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax) {
+                                        createTableRow(tache);
+                                    }
+                                }
+                            }
+
+
+                        });
+                    }
+                    // Redraw the table
+                    datatableConf();
+
+                })
+        }
+
+    });
+    //pour filtrer les taches par statuts
+    statutSelect.addEventListener('change',()=>{
+        // Redraw the table
+        $('#example').DataTable().destroy();
+        // Effacer le contenu actuel
+        tbody.innerHTML = '';
+        //selectedStatuts: un tableau des valeurs sélectionnées
+        selectedStatuts = Array.from(statutSelect.selectedOptions).map(option => option.value);
+
+        // Check if "tout sélectionner" is selected
+        if (statutSelect.value == "" && dateMin=="" && dateMax=="") {
+            tacheOfselectedMembres.forEach(tache => {
+                createTableRow(tache);
+            });
+        }
+
+        if (statutSelect.value == "" && dateMin=="" && dateMax!="") {
+            tacheOfselectedMembres.forEach(tache => {
+
+                if (selectedDate=="ouverture") {
+                    if (tache.dateouverture<=dateMax) {
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (tache.dateobjectif<=dateMax) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (tache.dateTermineTache<=dateMax) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+
+            });
+        }
+
+        if (statutSelect.value == "" && dateMin!="" && dateMax=="") {
+            tacheOfselectedMembres.forEach(tache => {
+
+
+                if (selectedDate=="ouverture") {
+                    if (tache.dateouverture>=dateMin) {
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (tache.dateobjectif>=dateMin) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (tache.dateTermineTache>=dateMin) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+            });
+        }
+
+        if (statutSelect.value == "" && dateMin!="" && dateMax!="") {
+            tacheOfselectedMembres.forEach(tache => {
+
+                if (selectedDate=="ouverture") {
+                    if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+
+            });
+        }
+
+        // Check if "tout sélectionner" is selected
+        if (statutSelect.value != "" && dateMin=="" && dateMax=="") {
+            //lister les tache des membres selectionné
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                if (TacheWitheSelectedStatut ){
+                    createTableRow(tache);
+                }
+            });
+        }
+        if (statutSelect.value != "" && dateMin=="" && dateMax!="") {
+            //lister les tache des membres selectionné
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+
+                if (selectedDate=="ouverture") {
+                    if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax ){
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (TacheWitheSelectedStatut && tache.dateobjectif<=dateMax ){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (TacheWitheSelectedStatut && tache.dateTermineTache<=dateMax ){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+
+            });
+        }
+
+        if (statutSelect.value != "" && dateMin!="" && dateMax=="") {
+            //lister les tache des membres selectionné
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+
+                if (selectedDate=="ouverture") {
+                    if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin){
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (TacheWitheSelectedStatut && tache.dateobjectif>=dateMin){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (TacheWitheSelectedStatut && tache.dateTermineTache>=dateMin){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+
+            });
+        }
+        if (statutSelect.value != "" && dateMin!="" && dateMax!="") {
+            //lister les tache des membres selectionné
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+
+                if (selectedDate=="ouverture") {
+                    if (TacheWitheSelectedStatut &&  dateMin<=tache.dateouverture && tache.dateouverture<=dateMax){
+                        createTableRow(tache);
+                    }
+                }
+
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (TacheWitheSelectedStatut &&  dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (TacheWitheSelectedStatut &&  dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+            });
+        }
+        // Redraw the table
+        datatableConf();
+    })
+
+    //pour filtrer les taches par Date
+    dateselect.addEventListener("change", ()=>{
+        selectedDate=dateselect.value
+        //console.log(selectedDate)
+        // Redraw the table
+        $('#example').DataTable().destroy();
+        // Effacer le contenu actuel
+        tbody.innerHTML = '';
+        //selectedStatuts: un tableau des valeurs sélectionnées
+        selectedStatuts = Array.from(statutSelect.selectedOptions).map(option => option.value);
+
+        // Check if "tout sélectionner" is selected
+        if (statutSelect.value == "" && dateMin=="" && dateMax=="") {
+            tacheOfselectedMembres.forEach(tache => {
+                createTableRow(tache);
+            });
+        }
+
+        if (statutSelect.value == "" && dateMin=="" && dateMax!="") {
+            tacheOfselectedMembres.forEach(tache => {
+
+                if (selectedDate=="ouverture") {
+                    if (tache.dateouverture<=dateMax) {
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (tache.dateobjectif<=dateMax) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (tache.dateTermineTache<=dateMax) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+
+            });
+        }
+
+        if (statutSelect.value == "" && dateMin!="" && dateMax=="") {
+            tacheOfselectedMembres.forEach(tache => {
+
+
+                if (selectedDate=="ouverture") {
+                    if (tache.dateouverture>=dateMin) {
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (tache.dateobjectif>=dateMin) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (tache.dateTermineTache>=dateMin) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+            });
+        }
+
+        if (statutSelect.value == "" && dateMin!="" && dateMax!="") {
+            tacheOfselectedMembres.forEach(tache => {
+
+                if (selectedDate=="ouverture") {
+                    if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+
+            });
+        }
+
+        // Check if "tout sélectionner" is selected
+        if (statutSelect.value != "" && dateMin=="" && dateMax=="") {
+            //lister les tache des membres selectionné
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+                if (TacheWitheSelectedStatut ){
+                    createTableRow(tache);
+                }
+            });
+        }
+        if (statutSelect.value != "" && dateMin=="" && dateMax!="") {
+            //lister les tache des membres selectionné
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+
+                if (selectedDate=="ouverture") {
+                    if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax ){
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (TacheWitheSelectedStatut && tache.dateobjectif<=dateMax ){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (TacheWitheSelectedStatut && tache.dateTermineTache<=dateMax ){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+
+            });
+        }
+
+        if (statutSelect.value != "" && dateMin!="" && dateMax=="") {
+            //lister les tache des membres selectionné
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+
+                if (selectedDate=="ouverture") {
+                    if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin){
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (TacheWitheSelectedStatut && tache.dateobjectif>=dateMin){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (TacheWitheSelectedStatut && tache.dateTermineTache>=dateMin){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+
+            });
+        }
+        if (statutSelect.value != "" && dateMin!="" && dateMax!="") {
+            //lister les tache des membres selectionné
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+
+                if (selectedDate=="ouverture") {
+                    if (TacheWitheSelectedStatut &&  dateMin<=tache.dateouverture && tache.dateouverture<=dateMax){
+                        createTableRow(tache);
+                    }
+                }
+
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (TacheWitheSelectedStatut &&  dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (TacheWitheSelectedStatut &&  dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+            });
+        }
+        // Redraw the table
+        datatableConf();
+    })
+
+    //pour filtrer les taches par datemax
+    dateMaxSelect.addEventListener('change',()=>{
+        // Redraw the table
+        $('#example').DataTable().destroy();
+        // Effacer le contenu actuel
+        tbody.innerHTML = '';
+        // Stoker la date sélectionnée
+        dateMax = dateMaxSelect.value;
+        if (dateMin == "" && selectedStatuts=="") {
+
+            //lister les tache des membres & statuts selectionnés
+            tacheOfselectedMembres.forEach(tache => {
+
+                if (selectedDate=="ouverture") {
+                    if (tache.dateouverture<=dateMax) {
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (tache.dateobjectif<=dateMax) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (tache.dateTermineTache<=dateMax) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+            });
+
+
+        }
+
+        if (dateMin != "" && selectedStatuts == "") {
+            //lister les tache des membres & statuts selectionnés
+            tacheOfselectedMembres.forEach(tache => {
+
+                if (selectedDate=="ouverture") {
+                    if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax) {
+                            createTableRow(tache);
+                        }
+
+                    }
+                }
+
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+
+            })
+
+        }
+        if (dateMin == "" && selectedStatuts!="") {
+            //lister les tache des membres & statuts selectionnés
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+
+                if (selectedDate=="ouverture") {
+                    if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax ){
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (TacheWitheSelectedStatut && tache.dateobjectif<=dateMax ){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (TacheWitheSelectedStatut && tache.dateTermineTache<=dateMax ){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+            });
+        }
+        if (dateMin != "" && selectedStatuts != "") {
+            //lister les tache des membres & statuts selectionnés
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+
+                if (selectedDate=="ouverture") {
+                    if (TacheWitheSelectedStatut && dateMin<=tache.dateouverture && tache.dateouverture<=dateMax ){
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (TacheWitheSelectedStatut && dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax ){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (TacheWitheSelectedStatut && dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax ){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+            });
+        }
+        // Redraw the table
+        datatableConf();
+    })
+
+    //pour filtrer les taches par datemin
+    dateMinSelect.addEventListener('change',()=>{
+        // Redraw the table
+        $('#example').DataTable().destroy();
+        // Effacer le contenu actuel
+        tbody.innerHTML = '';
+        // Stoker la date sélectionnée
+        dateMin = dateMinSelect.value;
+        if (dateMax == "" && selectedStatuts=="") {
+            //lister les tache des membres & statuts selectionnés
+            tacheOfselectedMembres.forEach(tache => {
+
+
+                if (selectedDate=="ouverture") {
+                    if (tache.dateouverture>=dateMin) {
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (tache.dateobjectif>=dateMin) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (tache.dateTermineTache>=dateMin) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+
+            });
+        }
+        if (dateMax != "" && selectedStatuts == "") {
+            //lister les tache des membres & statuts selectionnés
+            tacheOfselectedMembres.forEach(tache => {
+
+
+                if (selectedDate=="ouverture") {
+                    if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax) {
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax) {
+                            createTableRow(dateTermineTache);
+                        }
+                    }
+                }
+
+
+            })
+        }
+        if (dateMax == "" && selectedStatuts!="") {
+            //lister les tache des membres & statuts selectionnés
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+
+                if (selectedDate=="ouverture") {
+                    if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin ){
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (TacheWitheSelectedStatut && tache.dateobjectif>=dateMin ){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (TacheWitheSelectedStatut && tache.dateTermineTache>=dateMin ){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+
+            });
+        }
+        if (dateMax != "" && selectedStatuts != "") {
+
+            //lister les tache des membres & statuts selectionnés
+            tacheOfselectedMembres.forEach(tache => {
+                const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+
+
+                if (selectedDate=="ouverture") {
+                    if (TacheWitheSelectedStatut && dateMin<=tache.dateouverture && tache.dateouverture<=dateMax ){
+                        createTableRow(tache);
+                    }
+                }
+
+                if (selectedDate=="objectif") {
+                    if (tache.dateobjectif!=null) {
+                        if (TacheWitheSelectedStatut && dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax ){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+                if (selectedDate=="cloture") {
+                    if (tache.dateTermineTache!=null) {
+                        if (TacheWitheSelectedStatut && dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax ){
+                            createTableRow(tache);
+                        }
+                    }
+                }
+
+
+            });
+        }
+        // Redraw the table
+        datatableConf();
+    })
+
+    //fonction verifier si une liste contient valeur vide
+    function contientValeurVide(liste) {
+        // Vérifie chaque élément de la liste
+        for (let i = 0; i < liste.length; i++) {
+            // Si l'élément est vide (null, undefined ou une chaîne vide), retourne true
+            if (liste[i] === null || liste[i] === undefined || liste[i] === '') {
+                return true;
+            }
+        }
+        // Si aucun élément vide n'est trouvé, retourne false
+        return false;
+    }
+
+    //fonction pours creer les linges de tableau
+    function createTableRow(tache) {
+        // Créer une nouvelle ligne pour chaque tâche
+        var newRow = document.createElement("tr");
+
+        //ID TACHE
+        /* var cellId = document.createElement("td");
+         cellId.innerText = tache.utilisateur != null ? tache.idtache:'';
+         newRow.appendChild(cellId);
+         */
+        // Ajouter les cellules avec les données de la tâche à la nouvelle ligne
+        var cellNomTache = document.createElement("td");
+        cellNomTache.setAttribute("style"," display: flex;")
+        cellNomTache.innerHTML = '     <p style="white-space: pre-wrap;margin: 0;max-width: 350px;min-height: 35px;height: auto">' + tache.nomtache + '</p>';
+        newRow.appendChild(cellNomTache);
+
+        var cellIdTache = document.createElement("td");
+        cellIdTache.innerText = tache.idtache;
+        newRow.appendChild(cellIdTache);
+
+        var cellIdTacheMere = document.createElement("td");
+        cellIdTacheMere.innerText = tache.tacheparente!=null?tache.tacheparente.idtache:'';
+        newRow.appendChild(cellIdTacheMere);
+
+        var cellEmetteur = document.createElement("td");
+        cellEmetteur.innerText = tache.utilisateur != null ? tache.utilisateur.prenom + ' ' + tache.utilisateur.nom : '';
+        newRow.appendChild(cellEmetteur);
+
+        var cellRecepteur = document.createElement("td");
+        cellRecepteur.innerText = tache.recepteur != null ? tache.recepteur.prenom + ' ' + tache.recepteur.nom : '';
+        newRow.appendChild(cellRecepteur);
+
+        var cellPiorite = document.createElement("td");
+        cellPiorite.innerText = tache.priorite != null ? tache.priorite.nompriorite : '';
+        newRow.appendChild(cellPiorite);
+
+        /* var cellDateOuverture = document.createElement("td");
+         var dateOuverture = new Date(tache.dateouverture);
+         // Formatage de la date au format "mm/dd/yy"
+         var formattedDate =  ('0' + dateOuverture.getDate()).slice(-2) + '/' +('0' + (dateOuverture.getMonth() + 1)).slice(-2) + '/' + dateOuverture.getFullYear().toString().slice(-2);
+         cellDateOuverture.innerText = formattedDate;
+         //cellDateOuverture.innerText = tache.dateouverture;
+         newRow.appendChild(cellDateOuverture);
+ */
+
+        var cellDateOuverture = document.createElement("td");
+        if (tache.dateouverture == null) {
+            cellDateOuverture.innerText = '';
+            newRow.appendChild(cellDateOuverture);
+        } else {
+            var dateOuverture = new Date(tache.dateouverture);
+            var formattedDate =  ('0' + dateOuverture.getDate()).slice(-2) + '/' +('0' + (dateOuverture.getMonth() + 1)).slice(-2) + '/' + dateOuverture.getFullYear().toString().slice(-2);
+            cellDateOuverture.innerText = formattedDate;
+            newRow.appendChild(cellDateOuverture);
+        }
+
+
+        var cellDateObjectif = document.createElement("td");
+        if (tache.dateobjectif == null) {
+            cellDateObjectif.innerText = '';
+            newRow.appendChild(cellDateObjectif);
+        } else {
+            var dateObjectif = new Date(tache.dateobjectif);
+            var formattedDate =  ('0' + dateObjectif.getDate()).slice(-2) + '/' +('0' + (dateObjectif.getMonth() + 1)).slice(-2) + '/' + dateObjectif.getFullYear().toString().slice(-2);
+            cellDateObjectif.innerText = formattedDate;
+            newRow.appendChild(cellDateObjectif);
+        }
+
+
+        var cellDureeEstimee = document.createElement("td");
+        cellDureeEstimee.innerText = tache.dureestime;
+        newRow.appendChild(cellDureeEstimee);
+
+
+        var cellDateCloture = document.createElement("td");
+        if (tache.dateTermineTache == null) {
+            cellDateCloture.innerText = '';
+            newRow.appendChild(cellDateCloture);
+        } else {
+            var dateCloture = new Date(tache.dateTermineTache);
+            var formattedDate =  ('0' + dateCloture.getDate()).slice(-2) +'/'+('0' + (dateCloture.getMonth() + 1)).slice(-2) +'/' +dateCloture.getFullYear().toString().slice(-2);
+            cellDateCloture.innerText = formattedDate;
+            newRow.appendChild(cellDateCloture);
+        }
+
+        var cellStatut = document.createElement("td");
+        cellStatut.classList.add("text-sm-center")
+        var statutBadge = document.createElement("span");
+        statutBadge.setAttribute("style","width: 100px !important");
+
+        statutBadge.setAttribute("data-id", tache.idtache);
+        statutBadge.className = "";
+
+        switch (tache.statut) {
+            case "En cours":
+                statutBadge.classList.add("bg-info","badge","rounded-pill");
+                statutBadge.innerText = "En cours";
+                break;
+            case "Termine":
+                statutBadge.classList.add("bg-success","badge","rounded-pill");
+                statutBadge.innerText = "Terminé";
+                break;
+            case "Programme":
+                statutBadge.classList.add("bg-primary","badge","rounded-pill");
+                statutBadge.innerText = "Programmé";
+                break;
+            case "Valide":
+                statutBadge.classList.add("bg-secondary","badge","rounded-pill");
+                statutBadge.innerText = "Validé";
+                break;
+            case "Refaire":
+                statutBadge.classList.add("bg-danger","badge","rounded-pill");
+                statutBadge.innerText = "Refaire";
+                break;
+            case "En attente":
+                statutBadge.classList.add("bg-warning","badge","rounded-pill");
+                statutBadge.innerText = "En attente";
+                break;
+            case "Annuler":
+                statutBadge.classList.add("bg-dark","badge","rounded-pill");
+                statutBadge.setAttribute("style","color: white !important;width: 100px !important");
+                statutBadge.innerText = "Annulée";
+                break;
+            default:
+                statutBadge.innerText = "Statut inconnu";
+        }
+        statutBadge.classList.add("statutsClasse");
+
+        cellStatut.appendChild(statutBadge);
+        newRow.appendChild(cellStatut);
+
+        var cellDureeRetarde = document.createElement("td");
+        if (tache.dureretarde > 0) {
+            cellDureeRetarde.innerText = tache.dureretarde;
+            newRow.appendChild(cellDureeRetarde);
+        } else {
+            cellDureeRetarde.innerText = "";
+            newRow.appendChild(cellDureeRetarde);
+        }
+
+        var cellPerformance = document.createElement("td");
+        cellPerformance.innerText = tache.performance + '%';
+        newRow.appendChild(cellPerformance);
+
+        var cellTacheSucc = document.createElement("td");
+        if (tache.aunetachesuccessive) {
+            cellTacheSucc.innerText = '✔';
+        } else {
+            cellTacheSucc.innerText = '✘';
+        }
+        //cellTacheSucc.innerText = tache.aunetachesuccessive;
+        newRow.appendChild(cellTacheSucc);
+
+        var cellAction = creationTdAction(tache);
+        newRow.appendChild(cellAction);
+
+        // Ajouter la nouvelle ligne au corps du tableau
+        var tableBody = document.querySelector("#example tbody");
+        tableBody.appendChild(newRow);
+    }
+
+    /**/
+
+    //pour creer le champ action (les trois butons)
+    function creationTdAction(tache) {
+        //console.log(tache.utilisateur.role.role)
+        var cellAction = document.createElement("td");
+        //dropdown div
+        var divDropdown=document.createElement("div");
+        divDropdown.classList.add("dropdown");
+        var button = document.createElement("button");
+        button.setAttribute("type", "button");
+        button.setAttribute("class", "btn p-0 dropdown-toggle hide-arrow");
+        button.setAttribute("data-bs-toggle", "dropdown");
+
+
+        //creer la Menu
+        creerMenu(button,cellAction,divDropdown,tache);
+
+
+        return cellAction;
+    }
+
+    function SupprimerTache(idtache) {
+        // Fonction de confirmation avant la suppression
+        confirmDelete(event, function() {
+            // Si la suppression est confirmée, effectuer une requête AJAX pour supprimer la tâche
+            $.ajax({
+                url: `deleteTache/${idtache}`,
+                method: 'GET',
+                success: function (tache) {
+                    // Après la suppression réussie, actualiser la liste des tâches
+                    getAllTasks();
+                    // Afficher le message de validation
+                    messageNotif();
+                    // Mettre à jour l'élément HTML correspondant au statut (si nécessaire)
+                    // updateStatutElement(tacheId, tache.statut);
+                }
+            });
+        });
+    }
+
+    // Fonction de confirmation de suppression
+    function confirmDelete(event, callback) {
+        // Afficher la boîte de dialogue de confirmation
+        var confirmDelete = confirm("Voulez-vous vraiment supprimer cet élément ?");
+
+        // Si l'utilisateur clique sur "Annuler", annuler l'événement de suppression
+        if (!confirmDelete) {
+            event.preventDefault();
+        } else {
+            // Si la suppression est confirmée, exécuter le callback
+            callback();
+        }
+    }
+
+
+
+    function creerMenu(button, cellAction, divDropdown, tache) {
+        //creer la Menu
+        var icon = document.createElement("i");
+        icon.setAttribute("class", "bx bx-dots-vertical-rounded");
+        button.appendChild(icon);
+        divDropdown.appendChild(button);
+
+        //Menu
+        var MenuDiv=document.createElement("div");
+        MenuDiv.classList.add("dropdown-menu");
+
+
+        // Créer le lien lienEditer
+        var lienEditer = document.createElement("a");
+        lienEditer.setAttribute("class", "dropdown-item");
+        var iconeEditer = document.createElement("i");
+        iconeEditer.setAttribute("class", "bx bx-edit-alt");
+        lienEditer.appendChild(iconeEditer);
+        var texteEditer = document.createTextNode("  Éditer");
+        lienEditer.appendChild(texteEditer);
+        lienEditer.setAttribute("data-id", tache.idtache);
+        lienEditer.addEventListener('click', () => editerTache(tache.idtache));
+        MenuDiv.appendChild(lienEditer);
+
+
+        // Créer le lien Supprimer
+        var lienAnnuler = document.createElement("a");
+        lienAnnuler.setAttribute("class", "dropdown-item");
+        var iconeAnnuler = document.createElement("i");
+        iconeAnnuler.setAttribute("class", "bx bx-trash me-2");
+        lienAnnuler.appendChild(iconeAnnuler);
+        var texteEditer = document.createTextNode(" Supprimer");
+        lienAnnuler.appendChild(texteEditer);
+        lienAnnuler.setAttribute("data-id", tache.idtache);
+        lienAnnuler.addEventListener('click', () => SupprimerTache(tache.idtache));
+        MenuDiv.appendChild(lienAnnuler);
+
+
+        divDropdown.appendChild(MenuDiv);
+        cellAction.appendChild(divDropdown);
+    }
+
+
+    function reinitialiserFiltre() {
+        //----/reselectionné les premieres valeurs des filtres
+        // Parcourez toutes les options de la liste déroulante
+        for (var i = 0; i < membreSelect.options.length; i++) {
+            // Définissez la propriété selected de chaque option sur false
+            membreSelect.options[i].selected = false;
+        }
+        // Définissez la première option comme sélectionnée
+        membreSelect.options[0].selected = true;
+
+        // Parcourez toutes les options de la liste déroulante
+        for (var i = 0; i < statutSelect.options.length; i++) {
+            // Définissez la propriété selected de chaque option sur false
+            statutSelect.options[i].selected = false;
+        }
+        // Définissez la première option comme sélectionnée
+        statutSelect.options[0].selected = true;
+        //----/reselectionné les premieres valeurs des filtres
+    }
+
+    //fonction pour afficher les msgs
+    function messageNotif(){
+        // Create an instance of Notyf
+        var notyf = new Notyf();
+        // Display a success notification
+        notyf.success('Opération terminée avec succès.');
+    }
+
+
+
+    //--------------------pour le formulaire Creer une tâche
+    //Pour afficher les taches parentes dans
+    // la selelecte dans le formulaire qui permet de creer une tache et actualiser la liste lorsqu'une indexation
+    tacheParentes();
+    function tacheParentes() {
+        $.ajax({
+            url: `tachesParentes/`,
+            method: 'GET',
+            success: function (taches) {
+
+                var tachesParentSelect = $("#tacheparente1");
+                tachesParentSelect.empty(); // Efface toutes les options actuelles
+                tachesParentSelect.append (new Option("Selectionner la tâche parente",-1));
+                for (var i = 0; i < taches.length; i++) {
+                    var option = new Option(taches[i].nomtache, taches[i].idtache);
+                    tachesParentSelect.append(option);
+                }
+            }
+        });
+    }
+
+    function annuler1()
+    {
+        // Récupérer l'élément du formulaire par son ID
+        var formulaire = document.getElementById('formAccountSettings1');
+        var   btnSubmit= document.getElementById('submit');
+
+        // Vérifier si le formulaire a été trouvé
+        if (formulaire) {
+            // Réinitialiser le formulaire
+            formulaire.reset();
+
+            if ( btnSubmit.textContent === "Mettre à jour") {
+
+                btnSubmit.textContent = "Créer";
+
+
+
+                const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
+                idTacheInput.value=null;
+                idTacheInput.textContent="";
+
+            }
+        } else {
+            console.error('Le formulaire na pas été trouvé.');
+        }
+    }
+    //pour regler la douverture
+    dateOuvertureactuelle();
+    function dateOuvertureactuelle(){
+
+        //pour la date douverture
+        // Obtenez la date actuelle au format YYYY-MM-DD
+        var currentDate = new Date().toISOString().split('T')[0];
+
+        // Mettez à jour l'attribut 'min' du champ de saisie de date avec la date actuelle
+        document.getElementById('DateOuverture1').min = currentDate;
+
+        // Mettez à jour l'attribut 'value' du champ de saisie de date avec la date actuelle
+        document.getElementById('DateOuverture1').value = currentDate;
+
+    }
+
+
+
+</script>
+
+</body>
+</html>
+
+<!-- <script>
     //--------les var
     var selecteTacheParente = document.getElementById("tacheparente");
     var selecteStatut = document.getElementById("statut");
@@ -1505,7 +3562,7 @@
 
             }
             if (isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
-                $('#example').DataTable().clear();
+               // $('#example').DataTable().clear();
                 AllTasks.forEach(tache => {
                     if (tache.dateouverture<=dateMax) {
                         createTableRow(tache);
@@ -1878,21 +3935,38 @@
         cellPiorite.innerText = tache.priorite != null ? tache.priorite.nompriorite : '';
         newRow.appendChild(cellPiorite);
 
-        var cellDateOuverture = document.createElement("td");
+       /* var cellDateOuverture = document.createElement("td");
         var dateOuverture = new Date(tache.dateouverture);
         // Formatage de la date au format "mm/dd/yy"
         var formattedDate =  ('0' + dateOuverture.getDate()).slice(-2) + '/' +('0' + (dateOuverture.getMonth() + 1)).slice(-2) + '/' + dateOuverture.getFullYear().toString().slice(-2);
         cellDateOuverture.innerText = formattedDate;
         //cellDateOuverture.innerText = tache.dateouverture;
         newRow.appendChild(cellDateOuverture);
+*/
+
+        var cellDateOuverture = document.createElement("td");
+        if (tache.dateouverture == null) {
+            cellDateOuverture.innerText = '';
+            newRow.appendChild(cellDateOuverture);
+        } else {
+            var dateOuverture = new Date(tache.dateouverture);
+            var formattedDate =  ('0' + dateOuverture.getDate()).slice(-2) + '/' +('0' + (dateOuverture.getMonth() + 1)).slice(-2) + '/' + dateOuverture.getFullYear().toString().slice(-2);
+            cellDateOuverture.innerText = formattedDate;
+            newRow.appendChild(cellDateOuverture);
+        }
+
 
         var cellDateObjectif = document.createElement("td");
-        var dateObjectif = new Date(tache.dateobjectif);
-        //cellDateObjectif.innerText = tache.dateobjectif;
-        // Formatage de la date au format "mm/dd/yy"
-        var formattedDate =  ('0' + dateObjectif.getDate()).slice(-2) + '/' +('0' + (dateObjectif.getMonth() + 1)).slice(-2) + '/' + dateObjectif.getFullYear().toString().slice(-2);
-        cellDateObjectif.innerText = formattedDate;
-        newRow.appendChild(cellDateObjectif);
+        if (tache.dateobjectif == null) {
+            cellDateObjectif.innerText = '';
+            newRow.appendChild(cellDateObjectif);
+        } else {
+            var dateObjectif = new Date(tache.dateobjectif);
+            var formattedDate =  ('0' + dateObjectif.getDate()).slice(-2) + '/' +('0' + (dateObjectif.getMonth() + 1)).slice(-2) + '/' + dateObjectif.getFullYear().toString().slice(-2);
+            cellDateObjectif.innerText = formattedDate;
+            newRow.appendChild(cellDateObjectif);
+        }
+
 
         var cellDureeEstimee = document.createElement("td");
         cellDureeEstimee.innerText = tache.dureestime;
@@ -2179,5 +4253,4 @@
 
 
 </script>
-</body>
-</html>
+-->

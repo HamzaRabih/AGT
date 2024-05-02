@@ -205,7 +205,7 @@
                                     </a>
                                     </li>
                                     <li><a class="dropdown-item" th:href="@{/domaine}">
-                                        <i class="bx bx-briefcase me-1"></i>Domaines
+                                        <i class="bx bx-briefcase me-1"></i>Services
                                     </a>
                                     </li>
                                     <li><a class="dropdown-item" th:href="@{/departement}">
@@ -317,99 +317,6 @@
 </div>
 <!--/nav-->
 
-<!-- Extra Large Modal pour Creer une Tache -->
-<div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                ></button>
-            </div>
-            <div class="modal-body">
-                <form id="formAccountSettings2" method="POST" th:action="@{CreateTache}" >
-                    <input type="hidden" class="form-control" name="idtache">
-                    <input type="hidden" th:value="${utilisateur.idutilisateur}"  class="form-control" name="Utilisateur">
-                    <input type="hidden"  name="ismemoire" id="ismemoire" value="false" required />
-                    <div class="row">
-                        <div class="col mb-3">
-                            <label for="nomtache" class="form-label">Tache</label>
-                            <textarea type="text" class="form-control h-px-100"  name="nomtache" id="nomtache" required></textarea>
-                        </div>
-                    </div>
-                    <div class="row g-3">
-                        <div class="col mb-0">
-                            <label  for="idrecepteur" class="form-label">Destinataire de la tâche</label>
-                            <select  id="idrecepteur" name="recepteur" class="select2 form-select" required >
-                                <option th:each="p:${Recepteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
-                            </select>
-                        </div>
-                        <div class="col mb-0">
-                            <label class="form-label" for="Durée Estimée">Durée Estimée</label>
-                            <div class="input-group input-group-merge">
-                                <input type="number" id="Durée Estimée" required
-                                       min="1"  name="dureestime" class="form-control"/>
-                            </div>
-                        </div>
-                        <div class="col mb-0">
-                            <label  for="DateOuverture" class="form-label">Date Ouverture</label>
-                            <input class="form-control" type="date" name="dateouverture" min="" id="DateOuverture" required>
-                        </div>
-                    </div>
-                    <div class="row g-3">
-                        <div class="col mb-0">
-                            <label for="Priorite" class="form-label">Priorité</label>
-                            <select  id="Priorite" class="select2 form-select" name="priorite" required>
-                                <option th:each="p:${priorites}" th:value="${p.idpriorite}" th:text="${p.nompriorite}" ></option>
-                            </select>
-                        </div>
-                        <div class="col mb-0">
-                            <label  for="Proprietaires" class="form-label">Propriétaire</label>
-                            <select  id="Proprietaires" name="proprietaire" class="select2 form-select"  required="required"  th:with="selectedValue=${utilisateur.idutilisateur}">
-                                <option th:each="p:${utilisateurList2}" th:value="${p.idutilisateur}"  th:selected="${selectedValue == p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
-                            </select>
-                        </div>
-                        <div class="col mb-0">
-                            <label for="tacheparente" class="form-label">Tâche parente</label>
-                            <select id="tacheparente" class="select2 form-select" name="tacheparente">
-                                <!-- <option  value="">Selectionner la tâche parente</option>
-                                 <option th:each="TacheParents:${lesTacheParents}" th:value="${TacheParents.idtache}" th:text="${TacheParents.nomtache}"></option>-->
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row g-3">
-                        <div class="col mb-0">
-                            <label for="type" class="form-label">Type</label>
-                            <input class="form-control" type="text" id="type" name="type" placeholder="Projet,Opérationnel.." value="" />
-                        </div>
-                        <div class="col mb-0">
-                            <label for="commentaire" class="form-label">commentaire</label>
-                            <input
-                                    type="text" class="form-control" id="commentaire"
-                                    name="commentaire" value=""/>
-                        </div>
-                        <div class="col mb-0">
-                            <br>
-                            <label class="form-label" for="Aunetachesuccessive">À une tache successive</label>
-                            <input id="Aunetachesuccessive" type="checkbox"  name="aunetachesuccessive" >
-                        </div>
-                    </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" id="submit2" class="btn btn-primary me-2"> Envoyer</button>
-                <button type="button"
-                        class="btn btn-outline-secondary"
-                        onclick="annuler2()"
-                >Annuler</button>
-            </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!--/ Extra Large Modal pour Creer une Tache -->
 
 
 <!-- content div-->
@@ -488,7 +395,8 @@
                         <h5 class="card-header">Profile Détails</h5>
                         <!-- Account -->
                         <div class="card-body">
-                            <div id="messages" class="mb-3 col-md-12">
+
+                            <div th:if="${not #strings.isEmpty(msg) or not #strings.isEmpty(msg2) or not #strings.isEmpty(msgError)}" id="messages" class="mb-3 col-md-12">
 
                                 <div th:if="${not #strings.isEmpty(msg)}" class="form-group">
                                     <div class="alert alert-primary" th:text="${msg}"></div>
@@ -535,6 +443,126 @@
                         </div>
                         <hr class="my-0" />
                         <div class="card-body">
+                            <!-- Extra Large Modal pour Creer une Tache -->
+                            <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true" style="padding-top: 170px">
+                                <div class="modal-dialog modal-xl" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button
+                                                    type="button"
+                                                    class="btn-close"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close"
+                                            ></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="formAccountSettings2" method="POST" th:action="@{CreateTache}">
+                                                <input type="hidden" class="form-control" name="idtache">
+                                                <input type="hidden" th:value="${utilisateur.idutilisateur}" class="form-control"
+                                                       name="Utilisateur">
+                                                <input type="hidden" name="ismemoire" id="ismemoire" value="false" required/>
+
+                                                <div class="d-flex align-content-between justify-content-between flex-wrap  pr-0 pl-0">
+                                                    <!-- Première div pour le destinataire -->
+                                                    <div class="d-flex justify-content-evenly align-content-center">
+                                                        <label for="idrecepteur" class="form-label align-content-center  "
+                                                               STYLE="margin-right: 15px;">Destinataire</label>
+                                                        <select id="idrecepteur" name="recepteur" class="select2 form-select w-px-250" required>
+                                                            <option th:each="p:${Recepteurs}" th:value="${p.idutilisateur}"
+                                                                    th:text="${p.prenom + ' ' + p.nom}"></option>
+                                                        </select>
+                                                    </div>
+
+
+                                                    <!-- Deuxième div pour la tâche à réaliser -->
+                                                    <div class="d-flex justify-content-evenly">
+                                                        <label for="nomtache" class="form-label align-content-center"
+                                                               STYLE="margin-right: 15px;">Tâche à réaliser</label>
+                                                        <input type="text" class="form-control w-px-250" name="nomtache" id="nomtache" required>
+                                                    </div>
+
+                                                    <!-- Troisième div pour la durée estimée -->
+                                                    <div class="d-flex justify-content-evenly">
+                                                        <label class="form-label align-content-center" for="dureeEstimee"
+                                                               STYLE="margin-right: 15px;">EN</label>
+                                                        <div class="d-flex">
+                                                            <input type="number" placeholder="Durée Estimée " id="dureeEstimee" required min="1"
+                                                                   name="dureestime" class="form-control"/>
+                                                            <label class="form-label align-content-center" for="dureeEstimee"
+                                                                   STYLE="margin-left: 10px;">Jour(s)</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <br>
+                                                <div class="row g-3">
+
+                                                    <div class="col mb-0">
+                                                        <label for="Priorite" class="form-label">Priorité</label>
+                                                        <select id="Priorite" class="select2 form-select" name="priorite" required>
+                                                            <option th:each="p:${priorites}" th:value="${p.idpriorite}"
+                                                                    th:text="${p.nompriorite}"></option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col mb-0">
+                                                        <label for="DateOuverture" class="form-label">Date Ouverture</label>
+                                                        <input class="form-control" type="date" name="dateouverture" min="" id="DateOuverture"
+                                                               required>
+                                                    </div>
+
+                                                    <div class="col mb-0">
+                                                        <label for="Proprietaires" class="form-label">Propriétaire</label>
+                                                        <select id="Proprietaires" name="proprietaire" class="select2 form-select"
+                                                                required="required" th:with="selectedValue=${utilisateur.idutilisateur}">
+                                                            <option th:each="p:${utilisateurList}" th:value="${p.idutilisateur}"
+                                                                    th:selected="${selectedValue == p.idutilisateur}"
+                                                                    th:text="${p.prenom + ' ' + p.nom}"></option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col mb-0">
+                                                        <label for="tacheparente" class="form-label">Tâche parente</label>
+                                                        <select id="tacheparente" class="select2 form-select" name="tacheparente">
+                                                            <!-- <option  value="">Selectionner la tâche parente</option>
+                                                             <option th:each="TacheParents:${lesTacheParents}" th:value="${TacheParents.idtache}" th:text="${TacheParents.nomtache}"></option>-->
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col mb-0">
+                                                        <label for="type" class="form-label">Type</label>
+                                                        <select class="select2 form-select" required="required"  id="type" name="type">
+                                                            <option value="Opérationnel">Opérationnel</option>
+                                                            <option value="Projet">Projet</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col mb-0">
+                                                        <label class="form-label" for="Aunetachesuccessive">Tâche indexée</label>
+                                                        <select class="select2 form-select" required="required" id="Aunetachesuccessive" name="aunetachesuccessive">
+                                                            <option value="true">Oui</option>
+                                                            <option value="false">Non</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col mb-0" style="padding-top: 30px;">
+                                                        <button type="submit" id="submit2" class="btn btn-primary "> Envoyer</button>
+                                                    </div>
+                                                    <div class="col mb-0" style="padding-top: 30px;">
+                                                        <button type="button"
+                                                                class="btn btn-outline-secondary"
+                                                                onclick="annuler2()"
+                                                        >Annuler
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/ Extra Large Modal pour Creer une Tache -->
+
                             <form id="formAccountSettings" method="POST" onsubmit="return false">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">

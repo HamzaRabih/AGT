@@ -17,3 +17,34 @@
     width: 60px;
 
 }
+
+ .capitalize-first::first-letter {
+     text-transform: uppercase!important;
+ }
+
+.capitalize-first {
+    text-transform: lowercase!important;;
+}
+
+.Mycolor {
+    background-color: #5f61e6!important;
+    color: #FFFFFF!important
+}
+
+.my-primary{
+    color: #5f61e6!important
+}
+
+
+#example_length{
+    width: 200px!important;
+}
+
+#example_wrapper > div.bottom{
+    display: flex;
+    justify-content: space-between;
+}
+
+#example_paginate{
+    width: 200px!important;
+}

@@ -164,10 +164,12 @@ public class TacheServiceImpl implements TacheService {
         if (tache.getTacheparente() == null) {
             redirectAttributes.addFlashAttribute("error", "Il faut choisir une tâche parente pour une tâche programmée.");
         } else {
+
             //Effacer la date de fin si le statut précédent était 'Terminé'
             tacheExist.setUtilisateur(tache.getUtilisateur());
             tacheExist.setDateTermineTache(null);
             tacheExist.setDateobjectif(null);
+            tacheExist.setDateouverture(null);
             tacheExist.setStatut(tache.getStatut());
             tacheExist.setTacheparente(tache.getTacheparente());
             // enregistré le modificateur de la statut
@@ -363,30 +365,33 @@ public class TacheServiceImpl implements TacheService {
 
 
     public void demarrerTachesProgrammees(Tache tache) {
-        // tacheList = les tâches filles
         List<Tache> tacheList = tacheRepo.findAllByTacheparente(tache);
 
         // Stocker la date actuelle
         LocalDate currentDate = LocalDate.now();
+
+        //---------------------------Démarrer les tâches programmées s'il en existe.
 
         if (tacheList != null) {
             // Mettre les tâches programmées En attente et définir la date d'objectif
             for (Tache t : tacheList) {
                 t.setStatut("En attente");
 
-                LocalDate dateOuverture2 = t.getDateouverture().toLocalDate();
                 // Date d'objectif = date de fin du parent + durée estimée de la tâche fille
-                LocalDate dateObjectif3 = dateOuverture2.plus(t.getDureestime(), ChronoUnit.DAYS);
-                t.setDateobjectif(Date.valueOf(dateObjectif3));
+                LocalDate dateOuverture2 = currentDate;
+                LocalDate DateObjectif3 = dateOuverture2.plus(t.getDureestime(), ChronoUnit.DAYS);
+                t.setDateobjectif(Date.valueOf(DateObjectif3));
+                t.setDateouverture(Date.valueOf(dateOuverture2));
 
                 // Envoyer des e-mails
                 Utilisateur recepteur1 = t.getRecepteur();
-                Utilisateur emetteur = utilisateurRepo.findByIdutilisateur(t.getUtilisateur().getIdutilisateur());
-                String subject1 = "Vous avez une nouvelle tâche de :" + emetteur.getNom() + " " + emetteur.getPrenom();
-                String msg1 = "Nouvelle tâche : " + t.getNomtache();
-               sendTaskEmail(recepteur1.getMail(), subject1, msg1);
+                Utilisateur emetteur=utilisateurRepo.findByIdutilisateur(t.getUtilisateur().getIdutilisateur());
+                String Subject1="Vous avez une nouvelle tâche de :"+emetteur.getNom()+" "+emetteur.getPrenom();
+                String  msg1 ="Nouvelle tâche : "+ t.getNomtache();
+                sendTaskEmail(recepteur1.getMail(),Subject1,msg1);
             }
         }
+        //------------------------------------------------------
     }
 
     public int calculerPerformance(Tache tache) {
@@ -397,14 +402,14 @@ public class TacheServiceImpl implements TacheService {
         Date dateTermineTache = ExisteTache.getDateTermineTache();
         LocalDate dateTermineTache1 = dateTermineTache.toLocalDate();
 
+
         // ----------------------Calcul de la durée consommée en jours
-        //long dureeConsommee = ChronoUnit.DAYS.between(currentDate,dateOuverture1 )+1;
         long dureeConsommee = ChronoUnit.DAYS.between(dateOuverture1,dateTermineTache1)+1;
         // Éviter une division par zéro et calculer la performance
         long dureeEstime = tache.getDureestime()+1;
-        long performance = (dureeConsommee != 0) ? (dureeEstime/ dureeConsommee) : 0;
+        double performanceDouble = (dureeConsommee != 0) ? ((double) dureeEstime / dureeConsommee) * 100 : 0;
         // Convertir la performance en entier
-        int performanceEnEntier = Math.toIntExact(performance*100);
+        int performanceEnEntier = (int) performanceDouble;
         // Mettre à jour la performance dans l'objet Tache
         tache.setPerformance(performanceEnEntier);
         //---------------------------------------------------------------------

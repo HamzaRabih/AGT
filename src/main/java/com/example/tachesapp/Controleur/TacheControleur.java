@@ -222,6 +222,7 @@ public class TacheControleur {
             if (tache.getTacheparente() != null) {
                 tache.setStatut("Programme");
                 tache.setDateobjectif(null);
+                tache.setDateouverture(null);
             }else {
                 // Pour une tâche non programmée, définir le statut sur "En attente" et calculer la date d'objectif
                 tache.setStatut("En attente"); // "En attente"
@@ -360,13 +361,12 @@ public class TacheControleur {
         LocalDate dateTermineTache1 = dateTermineTache.toLocalDate();
 
         // ----------------------Calcul de la durée consommée en jours
-        //long dureeConsommee = ChronoUnit.DAYS.between(currentDate,dateOuverture1 )+1;
         long dureeConsommee = ChronoUnit.DAYS.between(dateOuverture1,dateTermineTache1)+1;
         // Éviter une division par zéro et calculer la performance
         long dureeEstime = tache.getDureestime()+1;
-        long performance = (dureeConsommee != 0) ? (dureeEstime/ dureeConsommee) : 0;
+        double performanceDouble = (dureeConsommee != 0) ? ((double) dureeEstime / dureeConsommee) * 100 : 0;
         // Convertir la performance en entier
-        int performanceEnEntier = Math.toIntExact(performance*100);
+        int performanceEnEntier = (int) performanceDouble;
         // Mettre à jour la performance dans l'objet Tache
         tache.setPerformance(performanceEnEntier);
         //---------------------------------------------------------------------
@@ -396,14 +396,15 @@ public class TacheControleur {
                 t.setStatut("En attente");
 
                 // Date d'objectif = date de fin du parent + durée estimée de la tâche fille
-                LocalDate dateOuverture2 = t.getDateouverture().toLocalDate();
+                LocalDate dateOuverture2 = currentDate;
                 LocalDate DateObjectif3 = dateOuverture2.plus(t.getDureestime(), ChronoUnit.DAYS);
                 t.setDateobjectif(Date.valueOf(DateObjectif3));
+                t.setDateouverture(Date.valueOf(dateOuverture2));
 
                 // Envoyer des e-mails
                 Utilisateur recepteur1 = t.getRecepteur();
                 Utilisateur emetteur=utilisateurRepo.findByIdutilisateur(t.getUtilisateur().getIdutilisateur());
-                String Subject1="vous avez un nouvelle tache de:"+emetteur.getNom()+" "+emetteur.getPrenom();
+                String Subject1="Vous avez une nouvelle tâche de:"+emetteur.getNom()+" "+emetteur.getPrenom();
                 String  msg1 ="Nouvelle tache : "+ t.getNomtache();
                 tacheService.sendTaskEmail(recepteur1.getMail(),Subject1,msg1);
             }

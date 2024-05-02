@@ -67,6 +67,18 @@
   <script src="js/config.js"></script>
 </head>
 <style>
+
+
+    /* Réduisez la largeur de l'entrée de recherche */
+  div.dataTables_wrapper div.dataTables_filter input {
+    width: 122px; /* Ajustez la largeur selon vos besoins */
+    margin-top: 5px;!important; /* Ajustez la largeur selon vos besoins */
+    color: #5A8DEE!important;
+
+
+  }
+
+
   .dropdown-menu .dropdown-submenu {
     display: none;
     position: absolute;
@@ -81,7 +93,7 @@
     display: block;
   }
 </style>
-<body>
+<body >
 <!--/spinner div-->
 <div class="spinner-wrapper">
   <div id="loading-spinner" class="spinner-border text-primary" role="status">
@@ -222,7 +234,7 @@
                   </a>
                   </li>
                   <li><a class="dropdown-item" th:href="@{/domaine}">
-                    <i class="bx bx-briefcase me-1"></i>Domaines
+                    <i class="bx bx-briefcase me-1"></i>Services
                   </a>
                   </li>
                   <li><a class="dropdown-item" th:href="@{/departement}">
@@ -334,32 +346,6 @@
 </div>
 <!--/nav-->
 
-<!--Filtre-->
-<div class="d-flex flex-row-reverse bd-highlight " style="margin-right: 20px;">
-  <ul class="nav nav-pills flex-column flex-md-row " style="margin-right: 20px;">
-    <li>
-      <!-- Vertically Centered Modal -->
-      <!-- Button trigger modal -->
-      <button
-              class="btn btn-sm  me-1 mb-1 btn-secondary"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapseExample"
-              aria-expanded="false"
-              aria-controls="collapseExample"
-
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16">
-          <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5z"/>
-        </svg> Filtre
-      </button>
-    </li>
-
-  </ul>
-</div>
-<!--/Filtre-->
-
-
 
 
 <!-- content div-->
@@ -370,201 +356,13 @@
       <div class="row">
         <div class="col-md-12">
           <!-- Basic Bootstrap Table -->
-          <div class="card small">
-              <div class="card-body">
-
-                <!--collapseExample-->
-                <div class="collapse" id="collapseExample">
-
-                    <div class="row g-3 d-flex justify-content-between">
-                      <div class="col-3">
-                        <label for="membreSelect" class="form-label">Émetteur</label>
-                        <select  multiple="multiple" id="membreSelect"  class=" form-select"  >
-                          <option value="" selected="selected">Tout sélectionner</option >
-                          <option th:each="p:${Emetteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
-                        </select>
-                      </div>
-                      <div class="col-3">
-                        <label for="statutSelect" class="form-label">Statut</label>
-                        <select  multiple="multiple" id="statutSelect"  class=" form-select">
-                          <option value="" selected="selected">Tout sélectionner</option>
-                          <option value="Valide" >Validé</option>
-                          <option value="Termine" >Terminé</option>
-                          <option value="En cours" >En cours</option>
-                          <option value="En attente" >En attente</option>
-                          <option value="Programme" >Programme</option>
-                          <option value="Refaire" >Refaire</option>
-                          <option value="Annuler" >Annuleé</option>
-                        </select>
-                      </div>
-                      <div class="col-4 ">
-                          <label class="form-label">Date</label>
-                            <ul class="nav nav-tabs nav-fill" role="tablist">
-                              <li class="nav-item">
-                                <button STYLE="weight: 7px;"
-                                        type="button"
-                                        class="nav-link active small"
-                                        role="tab"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#navs-justified-home"
-                                        aria-controls="navs-justified-home"
-                                        aria-selected="true"
-                                >
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-open" viewBox="0 0 16 16">
-                                    <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882zM15 7.383l-4.778 2.867L15 13.117zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765z"/>
-                                  </svg> Ouverture
-                                </button>
-                              </li>
-                              <li class="nav-item">
-                                <button STYLE="weight: 20px;"
-                                        type="button"
-                                        class="nav-link small"
-                                        role="tab"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#navs-justified-profile"
-                                        aria-controls="navs-justified-profile"
-                                        aria-selected="false"
-                                >
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar4-event" viewBox="0 0 16 16">
-                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
-                                    <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
-                                  </svg> Objectif
-                                </button>
-                              </li>
-                              <li class="nav-item">
-                                <button STYLE="weight: 20px;"
-                                        type="button"
-                                        class="nav-link small"
-                                        role="tab"
-                                        data-bs-toggle="tab"
-                                        data-bs-target="#navs-justified-messages"
-                                        aria-controls="navs-justified-messages"
-                                        aria-selected="false"
-                                >
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
-                                    <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
-                                  </svg> Cloture
-                                </button>
-                              </li>
-                            </ul>
-                            <div class="tab-content">
-                              <div class="tab-pane fade show active" id="navs-justified-home" role="tabpanel">
-                                  <div class="d-flex justify-content-between row g-4">
-                                    <div class="col-2">
-                                      <label for="dateMinSelect" class="form-label">De :</label>
-                                    </div>
-                                    <div class="col-4">
-                                      <input class="form-control" type="date"  id="dateMinSelect">
-                                    </div>
-                                    <div class="col-md-2">
-                                      <label  for="dateMaxSelect" class="form-label">À :</label>
-                                    </div>
-                                    <div class="col-md-4">
-                                      <input class="form-control" type="date"  id="dateMaxSelect" >
-                                    </div>
-                                  </div>
-                              </div>
-                              <div class="tab-pane fade" id="navs-justified-profile" role="tabpanel">
-                                <p>
-                                  test2
-                                </p>
-                              </div>
-                              <div class="tab-pane fade" id="navs-justified-messages" role="tabpanel">
-                                <p class="mb-0">
-                                  test3
-                                </p>
-                              </div>
-                        </div>
-                      </div>
-                    </div>
-                </div>
-                <br>
-
-                <!--collapseExample-->
-
-
-                <!--les filtres
-                   <div class="d-flex justify-content-between " STYLE="margin-top-top: 0px">
-                    <a
-                            class="link link-secondary "
-                            data-bs-toggle="collapse"
-                            href="#multiCollapseExample1"
-                            role="button"
-                            aria-expanded="false"
-                            aria-controls="multiCollapseExample1">
-                      <samp >
-                        <i class='bx bxs-filter-alt'></i> Émetteur
-                      </samp>
-                    </a>
-
-                    <a
-                            class="link link-secondary "
-                            role="button"
-                            data-bs-toggle="collapse"
-                            href="#multiCollapseExample2"
-                            aria-expanded="false"
-                            aria-controls="multiCollapseExample2"
-                    ><samp  >
-                      <i class='bx bxs-filter-alt'></i> Statut
-                    </samp>
-                    </a>
-
-                    <a
-                            class="link  link-secondary"
-                            role="button"
-                            data-bs-toggle="collapse"
-                            href="#multiCollapseExample3"
-                            aria-expanded="false"
-                            aria-controls="multiCollapseExample3"
-                    >
-                      <samp  >
-                        <i class='bx bxs-filter-alt'></i> Date
-                      </samp>
-                    </a>
-                  </div>
-                  <div class="row g-3 ">
-
-                    <div class="col mb-0">
-                      <div class="collapse multi-collapse " id="multiCollapseExample1">
-                        <select  multiple="multiple" id="membreSelect1"  class=" form-select"  >
-                          <option value="" selected="selected">Tout sélectionner</option >
-                          <option th:each="p:${Emetteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div class="col mb-0">
-                      <div class="collapse multi-collapse " id="multiCollapseExample2">
-
-                        <select  multiple="multiple" id="statutSelect1"  class=" form-select">
-                          <option value="" selected="selected">Tout sélectionner</option>
-                          <option value="Valide" >Validé</option>
-                          <option value="Termine" >Terminé</option>
-                          <option value="En cours" >En cours</option>
-                          <option value="En attente" >En attente</option>
-                          <option value="Programme" >Programme</option>
-                          <option value="Refaire" >Refaire</option>
-                          <option value="Annuler" >Annuleé</option>
-                        </select>
-
-                      </div>
-                    </div>
-
-                    <div class="col mb-0">
-                      <div class="collapse multi-collapse " id="multiCollapseExample3">
-            <span>
-              3
-              </span>
-                      </div>
-                    </div>
-
-                  </div>-->
-                <!--/les filtres-->
-
-                <div  class="table-responsive text-nowrap">
+          <div class="card ">
+            <div class="card-body p-sm-3">
+              <div class="table-responsive text-nowrap">
                 <div class="row">
-                  <!-- Extra Large Modal -->
-                  <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true">
+
+                  <!-- Extra Large Modal nouv -->
+                  <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true" style="padding-top: 170px">
                     <div class="modal-dialog modal-xl" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -576,46 +374,68 @@
                           ></button>
                         </div>
                         <div class="modal-body">
-                          <form id="formAccountSettings" method="POST" th:action="@{CreateTache}" >
+                          <form id="formAccountSettings" method="POST" th:action="@{CreateTache}">
                             <input type="hidden" class="form-control" name="idtache">
-                            <input type="hidden" th:value="${utilisateurC.idutilisateur}"  class="form-control" name="Utilisateur">
-                            <input type="hidden"  name="ismemoire" id="ismemoire" value="false" required />
-                            <div class="row">
-                              <div class="col mb-3">
-                                <label for="nomtache" class="form-label">Tache</label>
-                                <textarea type="text" class="form-control h-px-100"  name="nomtache" id="nomtache" required></textarea>
-                              </div>
-                            </div>
-                            <div class="row g-3">
-                              <div class="col mb-0">
-                                <label  for="idrecepteur" class="form-label">Destinataire de la tâche</label>
-                                <select  id="idrecepteur" name="recepteur" class="select2 form-select" required >
-                                  <option th:each="p:${Recepteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                            <input type="hidden" th:value="${utilisateurC.idutilisateur}" class="form-control"
+                                   name="Utilisateur">
+                            <input type="hidden" name="ismemoire" id="ismemoire" value="false" required/>
+
+                            <div class="d-flex align-content-between justify-content-between flex-wrap  pr-0 pl-0">
+                              <!-- Première div pour le destinataire -->
+                              <div class="d-flex justify-content-evenly align-content-center">
+                                <label for="idrecepteur" class="form-label align-content-center  "
+                                       STYLE="margin-right: 15px;">Destinataire</label>
+                                <select id="idrecepteur" name="recepteur" class="select2 form-select w-px-250" required>
+                                  <option th:each="p:${Recepteurs}" th:value="${p.idutilisateur}"
+                                          th:text="${p.prenom + ' ' + p.nom}"></option>
                                 </select>
                               </div>
-                              <div class="col mb-0">
-                                <label class="form-label" for="Durée Estimée">Durée Estimée</label>
-                                <div class="input-group input-group-merge">
-                                  <input type="number" id="Durée Estimée" required
-                                         min="1"  name="dureestime" class="form-control"/>
+
+
+                              <!-- Deuxième div pour la tâche à réaliser -->
+                              <div class="d-flex justify-content-evenly">
+                                <label for="nomtache" class="form-label align-content-center"
+                                       STYLE="margin-right: 15px;">Tâche à réaliser</label>
+                                <input type="text" class="form-control w-px-250" name="nomtache" id="nomtache" required>
+                              </div>
+
+                              <!-- Troisième div pour la durée estimée -->
+                              <div class="d-flex justify-content-evenly">
+                                <label class="form-label align-content-center" for="dureeEstimee"
+                                       STYLE="margin-right: 15px;">EN</label>
+                                <div class="d-flex">
+                                  <input type="number" placeholder="Durée Estimée " id="dureeEstimee" required min="1"
+                                         name="dureestime" class="form-control"/>
+                                  <label class="form-label align-content-center" for="dureeEstimee"
+                                         STYLE="margin-left: 10px;">Jour(s)</label>
                                 </div>
                               </div>
-                              <div class="col mb-0">
-                                <label  for="DateOuverture" class="form-label">Date Ouverture</label>
-                                <input class="form-control" type="date" name="dateouverture" min="" id="DateOuverture" required>
-                              </div>
                             </div>
+
+                            <br>
                             <div class="row g-3">
+
                               <div class="col mb-0">
                                 <label for="Priorite" class="form-label">Priorité</label>
-                                <select  id="Priorite" class="select2 form-select" name="priorite" required>
-                                  <option th:each="p:${priorites}" th:value="${p.idpriorite}" th:text="${p.nompriorite}" ></option>
+                                <select id="Priorite" class="select2 form-select" name="priorite" required>
+                                  <option th:each="p:${priorites}" th:value="${p.idpriorite}"
+                                          th:text="${p.nompriorite}"></option>
                                 </select>
                               </div>
+
                               <div class="col mb-0">
-                                <label  for="Proprietaires" class="form-label">Propriétaire</label>
-                                <select  id="Proprietaires" name="proprietaire" class="select2 form-select"  required="required"  th:with="selectedValue=${utilisateurC.idutilisateur}">
-                                  <option th:each="p:${utilisateurList}" th:value="${p.idutilisateur}"  th:selected="${selectedValue == p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                                <label for="DateOuverture" class="form-label">Date Ouverture</label>
+                                <input class="form-control" type="date" name="dateouverture" min="" id="DateOuverture"
+                                       required>
+                              </div>
+
+                              <div class="col mb-0">
+                                <label for="Proprietaires" class="form-label">Propriétaire</label>
+                                <select id="Proprietaires" name="proprietaire" class="select2 form-select"
+                                        required="required" th:with="selectedValue=${utilisateurC.idutilisateur}">
+                                  <option th:each="p:${utilisateurList}" th:value="${p.idutilisateur}"
+                                          th:selected="${selectedValue == p.idutilisateur}"
+                                          th:text="${p.prenom + ' ' + p.nom}"></option>
                                 </select>
                               </div>
                               <div class="col mb-0">
@@ -625,237 +445,321 @@
                                    <option th:each="TacheParents:${lesTacheParents}" th:value="${TacheParents.idtache}" th:text="${TacheParents.nomtache}"></option>-->
                                 </select>
                               </div>
-                            </div>
-                            <div class="row g-3">
+
                               <div class="col mb-0">
                                 <label for="type" class="form-label">Type</label>
-                                <input class="form-control" type="text" id="type" name="type" placeholder="Projet,Opérationnel.." value="" />
+                                <select class="select2 form-select" required="required"  id="type" name="type">
+                                  <option value="Opérationnel">Opérationnel</option>
+                                  <option value="Projet">Projet</option>
+                                </select>
                               </div>
+
                               <div class="col mb-0">
-                                <label for="commentaire" class="form-label">commentaire</label>
-                                <input
-                                        type="text" class="form-control" id="commentaire"
-                                        name="commentaire" value=""/>
+                                <label class="form-label" for="Aunetachesuccessive">Tâche indexée</label>
+                                <select class="select2 form-select" required="required" id="Aunetachesuccessive" name="aunetachesuccessive">
+                                  <option value="true">Oui</option>
+                                  <option value="false">Non</option>
+                                </select>
                               </div>
-                              <div class="col mb-0">
-                                <br>
-                                <label class="form-label" for="Aunetachesuccessive">À une tache successive</label>
-                                <input id="Aunetachesuccessive" type="checkbox"  name="aunetachesuccessive" >
-                              </div>
+
+                              <div class="col mb-0" style="padding-top: 30px;">
+                                <button type="submit" id="submit" class="btn btn-primary "> Envoyer</button>
+                                <button type="button"
+                                        class="btn btn-outline-secondary"
+                                        onclick="annuler()"
+                                >Annuler
+                                </button>
                             </div>
+                            </div>
+
+                          </form>
                         </div>
-                        <div class="modal-footer">
-                          <button type="submit" id="submit" class="btn btn-primary me-2"> Envoyer</button>
-                          <button type="button"
-                                  class="btn btn-outline-secondary"
-                                  onclick="annuler()"
-                          >Annuler</button>
-                        </div>
-                        </form>
                       </div>
                     </div>
+                    <!-- Les filtre
+                    <div class="col-3">
+                      <label for="membreSelect" class="form-label">Sélectionner un émetteur</label>
+                      <select  multiple="multiple" id="membreSelect1"  class=" form-select"  >
+                        <option value="" selected="selected">Tout sélectionner</option >
+                        <option th:each="p:${Emetteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <label for="statutSelect" class="form-label">Sélectionner un statut</label>
+                      <select  multiple="multiple" id="statutSelect1"  class=" form-select">
+                        <option value="" selected="selected">Tout sélectionner</option>
+                        <option value="Valide" >Validé</option>
+                        <option value="Termine" >Terminé</option>
+                        <option value="En cours" >En cours</option>
+                        <option value="En attente" >En attente</option>
+                        <option value="Programme" >Programme</option>
+                        <option value="Refaire" >Refaire</option>
+                        <option value="Annuler" >Annuleé</option>
+                      </select>
+                    </div>
+                    <div class="col-3">
+                      <label for="dateMinSelect" class="form-label">Sélectionner la date d'ouverture MIN</label>
+                      <input class="form-control" type="date"  id="dateMinSelect">
+                    </div>
+                    <div class="col-md-3">
+                      <label  for="dateMaxSelect" class="form-label">SÉLECTIONNER LA DATE d'ouverture MAX</label>
+                      <input class="form-control" type="date"  id="dateMaxSelect" >
+                    </div>-->
                   </div>
-                  <!-- Les filtre
-                  <div class="col-3">
-                    <label for="membreSelect" class="form-label">Sélectionner un émetteur</label>
-                    <select  multiple="multiple" id="membreSelect1"  class=" form-select"  >
-                      <option value="" selected="selected">Tout sélectionner</option >
-                      <option th:each="p:${Emetteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
-                    </select>
+
+                  <!--filtre-->
+                  <div class="d-flex align-content-between justify-content-between flex-wrap dataTables_filter  pr-0 pl-0 ">
+                    <div class=" align-content-center d-flex align-content-between justify-content-between flex-wrap">
+                      <div><label  for="membreSelect" class="form-label-sm my-primary" STYLE="margin-right: 15px;">Émetteur</label></div>
+                      <div>
+                        <select id="membreSelect" class="Mycolor form-select form-select-sm ">
+                          <option value="" selected="selected">Tout sélectionner</option>
+                          <option th:each="p:${Emetteurs}" th:value="${p.idutilisateur}"
+                                  th:text="${p.prenom + ' ' + p.nom}"></option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class=" align-content-center d-flex align-content-between justify-content-between flex-wrap">
+                      <div><label for="statutSelect" class="form-label-sm my-primary" STYLE="margin-right: 15px;">Statut</label>
+                      </div>
+                      <div><select id="statutSelect" class="form-select  form-select-sm Mycolor">
+                        <option value="" selected="selected">Tout sélectionner</option>
+                        <option value="Valide">Validé</option>
+                        <option value="Termine">Terminé</option>
+                        <option value="En cours">En cours</option>
+                        <option value="En attente">En attente</option>
+                        <option value="Programme">Programme</option>
+                        <option value="Refaire">Refaire</option>
+                        <option value="Annuler">Annuleé</option>
+                      </select></div>
+                    </div>
+                    <div class=" align-content-center d-flex align-content-between justify-content-between flex-wrap">
+                      <div>
+                        <label class="form-label-sm my-primary" STYLE="margin-right: 15px;">Date</label>
+                      </div>
+                      <div><select id="dateSelected" class="form-select  form-select-sm Mycolor">
+                        <option value="ouverture" selected="selected"> Date ouverture
+                        </option>
+                        <option value="objectif"> Date objectif
+                        </option>
+                        <option value="cloture"> Date clôture
+                        </option>
+                      </select></div>
+                    </div>
+                    <div class=" align-content-center d-flex align-content-between justify-content-between flex-wrap">
+                      <div><label for="dateMinSelect" class="form-label-sm my-primary" STYLE="margin-right: 10px;">De</label></div>
+                      <div><input class="form-control form-control-sm Mycolor" type="date" id="dateMinSelect"></div>
+                    </div>
+                    <div class=" align-content-center d-flex align-content-between justify-content-between flex-wrap">
+                      <div><label for="dateMaxSelect" class="form-label-sm my-primary" STYLE="margin-right: 10px;">À</label></div>
+                      <div><input class="form-control form-control-sm Mycolor" type="date" id="dateMaxSelect"></div>
+                    </div>
+                    <div class=" align-content-center d-flex align-content-between justify-content-between flex-wrap">
+                      <div><label for="rechercher" class="form-label-sm my-primary" STYLE="margin-right: 10px;">Rechercher:</label></div>
+                      <div><input class="form-control form-control-sm Mycolor" type="text" id="rechercher"></div>
+                    </div>
                   </div>
-                  <div class="col-3">
-                    <label for="statutSelect" class="form-label">Sélectionner un statut</label>
-                    <select  multiple="multiple" id="statutSelect1"  class=" form-select">
-                      <option value="" selected="selected">Tout sélectionner</option>
-                      <option value="Valide" >Validé</option>
-                      <option value="Termine" >Terminé</option>
-                      <option value="En cours" >En cours</option>
-                      <option value="En attente" >En attente</option>
-                      <option value="Programme" >Programme</option>
-                      <option value="Refaire" >Refaire</option>
-                      <option value="Annuler" >Annuleé</option>
-                    </select>
-                  </div>
-                  <div class="col-3">
-                    <label for="dateMinSelect" class="form-label">Sélectionner la date d'ouverture MIN</label>
-                    <input class="form-control" type="date"  id="dateMinSelect">
-                  </div>
-                  <div class="col-md-3">
-                    <label  for="dateMaxSelect" class="form-label">SÉLECTIONNER LA DATE d'ouverture MAX</label>
-                    <input class="form-control" type="date"  id="dateMaxSelect" >
-                  </div>-->
-                </div>
-                <table id="example" style="width:100%" class="table table-bordered table-sm">
-                  <thead>
-                  <tr>
-                    <th style="width: 100%;"
-                        class="text-center"
-                        data-bs-toggle="tooltip"
-                        data-bs-offset="0,4"
-                        data-bs-placement="top"
-                        data-bs-html="true"
-                        title="<span>Tâches</span>">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-task" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5zM3 3H2v1h1z"/>
-                        <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1z"/>
-                        <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5zM2 7h1v1H2zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm1 .5H2v1h1z"/>
-                      </svg> Tâches
-                      <!--Tache-->
-                    </th>
-                    <th class="text-center"
-                        data-bs-toggle="tooltip"
-                        data-bs-offset="0,4"
-                        data-bs-placement="top"
-                        data-bs-html="true"
-                        title="<span>Émetteur</span>"
-                    > <!--émetteur-->
-                      <svg    style="margin-right: 0;margin-left: 0;"
-                              xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
-                        <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
-                      </svg>
-                    </th>
-                    <th style="margin-right: 0;margin-left: 0;"
-                        class="text-center"
-                        data-bs-toggle="tooltip"
-                        data-bs-offset="0,4"
-                        data-bs-placement="top"
-                        data-bs-html="true"
-                        title="<span>Priorité</span>"><!--Priorité-->
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
-                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
-                      </svg>
-                    </th>
-                    <th class="text-center"
-                        data-bs-toggle="tooltip"
-                        data-bs-offset="0,4"
-                        data-bs-placement="top"
-                        data-bs-html="true"
-                        title="<span>Date ouverture</span>"
-                    ><!--date ouverture-->
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-open" viewBox="0 0 16 16">
-                        <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882zM15 7.383l-4.778 2.867L15 13.117zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765z"/>
-                      </svg>
-                    </th>
-                    <th class="text-center"
-                        data-bs-toggle="tooltip"
-                        data-bs-offset="0,4"
-                        data-bs-placement="top"
-                        data-bs-html="true"
-                        title="<span>Date objectif</span>"
-                    ><!--date objectif-->
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar4-event" viewBox="0 0 16 16">
-                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
-                        <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
-                      </svg>
-                    </th>
-                    <th  class="text-center"
-                         data-bs-toggle="tooltip"
-                         data-bs-offset="0,4"
-                         data-bs-placement="top"
-                         data-bs-html="true"
-                         title="<span>Dure estime</span>"
-                    ><!--dure estime-->
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16">
-                        <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/>
-                      </svg>
-                    </th>
-                    <th class="text-center"
-                        data-bs-toggle="tooltip"
-                        data-bs-offset="0,4"
-                        data-bs-placement="top"
-                        data-bs-html="true"
-                        title="<span>Date cloture</span>"
-                    ><!--date cloture-->
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
-                        <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
-                      </svg>
-                    </th>
-                    <th class="text-center"
-                        data-bs-toggle="tooltip"
-                        data-bs-offset="0,4"
-                        data-bs-placement="top"
-                        data-bs-html="true"
-                        title="<span>Status</span>"><!--Status-->
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                      </svg>
-                    </th>
-                    <th class="text-center"
-                         data-bs-toggle="tooltip"
-                         data-bs-offset="0,4"
-                         data-bs-placement="top"
-                         data-bs-html="true"
-                         title="<span>Dure retarde</span>"><!--dure retarde-->
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-x" viewBox="0 0 16 16">
-                        <path d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708"/>
-                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
-                      </svg>
-                    </th>
-                    <th class="text-center"
-                        data-bs-toggle="tooltip"
-                        data-bs-offset="0,4"
-                        data-bs-placement="top"
-                        data-bs-html="true"
-                        title="<span>Performance</span>"
-                    > <!--performance-->
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-battery-charging" viewBox="0 0 16 16">
-                      <path d="M9.585 2.568a.5.5 0 0 1 .226.58L8.677 6.832h1.99a.5.5 0 0 1 .364.843l-5.334 5.667a.5.5 0 0 1-.842-.49L5.99 9.167H4a.5.5 0 0 1-.364-.843l5.333-5.667a.5.5 0 0 1 .616-.09z"/>
-                      <path d="M2 4h4.332l-.94 1H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.38l-.308 1H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2"/>
-                      <path d="M2 6h2.45L2.908 7.639A1.5 1.5 0 0 0 3.313 10H2zm8.595-2-.308 1H12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H9.276l-.942 1H12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
-                      <path d="M12 10h-1.783l1.542-1.639q.146-.156.241-.34zm0-3.354V6h-.646a1.5 1.5 0 0 1 .646.646M16 8a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8"/>
-                    </svg></th>
-                  </tr>
-                  </thead>
-                  <tbody class="table-border" id="tbody">
-                 <!-- <tr th:each="p:${tacheList}">
-                      <td style=" display: flex;">
-                      <p th:text="${p.nomtache+' .'}" style="white-space: pre-wrap;margin: 0;max-width: 350px;min-height: 35px;height: auto"></p>
+                  <!--/filtre-->
+
+                  <table id="example" style="width:100%" class="table table-bordered table-sm table-secondary">
+                    <thead>
+                    <tr>
+                      <th  style="width: 100%;"
+                          class="text-center  Mycolor"
+                          data-bs-toggle="tooltip"
+                          data-bs-offset="0,4"
+                          data-bs-placement="top"
+                          data-bs-html="true"
+                          title="<span>Tâches</span>">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-list-task" viewBox="0 0 16 16">
+                          <path fill-rule="evenodd"
+                                d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5zM3 3H2v1h1z"/>
+                          <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1z"/>
+                          <path fill-rule="evenodd"
+                                d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5zM2 7h1v1H2zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm1 .5H2v1h1z"/>
+                        </svg>
+                       <label class="capitalize-first">Tâches</label>
+                        <!--Tache-->
+                      </th>
+                      <th class="text-center Mycolor"
+                          data-bs-toggle="tooltip"
+                          data-bs-offset="0,4"
+                          data-bs-placement="top"
+                          data-bs-html="true"
+                          title="<span>Id tâche</span>"
+                      > <!--idTache-->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-key-fill" viewBox="0 0 16 16">
+                          <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                        </svg>
+                      </th>
+                      <th class="text-center Mycolor"
+                          data-bs-toggle="tooltip"
+                          data-bs-offset="0,4"
+                          data-bs-placement="top"
+                          data-bs-html="true"
+                          title="<span>Émetteur</span>"
+                      > <!--émetteur-->
+                        <svg style="margin-right: 0;margin-left: 0;"
+                             xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-send-fill" viewBox="0 0 16 16">
+                          <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>
+                        </svg>
+                      </th>
+                      <th style="margin-right: 0;margin-left: 0;"
+                          class="text-center Mycolor"
+                          data-bs-toggle="tooltip"
+                          data-bs-offset="0,4"
+                          data-bs-placement="top"
+                          data-bs-html="true"
+                          title="<span>Priorité</span>"><!--Priorité-->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                          <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                        </svg>
+                      </th>
+                      <th class="text-center Mycolor"
+                          data-bs-toggle="tooltip"
+                          data-bs-offset="0,4"
+                          data-bs-placement="top"
+                          data-bs-html="true"
+                          title="<span>Date ouverture</span>"
+                      ><!--date ouverture-->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-envelope-open" viewBox="0 0 16 16">
+                          <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882zM15 7.383l-4.778 2.867L15 13.117zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765z"/>
+                        </svg>
+                      </th>
+                      <th class="text-center Mycolor"
+                          data-bs-toggle="tooltip"
+                          data-bs-offset="0,4"
+                          data-bs-placement="top"
+                          data-bs-html="true"
+                          title="<span>Date objectif</span>"
+                      ><!--date objectif-->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-calendar4-event" viewBox="0 0 16 16">
+                          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                          <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                      </th>
+                      <th class="text-center Mycolor"
+                          data-bs-toggle="tooltip"
+                          data-bs-offset="0,4"
+                          data-bs-placement="top"
+                          data-bs-html="true"
+                          title="<span>Dure estime</span>"
+                      ><!--dure estime-->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                          <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/>
+                        </svg>
+                      </th>
+                      <th class="text-center Mycolor"
+                          data-bs-toggle="tooltip"
+                          data-bs-offset="0,4"
+                          data-bs-placement="top"
+                          data-bs-html="true"
+                          title="<span>Date clôture</span>"
+                      ><!--date clôture -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
+                          <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                        </svg>
+                      </th>
+                      <th class="text-center Mycolor"
+                          data-bs-toggle="tooltip"
+                          data-bs-offset="0,4"
+                          data-bs-placement="top"
+                          data-bs-html="true"
+                          title="<span>Status</span>"><!--Status-->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                        </svg>
+                      </th>
+                      <th class="text-center Mycolor"
+                          data-bs-toggle="tooltip"
+                          data-bs-offset="0,4"
+                          data-bs-placement="top"
+                          data-bs-html="true"
+                          title="<span>Dure retarde</span>"><!--dure retarde-->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-calendar-x" viewBox="0 0 16 16">
+                          <path d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708"/>
+                          <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                        </svg>
+                      </th>
+                      <th class="text-center Mycolor"
+                          data-bs-toggle="tooltip"
+                          data-bs-offset="0,4"
+                          data-bs-placement="top"
+                          data-bs-html="true"
+                          title="<span>Performance</span>"
+                      > <!--performance-->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-battery-charging" viewBox="0 0 16 16">
+                          <path d="M9.585 2.568a.5.5 0 0 1 .226.58L8.677 6.832h1.99a.5.5 0 0 1 .364.843l-5.334 5.667a.5.5 0 0 1-.842-.49L5.99 9.167H4a.5.5 0 0 1-.364-.843l5.333-5.667a.5.5 0 0 1 .616-.09z"/>
+                          <path d="M2 4h4.332l-.94 1H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.38l-.308 1H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2"/>
+                          <path d="M2 6h2.45L2.908 7.639A1.5 1.5 0 0 0 3.313 10H2zm8.595-2-.308 1H12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H9.276l-.942 1H12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
+                          <path d="M12 10h-1.783l1.542-1.639q.146-.156.241-.34zm0-3.354V6h-.646a1.5 1.5 0 0 1 .646.646M16 8a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8"/>
+                        </svg>
+                      </th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-border" id="tbody1">
+                    <!-- <tr th:each="p:${tacheList}">
+                         <td style=" display: flex;">
+                         <p th:text="${p.nomtache+' .'}" style="white-space: pre-wrap;margin: 0;max-width: 350px;min-height: 35px;height: auto"></p>
+                       </td>
+
+                       <td th:text="${p.utilisateur != null ? p.utilisateur.nom + ' ' + p.utilisateur.prenom : 'émetteur nul'}"></td>
+
+                       <td th:if="${p.priorite.nompriorite =='Urgent'}" th:text="${p.priorite != null ? p.priorite.nompriorite : 'priorité nulle'}" class="bg-label-danger"></td>
+                       <td th:if="${p.priorite.nompriorite =='Important'}" th:text="${p.priorite != null ? p.priorite.nompriorite : 'priorité nulle'}" class="bg-label-success"></td>
+                       <td th:if="${p.priorite.nompriorite =='Normal'}" th:text="${p.priorite != null ? p.priorite.nompriorite : 'priorité nulle'}" class="bg-label-info"></td>
+                       <td th:if="${p.priorite.nompriorite =='En attente'}" th:text="${p.priorite != null ? p.priorite.nompriorite : 'priorité nulle'}" class="bg-label-primary"></td>
+
+                       <td th:text="${p.dateouverture}"></td>
+                       <td th:text="${p.dateobjectif}"></td>
+                       <td th:text="${p.dureestime}"></td>
+                       <td th:text="${p.dateTermineTache}"></td>
+                       <td>
+                    <button th:attr="data-id=${p.idtache}" onclick="modifyStatus(this)" class="btn btn-xs bg-label-info me-1" th:if="${p.statut =='En cours'}">En cours</button>
+                    <button th:attr="data-id=${p.idtache}"  class="btn btn-xs bg-label-primary me-1" th:if="${p.statut == 'Programme'}">Programmé</button>
+                    <button th:attr="data-id=${p.idtache}" onclick="modifyStatus(this)" class="btn btn-xs  bg-label-warning me-1" th:if="${p.statut == 'En attente'}">En attente</button>
+                    <button th:attr="data-id=${p.idtache}" onclick="modifyStatus(this)"  class="btn btn-xs bg-label-danger me-1" th:if="${p.statut == 'Refair'}">Refair</button>
+                    <button th:if="${p.statut == 'Termine'}" class="btn btn-xs bg-label-success me-1" >Terminé</button>
+                    <button th:if="${p.statut == 'Valide'}" class="btn btn-xs bg-label-secondary me-1">Validé</button>
+
                     </td>
+                    <td th:id="'dureretardeCol_' + ${p.idtache}" th:text="${p.dureretarde}"></td>
+                    <td th:id="'performanceCol_' + ${p.idtache}" th:text="${p.performance+'%'}"></td>
 
-                    <td th:text="${p.utilisateur != null ? p.utilisateur.nom + ' ' + p.utilisateur.prenom : 'émetteur nul'}"></td>
+                    </tr>-->
+                    </tbody>
+                  </table>
+                </div>
 
-                    <td th:if="${p.priorite.nompriorite =='Urgent'}" th:text="${p.priorite != null ? p.priorite.nompriorite : 'priorité nulle'}" class="bg-label-danger"></td>
-                    <td th:if="${p.priorite.nompriorite =='Important'}" th:text="${p.priorite != null ? p.priorite.nompriorite : 'priorité nulle'}" class="bg-label-success"></td>
-                    <td th:if="${p.priorite.nompriorite =='Normal'}" th:text="${p.priorite != null ? p.priorite.nompriorite : 'priorité nulle'}" class="bg-label-info"></td>
-                    <td th:if="${p.priorite.nompriorite =='En attente'}" th:text="${p.priorite != null ? p.priorite.nompriorite : 'priorité nulle'}" class="bg-label-primary"></td>
-
-                    <td th:text="${p.dateouverture}"></td>
-                    <td th:text="${p.dateobjectif}"></td>
-                    <td th:text="${p.dureestime}"></td>
-                    <td th:text="${p.dateTermineTache}"></td>
-                    <td>
-                 <button th:attr="data-id=${p.idtache}" onclick="modifyStatus(this)" class="btn btn-xs bg-label-info me-1" th:if="${p.statut =='En cours'}">En cours</button>
-                 <button th:attr="data-id=${p.idtache}"  class="btn btn-xs bg-label-primary me-1" th:if="${p.statut == 'Programme'}">Programmé</button>
-                 <button th:attr="data-id=${p.idtache}" onclick="modifyStatus(this)" class="btn btn-xs  bg-label-warning me-1" th:if="${p.statut == 'En attente'}">En attente</button>
-                 <button th:attr="data-id=${p.idtache}" onclick="modifyStatus(this)"  class="btn btn-xs bg-label-danger me-1" th:if="${p.statut == 'Refair'}">Refair</button>
-                 <button th:if="${p.statut == 'Termine'}" class="btn btn-xs bg-label-success me-1" >Terminé</button>
-                 <button th:if="${p.statut == 'Valide'}" class="btn btn-xs bg-label-secondary me-1">Validé</button>
-
-                 </td>
-                 <td th:id="'dureretardeCol_' + ${p.idtache}" th:text="${p.dureretarde}"></td>
-                 <td th:id="'performanceCol_' + ${p.idtache}" th:text="${p.performance+'%'}"></td>
-
-                 </tr>-->
-                  </tbody>
-                </table>
               </div>
+
+
+              <!--/ Basic Bootstrap Table -->
+
+              <!-- / Content -->
+
+
+              <div class="content-backdrop fade"></div>
             </div>
+            <!-- Content wrapper -->
           </div>
-          <!--/ Basic Bootstrap Table -->
-
-          <!-- / Content -->
-
-
-          <div class="content-backdrop fade"></div>
+          <!-- / Layout page -->
         </div>
-        <!-- Content wrapper -->
+        <!-- /content-->
       </div>
-      <!-- / Layout page -->
-    </div>
-    <!-- /content-->
-  </div>
-  <!--/ content div-->
-</body>
+      <!--/ content div-->
+    </div></body>
 
 <!-- les scripte du tamplet JS -->
 <!-- build:js assets/vendor/js/core.js -->
@@ -886,10 +790,12 @@
 <script src="js/datatables.min.js"></script>
 
 <!--notif Js-->
+
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 
 
 <script>
+
 
   //----- script pour les filtres et la validation , Refair et editer les taches
   var membreSelect = document.getElementById('membreSelect');
@@ -897,6 +803,7 @@
   var tbody = document.querySelector("#example tbody");
   var dateMinSelect = document.querySelector("#dateMinSelect");
   var dateMaxSelect = document.querySelector("#dateMaxSelect");
+  var dateselect = document.querySelector("#dateSelected");
   var AllMembersTask=[];
   var selectedStatuts=[""];
   var selectedMembres;
@@ -905,6 +812,10 @@
   var dateMax="";
   var utilisateurConnecte=[];
   var membres=[];
+  var selectedDate="ouverture";
+
+
+
 
   //Trouver le role d utilisateur connecté
   function getRole(callback) {
@@ -956,27 +867,54 @@
             .then(data => {
 
               // Redraw the table
-              $('#example').DataTable().destroy();
+             // $('#example').DataTable().destroy();
+
               // For example, you can clear the table content
               tbody.innerHTML = '';
+
+              datatableConf();
+
               // Update the table with the new data
               data.forEach(tache => {
                 AllMembersTask.push(tache);
                 createTableRow(tache);
               });
               // Redraw the table
-              $('#example').DataTable().draw();
+              //$('#example').DataTable().draw();
             })
   }
   //affichage initial du tableau
   getAllMyTask();
 
+  function datatableConf(){
+    $(document).ready(function () {
+      var table = $('#example').DataTable({
+        info: false,
+        lengthMenu: [10, 25, 50],
+        language: {
+          "lengthMenu": "Afficher _MENU_ entrées",
+          "search": "Rechercher :",
+          "paginate": {
+            "first": "Première",
+            "last": "Dernière",
+            "next": "Suivant",
+            "previous": "Précédent"
+          }
+        },
+        dom: '<"top">t<"bottom"lp>',
+      });
+
+      $('#rechercher').on('keyup', function() {
+        table.search(this.value).draw();
+      });
+    });
+  }
+
+
 
   //______________________script2:pour filtré les Taches Par utilisateurs___________________
   // Function to handle the change event on membreSelect
   membreSelect.addEventListener('change', () => {
-
-
     // Check if "tout sélectionner" is selected
     if (membreSelect.value === "") {
       // Redraw the table
@@ -986,6 +924,9 @@
       // Perform actions when "tout sélectionner" is selected
       //getAllMembersTask();
       tacheOfselectedMembres= AllMembersTask;
+      console.log(selectedDate)
+
+
       const isStatutsSelectionneTousSelected=contientValeurVide(selectedStatuts);
       if (isStatutsSelectionneTousSelected && dateMin=="" && dateMax=="") {
         // Clear existing data
@@ -995,28 +936,92 @@
 
       }
       if (isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
-        $('#example').DataTable().clear();
+        //$('#example').DataTable().clear();
         AllMembersTask.forEach(tache => {
-          if (tache.dateouverture<=dateMax) {
-            createTableRow(tache);
+          if (selectedDate=="ouverture") {
+            if (tache.dateouverture<=dateMax) {
+              createTableRow(tache);
+            }
+
+          }
+
+          if (selectedDate=="objectif") {
+            if (tache.dateobjectif!=null) {
+              if ( tache.dateobjectif<=dateMax) {
+                createTableRow(tache);
+              }
+            }
+          }
+
+          if (selectedDate==="cloture") {
+            if (tache.dateTermineTache!=null) {
+              if (tache.dateTermineTache<=dateMax) {
+                createTableRow(tache);
+              }
+            }
           }
         });
 
       }
       if (isStatutsSelectionneTousSelected && dateMin!="" && dateMax=="") {
+
         AllMembersTask.forEach(tache => {
-          if (tache.dateouverture>=dateMin) {
-            createTableRow(tache);
+
+          if (selectedDate=="ouverture") {
+            if (tache.dateouverture>=dateMin) {
+              createTableRow(tache);
+            }
+
+          }
+
+          if (selectedDate=="objectif") {
+            if (tache.dateobjectif!=null) {
+              if ( tache.dateobjectif>=dateMin) {
+                createTableRow(tache);
+              }
+            }
+          }
+
+          if (selectedDate==="cloture") {
+            if (tache.dateTermineTache!=null) {
+              if (tache.dateTermineTache>=dateMin) {
+                createTableRow(tache);
+              }
+            }
           }
         });
+
       }
+
       if (isStatutsSelectionneTousSelected && dateMin!="" && dateMax!="") {
         AllMembersTask.forEach(tache => {
-          if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
-            createTableRow(tache);
+
+          if (selectedDate=="ouverture") {
+            if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+              createTableRow(tache);
+            }
+
           }
+
+          if (selectedDate=="objectif") {
+            if (tache.dateobjectif!=null) {
+              if ( dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax) {
+                createTableRow(tache);
+              }
+            }
+          }
+
+          if (selectedDate==="cloture") {
+            if (tache.dateTermineTache!=null) {
+              if ( dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax) {
+                createTableRow(tache);
+              }
+            }
+          }
+
         });
       }
+
       if (!isStatutsSelectionneTousSelected && dateMin=="" && dateMax=="") {
         AllMembersTask.forEach(tache => {
           const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
@@ -1025,31 +1030,93 @@
           }
         });
       }
+
       if (!isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
         AllMembersTask.forEach(tache => {
+
           const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
-          if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax) {
-            createTableRow(tache);
+
+          if (selectedDate=="ouverture") {
+            if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax) {
+              createTableRow(tache);
+            }
           }
+
+          if (selectedDate=="objectif") {
+            if (tache.dateobjectif!=null) {
+              if (TacheWitheSelectedStatut && tache.dateobjectif<=dateMax) {
+                createTableRow(tache);
+              }
+           }
+          }
+
+          if (selectedDate=="cloture") {
+            if (tache.dateTermineTache!=null) {
+              if (TacheWitheSelectedStatut && tache.dateTermineTache<=dateMax) {
+                createTableRow(tache);
+              }
+           }
+          }
+
         });
       }
       if (!isStatutsSelectionneTousSelected && dateMin!="" && dateMax=="") {
         AllMembersTask.forEach(tache => {
           const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
-          if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin) {
-            createTableRow(tache);
+
+          if (selectedDate=="ouverture") {
+            if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin) {
+              createTableRow(tache);
+            }
           }
+
+          if (selectedDate=="objectif") {
+            if (tache.dateobjectif!=null) {
+              if (TacheWitheSelectedStatut && tache.dateobjectif>=dateMin) {
+                createTableRow(tache);
+              }
+            }
+          }
+
+          if (selectedDate=="cloture") {
+            if (tache.dateTermineTache!=null) {
+              if (TacheWitheSelectedStatut && tache.dateTermineTache>=dateMin) {
+                createTableRow(tache);
+              }
+            }
+          }
+
         });
       }
       if (!isStatutsSelectionneTousSelected && dateMin!="" && dateMax!="") {
         AllMembersTask.forEach(tache => {
           const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
-          if (TacheWitheSelectedStatut &&  dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
-            createTableRow(tache);
+
+          if (selectedDate=="ouverture") {
+            if (TacheWitheSelectedStatut && dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+              createTableRow(tache);
+            }
           }
+
+          if (selectedDate=="objectif") {
+            if (tache.dateobjectif!=null) {
+              if (TacheWitheSelectedStatut &&  dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax) {
+                createTableRow(tache);
+              }
+            }
+          }
+
+          if (selectedDate=="cloture") {
+            if (tache.dateTermineTache!=null) {
+              if (TacheWitheSelectedStatut &&  dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax) {
+                createTableRow(tache);
+              }
+            }
+          }
+
         });
       }// Redraw the table
-      $('#example').DataTable().draw();
+      datatableConf();
 
     } else {
 
@@ -1081,27 +1148,99 @@
                     createTableRow(tache);
                   });
                 }
+
                 if (isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
                   data.forEach(tache => {
-                    if (tache.dateouverture<=dateMax) {
-                      createTableRow(tache);
+
+                    if (selectedDate=="ouverture") {
+                      if (tache.dateouverture<=dateMax) {
+                        createTableRow(tache);
+                      }
                     }
+
+
+                    if (selectedDate=="objectif") {
+                      if (tache.dateobjectif!=null) {
+                        if (tache.dateobjectif<=dateMax) {
+                          createTableRow(tache);
+                        }
+                      }
+                    }
+
+                    if (selectedDate=="cloture") {
+                      if (tache.dateTermineTache!=null) {
+                        if (tache.dateTermineTache<=dateMax) {
+                          createTableRow(tache);
+                        }
+                      }
+                    }
+
+
                   });
                 }
+
                 if (isStatutsSelectionneTousSelected && dateMin!="" && dateMax=="") {
+
                   data.forEach(tache => {
-                    if (tache.dateouverture>=dateMin) {
-                      createTableRow(tache);
+
+                    if (selectedDate=="ouverture") {
+                      if (tache.dateouverture>=dateMin) {
+                        createTableRow(tache);
+                      }
                     }
+
+                    if (selectedDate=="objectif") {
+                      if (tache.dateobjectif!=null) {
+                        if (tache.dateobjectif>=dateMin) {
+                          createTableRow(tache);
+                        }
+                      }
+                    }
+
+                    if (selectedDate=="cloture") {
+                      if (tache.dateTermineTache!=null) {
+                        if (tache.dateTermineTache>=dateMin) {
+                          createTableRow(tache);
+                        }
+                      }
+                    }
+
                   });
+
+
                 }
+
                 if (isStatutsSelectionneTousSelected && dateMin!="" && dateMax!="") {
                   data.forEach(tache => {
-                    if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
-                      createTableRow(tache);
+
+
+
+                    if (selectedDate=="ouverture") {
+                      if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                        createTableRow(tache);
+                      }
                     }
+
+                    if (selectedDate=="objectif") {
+                      if (tache.dateobjectif!=null) {
+                        if (dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax) {
+                          createTableRow(tache);
+                        }
+                      }
+                    }
+
+                    if (selectedDate=="cloture") {
+                      if (tache.dateTermineTache!=null) {
+                        if (dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax) {
+                          createTableRow(tache);
+                        }
+                      }
+                    }
+
+
                   });
                 }
+
                 if (!isStatutsSelectionneTousSelected && dateMin=="" && dateMax=="") {
                   data.forEach(tache => {
                     const TacheWitheSelectedStatut = selectedStatuts.some(x => x === tache.statut);
@@ -1110,31 +1249,101 @@
                     }
                   });
                 }
+
                 if (!isStatutsSelectionneTousSelected && dateMin=="" && dateMax!="") {
                   data.forEach(tache => {
                     const TacheWitheSelectedStatut = selectedStatuts.some(x => x === tache.statut);
-                    if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax) {
-                      createTableRow(tache);
+
+                    if (selectedDate=="ouverture") {
+                      if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax) {
+                        createTableRow(tache);
+                      }
                     }
+
+
+                    if (selectedDate=="objectif") {
+                      if (tache.dateobjectif!=null) {
+                        if (TacheWitheSelectedStatut && tache.dateobjectif<=dateMax) {
+                          createTableRow(tache);
+                        }
+                      }
+                    }
+
+                    if (selectedDate=="cloture") {
+                      if (tache.dateTermineTache!=null) {
+                        if (TacheWitheSelectedStatut && tache.dateTermineTache<=dateMax) {
+                          createTableRow(tache);
+                        }
+                      }
+                    }
+
                   });
                 }
+
                 if (!isStatutsSelectionneTousSelected && dateMin!="" && dateMax=="") {
                   data.forEach(tache => {
                     const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
-                    if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin) {
-                      createTableRow(tache);
+
+
+                    if (selectedDate=="ouverture") {
+                      if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin) {
+                        createTableRow(tache);
+                      }
                     }
+
+                    if (selectedDate=="objectif") {
+                      if (tache.dateobjectif!=null) {
+                        if (TacheWitheSelectedStatut && tache.dateobjectif>=dateMin) {
+                          createTableRow(tache);
+                        }
+                      }
+                    }
+
+                    if (selectedDate=="cloture") {
+                      if (tache.dateTermineTache!=null) {
+                        if (TacheWitheSelectedStatut && tache.dateTermineTache>=dateMin) {
+                          createTableRow(tache);
+                        }
+                      }
+                    }
+
+
                   });
                 }
+
                 if (!isStatutsSelectionneTousSelected && dateMin!="" && dateMax!="") {
                   data.forEach(tache => {
                     const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
-                    if (TacheWitheSelectedStatut &&  dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
-                      createTableRow(tache);
+
+
+                    if (selectedDate=="ouverture") {
+                      if (TacheWitheSelectedStatut &&  dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+                        createTableRow(tache);
+                      }
                     }
+
+                    if (selectedDate=="objectif") {
+                      if (tache.dateobjectif!=null) {
+                        if (TacheWitheSelectedStatut &&  dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax) {
+                          createTableRow(tache);
+                        }
+                      }
+                    }
+
+                    if (selectedDate=="cloture") {
+                      if (tache.dateTermineTache!=null) {
+                        if (TacheWitheSelectedStatut &&  dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax) {
+                          createTableRow(tache);
+                        }
+                      }
+                    }
+
+
                   });
-                }// Redraw the table
-                $('#example').DataTable().draw();
+                }
+                // Redraw the table
+                datatableConf();
+
               })
     }
 
@@ -1156,26 +1365,91 @@
         createTableRow(tache);
       });
     }
+
     if (statutSelect.value == "" && dateMin=="" && dateMax!="") {
       tacheOfselectedMembres.forEach(tache => {
-        if (tache.dateouverture<=dateMax) {
-          createTableRow(tache);
+
+        if (selectedDate=="ouverture") {
+          if (tache.dateouverture<=dateMax) {
+            createTableRow(tache);
+          }
         }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (tache.dateobjectif<=dateMax) {
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (tache.dateTermineTache<=dateMax) {
+              createTableRow(tache);
+            }
+          }
+        }
+
+
       });
     }
+
     if (statutSelect.value == "" && dateMin!="" && dateMax=="") {
       tacheOfselectedMembres.forEach(tache => {
-        if (tache.dateouverture>=dateMin) {
-          createTableRow(tache);
+
+
+        if (selectedDate=="ouverture") {
+          if (tache.dateouverture>=dateMin) {
+            createTableRow(tache);
+          }
+        }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (tache.dateobjectif>=dateMin) {
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (tache.dateTermineTache>=dateMin) {
+              createTableRow(tache);
+            }
+          }
         }
 
       });
     }
+
     if (statutSelect.value == "" && dateMin!="" && dateMax!="") {
       tacheOfselectedMembres.forEach(tache => {
-        if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
-          createTableRow(tache);
+
+        if (selectedDate=="ouverture") {
+          if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+            createTableRow(tache);
+          }
         }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax) {
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax) {
+              createTableRow(tache);
+            }
+          }
+        }
+
+
       });
     }
 
@@ -1193,33 +1467,312 @@
       //lister les tache des membres selectionné
       tacheOfselectedMembres.forEach(tache => {
         const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
-        if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax ){
-          createTableRow(tache);
+
+
+        if (selectedDate=="ouverture") {
+          if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax ){
+            createTableRow(tache);
+          }
         }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (TacheWitheSelectedStatut && tache.dateobjectif<=dateMax ){
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (TacheWitheSelectedStatut && tache.dateTermineTache<=dateMax ){
+              createTableRow(tache);
+            }
+          }
+        }
+
+
       });
     }
+
     if (statutSelect.value != "" && dateMin!="" && dateMax=="") {
       //lister les tache des membres selectionné
       tacheOfselectedMembres.forEach(tache => {
         const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
-        if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin){
-          createTableRow(tache);
+
+
+        if (selectedDate=="ouverture") {
+          if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin){
+            createTableRow(tache);
+          }
         }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (TacheWitheSelectedStatut && tache.dateobjectif>=dateMin){
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (TacheWitheSelectedStatut && tache.dateTermineTache>=dateMin){
+              createTableRow(tache);
+            }
+          }
+        }
+
+
       });
     }
     if (statutSelect.value != "" && dateMin!="" && dateMax!="") {
       //lister les tache des membres selectionné
       tacheOfselectedMembres.forEach(tache => {
         const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
-        if (TacheWitheSelectedStatut &&  dateMin<=tache.dateouverture && tache.dateouverture<=dateMax){
+
+
+        if (selectedDate=="ouverture") {
+          if (TacheWitheSelectedStatut &&  dateMin<=tache.dateouverture && tache.dateouverture<=dateMax){
+            createTableRow(tache);
+          }
+        }
+
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (TacheWitheSelectedStatut &&  dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax){
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (TacheWitheSelectedStatut &&  dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax){
+              createTableRow(tache);
+            }
+          }
+        }
+
+      });
+    }
+    // Redraw the table
+     datatableConf();
+  })
+
+  //pour filtrer les taches par Date
+  dateselect.addEventListener("change", ()=>{
+  selectedDate=dateselect.value
+  //console.log(selectedDate)
+    // Redraw the table
+    $('#example').DataTable().destroy();
+    // Effacer le contenu actuel
+    tbody.innerHTML = '';
+    //selectedStatuts: un tableau des valeurs sélectionnées
+    selectedStatuts = Array.from(statutSelect.selectedOptions).map(option => option.value);
+
+    // Check if "tout sélectionner" is selected
+    if (statutSelect.value == "" && dateMin=="" && dateMax=="") {
+      tacheOfselectedMembres.forEach(tache => {
+        createTableRow(tache);
+      });
+    }
+
+    if (statutSelect.value == "" && dateMin=="" && dateMax!="") {
+      tacheOfselectedMembres.forEach(tache => {
+
+        if (selectedDate=="ouverture") {
+          if (tache.dateouverture<=dateMax) {
+            createTableRow(tache);
+          }
+        }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (tache.dateobjectif<=dateMax) {
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (tache.dateTermineTache<=dateMax) {
+              createTableRow(tache);
+            }
+          }
+        }
+
+
+      });
+    }
+
+    if (statutSelect.value == "" && dateMin!="" && dateMax=="") {
+      tacheOfselectedMembres.forEach(tache => {
+
+
+        if (selectedDate=="ouverture") {
+          if (tache.dateouverture>=dateMin) {
+            createTableRow(tache);
+          }
+        }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (tache.dateobjectif>=dateMin) {
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (tache.dateTermineTache>=dateMin) {
+              createTableRow(tache);
+            }
+          }
+        }
+
+      });
+    }
+
+    if (statutSelect.value == "" && dateMin!="" && dateMax!="") {
+      tacheOfselectedMembres.forEach(tache => {
+
+        if (selectedDate=="ouverture") {
+          if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+            createTableRow(tache);
+          }
+        }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax) {
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax) {
+              createTableRow(tache);
+            }
+          }
+        }
+
+
+      });
+    }
+
+    // Check if "tout sélectionner" is selected
+    if (statutSelect.value != "" && dateMin=="" && dateMax=="") {
+      //lister les tache des membres selectionné
+      tacheOfselectedMembres.forEach(tache => {
+        const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+        if (TacheWitheSelectedStatut ){
           createTableRow(tache);
         }
       });
     }
-    // Redraw the table
-    $('#example').DataTable().draw();
-  })
+    if (statutSelect.value != "" && dateMin=="" && dateMax!="") {
+      //lister les tache des membres selectionné
+      tacheOfselectedMembres.forEach(tache => {
+        const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
 
+
+        if (selectedDate=="ouverture") {
+          if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax ){
+            createTableRow(tache);
+          }
+        }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (TacheWitheSelectedStatut && tache.dateobjectif<=dateMax ){
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (TacheWitheSelectedStatut && tache.dateTermineTache<=dateMax ){
+              createTableRow(tache);
+            }
+          }
+        }
+
+
+      });
+    }
+
+    if (statutSelect.value != "" && dateMin!="" && dateMax=="") {
+      //lister les tache des membres selectionné
+      tacheOfselectedMembres.forEach(tache => {
+        const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+
+        if (selectedDate=="ouverture") {
+          if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin){
+            createTableRow(tache);
+          }
+        }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (TacheWitheSelectedStatut && tache.dateobjectif>=dateMin){
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (TacheWitheSelectedStatut && tache.dateTermineTache>=dateMin){
+              createTableRow(tache);
+            }
+          }
+        }
+
+
+      });
+    }
+    if (statutSelect.value != "" && dateMin!="" && dateMax!="") {
+      //lister les tache des membres selectionné
+      tacheOfselectedMembres.forEach(tache => {
+        const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
+
+
+        if (selectedDate=="ouverture") {
+          if (TacheWitheSelectedStatut &&  dateMin<=tache.dateouverture && tache.dateouverture<=dateMax){
+            createTableRow(tache);
+          }
+        }
+
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (TacheWitheSelectedStatut &&  dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax){
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (TacheWitheSelectedStatut &&  dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax){
+              createTableRow(tache);
+            }
+          }
+        }
+
+      });
+    }
+    // Redraw the table
+     datatableConf();
+  })
 
   //pour filtrer les taches par datemax
   dateMaxSelect.addEventListener('change',()=>{
@@ -1233,40 +1786,131 @@
 
       //lister les tache des membres & statuts selectionnés
       tacheOfselectedMembres.forEach(tache => {
-        if (tache.dateouverture<=dateMax) {
-          createTableRow(tache);
+
+        if (selectedDate=="ouverture") {
+          if (tache.dateouverture<=dateMax) {
+            createTableRow(tache);
+          }
         }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (tache.dateobjectif<=dateMax) {
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (tache.dateTermineTache<=dateMax) {
+              createTableRow(tache);
+            }
+          }
+        }
+
       });
+
+
     }
+
     if (dateMin != "" && selectedStatuts == "") {
       //lister les tache des membres & statuts selectionnés
       tacheOfselectedMembres.forEach(tache => {
-        if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
-          createTableRow(tache);
+
+        if (selectedDate=="ouverture") {
+          if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+            createTableRow(tache);
+          }
         }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax) {
+              createTableRow(tache);
+            }
+
+          }
+        }
+
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax) {
+              createTableRow(tache);
+            }
+          }
+        }
+
+
       })
+
     }
     if (dateMin == "" && selectedStatuts!="") {
       //lister les tache des membres & statuts selectionnés
       tacheOfselectedMembres.forEach(tache => {
         const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
-        if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax ){
-          createTableRow(tache);
+
+
+        if (selectedDate=="ouverture") {
+          if (TacheWitheSelectedStatut && tache.dateouverture<=dateMax ){
+            createTableRow(tache);
+          }
         }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (TacheWitheSelectedStatut && tache.dateobjectif<=dateMax ){
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (TacheWitheSelectedStatut && tache.dateTermineTache<=dateMax ){
+              createTableRow(tache);
+            }
+          }
+        }
+
       });
     }
     if (dateMin != "" && selectedStatuts != "") {
       //lister les tache des membres & statuts selectionnés
       tacheOfselectedMembres.forEach(tache => {
         const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
-        if (TacheWitheSelectedStatut && dateMin<=tache.dateouverture && tache.dateouverture<=dateMax ){
-          createTableRow(tache);
+
+
+        if (selectedDate=="ouverture") {
+          if (TacheWitheSelectedStatut && dateMin<=tache.dateouverture && tache.dateouverture<=dateMax ){
+            createTableRow(tache);
+          }
         }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (TacheWitheSelectedStatut && dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax ){
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (TacheWitheSelectedStatut && dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax ){
+              createTableRow(tache);
+            }
+          }
+        }
+
       });
     }
     // Redraw the table
-    $('#example').DataTable().draw();
+     datatableConf();
   })
+
+
 
   //pour filtrer les taches par datemin
   dateMinSelect.addEventListener('change',()=>{
@@ -1279,26 +1923,92 @@
     if (dateMax == "" && selectedStatuts=="") {
       //lister les tache des membres & statuts selectionnés
       tacheOfselectedMembres.forEach(tache => {
-        if (tache.dateouverture>=dateMin) {
-          createTableRow(tache);
+
+
+        if (selectedDate=="ouverture") {
+          if (tache.dateouverture>=dateMin) {
+            createTableRow(tache);
+          }
         }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (tache.dateobjectif>=dateMin) {
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (tache.dateTermineTache>=dateMin) {
+              createTableRow(tache);
+            }
+          }
+        }
+
+
       });
     }
     if (dateMax != "" && selectedStatuts == "") {
       //lister les tache des membres & statuts selectionnés
       tacheOfselectedMembres.forEach(tache => {
-        if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
-          createTableRow(tache);
+
+
+        if (selectedDate=="ouverture") {
+          if (dateMin<=tache.dateouverture && tache.dateouverture<=dateMax) {
+            createTableRow(tache);
+          }
         }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax) {
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax) {
+              createTableRow(dateTermineTache);
+            }
+          }
+        }
+
+
       })
     }
     if (dateMax == "" && selectedStatuts!="") {
       //lister les tache des membres & statuts selectionnés
       tacheOfselectedMembres.forEach(tache => {
         const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
-        if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin ){
-          createTableRow(tache);
+
+
+        if (selectedDate=="ouverture") {
+          if (TacheWitheSelectedStatut && tache.dateouverture>=dateMin ){
+            createTableRow(tache);
+          }
         }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (TacheWitheSelectedStatut && tache.dateobjectif>=dateMin ){
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (TacheWitheSelectedStatut && tache.dateTermineTache>=dateMin ){
+              createTableRow(tache);
+            }
+          }
+        }
+
+
       });
     }
     if (dateMax != "" && selectedStatuts != "") {
@@ -1306,13 +2016,36 @@
       //lister les tache des membres & statuts selectionnés
       tacheOfselectedMembres.forEach(tache => {
         const TacheWitheSelectedStatut = selectedStatuts.some(x => x == tache.statut);
-        if (TacheWitheSelectedStatut && dateMin<=tache.dateouverture && tache.dateouverture<=dateMax ){
-          createTableRow(tache);
+
+
+
+        if (selectedDate=="ouverture") {
+          if (TacheWitheSelectedStatut && dateMin<=tache.dateouverture && tache.dateouverture<=dateMax ){
+            createTableRow(tache);
+          }
         }
+
+        if (selectedDate=="objectif") {
+          if (tache.dateobjectif!=null) {
+            if (TacheWitheSelectedStatut && dateMin<=tache.dateobjectif && tache.dateobjectif<=dateMax ){
+              createTableRow(tache);
+            }
+          }
+        }
+
+        if (selectedDate=="cloture") {
+          if (tache.dateTermineTache!=null) {
+            if (TacheWitheSelectedStatut && dateMin<=tache.dateTermineTache && tache.dateTermineTache<=dateMax ){
+              createTableRow(tache);
+            }
+          }
+        }
+
+
       });
     }
     // Redraw the table
-    $('#example').DataTable().draw();
+     datatableConf();
   })
 
   //fonction verifier si une liste contient valeur vide
@@ -1339,6 +2072,11 @@
     cellNomTache.innerHTML = '     <p style="white-space: pre-wrap;margin: 0;max-width: 350px;min-height: 35px;height: auto">' + tache.nomtache + '</p>';
     newRow.appendChild(cellNomTache);
 
+
+    var cellIdTache = document.createElement("td");
+    cellIdTache.innerText = tache.idtache;
+    newRow.appendChild(cellIdTache);
+
     var cellEmetteur = document.createElement("td");
     cellEmetteur.innerText = tache.utilisateur != null ? tache.utilisateur.prenom + ' ' + tache.utilisateur.nom : 'émetteur nul';
     newRow.appendChild(cellEmetteur);
@@ -1347,21 +2085,37 @@
     cellPriorite.innerText = tache.priorite != null ? tache.priorite.nompriorite : 'Priorite nul';
     newRow.appendChild(cellPriorite);
 
+    /*    var cellDateOuverture = document.createElement("td");
+       var dateOuverture = new Date(tache.dateouverture);
+       // Formatage de la date au format "mm/dd/yy"
+       var formattedDate =  ('0' + dateOuverture.getDate()).slice(-2) + '/' +('0' + (dateOuverture.getMonth() + 1)).slice(-2) + '/' + dateOuverture.getFullYear().toString().slice(-2);
+       cellDateOuverture.innerText = formattedDate;
+       //cellDateOuverture.innerText = tache.dateouverture;
+       newRow.appendChild(cellDateOuverture);
+
+   */
+
     var cellDateOuverture = document.createElement("td");
-    var dateOuverture = new Date(tache.dateouverture);
-    // Formatage de la date au format "mm/dd/yy"
-    var formattedDate =  ('0' + dateOuverture.getDate()).slice(-2) + '/' +('0' + (dateOuverture.getMonth() + 1)).slice(-2) + '/' + dateOuverture.getFullYear().toString().slice(-2);
-    cellDateOuverture.innerText = formattedDate;
-    //cellDateOuverture.innerText = tache.dateouverture;
-    newRow.appendChild(cellDateOuverture);
+    if (tache.dateouverture == null) {
+      cellDateOuverture.innerText = '';
+      newRow.appendChild(cellDateOuverture);
+    } else {
+      var dateOuverture = new Date(tache.dateouverture);
+      var formattedDate =  ('0' + dateOuverture.getDate()).slice(-2) + '/' +('0' + (dateOuverture.getMonth() + 1)).slice(-2) + '/' + dateOuverture.getFullYear().toString().slice(-2);
+      cellDateOuverture.innerText = formattedDate;
+      newRow.appendChild(cellDateOuverture);
+    }
 
     var cellDateObjectif = document.createElement("td");
-    var dateObjectif = new Date(tache.dateobjectif);
-    //cellDateObjectif.innerText = tache.dateobjectif;
-    // Formatage de la date au format "mm/dd/yy"
-    var formattedDate =  ('0' + dateObjectif.getDate()).slice(-2) + '/' +('0' + (dateObjectif.getMonth() + 1)).slice(-2) + '/' + dateObjectif.getFullYear().toString().slice(-2);
-    cellDateObjectif.innerText = formattedDate;
-    newRow.appendChild(cellDateObjectif);
+    if (tache.dateobjectif == null) {
+      cellDateObjectif.innerText = '';
+      newRow.appendChild(cellDateObjectif);
+    } else {
+      var dateObjectif = new Date(tache.dateobjectif);
+      var formattedDate =  ('0' + dateObjectif.getDate()).slice(-2) + '/' +('0' + (dateObjectif.getMonth() + 1)).slice(-2) + '/' + dateObjectif.getFullYear().toString().slice(-2);
+      cellDateObjectif.innerText = formattedDate;
+      newRow.appendChild(cellDateObjectif);
+    }
 
     var cellDureeEstimee = document.createElement("td");
     cellDureeEstimee.innerText = tache.dureestime;
@@ -1378,39 +2132,42 @@
       newRow.appendChild(cellDateCloture);
     }
 
+
     var cellStatut = document.createElement("td");
+    cellStatut.classList.add("text-sm-center")
     var statutBadge = document.createElement("button");
+    statutBadge.setAttribute("style","width: 100px !important");
     statutBadge.setAttribute("data-id", tache.idtache);
     statutBadge.className = "";
     statutBadge.addEventListener('click', () => modifyStatus(statutBadge));
     switch (tache.statut) {
       case "En cours":
-        statutBadge.classList.add("btn","bg-label-info","btn-xs", "me-1");
+        statutBadge.classList.add("btn","bg-info","badge","rounded-pill");
         statutBadge.innerText = "En cours";
         break;
       case "Termine":
-        statutBadge.classList.add("btn","bg-label-success","btn-xs", "me-1");
+        statutBadge.classList.add("btn","bg-success","badge","rounded-pill");
         statutBadge.innerText = "Terminé";
         break;
       case "Programme":
-        statutBadge.classList.add("btn","bg-label-primary","btn-xs", "me-1");
+        statutBadge.classList.add("btn","bg-primary","badge","rounded-pill");
         statutBadge.innerText = "Programmé";
         break;
       case "Valide":
-        statutBadge.classList.add("btn","bg-label-secondary","btn-xs", "me-1");
+        statutBadge.classList.add("btn","bg-secondary","badge","rounded-pill");
         statutBadge.innerText = "Validé";
         break;
       case "Refaire":
-        statutBadge.classList.add("btn","bg-label-danger","btn-xs","me-1");
+        statutBadge.classList.add("btn","bg-danger","badge","rounded-pill");
         statutBadge.innerText = "Refaire";
         break;
       case "En attente":
-        statutBadge.classList.add("btn","bg-label-warning","btn-xs", "me-1");
+        statutBadge.classList.add("btn","bg-warning","badge","rounded-pill");
         statutBadge.innerText = "En attente";
         break;
       case "Annuler":
-        statutBadge.classList.add("btn","bg-dark","btn-xs", "me-1");
-        statutBadge.setAttribute("style","color: white !important");
+        statutBadge.classList.add("btn","bg-dark","badge","rounded-pill");
+        statutBadge.setAttribute("style","color: white !important;width: 100px !important");
         statutBadge.innerText = "Annulée";
         break;
       default:
@@ -1441,7 +2198,7 @@
     tableBody.appendChild(newRow);
   }
 
-//Pour afficher les taches parentes dans
+  //Pour afficher les taches parentes dans
   // la selelecte dans le formulaire qui permet de creer une tache et actualiser la liste lorsqu'une indexation
   tacheParentes();
   function tacheParentes() {
@@ -1487,7 +2244,7 @@
         select.style.cursor = "default";
 
         //remove Disable editing and selection for nomtache
-        const inputField = formulaire.querySelector(`textarea[name='nomtache']`);
+        const inputField = formulaire.querySelector(`input[name='nomtache']`);
         inputField.removeAttribute("readonly");
         inputField.onmousedown = null; // Supprimer l'événement onmousedown
         inputField.style.cursor = "text"; // Changer le style du curseur en mode édition
@@ -1522,10 +2279,6 @@
 
 
 </script>
-
-
-
-
 </html>
 
 
