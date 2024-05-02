@@ -191,6 +191,7 @@
                     data-bs-toggle="modal"
                     data-bs-target="#exLargeModal"
                     id="creertache"
+                    onclick="annuler()"
             >
               <i class="bx bx-add-to-queue me-1"></i> Créer Une Tâche
             </button>
@@ -457,8 +458,8 @@
                               <div class="col mb-0">
                                 <label class="form-label" for="Aunetachesuccessive">Tâche indexée</label>
                                 <select class="select2 form-select" required="required" id="Aunetachesuccessive" name="aunetachesuccessive">
-                                  <option value="true">Oui</option>
                                   <option value="false">Non</option>
+                                  <option value="true">Oui</option>
                                 </select>
                               </div>
 
@@ -649,7 +650,7 @@
                           data-bs-offset="0,4"
                           data-bs-placement="top"
                           data-bs-html="true"
-                          title="<span>Dure estime</span>"
+                          title="<span>Durée estimée</span>"
                       ><!--dure estime-->
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-hourglass-split" viewBox="0 0 16 16">
@@ -684,7 +685,7 @@
                           data-bs-offset="0,4"
                           data-bs-placement="top"
                           data-bs-html="true"
-                          title="<span>Dure retarde</span>"><!--dure retarde-->
+                          title="<span>Durée retardée</span>"><!--dure retarde-->
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-calendar-x" viewBox="0 0 16 16">
                           <path d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708"/>
@@ -2218,7 +2219,7 @@
     });
   }
 
-  function annuler() {
+  /*  function annuler() {
     // Récupérer l'élément du formulaire par son ID
     var formulaire = document.getElementById('formAccountSettings');
     var   btnSubmit= document.getElementById('submit');
@@ -2261,6 +2262,64 @@
     //pour regler la douverture
     dateOuvertureactuelle();
 
+  }
+*/
+
+  function annuler() {
+    // Récupérer l'élément du formulaire par son ID
+    var formulaire = document.getElementById('formAccountSettings');
+    var   btnSubmit= document.getElementById('submit');
+    var inputEDateOuverture = document.getElementById("DateOuverture");
+
+    // Vérifier si le formulaire a été trouvé
+    if (formulaire) {
+      // Réinitialiser le formulaire
+      formulaire.reset();
+
+      if ( btnSubmit.textContent === "Mettre à jour") {
+        btnSubmit.textContent = "envoyer";}
+
+      // Pre-select the Proprietaire in the dropdown
+      const select1 = formulaire.querySelector("select[name='proprietaire']");
+      select1.removeAttribute("readonly");
+      select1.onmousedown = null;
+      select1.style.cursor = "default";
+
+      // Pre-select the Recepteur in the dropdown
+      const select = formulaire.querySelector("select[name='recepteur']");
+      select.removeAttribute("readonly");
+      select.onmousedown = null;
+      select.style.cursor = "default";
+
+      //remove Disable editing and selection for nomtache
+      const inputField = formulaire.querySelector(`input[name='nomtache']`);
+      inputField.removeAttribute("readonly");
+      inputField.onmousedown = null; // Supprimer l'événement onmousedown
+      inputField.style.cursor = "text"; // Changer le style du curseur en mode édition
+
+      const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
+      idTacheInput.value=null;
+      idTacheInput.textContent="";
+
+
+      // Disable editing and selection for tacheparente
+      const selec = formulaire.querySelector("select[name='tacheparente']");
+      selec.removeAttribute("readonly");
+      selec.onmousedown = null;
+      selec.style.cursor = "default";
+
+      //Date d ouverture
+      const inputEDateOuverture = formulaire.querySelector(`input[name='dateouverture']`);
+      inputEDateOuverture.removeAttribute("readonly");
+      inputEDateOuverture.onmousedown = null;
+      inputEDateOuverture.style.cursor = "default";
+      inputEDateOuverture.disabled=false;
+      inputEDateOuverture.onmousedown = null; // Supprimer l'événement onmousedown
+      //inputEDateOuverture.style.cursor = "text"; // Changer le style du curseur en mode édition
+      dateOuvertureactuelle();
+    } else {
+      console.error('Le formulaire n\'a pas été trouvé.');
+    }
   }
 
   //pour regler la douverture

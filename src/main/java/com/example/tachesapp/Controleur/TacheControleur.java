@@ -281,6 +281,9 @@ public class TacheControleur {
             tacheExist.setDureestime(tache.getDureestime());
             tacheExist.setDateouverture(tache.getDateouverture());
             tacheExist.setPriorite(tache.getPriorite());
+            tacheExist.setType(tache.getType());
+            tacheExist.setAunetachesuccessive(tache.isAunetachesuccessive());
+            tacheExist.setProprietaire(tache.getProprietaire());
 
 
             // Mettre à jour le reste des champs
