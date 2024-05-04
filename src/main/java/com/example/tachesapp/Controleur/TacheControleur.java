@@ -217,7 +217,7 @@ public class TacheControleur {
         if (tache.getIdtache() == null) {
             // Modifier le statut de la tâche programmée (si une tâche a une tâche parent, le statut est automatiquement défini sur "programmé").            if (tache.getTacheparente() != null) {
             if (tache.getTacheparente() != null) {
-                tache.setStatut("Programme");
+                tache.setStatut("Programmée");
                 tache.setDateobjectif(null);
                 tache.setDateouverture(null);
             }else {
@@ -307,16 +307,14 @@ public class TacheControleur {
 
         // Récupérer le statut de la tache
         String statut = existingTache.getStatut();
-        if ("En attente".equals(statut) ||  "Refaire".equals(statut)) {
+        if ("En attente".equals(statut) ||  "À refaire".equals(statut)) {
             // Si l'utilisateur clique sur un statut En attente (statut == En attente) : modifier le statut à "En cours"
             existingTache.setStatut("En cours");
 
         } else if ("En cours".equals(statut)) {
             //Si l'utilisateur clique sur un statut "En cours" : modifier le statut à "terminé"
-            existingTache.setStatut("Termine");
-            // Stocker la date actuelle
-            LocalDate currentDate = LocalDate.now();
-            existingTache.setDateTermineTache(Date.valueOf(currentDate));
+            existingTache.setStatut("Terminée");
+            existingTache.setDateTermineTache(null);
 
             //envoiyer un mail
             Utilisateur recepteur1 =existingTache.getRecepteur();
@@ -343,76 +341,34 @@ public class TacheControleur {
     @ResponseBody
     public Tache ValiderStatut(@PathVariable Long id,Authentication authentication) {
 
-
         String login=authentication.getName();
         Utilisateur utilisateur=utilisateurRepo.findUtilisateursByMail(login);
 
         //recuperer la tache par l idTache
         Tache tache=tacheRepo.findByIdtache(id);
 
-        // Stocker la date actuelle
-        LocalDate currentDate = LocalDate.now();
+
 
         //--------------------------------------------Calcul de performance
-        Date dateOuverture = tache.getDateouverture();
-        LocalDate dateOuverture1 = dateOuverture.toLocalDate();
-
-        Date dateTermineTache = tache.getDateTermineTache();
-        LocalDate dateTermineTache1 = dateTermineTache.toLocalDate();
-
-        // ----------------------Calcul de la durée consommée en jours
-        long dureeConsommee = ChronoUnit.DAYS.between(dateOuverture1,dateTermineTache1)+1;
-        // Éviter une division par zéro et calculer la performance
-        long dureeEstime = tache.getDureestime()+1;
-        double performanceDouble = (dureeConsommee != 0) ? ((double) dureeEstime / dureeConsommee) * 100 : 0;
-        // Convertir la performance en entier
-        int performanceEnEntier = (int) performanceDouble;
-        // Mettre à jour la performance dans l'objet Tache
-        tache.setPerformance(performanceEnEntier);
-        //---------------------------------------------------------------------
+        tache.setPerformance(tacheService.calculeDePerformance(tache));
 
         //--------------------------------------------Calcul de Durée retard
-        Date DateObjectif=tache.getDateobjectif();
-        LocalDate Dateobjectif1 = DateObjectif.toLocalDate();
-        long Dureeretard = ChronoUnit.DAYS.between(Dateobjectif1, dateTermineTache1);
-        int DureeretardEnEntier = Math.toIntExact(Dureeretard);
-        tache.setDureretarde(DureeretardEnEntier);
-        //------------------------------------------------------------------------
+        tache.setDureretarde(tacheService.calculerDureeRetard(tache));
 
         //------------------envoiyer un mail
         Utilisateur recepteur = tache.getRecepteur();
-        String Subject="Tâche Validé: ";
-        String msg="Votre tâche: ' "+tache.getNomtache()+"' est validé par "+tache.getUtilisateur().getNom()+" "+tache.getUtilisateur().getPrenom();
+        String Subject="Tâche Validée: ";
+        String msg="Votre tâche: ' "+tache.getNomtache()+"' a été validée par "+tache.getUtilisateur().getNom()+" "+tache.getUtilisateur().getPrenom();
         tacheService.sendTaskEmail(recepteur.getMail(),Subject,msg);
-        //----------------------------------
 
         //---------------------------Démarrer les tâches programmées s'il en existe.
-        // tacheList = les tâches filles
-        List<Tache> tacheList = tacheRepo.findAllByTacheparente(tache);
+        tacheService.demarrerTachesProgrammees(tache);
 
-        if (tacheList != null) {
-            // Mettre les tâches programmées En attente et définir la date d'objectif
-            for (Tache t : tacheList) {
-                t.setStatut("En attente");
-
-                // Date d'objectif = date de fin du parent + durée estimée de la tâche fille
-                LocalDate dateOuverture2 = currentDate;
-                LocalDate DateObjectif3 = dateOuverture2.plus(t.getDureestime(), ChronoUnit.DAYS);
-                t.setDateobjectif(Date.valueOf(DateObjectif3));
-                t.setDateouverture(Date.valueOf(dateOuverture2));
-
-                // Envoyer des e-mails
-                Utilisateur recepteur1 = t.getRecepteur();
-                Utilisateur emetteur=utilisateurRepo.findByIdutilisateur(t.getUtilisateur().getIdutilisateur());
-                String Subject1="Vous avez une nouvelle tâche de:"+emetteur.getNom()+" "+emetteur.getPrenom();
-                String  msg1 ="Nouvelle tache : "+ t.getNomtache();
-                tacheService.sendTaskEmail(recepteur1.getMail(),Subject1,msg1);
-            }
-        }
-        //------------------------------------------------------
-
+        // Stocker la date actuelle
+        LocalDate currentDate = LocalDate.now();
+        tache.setDateTermineTache(Date.valueOf(currentDate));
         //changer le statut
-        tache.setStatut("Valide");
+        tache.setStatut("Validée");
         tache.setModifierpar(utilisateur);
         return tache;
     }
@@ -439,7 +395,7 @@ public class TacheControleur {
          tacheService.sendTaskEmail(recepteur1.getMail(),Subject,msg);
 
         //changer le statut
-        tache.setStatut("Refaire");
+        tache.setStatut("À refaire");
         tache.setDateTermineTache(null);
         tache.setModifierpar(utilisateur);
 
@@ -468,7 +424,7 @@ public class TacheControleur {
         tacheService.sendTaskEmail(recepteur1.getMail(),Subject,msg);
 
         //changer le statut
-        tache.setStatut("Annuler");
+        tache.setStatut("Annulée");
         tache.setDateTermineTache(null);
         tache.setTacheparente(null);
         tache.setModifierpar(utilisateur);

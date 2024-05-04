@@ -162,7 +162,7 @@ function updateTable(tache) {
             td5.classList.add("text-sm-center")
             td5.appendChild(btn);
         }
-        if (tache.statut === "Programme") {
+        if (tache.statut === "Programmée") {
             var btn = document.createElement('button');
             btn.textContent="Programmé";
             btn.setAttribute("class", "btn rounded-pill bg-primary badge");
@@ -284,7 +284,7 @@ function modifyStatus(button) {
                 messageNotif();
 
             }
-            if (data.statut === "Termine") {
+            if (data.statut === "Terminée") {
                 Varclasss = "btn rounded-pill bg-success badge";
                 button.textContent = data.statut;
                 button.setAttribute("class", Varclasss);
@@ -292,7 +292,7 @@ function modifyStatus(button) {
                 messageNotif();
 
             }
-            if (data.statut === "Refaire") {
+            if (data.statut === "À refaire") {
                 Varclasss = "btn rounded-pill bg-danger badge";
                 button.textContent = data.statut;
                 button.setAttribute("class", Varclasss);

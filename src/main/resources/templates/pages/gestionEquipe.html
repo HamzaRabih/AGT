@@ -408,7 +408,7 @@
                                                 </select>
                                             </div>
                                             <div class="mb-3 col-md-12">
-                                                <label for="utilisateurSelect" class="form-label">responsable d'équipe </label>
+                                                <label for="utilisateurSelect" class="form-label" >responsable d'équipe </label>
                                                 <select required="required" id="utilisateurSelect"  class="select2 form-select" name="idutilresponsabledequipe">
                                                 </select>
                                             </div>
@@ -593,13 +593,13 @@
                                   <label for="statutSelect" class="form-label">Sélectionner un statut</label>
                                   <select  multiple="multiple" id="statutSelect1"  class=" form-select">
                                     <option value="" selected="selected">Tout sélectionner</option>
-                                    <option value="Valide" >Validé</option>
-                                    <option value="Termine" >Terminé</option>
+                                    <option value="Validée" >Validé</option>
+                                    <option value="Terminée" >Terminé</option>
                                     <option value="En cours" >En cours</option>
                                     <option value="En attente" >En attente</option>
-                                    <option value="Programme" >Programme</option>
-                                    <option value="Refaire" >Refaire</option>
-                                    <option value="Annuler" >Annuleé</option>
+                                    <option value="Programmée" >Programme</option>
+                                    <option value="À refaire" >Refaire</option>
+                                    <option value="Annulée" >Annuleé</option>
                                   </select>
                                 </div>
                                 <div class="col-3">
@@ -682,7 +682,7 @@
 <script src="js/pages-account-settings-account.js"></script>
 
 <!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
+
 <script src="js/myJs.js"></script>
 
 <!-- Data table -->
@@ -789,9 +789,15 @@
                         $(".col-md").append(checkboxHtml);
 
                     }
-                        selectedSociete=utilisateur.societe;
-                    console.log(selectedSociete.nomsociete);
-                    utilisateursDeSocieteSelectionne=data;
+                    if (utilisateur!=null) {
+                        if (utilisateur.societe!=null) {
+                            selectedSociete=utilisateur.societe;
+                           // console.log(selectedSociete.nomsociete);
+                            utilisateursDeSocieteSelectionne=data;
+                        }
+
+
+                    }
 
                 }
 
@@ -952,7 +958,7 @@
         form.querySelector("input[name='idequipe']").value = idEquipe;
         form.querySelector("button[type='submit']").textContent = "Mettre à jour";
         submitTexteContent=document.getElementById('sub').textContent;
-        console.log(submitTexteContent);
+       // console.log(submitTexteContent);
         // Fetch Domaine details using AJAX
         $.ajax({
             type: "GET",
@@ -1143,9 +1149,6 @@
                     option.text = user.nom;
                     utilisateurSelect.appendChild(option);
 
-
-
-
                 });
                 data.forEach(user => {
                     //verifier si l utilisateur est membre de cette equipe ou non
@@ -1250,7 +1253,7 @@
             formulaire.reset();
 
             if ( formulaire.querySelector("button[type='submit']").textContent === "Mettre à jour") {
-                formulaire.querySelector("button[type='submit']").textContent = "envoyer";
+                formulaire.querySelector("button[type='submit']").textContent = "Créer";
 
 
                 const idTacheInput = formulaire.querySelector(`input[name='idequipe']`);
@@ -1319,7 +1322,7 @@
             formulaire.reset();
 
             if ( btnSubmit.textContent === "Mettre à jour") {
-                btnSubmit.textContent = "envoyer";
+                btnSubmit.textContent = "Créer";
 
                 // Pre-select the Proprietaire in the dropdown
                 const select1 = formulaire.querySelector("select[name='proprietaire']");

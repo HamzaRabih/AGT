@@ -19,7 +19,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"utilisateurs", "societe", "modifierpar", "creerpar"})
+@JsonIgnoreProperties({"utilisateurs", "modifierpar", "creerpar"})
 public class Departement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -82,10 +82,8 @@ public class Departement {
         return "Departement{" +
                 "iddepartement=" + iddepartement +
                 ", nomdepartement='" + nomdepartement + '\'' +
-                ", idsociete=" + societe +
+                ", societe=" + societe +
                 '}';
     }
-    public Societe getSociete() {
-        return societe;
-    }
+
 }

@@ -38,7 +38,7 @@ public interface TacheService {
     public int calculerDureeRetard(Tache tache) ;
 
     public void demarrerTachesProgrammees(Tache tache);
-    public int calculerPerformance(Tache tache) ;
+    public int calculeDePerformance(Tache tache) ;
 
     public Date calculerDateObjectif(Tache tache) ;
 

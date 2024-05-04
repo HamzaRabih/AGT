@@ -12,10 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Controller
@@ -332,13 +329,19 @@ public class GestionEquieControleur {
 
     @GetMapping(value = "/getAllSuperieursForUtilisateurByIdUtilisateur")
     public ResponseEntity<List<Utilisateur>> getAllSuperieursForUtilisateurByIdUtilisateur(@RequestParam("idutilisateur") Long idutilisateur) {
+
+        List<Utilisateur> superieursList=new ArrayList<>();
+
+        //cas de sans responsable
+        if (idutilisateur==(-1)) {return ResponseEntity.ok(superieursList);}
+
         // Trouver l'utilisateur par ID
         Optional<Utilisateur> utilisateurOptional = utilisateurRepo.findById(idutilisateur);
 
         if (utilisateurOptional.isPresent()) {
             Utilisateur utilisateur = utilisateurOptional.get();
             // Appeler le service pour récupérer la liste des utilisateurs supérieurs
-            List<Utilisateur> superieursList = utilisateurService.findAllSuperieursForUtilisateurByIdUtilisateur(utilisateur);
+             superieursList = utilisateurService.findAllSuperieursForUtilisateurByIdUtilisateur(utilisateur);
             System.out.println(superieursList);
             return ResponseEntity.ok(superieursList);
         } else {

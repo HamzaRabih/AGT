@@ -6,6 +6,7 @@ import com.example.tachesapp.Service.DeparetementService;
 import com.example.tachesapp.Service.SocieteService;
 import com.example.tachesapp.Service.TacheService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -181,11 +182,11 @@ public class DepartemenControleur {
     //recuperer une Departement par id (utiliser par ajax pour modifie les departements dans la meme forme)
     @GetMapping("/get-Departement/{idDepartement}")
     @ResponseBody
-    public Departement getDepartement(@PathVariable Long idDepartement) {
+    public ResponseEntity<Departement> getDepartement(@PathVariable Long idDepartement) {
         // Récupérez la liste des départements
        Departement departement=deparetementService.findDepById(idDepartement);
        System.out.println(departement);
-          return departement;
+          return ResponseEntity.ok(departement);
     }
 
 

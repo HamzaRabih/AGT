@@ -106,7 +106,7 @@ TacheRepo tacheRepo;
         Utilisateur utilisateur=utilisateurRepo.findByIdutilisateur(idUtilisateur);
         // Pour mettre à jour la sélection de la tâche parente (récupérer seulement les tâches non terminées ayant des tâches successives)." +
          List<Tache> tacheList1=tacheService.findTacheParent(utilisateur,true);
-        //List<Tache> tacheList1=tacheRepo.findATacheParents(utilisateur,true,"En attente","Termine","Refaire","Programme");
+        //List<Tache> tacheList1=tacheRepo.findATacheParents(utilisateur,true,"En attente","Terminée","À refaire",Programmée");
         return tacheList1;
     }
 
@@ -179,26 +179,21 @@ TacheRepo tacheRepo;
                 tacheService.updateTacheWithStatus(tache, utilisateurconnecte);
                 redirectAttributes.addFlashAttribute("msg", "La tâche a été modifiée avec succès.");
                 break;
-            case "Programme":
+            case "Programmée":
                 tacheService.UpdateTacheToProgramme(tache, redirectAttributes, utilisateurconnecte);
                 redirectAttributes.addFlashAttribute("msg", "La tâche a été modifiée avec succès.");
 
                 break;
-            case "Termine":
+            case "Terminée":
                 tacheService.UpdateTacheToTermine(tache, redirectAttributes, utilisateurconnecte);
                 redirectAttributes.addFlashAttribute("msg", "La tâche a été modifiée avec succès.");
 
                 break;
-            case "Valide":
-                Tache ExisteTache=tacheRepo.findTacheByIdtache(tache.getIdtache());
-                if (ExisteTache.getDateTermineTache()==null) {
-                    redirectAttributes.addFlashAttribute("erreurMessage", "Vous ne pouvez pas valider une tâche non terminée.");
-                } else {
+            case "Validée":
                     tacheService.UpdateTacheToValide(tache, redirectAttributes, utilisateurconnecte);
                     redirectAttributes.addFlashAttribute("msg", "La tâche a été modifiée avec succès.");
-                }
                 break;
-            case "Refaire":
+            case "À refaire":
                 tacheService.updateTacheWithStatus(tache, utilisateurconnecte);
                 redirectAttributes.addFlashAttribute("msg", "La tâche a été modifiée avec succès.");
                 break;
@@ -206,7 +201,7 @@ TacheRepo tacheRepo;
                 tacheService.updateTacheWithStatus(tache, utilisateurconnecte);
                 redirectAttributes.addFlashAttribute("msg", "La tâche a été modifiée avec succès.");
                 break;
-            case "Annuler":
+            case "Annulée":
                 if (tacheService.aDesTachesSecondaires(tache)) {
                     //annuler les taches Secondaires;
                    List<Tache> tachesSecondaires= tacheService.lesTacheSecondairesParTacheParent(tache,utilisateurconnecte);

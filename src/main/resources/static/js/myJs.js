@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function confirmDelete(event) {
     // Affichez la boîte de dialogue de confirmation
     var confirmDelete = confirm("Voulez-vous vraiment supprimer cet élément ?");
-    // Si l'utilisateur clique sur "Annuler", annulez l'événement de suppression
+    // Si l'utilisateur clique sur "Annulée", annulez l'événement de suppression
     if (!confirmDelete) {event.preventDefault();}
 }
 //----------------------/scripte1

@@ -59,7 +59,7 @@ public class TacheServiceImpl implements TacheService {
         List<Tache> tacheList = new ArrayList<>();
 
         // Rechercher les tâches pour l'utilisateur donné et les statuts
-        String[] statuts = {"En attente", "Programme", "Refaire", "Termine", "En cours"};
+        String[] statuts = {"En attente", "Programmée", "À refaire", "Terminée", "En cours"};
         for (String statut : statuts) {
             // Ajouter les tâches uniques à la liste
             ajouterTachesUniques(tacheList, tacheRepo.findDistinctByUtilisateurAndAunetachesuccessiveAndStatut(utilisateur, true, statut));
@@ -149,10 +149,12 @@ public class TacheServiceImpl implements TacheService {
          if (equipeUtilisateur != null)
         {
             Utilisateur respo = equipeUtilisateur.getResponsable();
-            Emetteurs.add(respo);
-            Emetteurs.addAll(findEmetteurs(respo));
+            if (respo!=null) {
+                Emetteurs.add(respo);
+                Emetteurs.addAll(findEmetteurs(respo));
+            }
         }
-        System.out.println("wwww"+Emetteurs);
+        //System.out.println("wwww"+Emetteurs);
         return Emetteurs;
     }
 
@@ -251,12 +253,12 @@ public class TacheServiceImpl implements TacheService {
             Utilisateur emetteur=utilisateurRepo.findByIdutilisateur(tache.getUtilisateur().getIdutilisateur());
             String Subject="";
             String msg="";
-            if (tache.getStatut().equals("Refaire")) {
+            if (tache.getStatut().equals("À refaire")) {
                  Subject="Tâche à refaire";
                  msg = "La tâche '" + tache.getNomtache() + "' soumise par " + emetteur.getNom() + " " + emetteur.getPrenom() + " nécessite des ajustements. Veuillez la revoir et effectuer les modifications nécessaires. Merci.";
             } else {
                  Subject="Vous avez une nouvelle tâche de : "+emetteur.getNom()+" "+emetteur.getPrenom();
-                 msg="nouvelle tache :"+tache.getNomtache();
+                 msg="nouvelle tâche :"+tache.getNomtache();
             }
             sendTaskEmail(recepteur.getMail(),Subject,msg);
         }
@@ -268,13 +270,10 @@ public class TacheServiceImpl implements TacheService {
         Tache tacheExist = tacheRepo.findByIdtache(tache.getIdtache());
 
         //Si l'utilisateur clique sur un statut "En cours" : modifier le statut à "terminé"
-        tacheExist.setStatut("Termine");
+        tacheExist.setStatut("Terminée");
         // enregistré le modificateur de la statut
         tacheExist.setModifierpar(utilisateurconnecte);
-
-        // Stocker la date actuelle
-        LocalDate currentDate = LocalDate.now();
-        tacheExist.setDateTermineTache(Date.valueOf(currentDate));
+        tacheExist.setDateTermineTache(null);
         tacheExist.setPerformance(0);
         //calculer la date d'objectif
         tacheExist.setDateobjectif(calculerDateObjectif(tache));
@@ -304,17 +303,22 @@ public class TacheServiceImpl implements TacheService {
         //-Démarrer les tâches programmées s'il en existe.
         demarrerTachesProgrammees(tache);
         //Calcul de performance
-        tacheExist.setPerformance( calculerPerformance(tache));
+        tacheExist.setPerformance( calculeDePerformance(tache));
         //Calcul de Durée retard
         tacheExist.setDureretarde(calculerDureeRetard(tache));
+
+        // Stocker la date actuelle
+        LocalDate currentDate = LocalDate.now();
+        tacheExist.setDateTermineTache(Date.valueOf(currentDate));
+
         //changer le statut
-        tacheExist.setStatut("Valide");
+        tacheExist.setStatut("Validée");
         tacheRepo.save(tacheExist);
 
         //------------------envoiyer un mail
         Utilisateur recepteur = tache.getRecepteur();
-        String Subject="Tache Validé: ";
-        String msg="votre tache: ' "+tache.getNomtache()+"' est validé par "+tache.getUtilisateur().getNom()+" "+tache.getUtilisateur().getPrenom();
+        String Subject="Tâche Validée: ";
+        String msg="Votre tâche: ' "+tache.getNomtache()+"' a été validée par "+tache.getUtilisateur().getNom()+" "+tache.getUtilisateur().getPrenom();
         sendTaskEmail(recepteur.getMail(),Subject,msg);
         //redirectAttributes.addFlashAttribute("msg1", "La tâche a été modifiée avec succès.");
     }
@@ -343,7 +347,7 @@ public class TacheServiceImpl implements TacheService {
         sendTaskEmail(recepteur1.getMail(),Subject,msg);
 
         //changer le statut
-        tacheExist.setStatut("Annuler");
+        tacheExist.setStatut("Annulée");
         tacheRepo.save(tacheExist);
         //redirectAttributes.addFlashAttribute("msg1", "La tâche a été modifiée avec succès.");
     }
@@ -352,13 +356,13 @@ public class TacheServiceImpl implements TacheService {
 
         Tache ExisteTache=tacheRepo.findTacheByIdtache(tache.getIdtache());
         Date dateTermineTache = ExisteTache.getDateTermineTache();
-        LocalDate dateTermineTache1 = dateTermineTache.toLocalDate();
+        LocalDate dateTermineTache1 = LocalDate.now();
         ///
         Date DateObjectif=ExisteTache.getDateobjectif();
         LocalDate Dateobjectif1 = DateObjectif.toLocalDate();
         long Dureeretard = ChronoUnit.DAYS.between(Dateobjectif1, dateTermineTache1);
         int DureeretardEnEntier = Math.toIntExact(Dureeretard);
-        ///
+
         return DureeretardEnEntier;
 
     }
@@ -372,51 +376,63 @@ public class TacheServiceImpl implements TacheService {
 
         //---------------------------Démarrer les tâches programmées s'il en existe.
 
-        if (tacheList != null) {
-            // Mettre les tâches programmées En attente et définir la date d'objectif
-            for (Tache t : tacheList) {
-                t.setStatut("En attente");
+            if (tacheList != null) {
+                // Mettre les tâches programmées En attente et définir la date d'objectif
+                for (Tache t : tacheList) {
+                    t.setStatut("En attente");
 
-                // Date d'objectif = date de fin du parent + durée estimée de la tâche fille
-                LocalDate dateOuverture2 = currentDate;
-                LocalDate DateObjectif3 = dateOuverture2.plus(t.getDureestime(), ChronoUnit.DAYS);
-                t.setDateobjectif(Date.valueOf(DateObjectif3));
-                t.setDateouverture(Date.valueOf(dateOuverture2));
+                    // Date d'objectif = date de fin du parent + durée estimée de la tâche fille
+                    LocalDate dateOuverture2 = currentDate;
+                    LocalDate DateObjectif3 = dateOuverture2.plus(t.getDureestime(), ChronoUnit.DAYS);
+                    t.setDateobjectif(Date.valueOf(DateObjectif3));
+                    t.setDateouverture(Date.valueOf(dateOuverture2));
 
-                // Envoyer des e-mails
-                Utilisateur recepteur1 = t.getRecepteur();
-                Utilisateur emetteur=utilisateurRepo.findByIdutilisateur(t.getUtilisateur().getIdutilisateur());
-                String Subject1="Vous avez une nouvelle tâche de :"+emetteur.getNom()+" "+emetteur.getPrenom();
-                String  msg1 ="Nouvelle tâche : "+ t.getNomtache();
-                sendTaskEmail(recepteur1.getMail(),Subject1,msg1);
-            }
+                    // Envoyer des e-mails
+                    Utilisateur recepteur1 = t.getRecepteur();
+                    Utilisateur emetteur=utilisateurRepo.findByIdutilisateur(t.getUtilisateur().getIdutilisateur());
+                    String Subject1="Vous avez une nouvelle tâche de :"+emetteur.getNom()+" "+emetteur.getPrenom();
+                    String  msg1 ="Nouvelle tâche : "+ t.getNomtache();
+                    sendTaskEmail(recepteur1.getMail(),Subject1,msg1);
+                }
         }
         //------------------------------------------------------
     }
 
-    public int calculerPerformance(Tache tache) {
-        //--------------------------------------------Calcul de performance
+
+
+    public int calculeDePerformance(Tache tache){
+
         Date dateOuverture = tache.getDateouverture();
         LocalDate dateOuverture1 = dateOuverture.toLocalDate();
-        Tache ExisteTache=tacheRepo.findTacheByIdtache(tache.getIdtache());
-        Date dateTermineTache = ExisteTache.getDateTermineTache();
-        LocalDate dateTermineTache1 = dateTermineTache.toLocalDate();
 
+        //Date dateTermineTache = tache.getDateTermineTache();
+        LocalDate dateTermineTache1 = LocalDate.now();;
+        int performanceEnEntier;
 
-        // ----------------------Calcul de la durée consommée en jours
+        // Calcul de la durée consommée en jours
         long dureeConsommee = ChronoUnit.DAYS.between(dateOuverture1,dateTermineTache1)+1;
-        // Éviter une division par zéro et calculer la performance
-        long dureeEstime = tache.getDureestime()+1;
-        double performanceDouble = (dureeConsommee != 0) ? ((double) dureeEstime / dureeConsommee) * 100 : 0;
-        // Convertir la performance en entier
-        int performanceEnEntier = (int) performanceDouble;
-        // Mettre à jour la performance dans l'objet Tache
-        tache.setPerformance(performanceEnEntier);
-        //---------------------------------------------------------------------
 
-        // Mettre à jour la performance dans l'objet Tache
-       return performanceEnEntier;
+        //cas où l'utilisateur réalise la tâche avant la date d'ouverture
+        if (dureeConsommee < 0) {
+            long dureeConsommee2 = ChronoUnit.DAYS.between(dateTermineTache1,dateTermineTache1)+1;
+            // Éviter une division par zéro et calculer la performance
+            long dureeEstime = tache.getDureestime()+1;
+            double performanceDouble = (dureeConsommee != 0) ? ((double) dureeEstime / dureeConsommee2) * 100 : 0;
+            // Convertir la performance en entier
+            performanceEnEntier = (int) performanceDouble;
+        }
+        //cas normale
+        else {
+            // Éviter une division par zéro et calculer la performance
+            long dureeEstime = tache.getDureestime()+1;
+            double performanceDouble = (dureeConsommee != 0) ? ((double) dureeEstime / dureeConsommee) * 100 : 0;
+            // Convertir la performance en entier
+            performanceEnEntier = (int) performanceDouble;
+        }
+
+        return performanceEnEntier;
     }
+
 
     public Date calculerDateObjectif(Tache tache) {
         // Obtenez la date d'ouverture de la tâche
