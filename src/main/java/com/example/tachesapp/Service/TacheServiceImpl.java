@@ -169,6 +169,16 @@ public class TacheServiceImpl implements TacheService {
 
             //Effacer la date de fin si le statut précédent était 'Terminé'
             tacheExist.setUtilisateur(tache.getUtilisateur());
+            tacheExist.setNomtache(tache.getNomtache());
+            tacheExist.setRecepteur(tache.getRecepteur());
+            tacheExist.setDureestime(tache.getDureestime());
+            tacheExist.setPriorite(tache.getPriorite());
+            tacheExist.setProprietaire(tache.getProprietaire());
+            tacheExist.setDateouverture(tache.getDateouverture());
+            tacheExist.setAunetachesuccessive(tache.isAunetachesuccessive());
+            tacheExist.setType(tache.getType());
+            tacheExist.setProprietaire(tache.getProprietaire());
+
             tacheExist.setDateTermineTache(null);
             tacheExist.setDateobjectif(null);
             tacheExist.setDateouverture(null);
@@ -197,11 +207,11 @@ public class TacheServiceImpl implements TacheService {
         tacheExist.setDureestime(tache.getDureestime());
         tacheExist.setPriorite(tache.getPriorite());
         tacheExist.setDateouverture(tache.getDateouverture());
-        tacheExist.setTacheparente(tache.getTacheparente());
+       // tacheExist.setTacheparente(tache.getTacheparente());
         tacheExist.setAunetachesuccessive(tache.isAunetachesuccessive());
         //Effacer la date de fin si le statut précédent était 'Terminé'
         tacheExist.setDateTermineTache(null);
-        //tacheExist.setTacheparente(null);
+        tacheExist.setTacheparente(null);
         tacheExist.setDureretarde(0);
         tacheExist.setPerformance(0);
         //calculer la date d'objectif
@@ -233,12 +243,14 @@ public class TacheServiceImpl implements TacheService {
         tacheExist.setRecepteur(tache.getRecepteur());
         tacheExist.setDureestime(tache.getDureestime());
         tacheExist.setPriorite(tache.getPriorite());
+        tacheExist.setProprietaire(tache.getProprietaire());
         tacheExist.setDateouverture(tache.getDateouverture());
-        tacheExist.setTacheparente(tache.getTacheparente());
+       // tacheExist.setTacheparente(tache.getTacheparente());
         tacheExist.setAunetachesuccessive(tache.isAunetachesuccessive());
+        tacheExist.setType(tache.getType());
         //Effacer la date de fin si le statut précédent était 'Terminé'
         tacheExist.setDateTermineTache(null);
-        //tacheExist.setTacheparente(null);
+        tacheExist.setTacheparente(null);
         tacheExist.setDureretarde(0);
         tacheExist.setPerformance(0);
         //calculer la date d'objectif
@@ -256,12 +268,17 @@ public class TacheServiceImpl implements TacheService {
             if (tache.getStatut().equals("À refaire")) {
                  Subject="Tâche à refaire";
                  msg = "La tâche '" + tache.getNomtache() + "' soumise par " + emetteur.getNom() + " " + emetteur.getPrenom() + " nécessite des ajustements. Veuillez la revoir et effectuer les modifications nécessaires. Merci.";
+            }
+            if (tache.getStatut().equals("Terminée")) {
+
+
             } else {
-                 Subject="Vous avez une nouvelle tâche de : "+emetteur.getNom()+" "+emetteur.getPrenom();
-                 msg="nouvelle tâche :"+tache.getNomtache();
+                Subject = "Vous avez une nouvelle tâche de : " + emetteur.getNom() + " " + emetteur.getPrenom();
+                msg = "nouvelle tâche :" + tache.getNomtache();
             }
             sendTaskEmail(recepteur.getMail(),Subject,msg);
         }
+
         tacheRepo.save(tacheExist);
     }
 
@@ -295,9 +312,11 @@ public class TacheServiceImpl implements TacheService {
         tacheExist.setRecepteur(tache.getRecepteur());
         tacheExist.setDureestime(tache.getDureestime());
         tacheExist.setPriorite(tache.getPriorite());
+        tacheExist.setProprietaire(tache.getProprietaire());
         tacheExist.setDateouverture(tache.getDateouverture());
-        tacheExist.setTacheparente(tache.getTacheparente());
+        tacheExist.setTacheparente(null);
         tacheExist.setAunetachesuccessive(tache.isAunetachesuccessive());
+        tacheExist.setType(tache.getType());
 
 
         //-Démarrer les tâches programmées s'il en existe.
@@ -329,7 +348,15 @@ public class TacheServiceImpl implements TacheService {
     public void UpdateTacheToAnnuler(Tache tache,Utilisateur utilisateurconnecte) {
         Tache tacheExist = tacheRepo.findByIdtache(tache.getIdtache());
         // enregistré le modificateur de la statut
-        tacheExist.setModifierpar(utilisateurconnecte);
+        tacheExist.setNomtache(tache.getNomtache());
+        tacheExist.setRecepteur(tache.getRecepteur());
+        tacheExist.setDureestime(tache.getDureestime());
+        tacheExist.setPriorite(tache.getPriorite());
+        tacheExist.setProprietaire(tache.getProprietaire());
+        tacheExist.setDateouverture(tache.getDateouverture());
+        tacheExist.setAunetachesuccessive(tache.isAunetachesuccessive());
+        tacheExist.setType(tache.getType());
+
         tacheExist.setDateTermineTache(null);
         tacheExist.setAunetachesuccessive(false);
         tacheExist.setTacheparente(null);

@@ -185,7 +185,7 @@ TacheRepo tacheRepo;
 
                 break;
             case "Terminée":
-                tacheService.UpdateTacheToTermine(tache, redirectAttributes, utilisateurconnecte);
+                tacheService.updateTacheWithStatus(tache, utilisateurconnecte);
                 redirectAttributes.addFlashAttribute("msg", "La tâche a été modifiée avec succès.");
 
                 break;
