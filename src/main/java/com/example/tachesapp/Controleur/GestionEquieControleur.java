@@ -165,7 +165,7 @@ public class GestionEquieControleur {
 
         Utilisateur responsable = utilisateurService.findUtilisateurById(idResponsableEquipe);
         //bool pour verifier si le nom d'equipe est existe
-        Boolean existsByNomeqpAndSociete=equipeRepo.existsByNomequipeAndResponsableSociete(equipe.getNomequipe(),societe);
+        Boolean existsByNomeqpAndSociete=equipeRepo.existsByNomequipeAndResponsableSocieteAndIdequipeNot(equipe.getNomequipe(), societe,equipe.getIdequipe());
 
         //La condition "idResponsableEquipe != -1" est utilisée pour gérer le cas où une équipe n'a pas de responsable (responsable == null).
         // Cela permet d'éviter le message "L'utilisateur est déjà responsable d'une équipe" dans le scénario où deux responsables ou plus sont nuls.
@@ -209,8 +209,8 @@ public class GestionEquieControleur {
         Equipe equipeExist = equipeRepo.findById(equipe.getIdequipe()).orElse(null);
         Societe societe = societeRepo.findByIdsociete(idsoc);
 
-        // Vérifier si le nom d'équipe existe déjà dans la même société
-        Boolean existsByNomeqpAndSociete = equipeRepo.existsByNomequipeAndResponsableSociete(equipe.getNomequipe(), societe);
+        // Vérifier si le nom d'équipe existe déjà dans la même société existsByMailAndIdutilisateurNot
+        Boolean existsByNomeqpAndSociete = equipeRepo.existsByNomequipeAndResponsableSocieteAndIdequipeNot(equipe.getNomequipe(), societe,equipe.getIdequipe());
 
         if (equipeExist == null) {
             equipeExist.setCreerpar(equipeExist.getCreerpar());

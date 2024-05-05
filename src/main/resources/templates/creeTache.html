@@ -2554,17 +2554,17 @@
     }
 
     // Créer le lien lienRefaire
-    if((tache.statut ==="Termine"  && tache.recepteur.idutilisateur!==utilisateurConnecte[0].idutilisateur
+    if((tache.statut ==="Terminée"  && tache.recepteur.idutilisateur!==utilisateurConnecte[0].idutilisateur
         && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur &&  isMember(tache.recepteur))
        ||
-        (tache.statut ==="Termine"  && tache.recepteur.idutilisateur!==utilisateurConnecte[0].idutilisateur
+        (tache.statut ==="Terminée"  && tache.recepteur.idutilisateur!==utilisateurConnecte[0].idutilisateur
         && tache.utilisateur.idutilisateur!==utilisateurConnecte[0].idutilisateur &&  isMember(tache.recepteur)
         && isMember(tache.utilisateur))
        ||
-       ( utilisateurConnecte[0].role.role !== "Utilisateur"  && tache.statut ==="Termine"
+       ( utilisateurConnecte[0].role.role !== "Utilisateur"  && tache.statut ==="Terminée"
        && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur )
        ||
-       (utilisateurConnecte[0].role.role !== "Utilisateur" && tache.statut ==="Termine" &&
+       (utilisateurConnecte[0].role.role !== "Utilisateur" && tache.statut ==="Terminée" &&
        tache.utilisateur.idutilisateur===tache.recepteur.idutilisateur && membres.includes(tache.recepteur) ))
     {
       var lienRefaire = document.createElement("a");
@@ -2572,7 +2572,7 @@
       var iconeRefaire = document.createElement("i");
       iconeRefaire.setAttribute("class", "bx bx-refresh");
       lienRefaire.appendChild(iconeRefaire);
-      var texteRefaire = document.createTextNode(" Refaire");
+      var texteRefaire = document.createTextNode("À refaire");
       lienRefaire.appendChild(texteRefaire);
       lienRefaire.setAttribute("data-id", tache.idtache);
       lienRefaire.addEventListener('click', () => refaireTache(tache.idtache));
@@ -2582,11 +2582,11 @@
 
     // Créer le lien lienAnnuler
     if (
-            (tache.statut !=="Validée"  && tache.statut !=="Termine" &&  tache.statut !=="Annulée"
+            (tache.statut !=="Validée"  && tache.statut !=="Terminée" &&  tache.statut !=="Annulée"
                     && tache.recepteur.idutilisateur===tache.utilisateur.idutilisateur && isMember(tache.recepteur))
-            || (tache.statut !=="Validée"  && tache.statut !=="Termine" &&  tache.statut !=="Annulée"
+            || (tache.statut !=="Validée"  && tache.statut !=="Terminée" &&  tache.statut !=="Annulée"
                     && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur    )
-            || (tache.statut !=="Validée"  && tache.statut !=="Termine" &&  tache.statut !=="Annulée"
+            || (tache.statut !=="Validée"  && tache.statut !=="Terminée" &&  tache.statut !=="Annulée"
                     &&  utilisateurConnecte[0].role.role !== "Utilisateur" )
     ) {
       var lienAnnuler = document.createElement("a");
@@ -2602,7 +2602,7 @@
     }
 
     // Créer le lien lienEditer
-    if (utilisateurConnecte[0].role.role !== "Utilisateur" && tache.statut !== "Termine" && tache.statut !== "valide" && tache.statut !=="Programmée") {
+    if (utilisateurConnecte[0].role.role !== "Utilisateur" && tache.statut !== "Terminée" && tache.statut !== "Validée" && tache.statut !=="Programmée") {
       var lienEditer = document.createElement("a");
       lienEditer.setAttribute("class", "dropdown-item");
       var iconeEditer = document.createElement("i");

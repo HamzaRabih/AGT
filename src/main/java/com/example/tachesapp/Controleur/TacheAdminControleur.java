@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -159,6 +160,19 @@ TacheRepo tacheRepo;
     @Transactional
     @GetMapping(value = "/deleteTache/{id}")
     public String deleteTache(@PathVariable Long id,RedirectAttributes redirectAttributes) {
+        //supprimer les taches successive
+        Tache tache = tacheRepo.findTacheByIdtache(id);
+
+        List<Tache> tacheList = tacheRepo.findAllByTacheparente(tache);
+
+        //supprimer les tâches programmées s'il en existe.
+        if (tacheList != null) {
+            // Mettre les tâches programmées En attente et définir la date d'objectif
+            for (Tache t : tacheList) {
+                tacheRepo.deleteById(t.getIdtache());
+            }
+        }
+
         tacheRepo.deleteById(id);
         redirectAttributes.addFlashAttribute("supmessage","La tache a été suprimée  avec succès");
         return "redirect:/GestionTacheAdmin";

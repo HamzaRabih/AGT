@@ -166,6 +166,7 @@
                                 data-bs-toggle="modal"
                                 data-bs-target="#exLargeModal"
                                 id="creertache"
+                                onclick="annuler2()"
                         >
                             <i class="bx bx-add-to-queue me-1"></i> Créer Une Tâche
                         </button>
@@ -343,7 +344,6 @@
                     data-bs-toggle="modal"
                     data-bs-target="#modalCenter"
                     id="creerEquipe"
-
             >
                 <i class="bx bx-add-to-queue me-1"></i> Créer une Equipe
             </button>
@@ -396,7 +396,7 @@
                                             <div class="mb-3 col-md-12">
                                                 <label for="societeSelect" class="form-label">Société</label>
                                                 <select id="societeSelect" name="soci"  class="select2 form-select" >
-                                                    <option  value="" selected="selected">Sélectionnez une société</option >
+                                                    <option  id="firstSelect" value="" selected="selected">Sélectionnez une société</option >
                                                     <option th:each="p:${societeList}"  th:text="${p.nomsociete}" th:value="${p.idsociete}" ></option>
                                                 </select>
                                             </div>
@@ -424,7 +424,7 @@
 
                                         <div class="mt-2">
                                             <button id="sub" type="submit" class="btn btn-primary me-2">Créer</button>
-                                            <button type="reset"
+                                            <button
                                                     class="btn btn-outline-secondary"
                                                     onclick="annuler()"
                                                     data-bs-dismiss="modal"
@@ -560,8 +560,8 @@
                                                     <div class="col mb-0">
                                                         <label class="form-label" for="Aunetachesuccessive">Tâche indexée</label>
                                                         <select class="select2 form-select" required="required" id="Aunetachesuccessive" name="aunetachesuccessive">
-                                                            <option value="true">Oui</option>
                                                             <option value="false">Non</option>
+                                                            <option value="true">Oui</option>
                                                         </select>
                                                     </div>
 
@@ -700,6 +700,12 @@
 <!--script pour les filtres -->
 <!---->
 <script type="text/javascript">
+
+    //Attention : le code javascript de cette page n'est pas bien organisé
+    // puisque c'est la première fois que j'apprends des nouvelles choses
+
+
+
     //______________________script1___________________
     //un variable pour stocker tous les idutilisateur des responsables
     var AllRespoIds=[];
@@ -719,6 +725,7 @@
     var selectedSociete;
 
     var utilisateursDeSocieteSelectionne;
+    var selectedUser;
 
 
     //fonction pour récupérer tous les idutilisateur des responsable
@@ -842,7 +849,7 @@
 
                 //selectedDepartements: un tableau des valeur sélectionnées
                 const selectedDepartements = Array.from(departementSelect.selectedOptions).map(option => option.value);
-
+                DepartementsSelected=Array.from(departementSelect.selectedOptions).map(option => option.value);
                 if (submitTexteContent=="Créer") {
 
                     //console.log(selectedDepartements)
@@ -901,7 +908,8 @@
     utilisateurSelect.addEventListener('change', () => {
         // Récupérer l'ID de l'utilisateur sélectionné
         var idutilisateur = utilisateurSelect.value;
-
+        selectedUser=utilisateurSelect.value
+       // console.log(selectedUser);
         // Effacer le contenu actuel des cases à cocher des utilisateurs
         userCheckboxes.innerHTML = '';
 
@@ -920,25 +928,97 @@
                     ListeSuperieur.push(x.idutilisateur);
                 })
 
-                  //  console.log(utilisateursDeSocieteSelectionne)
 
-                // Parcourir tous les utilisateurs membres pour les cases à cocher
-                utilisateursDeSocieteSelectionne.forEach(user => {
-                    // Vérifier si l'utilisateur actuel est un supérieur
-                    const isSuperieur = ListeSuperieur.some(x => x == user.idutilisateur);
-                    if (!isSuperieur) {
-                        //console.log("dep:",user);
-                        const userCheckbox = document.createElement('div');
-                        userCheckbox.innerHTML = `
+
+                if (submitTexteContent === "Mettre à jour") {
+
+                    fetch(`utilisateurs?departements=${DepartementsSelected.join(',')}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Effacer le contenu actuel du select des utilisateurs
+                            utilisateurSelect.innerHTML = '';
+                            // Effacer le contenu actuel des cases à cocher des utilisateurs
+                            userCheckboxes.innerHTML = '';
+
+                            // Ajoutez les nouvelles options basées sur les données reçuesb (pour select)
+                            utilisateurSelect.append(new Option("Sans responsable",-1));
+
+                            // Ajouter les utilisateurs récupérés au select des utilisateurs
+                            data.forEach(user => {
+                                const option = document.createElement('option');
+                               /*
+                               *  if (responsableVar != null) {
+                                    if (user.idutilisateur == idutilisateur) {
+                                        option.selected = true;
+                                    }
+                                }
+                                * */
+                                if (user!=null) {
+                                    if (user.idutilisateur == idutilisateur) {
+                                        option.selected = true;
+                                    }
+                                }
+
+
+                                const isResbonsable = AllRespoIds.some(x => x == user.idutilisateur);
+                                if (isResbonsable && responsableVar!=null && user.idutilisateur != responsableVar.idutilisateur) {
+                                    return; // Si l'utilisateur est responsable, passez à l'itération suivante
+                                }
+
+                                if (isResbonsable && responsableVar==null ) {
+                                    return; // Si l'utilisateur est responsable, passez à l'itération suivante
+                                }
+                                option.value = user.idutilisateur; // Remplacez cela par la propriété appropriée de l'utilisateur
+                                option.text = user.nom; // Remplacez cela par la propriété appropriée de l'utilisateur
+                                utilisateurSelect.appendChild(option);
+                            });
+                            data.forEach(user => {
+                                //verifier si l utilisateur est membre de cette equipe ou non
+                                const isMember = MembresEquipe.some(membre => membre.idutilisateur === user.idutilisateur);
+
+                                const isSuperieur = ListeSuperieur.some(x => x == user.idutilisateur);
+                                if (!isSuperieur && user.idutilisateur!=selectedUser){
+                                    //console.log("dep:",user);
+                                    const userCheckbox = document.createElement('div');
+                                    userCheckbox.innerHTML = `
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="utilisateurCheckbox${user.idutilisateur}" value="${user.idutilisateur}" name="idutilisateur"  ${isMember ? 'checked="checked"' : ''}/>
+                        <label class="form-check-label" for="utilisateurCheckbox${user.idutilisateur}">${user.nom} ${user.prenom}</label>
+                    </div>
+                `;
+                                    userCheckboxes.appendChild(userCheckbox);
+                                }
+                            });
+                        })
+
+                        .catch(error => console.error('Erreur lors de la récupération des utilisateurs :', error));
+
+                } else {
+
+                    //  console.log(utilisateursDeSocieteSelectionne)
+
+                    // Parcourir tous les utilisateurs membres pour les cases à cocher
+                    utilisateursDeSocieteSelectionne.forEach(user => {
+
+
+                        // Vérifier si l'utilisateur actuel est un supérieur
+                        const isSuperieur = ListeSuperieur.some(x => x == user.idutilisateur);
+                        if (!isSuperieur && user.idutilisateur!=selectedUser) {
+                            //console.log("dep:",user);
+                            const userCheckbox = document.createElement('div');
+                            userCheckbox.innerHTML = `
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="utilisateurCheckbox${user.idutilisateur}" value="${user.idutilisateur}" name="idutilisateur" />
                         <label class="form-check-label" for="utilisateurCheckbox${user.idutilisateur}">${user.nom} ${user.prenom}</label>
                     </div>
                 `;
-                        userCheckboxes.appendChild(userCheckbox);
-                    }
+                            userCheckboxes.appendChild(userCheckbox);
+                        }
 
-                });
+                    });
+
+                }
+
             })
             .catch(error => {
                 console.error("Erreur de Fetch :", error);
@@ -967,6 +1047,9 @@
                 // verifier l API retourné une format JSON
                 const nomeEquipe = data.nomequipe;
                 responsableVar = data.responsable;
+                if (data.responsable!=null) {
+                    selectedUser=data.responsable.idutilisateur;
+                }
                 //console.log(data);
                 // console.log(data.responsable);
                 // Pre-fill the form fields
@@ -1145,6 +1228,7 @@
                         return; // Si l'utilisateur est responsable, passez à l'itération suivante
                     }
 
+
                     option.value = user.idutilisateur;
                     option.text = user.nom;
                     utilisateurSelect.appendChild(option);
@@ -1153,6 +1237,11 @@
                 data.forEach(user => {
                     //verifier si l utilisateur est membre de cette equipe ou non
                     const isMember = MembresEquipe.some(membre => membre.idutilisateur === user.idutilisateur);
+
+
+                    if (user.idutilisateur==selectedUser) {
+                        return; // Si l'utilisateur est responsable, passez à l'itération suivante
+                    }
 
                     //selectionner le checkbox si l utilisateur est un membre cette equipe
                     const userCheckbox = document.createElement('div');
@@ -1189,6 +1278,7 @@
                             option.selected = true;
                         }
                     }
+
                     const isResbonsable = AllRespoIds.some(x => x == user.idutilisateur);
                     if (isResbonsable && responsableVar!=null && user.idutilisateur != responsableVar.idutilisateur) {
                         return; // Si l'utilisateur est responsable, passez à l'itération suivante
@@ -1205,6 +1295,14 @@
                     //verifier si l utilisateur est membre de cette equipe ou non
                     const isMember = MembresEquipe.some(membre => membre.idutilisateur === user.idutilisateur);
 
+
+
+                   // console.log("user.idutilisateur"+user.idutilisateur);
+                    //console.log("selectedUser");
+                    //console.log(selectedUser);
+                    if (user.idutilisateur==selectedUser) {
+                        return; // Si l'utilisateur est responsable, passez à l'itération suivante
+                    }
                     //selectionner le checkbox si l utilisateur est un membre cette equipe
                     const userCheckbox = document.createElement('div');
                     userCheckbox.innerHTML = `
@@ -1244,6 +1342,8 @@
 
     function annuler()
     {
+        window.location.reload();
+
         // Récupérer l'élément du formulaire par son ID
         var formulaire = document.getElementById('formAccountSettings');
 
@@ -1252,16 +1352,21 @@
             // Réinitialiser le formulaire
             formulaire.reset();
 
-            if ( formulaire.querySelector("button[type='submit']").textContent === "Mettre à jour") {
+            if (formulaire.querySelector("button[type='submit']").textContent === "Mettre à jour") {
                 formulaire.querySelector("button[type='submit']").textContent = "Créer";
 
 
                 const idTacheInput = formulaire.querySelector(`input[name='idequipe']`);
-                idTacheInput.value=null;
-                idTacheInput.textContent="";
+                idTacheInput.value = null;
+                idTacheInput.textContent = "";
+
+                document.getElementById("utilisateurSelect").innerHTML = "";
+                document.getElementById("DepartementSelect").innerHTML = "";
+                document.getElementById("userCheckboxes").innerHTML = "";
+                MembresEquipe = [];
+
 
             }
-            dateOuvertureactuelle();
         } else {
             console.error('Le formulaire n\'a pas été trouvé.');
         }
@@ -1321,38 +1426,49 @@
             // Réinitialiser le formulaire
             formulaire.reset();
 
-            if ( btnSubmit.textContent === "Mettre à jour") {
-                btnSubmit.textContent = "Créer";
+            if ( btnSubmit.textContent === "Mettre à jour") {btnSubmit.textContent = "Envoyer";}
 
-                // Pre-select the Proprietaire in the dropdown
-                const select1 = formulaire.querySelector("select[name='proprietaire']");
-                select1.removeAttribute("readonly");
-                select1.onmousedown = null;
-                select1.style.cursor = "default";
+            // Pre-select the Proprietaire in the dropdown
+            const select1 = formulaire.querySelector("select[name='proprietaire']");
+            select1.removeAttribute("readonly");
+            select1.onmousedown = null;
+            select1.style.cursor = "default";
 
-                // Pre-select the Recepteur in the dropdown
-                const select = formulaire.querySelector("select[name='recepteur']");
-                select.removeAttribute("readonly");
-                select.onmousedown = null;
-                select.style.cursor = "default";
+            // Pre-select the Recepteur in the dropdown
+            const select = formulaire.querySelector("select[name='recepteur']");
+            select.removeAttribute("readonly");
+            select.onmousedown = null;
+            select.style.cursor = "default";
 
-                //remove Disable editing and selection for nomtache
-                const inputField = formulaire.querySelector(`textarea[name='nomtache']`);
-                inputField.removeAttribute("readonly");
-                inputField.onmousedown = null; // Supprimer l'événement onmousedown
-                inputField.style.cursor = "text"; // Changer le style du curseur en mode édition
+            //remove Disable editing and selection for nomtache
+            const inputField = formulaire.querySelector(`input[name='nomtache']`);
+            inputField.removeAttribute("readonly");
+            inputField.onmousedown = null; // Supprimer l'événement onmousedown
+            inputField.style.cursor = "text"; // Changer le style du curseur en mode édition
 
-                const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
-                idTacheInput.value=null;
-                idTacheInput.textContent="";
+            const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
+            idTacheInput.value=null;
+            idTacheInput.textContent="";
 
-            }
+
+            // Disable editing and selection for tacheparente
+            const selec = formulaire.querySelector("select[name='tacheparente']");
+            selec.removeAttribute("readonly");
+            selec.onmousedown = null;
+            selec.style.cursor = "default";
+
+            //Date d ouverture
+            const inputEDateOuverture = formulaire.querySelector(`input[name='dateouverture']`);
+            inputEDateOuverture.removeAttribute("readonly");
+            inputEDateOuverture.onmousedown = null;
+            inputEDateOuverture.style.cursor = "default";
+            inputEDateOuverture.disabled=false;
+            inputEDateOuverture.onmousedown = null; // Supprimer l'événement onmousedown
+            //inputEDateOuverture.style.cursor = "text"; // Changer le style du curseur en mode édition
+            dateOuvertureactuelle();
         } else {
             console.error('Le formulaire n\'a pas été trouvé.');
         }
-
-        //pour regler la douverture
-        dateOuvertureactuelle();
 
     }
 

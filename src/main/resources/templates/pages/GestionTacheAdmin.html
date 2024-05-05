@@ -161,6 +161,7 @@
                                 data-bs-toggle="modal"
                                 data-bs-target="#exLargeModal1"
                                 id="creertache"
+                                onclick="annuler1()"
                         >
                             <i class="bx bx-add-to-queue me-1"></i> Créer Une Tâche
                         </button>
@@ -582,8 +583,8 @@
                                             <div class="col mb-0">
                                                 <label class="form-label" for="Aunetachesuccessive">Tâche indexée</label>
                                                 <select id="Aunetachesuccessive" name="aunetachesuccessive" class=" form-select">
-                                                    <option value="true" selected="selected">Oui</option>
                                                     <option value="false" selected="selected">Non</option>
+                                                    <option value="true" selected="selected">Oui</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -611,7 +612,7 @@
                     <div class="card">
                         <!--<h5 class="card-header">Table Basic</h5>-->
                         <div class="card-body">
-                            <div th:if="${not #strings.isEmpty(msg) or not #strings.isEmpty(msg1) }" id="messages" class="mb-3 col-md-12">
+                            <div th:if="${not #strings.isEmpty(msg) or not #strings.isEmpty(msg1) or not #strings.isEmpty(supmessage) }" id="messages" class="mb-3 col-md-12">
 
                                 <div th:if="${not #strings.isEmpty(msg)}" class="show-message">
                                     <div class="alert alert-primary alert-dismissible" th:text="${msg}" role="alert">
@@ -620,6 +621,10 @@
                                 </div>
                                 <div th:if="${not #strings.isEmpty(erreurMessage)}" class="show-message">
                                     <div class="alert alert-danger alert-dismissible" th:text="${erreurMessage}" role="alert">
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                </div><div th:if="${not #strings.isEmpty(supmessage)}" class="show-message">
+                                    <div class="alert alert-danger alert-dismissible" th:text="${supmessage}" role="alert">
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
                                 </div>
@@ -1327,6 +1332,14 @@
                     attente=document.getElementById('attente');
                     attente.setAttribute("selected","selected");
                 }
+
+                const inputEDateOuverture = form.querySelector(`input[name='dateouverture']`);
+                inputEDateOuverture.removeAttribute("readonly");
+                inputEDateOuverture.onmousedown = null;
+                inputEDateOuverture.style.cursor = "default";
+                inputEDateOuverture.disabled=false;
+                inputEDateOuverture.onmousedown = null; // Supprimer l'événement onmousedown
+                //inputEDateOuverture.style.cursor = "text"; // Changer le style du curseur en mode édition
 
                 //tache parent selecte
                 findTacheParents(data);
@@ -2996,7 +3009,7 @@
     // Fonction de confirmation de suppression
     function confirmDelete(event, callback) {
         // Afficher la boîte de dialogue de confirmation
-        var confirmDelete = confirm("Voulez-vous vraiment supprimer cet élément ?");
+        var confirmDelete = confirm("Voulez-vous vraiment supprimer cet élément ? S'il y a des tâches liées à celui-ci, ces tâches seront supprimées.");
 
         // Si l'utilisateur clique sur "Annulée", annuler l'événement de suppression
         if (!confirmDelete) {
@@ -3114,20 +3127,50 @@
             // Réinitialiser le formulaire
             formulaire.reset();
 
-            if ( btnSubmit.textContent === "Mettre à jour") {
+            if ( btnSubmit.textContent === "Mettre à jour") {btnSubmit.textContent = "Envoyer";}
 
-                btnSubmit.textContent = "Créer";
+            // Pre-select the Proprietaire in the dropdown
+            const select1 = formulaire.querySelector("select[name='proprietaire']");
+            select1.removeAttribute("readonly");
+            select1.onmousedown = null;
+            select1.style.cursor = "default";
+
+            // Pre-select the Recepteur in the dropdown
+            const select = formulaire.querySelector("select[name='recepteur']");
+            select.removeAttribute("readonly");
+            select.onmousedown = null;
+            select.style.cursor = "default";
+
+            //remove Disable editing and selection for nomtache
+            const inputField = formulaire.querySelector(`input[name='nomtache']`);
+            inputField.removeAttribute("readonly");
+            inputField.onmousedown = null; // Supprimer l'événement onmousedown
+            inputField.style.cursor = "text"; // Changer le style du curseur en mode édition
+
+            const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
+            idTacheInput.value=null;
+            idTacheInput.textContent="";
 
 
+            // Disable editing and selection for tacheparente
+            const selec = formulaire.querySelector("select[name='tacheparente']");
+            selec.removeAttribute("readonly");
+            selec.onmousedown = null;
+            selec.style.cursor = "default";
 
-                const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
-                idTacheInput.value=null;
-                idTacheInput.textContent="";
-
-            }
+            //Date d ouverture
+            const inputEDateOuverture = formulaire.querySelector(`input[name='dateouverture']`);
+            inputEDateOuverture.removeAttribute("readonly");
+            inputEDateOuverture.onmousedown = null;
+            inputEDateOuverture.style.cursor = "default";
+            inputEDateOuverture.disabled=false;
+            inputEDateOuverture.onmousedown = null; // Supprimer l'événement onmousedown
+            //inputEDateOuverture.style.cursor = "text"; // Changer le style du curseur en mode édition
+            dateOuvertureactuelle();
         } else {
-            console.error('Le formulaire na pas été trouvé.');
+            console.error('Le formulaire n\'a pas été trouvé.');
         }
+
     }
     //pour regler la douverture
     dateOuvertureactuelle();

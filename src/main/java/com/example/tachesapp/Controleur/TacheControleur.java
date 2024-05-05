@@ -426,8 +426,18 @@ public class TacheControleur {
         //changer le statut
         tache.setStatut("Annulée");
         tache.setDateTermineTache(null);
+        tache.setDateobjectif(null);
+        tache.setDateouverture(null);
+        tache.setDureretarde(0);
+        tache.setPerformance(0);
+
         tache.setTacheparente(null);
+
+        tacheService.AnnulerTachesProgrammees(tache);
+
         tache.setModifierpar(utilisateur);
+
+
 
         return tache;
     }
