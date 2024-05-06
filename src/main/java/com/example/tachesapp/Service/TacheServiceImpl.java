@@ -432,8 +432,6 @@ public class TacheServiceImpl implements TacheService {
     public void AnnulerTachesProgrammees(Tache tache) {
         List<Tache> tacheList = tacheRepo.findAllByTacheparente(tache);
 
-        // Stocker la date actuelle
-        LocalDate currentDate = LocalDate.now();
 
         //---------------------------Démarrer les tâches programmées s'il en existe.
 
@@ -441,7 +439,7 @@ public class TacheServiceImpl implements TacheService {
             // Mettre les tâches programmées En attente et définir la date d'objectif
             for (Tache t : tacheList) {
 
-                tache.setStatut("Annulée");
+                t.setStatut("Annulée");
                 // Date d'objectif = date de fin du parent + durée estimée de la tâche fille
                 t.setDateobjectif(null);
                 t.setDateouverture(null);
@@ -450,12 +448,12 @@ public class TacheServiceImpl implements TacheService {
                 t.setDureretarde(0);
                 t.setPerformance(0);
 
-
+                tacheRepo.save(t);
                 // Envoyer des e-mails
                 Utilisateur recepteur1 = t.getRecepteur();
                 Utilisateur emetteur=utilisateurRepo.findByIdutilisateur(t.getUtilisateur().getIdutilisateur());
                 String Subject1="Tâche annulée";
-                String msg1 = "La tâche '" + tache.getNomtache() + "' soumise par " + emetteur.getNom() + " " + emetteur.getPrenom() + "a été annulée.";
+                String msg1 = "La tâche '" + t.getNomtache() + "' soumise par " + emetteur.getNom() + " " + emetteur.getPrenom() + "a été annulée.";
                 sendTaskEmail(recepteur1.getMail(),Subject1,msg1);
             }
         }

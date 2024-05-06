@@ -430,14 +430,12 @@ public class TacheControleur {
         tache.setDateouverture(null);
         tache.setDureretarde(0);
         tache.setPerformance(0);
-
         tache.setTacheparente(null);
 
         tacheService.AnnulerTachesProgrammees(tache);
+        tacheRepo.save(tache);
 
         tache.setModifierpar(utilisateur);
-
-
 
         return tache;
     }

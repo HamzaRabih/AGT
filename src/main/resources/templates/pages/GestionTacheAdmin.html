@@ -175,59 +175,55 @@
 
 
                         <!--Menu-->
-                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                            <button type="button" class="btn btn-icon bg-dark  position-relative dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                <i class="bx bx-list-ul me-2" style="font-size: 25px;color: #FFFFFF"></i>
-                                <span id="t" class="badge nav-pills badge-notification bg-danger" ></span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-sm-end py-0 overflow-auto mb-4">
-                                <li><a class="dropdown-item" th:href="@{/Memoir}" >
-                                    <i class='bx bx-notepad'></i> Mémoire
-                                </a>
-                                </li>
-                                <!--Mon Equipe-->
-                                <li class="nav-item">
-                                    <a class="dropdown-item " th:href="@{/MonEquipe}">
-                                        <i class=" bx   bxs-user-account" ></i> Mon Équipe
-                                    </a>
-                                </li>
-                                <div sec:authorize="hasAnyRole('ADMIN')">
-                                    <li>
-                                        <div class="dropdown-divider"></div>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" th:href="@{/gestUtilisateur}">
-                                            <i class="bx bx-group me-1"></i> Comptes
-                                        </a>
-                                    </li>
-                                    <li><a class="dropdown-item" th:href="@{/societe}">
-                                        <i class="bx bx-buildings me-1"></i>Societes
-                                    </a>
-                                    </li>
-                                    <li><a class="dropdown-item" th:href="@{/domaine}">
-                                        <i class="bx bx-briefcase me-1"></i>Services
-                                    </a>
-                                    </li>
-                                    <li><a class="dropdown-item" th:href="@{/departement}">
-                                        <i class="bx bxs-institution me-1"></i>Departements
-                                    </a>
-                                    </li>
-                                    <li><a class="dropdown-item" th:href="@{/gestionEquipe}">
-                                        <i class="bx bxs-user-account me-1"></i> Équipes
-                                    </a>
-                                    </li>
-                                    <li><a class="dropdown-item"  th:href="@{/GestionTacheAdmin}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ui-checks" viewBox="0 0 16 16">
-                                            <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
-                                        </svg>
-                                        Tâches
-                                    </a>
-                                    </li>
-                                </div>
+                                    <li class="nav-item navbar-dropdown dropdown-user dropdown">
+              <button type="button" class="btn btn-icon bg-dark  dropdown-toggle " data-bs-auto-close="outside" data-bs-toggle="dropdown">
+                <i class="bx bx-list-ul me-2" style="font-size: 25px;color: #FFFFFF"></i>
 
+              </button>
+              <ul class="dropdown-menu dropdown-menu-sm-end py-0  mb-4">
+                <li><a class="dropdown-item" th:href="@{/Memoir}">
+                  <i class='bx bx-notepad'></i> Mémoire
+                </a></li>
+                <!-- Mon Equipe -->
+                <li class="nav-item">
+                  <a class="dropdown-item" th:href="@{/MonEquipe}">
+                    <i class="bx bxs-user-account"></i> Mon Équipe
+                  </a>
+                </li>
+                <!-- Admin -->
+                <li class="dropdown-submenu" sec:authorize="hasAnyRole('ADMIN')">
+                  <a class="dropdown-item dropdown-toggle"  data-bs-toggle="dropdown" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
+                      <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
+                    </svg> Admin
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/gestUtilisateur}">
+                      <i class="bx bx-group me-1"></i> Comptes
+                    </a></li>
+                    <li><a class="dropdown-item" th:href="@{/societe}">
+                      <i class="bx bx-buildings me-1"></i> Societes
+                    </a></li>
+                    <li><a class="dropdown-item" th:href="@{/domaine}">
+                      <i class="bx bx-briefcase me-1"></i> Services
+                    </a></li>
+                    <li><a class="dropdown-item" th:href="@{/departement}">
+                      <i class="bx bxs-institution me-1"></i> Departements
+                    </a></li>
+                    <li><a class="dropdown-item" th:href="@{/gestionEquipe}">
+                      <i class="bx bxs-user-account me-1"></i> Equipes
+                    </a></li>
+                    <li><a class="dropdown-item" th:href="@{/GestionTacheAdmin}">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ui-checks" viewBox="0 0 16 16">
+                        <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                      </svg> Tâches
+                    </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
 
-                            </ul>
-                        </li>
                         <!--Menu-->
 
                         <!--notif-->
