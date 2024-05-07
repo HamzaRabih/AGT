@@ -253,7 +253,7 @@ public class TacheControleur {
                 Utilisateur recepteur = tache.getRecepteur();
                 Utilisateur emetteur=utilisateurRepo.findByIdutilisateur(tache.getUtilisateur().getIdutilisateur());
                 String Subject="Vous avez une nouvelle tâche de : "+emetteur.getNom()+" "+emetteur.getPrenom();
-                String msg="nouvelle tache :"+tache.getNomtache();
+                String msg="nouvelle tâche :"+tache.getNomtache();
                 tacheService.sendTaskEmail(recepteur.getMail(),Subject,msg);
             }
 
