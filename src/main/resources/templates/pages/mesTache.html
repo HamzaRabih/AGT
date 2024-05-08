@@ -2125,31 +2125,31 @@
     statutBadge.addEventListener('click', () => modifyStatus(statutBadge));
     switch (tache.statut) {
       case "En cours":
-        statutBadge.classList.add("btn","bg-info","badge","rounded-pill");
+        statutBadge.classList.add("btn","bg-info","badge","rounded-pill","capitalize-first");
         statutBadge.innerText = "En cours";
         break;
       case "Terminée":
-        statutBadge.classList.add("btn","bg-success","badge","rounded-pill");
+        statutBadge.classList.add("btn","bg-success","badge","rounded-pill","capitalize-first");
         statutBadge.innerText = "Terminée";
         break;
       case "Programmée":
-        statutBadge.classList.add("btn","bg-primary","badge","rounded-pill");
+        statutBadge.classList.add("btn","bg-primary","badge","rounded-pill","capitalize-first");
         statutBadge.innerText = "Programmée";
         break;
       case "Validée":
-        statutBadge.classList.add("btn","bg-secondary","badge","rounded-pill");
+        statutBadge.classList.add("btn","bg-secondary","badge","rounded-pill","capitalize-first");
         statutBadge.innerText = "Validée";
         break;
       case "À refaire":
-        statutBadge.classList.add("btn","bg-danger","badge","rounded-pill");
+        statutBadge.classList.add("btn","bg-danger","badge","rounded-pill","capitalize-first");
         statutBadge.innerText = "À refaire";
         break;
       case "En attente":
-        statutBadge.classList.add("btn","bg-warning","badge","rounded-pill");
+        statutBadge.classList.add("btn","bg-warning","badge","rounded-pill","capitalize-first");
         statutBadge.innerText = "En attente";
         break;
       case "Annulée":
-        statutBadge.classList.add("btn","bg-dark","badge","rounded-pill");
+        statutBadge.classList.add("btn","bg-dark","badge","rounded-pill","capitalize-first");
         statutBadge.setAttribute("style","color: white !important;width: 100px !important");
         statutBadge.innerText = "Annulée";
         break;

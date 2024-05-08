@@ -155,7 +155,7 @@ function updateTable(tache) {
         if (tache.statut === "En attente") {
             var btn = document.createElement('button');
             btn.textContent="En attente";
-            btn.setAttribute("class", "btn rounded-pill badge bg-warning ");
+            btn.setAttribute("class", "btn rounded-pill badge bg-warning capitalize-first");
             btn.setAttribute("style","width: 100px !important");
             btn.setAttribute("data-id", tache.idtache);
             btn.addEventListener('click', () => modifyStatus(btn));
@@ -165,7 +165,7 @@ function updateTable(tache) {
         if (tache.statut === "Programmée") {
             var btn = document.createElement('button');
             btn.textContent="Programmé";
-            btn.setAttribute("class", "btn rounded-pill bg-primary badge");
+            btn.setAttribute("class", "btn rounded-pill bg-primary badge capitalize-first");
             btn.setAttribute("data-id", tache.idtache);
             btn.addEventListener('click', () => modifyStatus(btn));
             td5.classList.add("text-sm-center")
@@ -277,7 +277,7 @@ function modifyStatus(button) {
             // Mettre à jour l'attribut data-statut du bouton cliqué
             var Varclasss;
             if (data.statut === "En cours") {
-                Varclasss = "btn rounded-pill badge bg-info ";
+                Varclasss = "btn rounded-pill badge bg-info capitalize-first";
                 button.textContent = data.statut;
                 button.setAttribute("class", Varclasss);
                 button.setAttribute("style","width: 100px !important");
@@ -285,7 +285,7 @@ function modifyStatus(button) {
 
             }
             if (data.statut === "Terminée") {
-                Varclasss = "btn rounded-pill bg-success badge";
+                Varclasss = "btn rounded-pill bg-success badge capitalize-first ";
                 button.textContent = data.statut;
                 button.setAttribute("class", Varclasss);
                 button.setAttribute("style","width: 100px !important");
@@ -293,7 +293,7 @@ function modifyStatus(button) {
 
             }
             if (data.statut === "À refaire") {
-                Varclasss = "btn rounded-pill bg-danger badge";
+                Varclasss = "btn rounded-pill bg-danger badge capitalize-first";
                 button.textContent = data.statut;
                 button.setAttribute("class", Varclasss);
                 button.setAttribute("style","width: 100px !important");
