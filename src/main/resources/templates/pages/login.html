@@ -8,6 +8,7 @@
     <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
     <link rel="stylesheet"  href="css/bootstrap.css">
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/myCss.css">
 </head>
 
 <body>
@@ -17,12 +18,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5 col-sm-12 mx-auto">
-                <div class="card pt-4">
+                <div class="card pt-4 ">
                     <div class="card-body">
                         <div class="text-center mb-5">
-                            <img src="img/favicon.ico" height="48" class='mb-4'>
+                            <img src="img/LDFLOGO.png" height="100" class='mb-4'>
                             <h3>Se connecter</h3>
-                            <p> Bienvenue sur TaskMaster.</p>
+                            <p> Bienvenue sur DIRHA.</p>
                         </div>
                         <div th:if="${error}" class="alert alert-danger" role="alert">
                             <p th:text="${error}"></p>
@@ -57,7 +58,7 @@
                                 </div>
                             </div>
                             <div class="clearfix">
-                                <button class="btn btn-primary float-right" type="submit">Se connecter</button>
+                                <button class="btn Mycolor float-right" type="submit">Se connecter</button>
                             </div>
 
                         </form>

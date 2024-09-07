@@ -18,6 +18,9 @@
 
 }
 
+.capitalize-first2 {
+    text-transform: uppercase!important;
+}
  .capitalize-first::first-letter {
      text-transform: uppercase!important;
  }
@@ -26,16 +29,27 @@
     text-transform: lowercase!important;;
 }
 
+.orange{
+    color: #FA5A1E!important
+}
+
+.btn-orange {
+    background-color: #FA5A1E!important;
+    color: #FFFFFF!important
+}
+
 .Mycolor {
-    background-color: #5f61e6!important;
+    background-color: #057050!important;
     color: #FFFFFF!important
 }
 
 .my-primary{
-    color: #5f61e6!important
+    color: #057050!important
 }
 
-
+.my-green{
+    color: #057050 !important
+}
 #example_length{
     width: 200px!important;
 }
@@ -47,4 +61,11 @@
 
 #example_paginate{
     width: 200px!important;
+}
+
+
+
+#example_paginate > ul > li.paginate_button.page-item.active > a{
+    background-color: rgba(5, 112, 80, 0.81)!important; /* Couleur de fond */
+    color: #ffffff!important; /* Couleur du texte pour le bouton actif */
 }

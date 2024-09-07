@@ -2145,7 +2145,7 @@ progress {
   margin-bottom: 0.5rem;
   font-size: 0.95rem!important;
   font-weight: 600;
-  color: #5f61e6;
+  color: #057050;
   text-transform: lowercase!important;;
 }
 
@@ -15677,6 +15677,7 @@ html:not(.layout-footer-fixed) .content-wrapper {
   overflow: hidden;
   min-height: 1px;
 }
+
 .app-brand-logo img,
 .app-brand-logo svg {
   display: block;

@@ -347,8 +347,6 @@ public class TacheControleur {
         //recuperer la tache par l idTache
         Tache tache=tacheRepo.findByIdtache(id);
 
-
-
         //--------------------------------------------Calcul de performance
         tache.setPerformance(tacheService.calculeDePerformance(tache));
 
