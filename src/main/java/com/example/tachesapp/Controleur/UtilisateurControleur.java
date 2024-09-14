@@ -123,6 +123,7 @@ EquipeService equipeService;
         List<Priorite> priorites=prioriteRepo.findAll();
         model.addAttribute("priorites",priorites);
 
+
         //les utilisteurs de la meme societé (pour le champ proprietaire)
         Societe societe= societeRepo.findAllByUtilisateurs(utilisateur);
         List<Utilisateur> utilisateurList2=utilisateurRepo.findUtilisateursBySociete(societe);
@@ -144,9 +145,9 @@ EquipeService equipeService;
         } else {
             modifierUtilisateur(utilisateur, utilisateurConnecte, redirectAttributes);
         }
-
         return "redirect:/gestUtilisateur";
     }
+
 
     private void creerNouvelUtilisateur(Utilisateur utilisateur, Utilisateur utilisateurConnecte, RedirectAttributes redirectAttributes) {
         Boolean existsByMail = utilisateurRepo.existsByMail(utilisateur.getMail());

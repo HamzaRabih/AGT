@@ -103,7 +103,6 @@ public class MonEquipecontroleur {
 
 
     // Fonction pour récupérer les taches  associés aux utilisateurs sélectionnés
-    // utilise a par ajax et javascript  dans equipe.html
     // ResponseEntity, qui est une classe de Spring qui permet de contrôler la réponse HTTP.
     //ResponseEntity<List<taches>> : Cette déclaration de type indique que la méthode de contrôleur renverra une réponse HTTP contenant une liste d'objets de type Tache
     //ResponseEntity.ok(taches):signifie que les utilisateurs seront renvoyés au client en tant que réponse HTTP avec un statut de succès (200 OK).

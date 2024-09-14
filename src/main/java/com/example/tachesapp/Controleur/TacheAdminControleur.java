@@ -25,7 +25,7 @@ public class TacheAdminControleur {
     @Autowired
     TacheService tacheService;
     @Autowired
-TacheRepo tacheRepo;
+    TacheRepo tacheRepo;
     @Autowired
     SocieteRepo societeRepo;
     @Autowired
@@ -47,34 +47,26 @@ TacheRepo tacheRepo;
         String login = authentication.getName();
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
         model.addAttribute("utilisateurC",utilisateur);
-
         //Lister les tâches
         List<Tache> tacheList=tacheRepo.findAllByIsmemoire(false);
         model.addAttribute("tacheList",tacheList);
-
         //lister tous les Societes
         List<Societe> societeList=societeRepo.findAll();
         model.addAttribute("societeList",societeList);
-
         //lister tous les Societes
         List<Utilisateur> utilisateurs=utilisateurRepo.findAll();
         model.addAttribute("utilisateurs",utilisateurs);
-
         // Récupérer les notifications de l'utilisateur connecté
         List<Notification> notificationList = notificationsRepo.findByRecepteurOrderByDatenotifDesc(utilisateur);
         model.addAttribute("notificationList", notificationList);
-
         // Calculer les notifications non lues de l'utilisateur connecté,pour l'affiché;
         List<Notification> nonLuesNotificationList = notificationsRepo.findByRecepteurAndEstLu(utilisateur, false);
         // Calculer le nombre de notifications non lues
         int nbrNotifNonLu = nonLuesNotificationList.size();
         model.addAttribute("nbrNotifNonLu", nbrNotifNonLu);
-
         //Cette fonction a pour but d'obtenir l'équipe et les sous-équipes(si l'un des membres est responsable d'une équipe) de l'utilisateur,
         // afin que l'utilisateur puisse envoyer les tâches uniquement à ses équipes.
         List<Utilisateur> Recepteurs=tacheService.findRecepteurs(utilisateur);
-
-
         //Pour mettre la liste en ordre alphabétique
         // Utilisation de la méthode sort de Collections avec un comparateur ignorant la casse
         Collections.sort(Recepteurs, new Comparator<Utilisateur>() {
@@ -87,11 +79,9 @@ TacheRepo tacheRepo;
         Recepteurs.add(0, utilisateur);
         // La liste Recepteurs est maintenant triée par ordre alphabétique (sans tenir compte de la casse)
         model.addAttribute("Recepteurs",Recepteurs);
-
         //Les Priorités
         List<Priorite> priorites=prioriteRepo.findAll();
         model.addAttribute("priorites",priorites);
-
         //les utilisteurs de la meme societé (pour le champ proprietaire)
         Societe societe= societeRepo.findAllByUtilisateurs(utilisateur);
         List<Utilisateur> utilisateurList=utilisateurRepo.findUtilisateursBySociete(societe);
@@ -137,11 +127,9 @@ TacheRepo tacheRepo;
     @ResponseBody
     public List<Utilisateur> getDestinatairByIdUtilisateur(@PathVariable Long idUtilisateur) {
         Utilisateur utilisateur=utilisateurRepo.findByIdutilisateur(idUtilisateur);
-
         //Cette fonction a pour but d'obtenir l'équipe et les sous-équipes(si l'un des membres est responsable d'une équipe) de l'utilisateur,
         // afin que l'utilisateur puisse envoyer les tâches uniquement à ses équipes.
         List<Utilisateur> Recepteurs=tacheService.findRecepteurs(utilisateur);
-
         //Pour mettre la liste en ordre alphabétique
         // Utilisation de la méthode sort de Collections avec un comparateur ignorant la casse
         Collections.sort(Recepteurs, new Comparator<Utilisateur>() {
@@ -152,7 +140,6 @@ TacheRepo tacheRepo;
             }
         });
         Recepteurs.add(0, utilisateur);
-
         return Recepteurs;
     }
 
@@ -162,9 +149,7 @@ TacheRepo tacheRepo;
     public String deleteTache(@PathVariable Long id,RedirectAttributes redirectAttributes) {
         //supprimer les taches successive
         Tache tache = tacheRepo.findTacheByIdtache(id);
-
         List<Tache> tacheList = tacheRepo.findAllByTacheparente(tache);
-
         //supprimer les tâches programmées s'il en existe.
         if (tacheList != null) {
             // Mettre les tâches programmées En attente et définir la date d'objectif
@@ -172,7 +157,6 @@ TacheRepo tacheRepo;
                 tacheRepo.deleteById(t.getIdtache());
             }
         }
-
         tacheRepo.deleteById(id);
         redirectAttributes.addFlashAttribute("supmessage","La tache a été suprimée  avec succès");
         return "redirect:/GestionTacheAdmin";
@@ -187,33 +171,22 @@ TacheRepo tacheRepo;
         // Récupérer l'utilisateur connecté
         String login = authentication.getName();
         Utilisateur utilisateurconnecte = utilisateurRepo.findUtilisateursByMail(login);
-
         switch (tache.getStatut()) {
             case "En attente":
+            case "Terminée":
+            case "À refaire":
+            case "En cours":
+                // Mise à jour des statuts courants
                 tacheService.updateTacheWithStatus(tache, utilisateurconnecte);
-                redirectAttributes.addFlashAttribute("msg", "La tâche a été modifiée avec succès.");
+                tacheService.addSuccessMessage(redirectAttributes);
                 break;
             case "Programmée":
                 tacheService.UpdateTacheToProgramme(tache, redirectAttributes, utilisateurconnecte);
                 redirectAttributes.addFlashAttribute("msg", "La tâche a été modifiée avec succès.");
-
-                break;
-            case "Terminée":
-                tacheService.updateTacheWithStatus(tache, utilisateurconnecte);
-                redirectAttributes.addFlashAttribute("msg", "La tâche a été modifiée avec succès.");
-
                 break;
             case "Validée":
-                    tacheService.UpdateTacheToValide(tache, redirectAttributes, utilisateurconnecte);
+                    tacheService.UpdateTacheToValide(tache, utilisateurconnecte);
                     redirectAttributes.addFlashAttribute("msg", "La tâche a été modifiée avec succès.");
-                break;
-            case "À refaire":
-                tacheService.updateTacheWithStatus(tache, utilisateurconnecte);
-                redirectAttributes.addFlashAttribute("msg", "La tâche a été modifiée avec succès.");
-                break;
-            case "En cours":
-                tacheService.updateTacheWithStatus(tache, utilisateurconnecte);
-                redirectAttributes.addFlashAttribute("msg", "La tâche a été modifiée avec succès.");
                 break;
             case "Annulée":
                 if (tacheService.aDesTachesSecondaires(tache)) {
@@ -225,33 +198,27 @@ TacheRepo tacheRepo;
                     }
                     String erreurMessage = "Cette tâche a des tâches secondaires  " + idTachesSecondaires + " vous ne pouvez pas annuler cette tâche sans annuler les tâches secondaires.";
                     redirectAttributes.addFlashAttribute("erreurMessage", erreurMessage);
-
                 }else {
                     tacheService.UpdateTacheToAnnuler(tache, utilisateurconnecte);
                     redirectAttributes.addFlashAttribute("msg", "La tâche a été modifiée avec succès.");
-
                 }
                 break;
             default:
                 // Gérer les cas non prévus
                 break;
         }
-
         return "redirect:/GestionTacheAdmin";
     }
 
 
+
     @GetMapping(value = "/getAllTasks")
-    public ResponseEntity<List<Tache>> getAllTasks(Authentication authentication)
-    {
+    public ResponseEntity<List<Tache>> getAllTasks(Authentication authentication) {
         // Récupérer l'utilisateur connecté
         String login = authentication.getName();
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
-
         //Lister les tâches
         List<Tache> tacheList=tacheRepo.findAllByIsmemoire(false);
-
-
         return ResponseEntity.ok(tacheList);
     }
 

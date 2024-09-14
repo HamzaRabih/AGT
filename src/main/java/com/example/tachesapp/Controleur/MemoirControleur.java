@@ -113,7 +113,7 @@ public class MemoirControleur {
             int dureeEstime = tache.getDureestime();
 
             // Calculez la date d'objectif en ajoutant la durée estimée à la date d'ouverture
-            LocalDate dateObjectif = dateOuverture1.plusDays(dureeEstime);
+            LocalDate dateObjectif = dateOuverture1.plusDays(dureeEstime-1);
 
             // Convertissez la date d'objectif en java.sql.Date et mettez à jour la tâche
             tache.setDateobjectif(Date.valueOf(dateObjectif));
@@ -134,7 +134,7 @@ public class MemoirControleur {
             int dureeEstime = tache.getDureestime();
 
             // Calculez la date d'objectif en ajoutant la durée estimée à la date d'ouverture
-            LocalDate dateObjectif = dateOuverture1.plusDays(dureeEstime);
+            LocalDate dateObjectif = dateOuverture1.plusDays(dureeEstime-1);
 
             // Convertissez la date d'objectif en java.sql.Date et mettez à jour la tâche
             tache.setDateobjectif(Date.valueOf(dateObjectif));

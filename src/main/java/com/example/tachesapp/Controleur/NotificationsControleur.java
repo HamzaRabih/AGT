@@ -28,8 +28,6 @@ public class NotificationsControleur {
     @Autowired
     NotificationsRepo notificationsRepo;
 
-
-
     @GetMapping("/lireLesNotif")
     @ResponseBody
     public ResponseEntity<String> lireLesNotif(Authentication authentication) {
@@ -73,4 +71,5 @@ public class NotificationsControleur {
 
         return nbrNotifNonLu;
     }
+
 }
