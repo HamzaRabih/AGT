@@ -3,8 +3,7 @@ package com.example.tachesapp.Controleur;
 import com.example.tachesapp.Dao.*;
 import com.example.tachesapp.Model.*;
 
-import com.example.tachesapp.Service.NotificationsService;
-import com.example.tachesapp.Service.TacheService;
+import com.example.tachesapp.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -42,6 +41,12 @@ public class TacheControleur {
     EquipeRepo equipeRepo;
     @Autowired
     PrioriteRepo prioriteRepo;
+    @Autowired
+    TacheAdminService tacheAdminService;
+    @Autowired
+    PrioriteService prioriteService;
+    @Autowired
+    UtilisateurService utilisateurService;
 
 
     //--------------------------------------Gestion Taches
@@ -53,39 +58,14 @@ public class TacheControleur {
         String login = authentication.getName();
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
         model.addAttribute("utilisateurC",utilisateur);
-
-        //les utilisteurs de la meme societé (pour le champ proprietaire)
-        Societe societe= societeRepo.findAllByUtilisateurs(utilisateur);
-        List<Utilisateur> utilisateurList=utilisateurRepo.findUtilisateursBySociete(societe);
-        model.addAttribute("utilisateurList",utilisateurList);
-
-        //Pour mettre la liste en ordre alphabétique
-        // Utilisation de la méthode sort de Collections avec un comparateur ignorant la casse
-        Collections.sort(utilisateurList, new Comparator<Utilisateur>() {
-            @Override
-            public int compare(Utilisateur utilisateur1, Utilisateur utilisateur2) {
-                // Comparez les noms des utilisateurs sans tenir compte de la casse
-                return utilisateur1.getNom().compareToIgnoreCase(utilisateur2.getNom());
-            }
-        });
-
+        utilisateurService.loadSocietieMembers(utilisateur,model);
+        tacheAdminService.loadReceivers(utilisateur,model);
+        notificationService.loadNotification(utilisateur,model);
+        prioriteService.loadPriorites(model);
+        /*
         //Cette fonction a pour but d'obtenir l'équipe et les sous-équipes(si l'un des membres est responsable d'une équipe) de l'utilisateur,
         // afin que l'utilisateur puisse envoyer les tâches uniquement à ses équipes.
         List<Utilisateur> Recepteurs=tacheService.findRecepteurs(utilisateur);
-
-        //Pour mettre la liste en ordre alphabétique
-        // Utilisation de la méthode sort de Collections avec un comparateur ignorant la casse
-        Collections.sort(Recepteurs, new Comparator<Utilisateur>() {
-            @Override
-            public int compare(Utilisateur utilisateur1, Utilisateur utilisateur2) {
-                // Comparez les noms des utilisateurs sans tenir compte de la casse
-                return utilisateur1.getNom().compareToIgnoreCase(utilisateur2.getNom());
-            }
-        });
-        Recepteurs.add(0, utilisateur);
-        // La liste Recepteurs est maintenant triée par ordre alphabétique (sans tenir compte de la casse)
-        model.addAttribute("Recepteurs",Recepteurs);
-
         //les mebres d equipe de lutilisateur connecté
         Equipe equipe=equipeRepo.findEquipeByResponsable(utilisateur);
         if (equipe != null) {
@@ -95,26 +75,13 @@ public class TacheControleur {
             List<Utilisateur> membres=null;
             model.addAttribute("membres",membres);
         }
-
         //les taches de mon equipe
         //List<Tache> equipeTaches=tacheRepo.findAllByUtilisateurInAndIsmemoire(Recepteurs,false);
         List<Tache> equipeTaches=tacheRepo.findAllByRecepteurInAndIsmemoire(Recepteurs,false);
         model.addAttribute("equipeTaches",equipeTaches);
+         */
 
-        // Récupérer les notifications de l'utilisateur connecté
-        List<Notification> notificationList = notificationsRepo.findByRecepteurOrderByDatenotifDesc(utilisateur);
-        model.addAttribute("notificationList", notificationList);
 
-        // Calculer les notifications non lues de l'utilisateur connecté,pour l'affiché;
-        List<Notification> nonLuesNotificationList = notificationsRepo.findByRecepteurAndEstLu(utilisateur, false);
-        // Calculer le nombre de notifications non lues
-        int nbrNotifNonLu = nonLuesNotificationList.size();
-        model.addAttribute("nbrNotifNonLu", nbrNotifNonLu);
-
-        //Les Priorité
-        List<Priorite> priorites=prioriteRepo.findAll();
-        model.addAttribute("priorites",priorites);
-        System.out.println(priorites);
         return "creeTache";
     }
 
@@ -126,69 +93,13 @@ public class TacheControleur {
         String login = authentication.getName();
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
         model.addAttribute("utilisateurC",utilisateur);
-
         List<Tache> tacheList=tacheRepo.findAllByRecepteur(utilisateur);
         model.addAttribute("tacheList",tacheList);
-
         //-----Cette partie a pour but d'obtenir les respo de l'utilisateur,
-        List<Utilisateur> Emetteurs=tacheService.findEmetteurs(utilisateur);
-
-        //Pour mettre la liste en ordre alphabétique
-        // Utilisation de la méthode sort de Collections avec un comparateur ignorant la casse
-        Collections.sort(Emetteurs, new Comparator<Utilisateur>() {
-            @Override
-            public int compare(Utilisateur utilisateur1, Utilisateur utilisateur2) {
-                // Comparez les noms des utilisateurs sans tenir compte de la casse
-                return utilisateur1.getNom().compareToIgnoreCase(utilisateur2.getNom());
-            }
-        });
-        Emetteurs.add(0, utilisateur);
-        // La liste Recepteurs est maintenant triée par ordre alphabétique (sans tenir compte de la casse)
-        model.addAttribute("Emetteurs",Emetteurs);
-        //------------------
-
-        // Récupérer les notifications de l'utilisateur connecté
-        List<Notification> notificationList = notificationsRepo.findByRecepteurOrderByDatenotifDesc(utilisateur);
-        model.addAttribute("notificationList", notificationList);
-
-
-        // Calculer les notifications non lues de l'utilisateur connecté;
-        List<Notification> nonLuesNotificationList = notificationsRepo.findByRecepteurAndEstLu(utilisateur, false);
-        // Calculer le nombre de notifications non lues
-        int nbrNotifNonLu = nonLuesNotificationList.size();
-        model.addAttribute("nbrNotifNonLu", nbrNotifNonLu);
-
-
-        //Cette fonction a pour but d'obtenir l'équipe et les sous-équipes(si l'un des membres est responsable d'une équipe) de l'utilisateur,
-        // afin que l'utilisateur puisse envoyer les tâches uniquement à ses équipes.
-        List<Utilisateur> Recepteurs=tacheService.findRecepteurs(utilisateur);
-
-
-        //Pour mettre la liste en ordre alphabétique
-        // Utilisation de la méthode sort de Collections avec un comparateur ignorant la casse
-        Collections.sort(Recepteurs, new Comparator<Utilisateur>() {
-            @Override
-            public int compare(Utilisateur utilisateur1, Utilisateur utilisateur2) {
-                // Comparez les noms des utilisateurs sans tenir compte de la casse
-                return utilisateur1.getNom().compareToIgnoreCase(utilisateur2.getNom());
-            }
-        });
-
-        Recepteurs.add(0, utilisateur);
-        // La liste Recepteurs est maintenant triée par ordre alphabétique (sans tenir compte de la casse)
-        model.addAttribute("Recepteurs",Recepteurs);
-
-        //Les Priorité
-        List<Priorite> priorites=prioriteRepo.findAll();
-        model.addAttribute("priorites",priorites);
-
-
-        //les utilisteurs de la meme societé (pour le champ proprietaire)
-        Societe societe= societeRepo.findAllByUtilisateurs(utilisateur);
-        List<Utilisateur> utilisateurList=utilisateurRepo.findUtilisateursBySociete(societe);
-        model.addAttribute("utilisateurList",utilisateurList);
-
-
+       tacheAdminService.loadReceivers(utilisateur,model);
+       notificationService.loadNotification(utilisateur,model);
+        prioriteService.loadPriorites(model);
+        utilisateurService.loadSocietieMembers(utilisateur,model);
         return "/pages/mesTache";
     }
 

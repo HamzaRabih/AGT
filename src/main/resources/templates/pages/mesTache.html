@@ -443,7 +443,7 @@
                                 <label for="Proprietaires" class="form-label">Propriétaire</label>
                                 <select id="Proprietaires" name="proprietaire" class="select2 form-select"
                                         required="required" th:with="selectedValue=${utilisateurC.idutilisateur}">
-                                  <option th:each="p:${utilisateurList}" th:value="${p.idutilisateur}"
+                                  <option th:each="p:${utilisateurList2}" th:value="${p.idutilisateur}"
                                           th:selected="${selectedValue == p.idutilisateur}"
                                           th:text="${p.prenom + ' ' + p.nom}"></option>
                                 </select>
@@ -524,7 +524,7 @@
                       <div>
                         <select id="membreSelect" class="Mycolor form-select form-select-sm ">
                           <option value="" selected="selected">Tout sélectionner</option>
-                          <option th:each="p:${Emetteurs}" th:value="${p.idutilisateur}"
+                          <option th:each="p:${Recepteurs}" th:value="${p.idutilisateur}"
                                   th:text="${p.prenom + ' ' + p.nom}"></option>
                         </select>
                       </div>

@@ -681,7 +681,7 @@
                             <label for="Proprietaires" class="form-label">Propriétaire</label>
                             <select id="Proprietaires" name="proprietaire" class="select2 form-select"
                                     required="required" th:with="selectedValue=${utilisateurC.idutilisateur}">
-                              <option th:each="p:${utilisateurList}" th:value="${p.idutilisateur}"
+                              <option th:each="p:${utilisateurList2}" th:value="${p.idutilisateur}"
                                       th:selected="${selectedValue == p.idutilisateur}"
                                       th:text="${p.prenom + ' ' + p.nom}"></option>
                             </select>

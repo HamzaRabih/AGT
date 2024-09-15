@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @AllArgsConstructor
@@ -112,6 +113,20 @@ private boolean actif; // Champ pour indiquer si le compte est actif ou non
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(idutilisateur);  // Utilise uniquement l'ID pour le calcul du hashCode
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Utilisateur that = (Utilisateur) o;
+        return Objects.equals(idutilisateur, that.idutilisateur);
+    }
+
+
+    @Override
     public String toString() {
         return "Utilisateur{" +
                 "idutilisateur=" + idutilisateur +
@@ -121,8 +136,6 @@ private boolean actif; // Champ pour indiquer si le compte est actif ou non
                 ", motdepasse='" + motdepasse + '\'' +
                 ", role=" + role.getIdrole() +
                 ", domaine=" + domaine +
-                ", departement=" + departement +
-                ", societe=" + societe +
                 ", actif=" + actif +
                 '}';
     }

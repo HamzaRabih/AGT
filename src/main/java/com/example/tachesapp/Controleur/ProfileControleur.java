@@ -8,7 +8,10 @@ import com.example.tachesapp.Model.Notification;
 import com.example.tachesapp.Model.Priorite;
 import com.example.tachesapp.Model.Societe;
 import com.example.tachesapp.Model.Utilisateur;
+import com.example.tachesapp.Service.NotificationsService;
+import com.example.tachesapp.Service.PrioriteService;
 import com.example.tachesapp.Service.TacheService;
+import com.example.tachesapp.Service.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
@@ -26,6 +29,13 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class ProfileControleur {
+
+    @Autowired
+    NotificationsService notificationsService;
+    @Autowired
+    UtilisateurService utilisateurService;
+    @Autowired
+    PrioriteService prioriteService;
     @Autowired
     UtilisateurRepo utilisateurRepo;
     @Autowired
@@ -46,15 +56,7 @@ public class ProfileControleur {
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
         model.addAttribute("utilisateur",utilisateur);
 
-        // Récupérer les notifications de l'utilisateur connecté
-        List<Notification> notificationList = notificationsRepo.findByRecepteurOrderByDatenotifDesc(utilisateur);
-        model.addAttribute("notificationList", notificationList);
-
-        // Calculer les notifications non lues de l'utilisateur connecté;
-        List<Notification> nonLuesNotificationList = notificationsRepo.findByRecepteurAndEstLu(utilisateur, false);
-        // Calculer le nombre de notifications non lues
-        int nbrNotifNonLu = nonLuesNotificationList.size();
-        model.addAttribute("nbrNotifNonLu", nbrNotifNonLu);
+        notificationsService.loadNotification(utilisateur,model);
 
 
         //Cette fonction a pour but d'obtenir l'équipe et les sous-équipes(si l'un des membres est responsable d'une équipe) de l'utilisateur,
@@ -75,14 +77,9 @@ public class ProfileControleur {
         // La liste Recepteurs est maintenant triée par ordre alphabétique (sans tenir compte de la casse)
         model.addAttribute("Recepteurs",Recepteurs);
 
-        //Les Priorités
-        List<Priorite> priorites=prioriteRepo.findAll();
-        model.addAttribute("priorites",priorites);
+        prioriteService.loadPriorites(model);
 
-        //les utilisteurs de la meme societé (pour le champ proprietaire)
-        Societe societe= societeRepo.findAllByUtilisateurs(utilisateur);
-        List<Utilisateur> utilisateurList=utilisateurRepo.findUtilisateursBySociete(societe);
-        model.addAttribute("utilisateurList2",utilisateurList);
+        utilisateurService.loadSocietieMembers(utilisateur,model);
 
 
         return "/pages/MonProfile";

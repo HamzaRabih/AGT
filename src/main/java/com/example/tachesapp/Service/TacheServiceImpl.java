@@ -585,7 +585,7 @@ public class TacheServiceImpl implements TacheService {
             if (utilisateur==utilisateurConnecté) {
                 // Ajoutez la liste des taches de l'utilisateur à la liste globale
                 ajouterTachesUniques(tacheList,tacheRepo.findTacheByUtilisateurAndIsmemoire(utilisateur,false));
-                ajouterTachesUniques(tacheList,tacheRepo.findTacheByRecepteurAndIsmemoire(utilisateur,false));
+                //ajouterTachesUniques(tacheList,tacheRepo.findTacheByRecepteurAndIsmemoire(utilisateur,false));
             }else {
                 // Obtenez la liste des taches du utilisateurs
                 List<Tache> tachesutilisateurList = tacheRepo.findTacheByRecepteurAndIsmemoire(utilisateur,false);

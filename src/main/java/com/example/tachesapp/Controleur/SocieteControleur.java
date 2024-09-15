@@ -2,8 +2,7 @@ package com.example.tachesapp.Controleur;
 
 import com.example.tachesapp.Dao.*;
 import com.example.tachesapp.Model.*;
-import com.example.tachesapp.Service.SocieteService;
-import com.example.tachesapp.Service.TacheService;
+import com.example.tachesapp.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -20,6 +19,13 @@ import java.util.Objects;
 @Controller
 @RequestMapping("/")
 public class SocieteControleur {
+
+    @Autowired
+    NotificationsService notificationsService;
+    @Autowired
+    UtilisateurService utilisateurService;
+    @Autowired
+    PrioriteService prioriteService;
     @Autowired
     private SocieteService societeService;
     @Autowired
@@ -38,59 +44,23 @@ public class SocieteControleur {
     PrioriteRepo prioriteRepo;
     @Autowired
     TacheService tacheService;
+    @Autowired
+    TacheAdminService tacheAdminService;
 
 
     //Affichage
     @GetMapping("/societe")
-    public String societe (Authentication authentication, Model model)
-    {
+    public String societe (Authentication authentication, Model model) {
         // Récupérer l'utilisateur connecté
         String login = authentication.getName();
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
         model.addAttribute("utilisateurC",utilisateur);
-
         List<Societe> societeList=societeService.findAllSociete();
         model.addAttribute("societeList",societeList);
-
-        // Récupérer les notifications de l'utilisateur connecté
-        List<Notification> notificationList = notificationsRepo.findByRecepteurOrderByDatenotifDesc(utilisateur);
-        model.addAttribute("notificationList", notificationList);
-
-        // Calculer les notifications non lues de l'utilisateur connecté;
-        List<Notification> nonLuesNotificationList = notificationsRepo.findByRecepteurAndEstLu(utilisateur, false);
-        // Calculer le nombre de notifications non lues
-        int nbrNotifNonLu = nonLuesNotificationList.size();
-        model.addAttribute("nbrNotifNonLu", nbrNotifNonLu);
-
-
-        //Cette fonction a pour but d'obtenir l'équipe et les sous-équipes(si l'un des membres est responsable d'une équipe) de l'utilisateur,
-        // afin que l'utilisateur puisse envoyer les tâches uniquement à ses équipes.
-        List<Utilisateur> Recepteurs=tacheService.findRecepteurs(utilisateur);
-
-
-        //Pour mettre la liste en ordre alphabétique
-        // Utilisation de la méthode sort de Collections avec un comparateur ignorant la casse
-        Collections.sort(Recepteurs, new Comparator<Utilisateur>() {
-            @Override
-            public int compare(Utilisateur utilisateur1, Utilisateur utilisateur2) {
-                // Comparez les noms des utilisateurs sans tenir compte de la casse
-                return utilisateur1.getNom().compareToIgnoreCase(utilisateur2.getNom());
-            }
-        });
-        Recepteurs.add(0, utilisateur);
-        // La liste Recepteurs est maintenant triée par ordre alphabétique (sans tenir compte de la casse)
-        model.addAttribute("Recepteurs",Recepteurs);
-
-        //Les Priorités
-        List<Priorite> priorites=prioriteRepo.findAll();
-        model.addAttribute("priorites",priorites);
-
-        //les utilisteurs de la meme societé (pour le champ proprietaire)
-        Societe societe= societeRepo.findAllByUtilisateurs(utilisateur);
-        List<Utilisateur> utilisateurList=utilisateurRepo.findUtilisateursBySociete(societe);
-        model.addAttribute("utilisateurList2",utilisateurList);
-
-
+        notificationsService.loadNotification(utilisateur,model);
+        tacheAdminService.loadReceivers(utilisateur,model);
+        prioriteService.loadPriorites(model);
+        utilisateurService.loadSocietieMembers(utilisateur,model);
         return "/pages/societe";
     }
 
@@ -100,12 +70,9 @@ public class SocieteControleur {
     @Transactional
     @GetMapping(value = "/deleteSociete/{id}")
     public String deleteSociete(@PathVariable Long id,RedirectAttributes redirectAttributes) {
-
         Societe societe=societeRepo.findByIdsociete(id);
-
         boolean DepExistsBySociete=departementRepo.existsBySociete(societe);
         boolean utilExistsBySociete=utilisateurRepo.existsBySociete(societe);
-
         Long numUtil=utilisateurRepo.countBySociete(societe);
         Long numDep=departementRepo.countBySociete(societe);
         if (DepExistsBySociete || utilExistsBySociete) {
@@ -113,11 +80,8 @@ public class SocieteControleur {
         } else {
             societeRepo.deleteByIdsociete(id);
             redirectAttributes.addFlashAttribute("msg", "La Société a été suprimée  avec succès");
-
         }
-
-
-    return "redirect:/societe";
+        return "redirect:/societe";
     }
 
 

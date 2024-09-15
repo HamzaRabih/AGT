@@ -2,9 +2,7 @@ package com.example.tachesapp.Controleur;
 
 import com.example.tachesapp.Dao.*;
 import com.example.tachesapp.Model.*;
-import com.example.tachesapp.Service.DomaineService;
-import com.example.tachesapp.Service.SocieteService;
-import com.example.tachesapp.Service.TacheService;
+import com.example.tachesapp.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -22,6 +20,10 @@ import java.util.List;
 public class DomaineControleur {
 
     @Autowired
+    NotificationsService notificationsService;
+    @Autowired
+    UtilisateurService utilisateurService;
+    @Autowired
     DomaineService domaineService;
     @Autowired
     UtilisateurRepo utilisateurRepo;
@@ -35,7 +37,10 @@ public class DomaineControleur {
     TacheService tacheService;
     @Autowired
     SocieteRepo societeRepo;
-
+    @Autowired
+    TacheAdminService tacheAdminService;
+    @Autowired
+    PrioriteService prioriteService;
 
     // Constantes
     private static final String DOMAINE_EXISTE_DEJA = "Ce domaine existe déjà.";
@@ -51,53 +56,13 @@ public class DomaineControleur {
         // Récupérer l'utilisateur connecté
         String login = authentication.getName();
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
-
         List<Domaine> domaineList=domaineService.findAllDomaine();
         model.addAttribute("domaineList",domaineList);
-
-        // Récupérer les notifications de l'utilisateur connecté
-        List<Notification> notificationList = notificationsRepo.findByRecepteurOrderByDatenotifDesc(utilisateur);
-        model.addAttribute("notificationList", notificationList);
-
-        // Calculer les notifications non lues de l'utilisateur connecté;
-        List<Notification> nonLuesNotificationList = notificationsRepo.findByRecepteurAndEstLu(utilisateur, false);
-        // Calculer le nombre de notifications non lues
-        int nbrNotifNonLu = nonLuesNotificationList.size();
-        model.addAttribute("nbrNotifNonLu", nbrNotifNonLu);
-
-
+        notificationsService.loadNotification(utilisateur,model);
         model.addAttribute("utilisateurC",utilisateur);
-
-
-        //Cette fonction a pour but d'obtenir l'équipe et les sous-équipes(si l'un des membres est responsable d'une équipe) de l'utilisateur,
-        // afin que l'utilisateur puisse envoyer les tâches uniquement à ses équipes.
-        List<Utilisateur> Recepteurs=tacheService.findRecepteurs(utilisateur);
-
-
-        //Pour mettre la liste en ordre alphabétique
-        // Utilisation de la méthode sort de Collections avec un comparateur ignorant la casse
-        Collections.sort(Recepteurs, new Comparator<Utilisateur>() {
-            @Override
-            public int compare(Utilisateur utilisateur1, Utilisateur utilisateur2) {
-                // Comparez les noms des utilisateurs sans tenir compte de la casse
-                return utilisateur1.getNom().compareToIgnoreCase(utilisateur2.getNom());
-            }
-        });
-        Recepteurs.add(0, utilisateur);
-        // La liste Recepteurs est maintenant triée par ordre alphabétique (sans tenir compte de la casse)
-        model.addAttribute("Recepteurs",Recepteurs);
-
-        //Les Priorités
-        List<Priorite> priorites=prioriteRepo.findAll();
-        model.addAttribute("priorites",priorites);
-
-        //les utilisteurs de la meme societé (pour le champ proprietaire)
-        Societe societe= societeRepo.findAllByUtilisateurs(utilisateur);
-        List<Utilisateur> utilisateurList=utilisateurRepo.findUtilisateursBySociete(societe);
-        model.addAttribute("utilisateurList2",utilisateurList);
-
-
-
+        tacheAdminService.loadReceivers(utilisateur,model);
+        prioriteService.loadPriorites(model);
+        utilisateurService.loadSocietieMembers(utilisateur,model);
         return "/pages/domaine";
     }
 
@@ -109,16 +74,13 @@ public class DomaineControleur {
     public String creerDomaine(@ModelAttribute Domaine domaine, RedirectAttributes redirectAttributes, Authentication authentication) {
         String login = authentication.getName();
         Utilisateur utilisateurConnecte = utilisateurRepo.findUtilisateursByMail(login);
-
         //verifier si le DOMAINE  est existe
         Boolean existsByNomdomaine=domaineRepo.existsByNomdomaine(domaine.getNomdomaine());
-
         if (domaine.getIddomaine() == null) {
             creerNouvelUtilisateur(domaine, utilisateurConnecte, redirectAttributes);
         } else {
             modifierUtilisateur(domaine, utilisateurConnecte, redirectAttributes);
         }
-
         return "redirect:/domaine";
     }
 
@@ -135,9 +97,7 @@ public class DomaineControleur {
 
     private void modifierUtilisateur(Domaine  nouvelleDomainer, Utilisateur utilisateurConnecte, RedirectAttributes redirectAttributes) {
         Domaine domaineAModifie = domaineRepo.findById(nouvelleDomainer.getIddomaine()).orElse(null);
-
         Boolean existsByNomdomaine = domaineRepo.existsByNomdomaineAndIddomaineNot(nouvelleDomainer.getNomdomaine(), domaineAModifie.getIddomaine());
-
         if (existsByNomdomaine) {
             redirectAttributes.addFlashAttribute("msgError", DOMAINE_EXISTE_DEJA);
         } else {
@@ -147,7 +107,6 @@ public class DomaineControleur {
             domaineAModifie.setModifierpar(utilisateurConnecte);
             domaineAModifie.setDescription(nouvelleDomainer.getDescription());
             domaineAModifie.setNomdomaine(nouvelleDomainer.getNomdomaine());
-
             domaineRepo.save(domaineAModifie);
             redirectAttributes.addFlashAttribute("msg2", DOMAINE_MODIFIE);
         }
@@ -175,57 +134,4 @@ public class DomaineControleur {
 }
 
 
-// -----------------------------------
-// Créer ou mettre à jour un Domaine
-    /*@PostMapping("/CreateDomaine")
-    public String createOrUpdateDomaine(@ModelAttribute Domaine domaine, Authentication authentication, RedirectAttributes redirectAttributes) {
-        // Récupérer l'utilisateur connecté
-        String login = authentication.getName();
-        Utilisateur utilisateurConnecte = utilisateurRepo.findUtilisateursByMail(login);
-
-        //verifier si le DOMAINE  est existe
-        Boolean existsByNomdomaine=domaineRepo.existsByNomdomaine(domaine.getNomdomaine());
-
-            if (domaine.getIddomaine() == null)
-            {
-            // Cas de la création
-                if (existsByNomdomaine) {  // si le DOMAINE  est existe déjà
-                    redirectAttributes.addFlashAttribute("msgError", "Ce domaine existe déjà.");
-                }
-                else
-                {//sinon
-                   domaine.setCreerpar(utilisateurConnecte);
-                    domaineRepo.save(domaine);
-                    redirectAttributes.addFlashAttribute("msg", "Domaine ajouté avec succès");
-                }
-           }
-            else
-           {
-                // Cas de la mise à jour
-                Domaine domaineExist = domaineRepo.findById(domaine.getIddomaine()).orElse(null);
-                if (existsByNomdomaine && domaine.getIddomaine()!=domaineExist.getIddomaine()) {
-                    // si le DOMAINE  est existe déjà
-                    redirectAttributes.addFlashAttribute("msgError", "Ce domaine existe déjà.");
-                }
-                else
-                {//sinon
-                    if (domaineExist == null ) { // Gérer le cas où le domaine n'existe pas
-                        redirectAttributes.addFlashAttribute("msgError", "Le Domaine n'a pas été trouvé.");}
-
-                    // Réinitialiser creerpar pour éviter qu'il devienne null lors de la mise à jour
-                    domaineExist.setCreerpar(domaineExist.getCreerpar());
-                    // Mettre à jour le reste des champs
-                    domaineExist.setModifierpar(utilisateurConnecte);
-                    domaineExist.setDescription(domaine.getDescription());
-                    domaineExist.setNomdomaine(domaine.getNomdomaine());
-                    domaineRepo.save(domaineExist);
-                    redirectAttributes.addFlashAttribute("msg1", "Le Domaine a été modifié avec succès.");
-
-
-                }
-           }
-        return "redirect:/domaine";
-    }
-*/
-// -----------------------------------
 

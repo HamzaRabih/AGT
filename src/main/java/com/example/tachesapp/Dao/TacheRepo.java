@@ -9,7 +9,7 @@ import java.util.List;
 public interface TacheRepo extends JpaRepository<Tache,Long> {
 
     public List<Tache> findTacheByRecepteurAndIsmemoire(Utilisateur utilisateursList, boolean ismemoire);
-
+    public List<Tache> findTacheByRecepteurAndUtilisateurAndIsmemoire(Utilisateur recepteur,Utilisateur utilisateur, boolean ismemoire);
     public  List<Tache> findTacheByUtilisateurAndIsmemoireAndRecepteur(Utilisateur utilisateur,boolean ismemoire,Utilisateur recepteur);
     public List<Tache> findTacheByUtilisateurAndIsmemoire(Utilisateur utilisateur, boolean ismemoire);
 

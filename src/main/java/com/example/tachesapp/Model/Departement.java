@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-
+import java.util.Objects;
 
 
 @Data
@@ -75,6 +75,19 @@ public class Departement {
     @PreUpdate
     protected void onUpdate() {
         datemodif = LocalDateTime.now();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(iddepartement);  // Utilise uniquement l'ID pour le calcul du hashCode
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Departement that = (Departement) o;
+        return Objects.equals(iddepartement, that.iddepartement);
     }
 
     @Override

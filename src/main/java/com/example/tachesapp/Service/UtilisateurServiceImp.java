@@ -7,6 +7,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -28,9 +30,16 @@ public class UtilisateurServiceImp implements UtilisateurService {
     @Autowired
     SocieteRepo societeRepo;
     @Autowired
-            TacheRepo tacheRepo;
+    TacheRepo tacheRepo;
 
    JavaMailSender javaMailSender;
+
+
+    // Constantes
+    private static final String MAIL_EXISTE_DEJA = "Ce mail existe déjà. Veuillez saisir une nouvelle adresse mail.";
+    private static final String UTILISATEUR_AJOUTE = "Utilisateur ajouté avec succès.";
+    private static final String UTILISATEUR_MODIFIE = "L'utilisateur a été modifié avec succès.";
+
 
 
     @Override
@@ -93,6 +102,40 @@ public class UtilisateurServiceImp implements UtilisateurService {
 
     }
 
+    public void creerNouvelUtilisateur(Utilisateur utilisateur, Utilisateur utilisateurConnecte, RedirectAttributes redirectAttributes) {
+        Boolean existsByMail = utilisateurRepo.existsByMail(utilisateur.getMail());
+        if (existsByMail) {
+            redirectAttributes.addFlashAttribute("msgError", MAIL_EXISTE_DEJA);
+        } else {
+            utilisateur.setCreerpar(utilisateurConnecte);
+            utilisateurRepo.save(utilisateur);
+            redirectAttributes.addFlashAttribute("msg", UTILISATEUR_AJOUTE);
+        }
+    }
+
+    public void modifierUtilisateur(Utilisateur nouvelleUtilisateur, Utilisateur utilisateurConnecte, RedirectAttributes redirectAttributes) {
+        Utilisateur utilisateurAModifie = utilisateurRepo.findByIdutilisateur(nouvelleUtilisateur.getIdutilisateur());
+        Boolean existsByMail = utilisateurRepo.existsByMailAndIdutilisateurNot(nouvelleUtilisateur.getMail(), utilisateurAModifie.getIdutilisateur());
+
+        if (existsByMail) {
+            redirectAttributes.addFlashAttribute("msgError", MAIL_EXISTE_DEJA);
+        } else {
+            utilisateurAModifie.setCreerpar(utilisateurConnecte.getCreerpar());
+            utilisateurAModifie.setModifierpar(utilisateurConnecte);
+            utilisateurAModifie.setNom(nouvelleUtilisateur.getNom());
+            utilisateurAModifie.setMail(nouvelleUtilisateur.getMail());
+            utilisateurAModifie.setMotdepasse(nouvelleUtilisateur.getMotdepasse());
+            utilisateurAModifie.setSociete(nouvelleUtilisateur.getSociete());
+            utilisateurAModifie.setDomaine(nouvelleUtilisateur.getDomaine());
+            utilisateurAModifie.setDepartement(nouvelleUtilisateur.getDepartement());
+            utilisateurAModifie.setPrenom(nouvelleUtilisateur.getPrenom());
+            utilisateurAModifie.setActif(nouvelleUtilisateur.isActif());
+            utilisateurAModifie.setRole(nouvelleUtilisateur.getRole());
+
+            utilisateurRepo.save(utilisateurAModifie);
+            redirectAttributes.addFlashAttribute("msg2", UTILISATEUR_MODIFIE);
+        }
+    }
 
 
 
@@ -196,4 +239,10 @@ public class UtilisateurServiceImp implements UtilisateurService {
     }
 
 
+    public void loadSocietieMembers(Utilisateur utilisateur, Model model){
+        //les utilisteurs de la meme societé (pour le champ proprietaire)
+        Societe societe= societeRepo.findAllByUtilisateurs(utilisateur);
+        List<Utilisateur> utilisateurList=utilisateurRepo.findUtilisateursBySociete(societe);
+        model.addAttribute("utilisateurList2",utilisateurList);
+    }
 }

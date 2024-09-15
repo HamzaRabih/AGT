@@ -10,8 +10,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class NotificationServiceImpl implements NotificationsService{
@@ -98,5 +100,18 @@ public class NotificationServiceImpl implements NotificationsService{
         String Subject="Tâche terminée";
         String msg = "La tâche '" + existingTache.getNomtache() + "' de " + recepteur1.getNom() + " " + recepteur1.getPrenom() + " est terminée.";
         sendTaskEmail(emetteur.getMail(),Subject,msg);
+    }
+
+    public void loadNotification(Utilisateur utilisateur,Model model){
+        // Récupérer les notifications de l'utilisateur connecté
+        List<Notification> notificationList = notificationsRepo.findByRecepteurOrderByDatenotifDesc(utilisateur);
+        model.addAttribute("notificationList", notificationList);
+
+        // Calculer les notifications non lues de l'utilisateur connecté;
+        List<Notification> nonLuesNotificationList = notificationsRepo.findByRecepteurAndEstLu(utilisateur, false);
+        // Calculer le nombre de notifications non lues
+        int nbrNotifNonLu = nonLuesNotificationList.size();
+        model.addAttribute("nbrNotifNonLu", nbrNotifNonLu);
+
     }
 }

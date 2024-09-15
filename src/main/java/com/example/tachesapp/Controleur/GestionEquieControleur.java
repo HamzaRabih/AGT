@@ -20,6 +20,10 @@ import java.util.*;
 public class GestionEquieControleur {
 
     @Autowired
+    NotificationsService notificationsService;
+    @Autowired
+    PrioriteService prioriteService;
+    @Autowired
     UtilisateurService utilisateurService;
     @Autowired
     SocieteRepo societeRepo;
@@ -39,17 +43,17 @@ public class GestionEquieControleur {
     PrioriteRepo prioriteRepo;
     @Autowired
     TacheService tacheService;
+    @Autowired
+    TacheAdminService tacheAdminService;
     //--------------------------------------------------- Administration
 //----gestion utilisateur
     //Affichage d Equipe
     @GetMapping("/gestionEquipe")
     public String gestionEquipe(Model model,Authentication authentication) {
-
         // Récupérer l'utilisateur connecté
         String login = authentication.getName();
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
         model.addAttribute("utilisateurC",utilisateur);
-
         List<Equipe> equipeList = equipeService.findAllEquipes();
         List<Utilisateur> utilisateurs = utilisateurService.findUtilisateurs();
         List<Societe> societeList = societeService.findAllSociete();
@@ -58,45 +62,10 @@ public class GestionEquieControleur {
         model.addAttribute("utilisateurs", utilisateurs);
         model.addAttribute("societeList", societeList);
         model.addAttribute("departementList", departementList);
-
-        // Récupérer les notifications de l'utilisateur connecté
-        List<Notification> notificationList = notificationsRepo.findByRecepteurOrderByDatenotifDesc(utilisateur);
-        model.addAttribute("notificationList", notificationList);
-
-        // Calculer les notifications non lues de l'utilisateur connecté;
-        List<Notification> nonLuesNotificationList = notificationsRepo.findByRecepteurAndEstLu(utilisateur, false);
-        // Calculer le nombre de notifications non lues
-        int nbrNotifNonLu = nonLuesNotificationList.size();
-        model.addAttribute("nbrNotifNonLu", nbrNotifNonLu);
-
-        //Cette fonction a pour but d'obtenir l'équipe et les sous-équipes(si l'un des membres est responsable d'une équipe) de l'utilisateur,
-        // afin que l'utilisateur puisse envoyer les tâches uniquement à ses équipes.
-        List<Utilisateur> Recepteurs=tacheService.findRecepteurs(utilisateur);
-
-
-        //Pour mettre la liste en ordre alphabétique
-        // Utilisation de la méthode sort de Collections avec un comparateur ignorant la casse
-        Collections.sort(Recepteurs, new Comparator<Utilisateur>() {
-            @Override
-            public int compare(Utilisateur utilisateur1, Utilisateur utilisateur2) {
-                // Comparez les noms des utilisateurs sans tenir compte de la casse
-                return utilisateur1.getNom().compareToIgnoreCase(utilisateur2.getNom());
-            }
-        });
-        Recepteurs.add(0, utilisateur);
-        // La liste Recepteurs est maintenant triée par ordre alphabétique (sans tenir compte de la casse)
-        model.addAttribute("Recepteurs",Recepteurs);
-
-        //Les Priorités
-        List<Priorite> priorites=prioriteRepo.findAll();
-        model.addAttribute("priorites",priorites);
-
-        //les utilisteurs de la meme societé (pour le champ proprietaire)
-        Societe societe= societeRepo.findAllByUtilisateurs(utilisateur);
-        List<Utilisateur> utilisateurList=utilisateurRepo.findUtilisateursBySociete(societe);
-        model.addAttribute("utilisateurList2",utilisateurList);
-
-
+        notificationsService.loadNotification(utilisateur,model);
+        tacheAdminService.loadReceivers(utilisateur,model);
+        prioriteService.loadPriorites(model);
+        utilisateurService.loadSocietieMembers(utilisateur,model);
         return "/pages/gestionEquipe";
     }
 
@@ -126,7 +95,6 @@ public class GestionEquieControleur {
     @GetMapping("/get-utilisateur-by-Departement/{departementId}")
     @ResponseBody
     public List<Utilisateur> getUtilisateursByDepartement(@PathVariable String departementId) {
-
         // Récupérez la liste des départements de la société sélectionnée
         long departementId1 = Long.parseLong(departementId);
         List<Utilisateur> utilisateurList = utilisateurService.findUtilisateurByIdDepartement(departementId1);
@@ -142,132 +110,17 @@ public class GestionEquieControleur {
                                @RequestParam(value = "idutilisateur", required = false) List<Long> idUtilisateurs,
                                @RequestParam("soci") Long idsoc
                                 ,RedirectAttributes redirectAttributes, Authentication authentication) {
-
         String login = authentication.getName();
         Utilisateur utilisateurConnecte = utilisateurRepo.findUtilisateursByMail(login);
-
         Utilisateur responsable = utilisateurService.findUtilisateurById(idResponsableEquipe);
         boolean isResponsableOfAnotherTeam = equipeRepo.existsByResponsable(responsable);
-
         if (equipe.getIdequipe() == null) {
-            handleEquipeCreation(equipe, nomequipe, idResponsableEquipe, idUtilisateurs, isResponsableOfAnotherTeam, redirectAttributes, utilisateurConnecte,idsoc);
+           equipeService.handleEquipeCreation(equipe, nomequipe, idResponsableEquipe, idUtilisateurs, isResponsableOfAnotherTeam, redirectAttributes, utilisateurConnecte,idsoc);
         } else {
-            handleEquipeModification(equipe, nomequipe, idResponsableEquipe, idUtilisateurs, redirectAttributes, utilisateurConnecte,idsoc);
+            equipeService.handleEquipeModification(equipe, nomequipe, idResponsableEquipe, idUtilisateurs, redirectAttributes, utilisateurConnecte,idsoc);
         }
         return "redirect:/gestionEquipe";
     }
-
-    private void handleEquipeCreation(Equipe equipe, String nomequipe, Long idResponsableEquipe,
-                                      List<Long> idUtilisateurs, boolean isResponsableOfAnotherTeam,
-                                      RedirectAttributes redirectAttributes, Utilisateur utilisateurConnecte,Long idsoc) {
-
-        Societe societe=societeRepo.findByIdsociete(idsoc);
-
-        Utilisateur responsable = utilisateurService.findUtilisateurById(idResponsableEquipe);
-        //bool pour verifier si le nom d'equipe est existe
-        Boolean existsByNomeqpAndSociete=equipeRepo.existsByNomequipeAndResponsableSocieteAndIdequipeNot(equipe.getNomequipe(), societe,equipe.getIdequipe());
-
-        //La condition "idResponsableEquipe != -1" est utilisée pour gérer le cas où une équipe n'a pas de responsable (responsable == null).
-        // Cela permet d'éviter le message "L'utilisateur est déjà responsable d'une équipe" dans le scénario où deux responsables ou plus sont nuls.
-        if (idResponsableEquipe != -1) {
-
-            if (isResponsableOfAnotherTeam) {
-                redirectAttributes.addFlashAttribute("msg", "L'utilisateur est déjà Responsable d'une équipe");
-            }
-            else
-            {// Cas de la création
-
-                if (existsByNomeqpAndSociete) {  // si le DOMAINE  est existe déjà
-                    redirectAttributes.addFlashAttribute("msgError", "Ce nom d'équipe existe déjà dans la société.");
-                }
-                else
-                {//sinon
-                   equipe.setCreerpar(utilisateurConnecte);
-                    setEquipeDetails(equipe, nomequipe, idResponsableEquipe, idUtilisateurs);
-                    Equipe equipe1 = equipeService.saveEquie(equipe);
-                    handleEquipeSaveResult(equipe1, redirectAttributes,"create");
-                }
-            }
-        } else {
-
-            if (existsByNomeqpAndSociete) {  // si le DOMAINE  est existe déjà
-                redirectAttributes.addFlashAttribute("msgError", "Ce nom d'équipe existe déjà dans la société.");
-            }
-            else
-            {//sinon
-                equipe.setCreerpar(utilisateurConnecte);
-                setEquipeDetails(equipe, nomequipe, idResponsableEquipe, idUtilisateurs);
-                Equipe equipe1 = equipeService.saveEquie(equipe);
-                handleEquipeSaveResult(equipe1, redirectAttributes,"create");
-            }
-        }
-    }
-
-    private void handleEquipeModification(Equipe equipe, String nomequipe, Long idResponsableEquipe, List<Long> idUtilisateurs,
-                                          RedirectAttributes redirectAttributes, Utilisateur utilisateurConnecte, Long idsoc) {
-        // Cas de la mise à jour
-        Equipe equipeExist = equipeRepo.findById(equipe.getIdequipe()).orElse(null);
-        Societe societe = societeRepo.findByIdsociete(idsoc);
-
-        // Vérifier si le nom d'équipe existe déjà dans la même société existsByMailAndIdutilisateurNot
-        Boolean existsByNomeqpAndSociete = equipeRepo.existsByNomequipeAndResponsableSocieteAndIdequipeNot(equipe.getNomequipe(), societe,equipe.getIdequipe());
-
-        if (equipeExist == null) {
-            equipeExist.setCreerpar(equipeExist.getCreerpar());
-            redirectAttributes.addFlashAttribute("msgError", "Équipe non trouvée.");
-        }
-
-            // Vérifier si le nom d'équipe change
-            boolean isNomEquipeChanged = !equipe.getNomequipe().equals(equipeExist.getNomequipe());
-
-            if (idUtilisateurs == null || idUtilisateurs.isEmpty()) {
-                if (existsByNomeqpAndSociete && isNomEquipeChanged) {
-                    redirectAttributes.addFlashAttribute("msgError", "Ce nom d'équipe existe déjà dans la société.");
-                } else {
-                    equipeExist.setModifierpar(utilisateurConnecte);
-                    setEquipeDetails(equipeExist, nomequipe, idResponsableEquipe, idUtilisateurs);
-                    equipeService.saveEquie(equipeExist);
-                    redirectAttributes.addFlashAttribute("msg", "Attention, vous avez créé une équipe sans membres, veuillez choisir des membres pour l'équipe.");
-                }
-            } else {
-                if (existsByNomeqpAndSociete && isNomEquipeChanged) {
-                    redirectAttributes.addFlashAttribute("msgError", "Ce nom d'équipe existe déjà dans la société.");
-                } else {
-                    equipeExist.setModifierpar(utilisateurConnecte);
-                    setEquipeDetails(equipeExist, nomequipe, idResponsableEquipe, idUtilisateurs);
-                    Equipe equipe1 = equipeService.saveEquie(equipeExist);
-                    handleEquipeSaveResult(equipe1, redirectAttributes, "update");
-                }
-            }
-
-    }
-
-
-    private void setEquipeDetails(Equipe equipe, String nomequipe, Long idResponsableEquipe, List<Long> idUtilisateurs) {
-        Utilisateur responsableEquipe = utilisateurService.findUtilisateurById(idResponsableEquipe);
-        equipe.setResponsable(responsableEquipe);
-        equipe.setNomequipe(nomequipe);
-        if (idUtilisateurs != null && !idUtilisateurs.isEmpty()) {
-            List<Utilisateur> membresEquipe = utilisateurService.findUtilisateursById(idUtilisateurs);
-            equipe.setMembres(membresEquipe);
-        }
-    }
-
-    private void handleEquipeSaveResult(Equipe equipe1, RedirectAttributes redirectAttributes,String cas) {
-        if (equipe1 != null) {
-            if (cas == "create") {
-                redirectAttributes.addFlashAttribute("msg", "Équipe créée avec succès.");
-            }else
-            {
-                redirectAttributes.addFlashAttribute("msg2", "Équipe modifiée avec succès");
-            }
-        } else {
-            redirectAttributes.addFlashAttribute("msg1", "Échec de l'opération");
-        }
-    }
-
-
-
 
     //supprimer une equipe
     @GetMapping(value = "/deleteEquipe/{id}")
@@ -329,15 +182,11 @@ public class GestionEquieControleur {
 
     @GetMapping(value = "/getAllSuperieursForUtilisateurByIdUtilisateur")
     public ResponseEntity<List<Utilisateur>> getAllSuperieursForUtilisateurByIdUtilisateur(@RequestParam("idutilisateur") Long idutilisateur) {
-
         List<Utilisateur> superieursList=new ArrayList<>();
-
         //cas de sans responsable
         if (idutilisateur==(-1)) {return ResponseEntity.ok(superieursList);}
-
         // Trouver l'utilisateur par ID
         Optional<Utilisateur> utilisateurOptional = utilisateurRepo.findById(idutilisateur);
-
         if (utilisateurOptional.isPresent()) {
             Utilisateur utilisateur = utilisateurOptional.get();
             // Appeler le service pour récupérer la liste des utilisateurs supérieurs

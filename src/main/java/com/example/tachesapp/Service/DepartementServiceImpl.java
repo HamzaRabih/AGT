@@ -20,8 +20,6 @@ public class DepartementServiceImpl implements DeparetementService{
         return departementRepo.findAllByOrderBySociete();
     }
 
-
-
     @Override
     public List<Departement> getDepartementsBySociete(Long ids) {
         return departementRepo.findBySocieteIdsociete(ids);
