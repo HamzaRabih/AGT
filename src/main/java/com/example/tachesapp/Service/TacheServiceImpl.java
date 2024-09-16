@@ -33,7 +33,6 @@ public class TacheServiceImpl implements TacheService {
     UtilisateurRepo utilisateurRepo;
     @Autowired
     EquipeRepo equipeRepo;
-
     @Autowired
     NotificationsService notificationService;
     @Autowired
@@ -64,36 +63,6 @@ public class TacheServiceImpl implements TacheService {
         }
     }
 
-/*
-    public void UpdateTacheToEnAttente(Tache tache,RedirectAttributes redirectAttributes,Utilisateur utilisateurconnecte) {
-        //Tache tacheExist = tacheRepo.findByIdtache(tache.getIdtache());
-         Tache tacheExist = tacheRepo.findTacheByIdtache(tache.getIdtache());
-        Utilisateur ancienRecepteur=tacheExist.getRecepteur();
-        // enregistré le modificateur de la statut
-        mettreAJourProprietesTache(tache,utilisateurconnecte);
-        //Effacer la date de fin si le statut précédent était 'Terminé'
-        tacheExist.setDateTermineTache(null);
-        tacheExist.setTacheparente(null);
-        tacheExist.setDureretarde(0);
-        tacheExist.setPerformance(0);
-        //calculer la date d'objectif
-        tacheExist.setDateobjectif( calculerDateObjectif(tache));
-        tacheExist.setStatut("En attente");
-
-        if (ancienRecepteur!=tache.getRecepteur()) {
-            //------------------envoiyer un mail
-            // Envoyer des e-mails
-            Utilisateur recepteur = tache.getRecepteur();
-            Utilisateur emetteur=utilisateurRepo.findByIdutilisateur(tache.getUtilisateur().getIdutilisateur());
-            String Subject="Vous avez une nouvelle tâche de : "+emetteur.getNom()+" "+emetteur.getPrenom();
-            String msg="nouvelle tache :"+tache.getNomtache();
-            sendTaskEmail(recepteur.getMail(),Subject,msg);
-        }
-        tacheRepo.save(tacheExist);
-    }
-
- */
-
     public void updateTacheWithStatus(Tache tache,Utilisateur utilisateurconnecte) {
         Tache tacheExist = tacheRepo.findTacheByIdtache(tache.getIdtache());
         Utilisateur ancienRecepteur=tacheExist.getRecepteur();
@@ -117,30 +86,9 @@ public class TacheServiceImpl implements TacheService {
         tacheRepo.save(tacheExist);
     }
 
-
-   /*
-    public void UpdateTacheToTermine(Tache tache,RedirectAttributes redirectAttributes,Utilisateur utilisateurconnecte) {
-        Tache tacheExist = tacheRepo.findByIdtache(tache.getIdtache());
-
-        //Si l'utilisateur clique sur un statut "En cours" : modifier le statut à "terminé"
-        tacheExist.setStatut("Terminée");
-        // enregistré le modificateur de la statut
-        tacheExist.setModifierpar(utilisateurconnecte);
-        tacheExist.setDateTermineTache(null);
-        tacheExist.setPerformance(0);
-        //calculer la date d'objectif
-        tacheExist.setDateobjectif(calculerDateObjectif(tache));
-        tacheRepo.save(tacheExist);
-       // redirectAttributes.addFlashAttribute("msg1", "La tâche a été modifiée avec succès.");
-    }
-    */
-
-
-
     public void addSuccessMessage(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("msg", "La tâche a été modifiée avec succès.");
     }
-
 
     public void UpdateTacheToValide(Tache tache,Utilisateur utilisateurconnecte) {
         Tache tacheExist = tacheRepo.findByIdtache(tache.getIdtache());
@@ -149,7 +97,7 @@ public class TacheServiceImpl implements TacheService {
        mettreAJourProprietesTache(tache,utilisateurconnecte);
        tacheExist.setTacheparente(null);
        //-Démarrer les tâches programmées s'il en existe.
-        demarrerTachesProgrammees(tache);
+        demarrerTachesProgrammees(tache,utilisateurconnecte);
         //Calcul de performance
         tacheExist.setPerformance( calculeDePerformance(tache));
         //Calcul de Durée retard
@@ -159,7 +107,9 @@ public class TacheServiceImpl implements TacheService {
         tacheExist.setStatut("Validée");
         tacheRepo.save(tacheExist);
         //------------------envoiyer un mail
-        notificationsService.sendEmailValidation(tache);
+        if (utilisateurconnecte.getIdutilisateur()!=tache.getRecepteur().getIdutilisateur()) {
+            notificationsService.sendEmailValidation(tache);
+        }
     }
 
     public void UpdateTacheToAnnuler(Tache tache,Utilisateur utilisateurconnecte) {
@@ -173,10 +123,12 @@ public class TacheServiceImpl implements TacheService {
         tacheExist.setDureretarde(0);
         //changer le statut
         tacheExist.setStatut("Annulée");
-        AnnulerTachesProgrammees(tache);
+        AnnulerTachesProgrammees(tache,utilisateurconnecte);
         tacheRepo.save(tacheExist);
         //envoiyer un mail
-        notificationsService.sendEmailAnnulation(tache);
+        if (utilisateurconnecte.getIdutilisateur()!=tache.getRecepteur().getIdutilisateur()) {
+            notificationsService.sendEmailAnnulation(tache);
+        }
     }
 
     public void mettreAJourProprietesTache(Tache tache,Utilisateur utilisateurconnecte){
@@ -202,8 +154,7 @@ public class TacheServiceImpl implements TacheService {
         return DureeretardEnEntier;
     }
 
-
-    public void demarrerTachesProgrammees(Tache tache) {
+    public void demarrerTachesProgrammees(Tache tache,Utilisateur utilisateurconnecte) {
         List<Tache> tacheList = tacheRepo.findAllByTacheparente(tache);
         // Stocker la date actuelle
         LocalDate currentDate = LocalDate.now();
@@ -218,13 +169,14 @@ public class TacheServiceImpl implements TacheService {
                     t.setDateobjectif(Date.valueOf(DateObjectif3));
                     t.setDateouverture(Date.valueOf(dateOuverture2));
                     // Envoyer des e-mails
-                    notificationsService.sendEmailForANewTask(t);
+                    if (utilisateurconnecte.getIdutilisateur()!=t.getRecepteur().getIdutilisateur()) {
+                        notificationsService.sendEmailForANewTask(t);
+                    }
                 }
         }
     }
 
-
-    public void AnnulerTachesProgrammees(Tache tache) {
+    public void AnnulerTachesProgrammees(Tache tache,Utilisateur utilisateurconnecte) {
         List<Tache> tacheList = tacheRepo.findAllByTacheparente(tache);
         //---------------------------Démarrer les tâches programmées s'il en existe.
         if (tacheList != null) {
@@ -240,11 +192,12 @@ public class TacheServiceImpl implements TacheService {
                 t.setPerformance(0);
                 tacheRepo.save(t);
                 // Envoyer des e-mails
-                notificationsService.sendEmailAnnulation(tache);
+                if (utilisateurconnecte.getIdutilisateur()!=tache.getRecepteur().getIdutilisateur()) {
+                    notificationsService.sendEmailAnnulation(tache);
+                }
             }
         }
     }
-
 
     public int calculeDePerformance(Tache tache){
         Date dateOuverture = tache.getDateouverture();
@@ -278,7 +231,6 @@ public class TacheServiceImpl implements TacheService {
         return performanceEnEntier;
     }
 
-
     public Date calculerDateObjectif(Tache tache) {
         // Obtenez la date d'ouverture de la tâche
         Date dateOuverture = tache.getDateouverture();
@@ -290,8 +242,6 @@ public class TacheServiceImpl implements TacheService {
         // Convertissez et retournez la date d'objectif en java.sql.Date et mettez à jour la tâche
         return Date.valueOf(dateObjectif);
     }
-
-
 
     @Override
     public List<Tache> findTachesByIdEmetteur(List<Long> idemetteur,Utilisateur recepteur) {
@@ -308,7 +258,6 @@ public class TacheServiceImpl implements TacheService {
         // Retournez la liste des utilisateurs
         return tacheList;
     }
-
 
     @Override
     public List<Tache> lesTacheSecondairesParTacheParent(Tache tache,Utilisateur utilisateur) {
@@ -364,28 +313,24 @@ public class TacheServiceImpl implements TacheService {
             }
             // Enregistrer la tâche
             tacheRepo.save(tache);
-
             //creer la notification
             Notification notification=notificationService.creerNotificationDeCreationTache(tache.getRecepteur().getIdutilisateur(),tache);
-
             redirectAttributes.addFlashAttribute("msg", "Tâche créée avec succès");
 
             // Envoyer le message à l'aide de webSoket
             messagingTemplate.convertAndSend("/topic/", tache);
             // Envoyer la notif à un utilisateur spécifié(lie avec la foction du webSoket dans notifWebSoket.Js )
             messagingTemplate.convertAndSendToUser(utilisateurRecepeur.getMail(), "/topic/private", new Object[]{tache, notification});
-
             // Envoyer un e-mail pour une tâche non programmée
             if (tache.getTacheparente() == null) {
                 // Envoyer des e-mails
-                notificationsService.sendEmailForANewTask(tache);
+                if (utilisateurConnecte.getIdutilisateur()!=tache.getRecepteur().getIdutilisateur()) {
+                    notificationsService.sendEmailForANewTask(tache);
+                }
             }
-
         } else {
             // Mettre à jour la tâche existante
-
             Tache tacheExist = tacheRepo.findById(tache.getIdtache()).orElse(null);
-
             // Pour une tâche non programmée, définir le statut sur "En attente" et calculer la date d'objectif
             //tacheExist.setStatut("En attente"); // "En attente"
             tacheExist.setRecepteur(tache.getRecepteur());
@@ -405,11 +350,8 @@ public class TacheServiceImpl implements TacheService {
             tacheExist.setType(tache.getType());
             tacheExist.setAunetachesuccessive(tache.isAunetachesuccessive());
             tacheExist.setProprietaire(tache.getProprietaire());
-
-
             // Mettre à jour le reste des champs
             tacheExist.setModifierpar(utilisateurConnecte);
-
             tacheRepo.save(tacheExist);
             redirectAttributes.addFlashAttribute("msg1", "La tâche a été modifiée avec succès.");
         }
@@ -433,7 +375,9 @@ public class TacheServiceImpl implements TacheService {
             existingTache.setStatut("Terminée");
             existingTache.setDateTermineTache(null);
             //envoiyer un mail
-            notificationsService.sendEmailTerminee(existingTache);
+            if (utilisateurconnecte.getIdutilisateur()!=existingTache.getRecepteur().getIdutilisateur()) {
+                notificationsService.sendEmailTerminee(existingTache);
+            }
         }
         // enregistré le modificateur de la statut
         existingTache.setModifierpar(utilisateurconnecte);
@@ -459,9 +403,11 @@ public class TacheServiceImpl implements TacheService {
         //--------------------------------------------Calcul de Durée retard
         tache.setDureretarde(calculerDureeRetard(tache));
         //------------------envoiyer un mail
-        notificationsService.sendEmailValidation(tache);
+        if (utilisateur.getIdutilisateur()!=tache.getRecepteur().getIdutilisateur()) {
+            notificationsService.sendEmailValidation(tache);
+        }
         //---------------------------Démarrer les tâches programmées s'il en existe.
-        demarrerTachesProgrammees(tache);
+        demarrerTachesProgrammees(tache,utilisateur);
         return tache;
     }
 
@@ -476,7 +422,9 @@ public class TacheServiceImpl implements TacheService {
         tache.setDateTermineTache(null);
         tache.setModifierpar(utilisateur);
         //envoiyer un mail
-        notificationsService.sendEmailRefaire(tache);
+        if (utilisateur.getIdutilisateur()!=tache.getRecepteur().getIdutilisateur()) {
+            notificationsService.sendEmailRefaire(tache);
+        }
         return tache;
     }
 
@@ -494,11 +442,13 @@ public class TacheServiceImpl implements TacheService {
         tache.setDureretarde(0);
         tache.setPerformance(0);
         tache.setTacheparente(null);
-        AnnulerTachesProgrammees(tache);
+        AnnulerTachesProgrammees(tache,utilisateur);
         tache.setModifierpar(utilisateur);
         tacheRepo.save(tache);
         //envoiyer un mail
-        notificationsService.sendEmailAnnulation(tache);
+        if (utilisateur.getIdutilisateur()!=tache.getRecepteur().getIdutilisateur()) {
+            notificationsService.sendEmailAnnulation(tache);
+        }
         return tache;
     }
 
@@ -653,6 +603,52 @@ public class TacheServiceImpl implements TacheService {
         return Emetteurs;
     }
 
+    /*
+    public void UpdateTacheToEnAttente(Tache tache,RedirectAttributes redirectAttributes,Utilisateur utilisateurconnecte) {
+        //Tache tacheExist = tacheRepo.findByIdtache(tache.getIdtache());
+         Tache tacheExist = tacheRepo.findTacheByIdtache(tache.getIdtache());
+        Utilisateur ancienRecepteur=tacheExist.getRecepteur();
+        // enregistré le modificateur de la statut
+        mettreAJourProprietesTache(tache,utilisateurconnecte);
+        //Effacer la date de fin si le statut précédent était 'Terminé'
+        tacheExist.setDateTermineTache(null);
+        tacheExist.setTacheparente(null);
+        tacheExist.setDureretarde(0);
+        tacheExist.setPerformance(0);
+        //calculer la date d'objectif
+        tacheExist.setDateobjectif( calculerDateObjectif(tache));
+        tacheExist.setStatut("En attente");
+
+        if (ancienRecepteur!=tache.getRecepteur()) {
+            //------------------envoiyer un mail
+            // Envoyer des e-mails
+            Utilisateur recepteur = tache.getRecepteur();
+            Utilisateur emetteur=utilisateurRepo.findByIdutilisateur(tache.getUtilisateur().getIdutilisateur());
+            String Subject="Vous avez une nouvelle tâche de : "+emetteur.getNom()+" "+emetteur.getPrenom();
+            String msg="nouvelle tache :"+tache.getNomtache();
+            sendTaskEmail(recepteur.getMail(),Subject,msg);
+        }
+        tacheRepo.save(tacheExist);
+    }
+
+ */
+
+   /*
+    public void UpdateTacheToTermine(Tache tache,RedirectAttributes redirectAttributes,Utilisateur utilisateurconnecte) {
+        Tache tacheExist = tacheRepo.findByIdtache(tache.getIdtache());
+
+        //Si l'utilisateur clique sur un statut "En cours" : modifier le statut à "terminé"
+        tacheExist.setStatut("Terminée");
+        // enregistré le modificateur de la statut
+        tacheExist.setModifierpar(utilisateurconnecte);
+        tacheExist.setDateTermineTache(null);
+        tacheExist.setPerformance(0);
+        //calculer la date d'objectif
+        tacheExist.setDateobjectif(calculerDateObjectif(tache));
+        tacheRepo.save(tacheExist);
+       // redirectAttributes.addFlashAttribute("msg1", "La tâche a été modifiée avec succès.");
+    }
+    */
     /*
       //pour obtenir tous les tache de l equipe de l utilisateur connecté et les tache envoye par l utilisateur connecté
     @Override

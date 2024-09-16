@@ -336,7 +336,7 @@ function readNotif() {
         type: 'GET',
         contentType: 'application/json',
         success: function () {
-            console.log('Toutes les notifications non lues ont été marquées comme lues.');
+           // console.log('Toutes les notifications non lues ont été marquées comme lues.');
             // Mettez à jour la page ou effectuez d'autres actions si nécessaire
         },
         error: function (error) {

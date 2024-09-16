@@ -44,7 +44,6 @@ public class NotificationServiceImpl implements NotificationsService{
         notification.setEmetteur(emetteur);
         notification.setDetail(Detail);
 
-
         //cree la notification
        return notificationsRepo.save(notification);
     }

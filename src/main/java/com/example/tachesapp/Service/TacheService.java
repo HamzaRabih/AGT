@@ -28,9 +28,9 @@ public interface TacheService {
 
     public int calculerDureeRetard(Tache tache) ;
 
-    public void demarrerTachesProgrammees(Tache tache);
+    public void demarrerTachesProgrammees(Tache tache,Utilisateur utilisateur);
 
-    public void AnnulerTachesProgrammees(Tache tache);
+    public void AnnulerTachesProgrammees(Tache tache,Utilisateur utilisateur);
 
     public int calculeDePerformance(Tache tache) ;
 
