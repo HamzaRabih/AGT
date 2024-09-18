@@ -63,7 +63,7 @@ public class DepartemenControleur {
         List<Departement> departements=deparetementService.findAllDepart();
         model.addAttribute("departements",departements);
         model.addAttribute("societeList",societeList);
-        notificationsService.loadNotification(utilisateur,model);
+        notificationsService.loadNotificationAndRelationType(utilisateur,model);
         model.addAttribute("utilisateurC",utilisateur);
         tacheAdminService.loadReceivers(utilisateur,model);
         prioriteService.loadPriorites(model);

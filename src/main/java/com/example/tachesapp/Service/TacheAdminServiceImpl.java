@@ -33,6 +33,8 @@ public class TacheAdminServiceImpl implements TacheAdminService{
     PrioriteRepo prioriteRepo;
     @Autowired
     PrioriteService prioriteService;
+    @Autowired
+    NotificationsService notificationsService;
 
 
 
@@ -43,34 +45,19 @@ public class TacheAdminServiceImpl implements TacheAdminService{
         String login = authentication.getName();
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
         model.addAttribute("utilisateurC",utilisateur);
-
         //Lister les tâches
         List<Tache> tacheList=tacheRepo.findAllByIsmemoire(false);
         model.addAttribute("tacheList",tacheList);
-
         //lister tous les Societes
         List<Societe> societeList=societeRepo.findAll();
         model.addAttribute("societeList",societeList);
-
         //lister tous les Societes
         List<Utilisateur> utilisateurs=utilisateurRepo.findAll();
         model.addAttribute("utilisateurs",utilisateurs);
 
-        // Récupérer les notifications de l'utilisateur connecté
-        List<Notification> notificationList = notificationsRepo.findByRecepteurOrderByDatenotifDesc(utilisateur);
-        model.addAttribute("notificationList", notificationList);
-
-        // Calculer les notifications non lues de l'utilisateur connecté,pour l'affiché;
-        List<Notification> nonLuesNotificationList = notificationsRepo.findByRecepteurAndEstLu(utilisateur, false);
-
-        // Calculer le nombre de notifications non lues
-        int nbrNotifNonLu = nonLuesNotificationList.size();
-        model.addAttribute("nbrNotifNonLu", nbrNotifNonLu);
-
         loadReceivers(utilisateur,model);
-
+        notificationsService.loadNotificationAndRelationType(utilisateur,model);
         prioriteService.loadPriorites(model);
-
         utilisateurService.loadSocietieMembers(utilisateur,model);
 
     }
@@ -85,7 +72,7 @@ public class TacheAdminServiceImpl implements TacheAdminService{
         // Trier la liste par ordre alphabétique sans tenir compte de la casse
         recepteurs.sort(Comparator.comparing(Utilisateur::getNom, String.CASE_INSENSITIVE_ORDER));
         // Ajouter l'utilisateur actuel en tête de la liste
-        recepteurs.add(0, utilisateur);
+        //recepteurs.add(0, utilisateur);
         model.addAttribute("Recepteurs", recepteurs);
     }
 

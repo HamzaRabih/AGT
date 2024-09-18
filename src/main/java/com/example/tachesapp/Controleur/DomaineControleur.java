@@ -58,7 +58,7 @@ public class DomaineControleur {
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
         List<Domaine> domaineList=domaineService.findAllDomaine();
         model.addAttribute("domaineList",domaineList);
-        notificationsService.loadNotification(utilisateur,model);
+        notificationsService.loadNotificationAndRelationType(utilisateur,model);
         model.addAttribute("utilisateurC",utilisateur);
         tacheAdminService.loadReceivers(utilisateur,model);
         prioriteService.loadPriorites(model);

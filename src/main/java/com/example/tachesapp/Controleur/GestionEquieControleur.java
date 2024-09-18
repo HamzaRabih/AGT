@@ -62,7 +62,7 @@ public class GestionEquieControleur {
         model.addAttribute("utilisateurs", utilisateurs);
         model.addAttribute("societeList", societeList);
         model.addAttribute("departementList", departementList);
-        notificationsService.loadNotification(utilisateur,model);
+        notificationsService.loadNotificationAndRelationType(utilisateur,model);
         tacheAdminService.loadReceivers(utilisateur,model);
         prioriteService.loadPriorites(model);
         utilisateurService.loadSocietieMembers(utilisateur,model);

@@ -60,28 +60,9 @@ public class TacheControleur {
         model.addAttribute("utilisateurC",utilisateur);
         utilisateurService.loadSocietieMembers(utilisateur,model);
         tacheAdminService.loadReceivers(utilisateur,model);
-        notificationService.loadNotification(utilisateur,model);
+        notificationService.loadNotificationAndRelationType(utilisateur,model);
         prioriteService.loadPriorites(model);
-        /*
-        //Cette fonction a pour but d'obtenir l'équipe et les sous-équipes(si l'un des membres est responsable d'une équipe) de l'utilisateur,
-        // afin que l'utilisateur puisse envoyer les tâches uniquement à ses équipes.
-        List<Utilisateur> Recepteurs=tacheService.findRecepteurs(utilisateur);
-        //les mebres d equipe de lutilisateur connecté
-        Equipe equipe=equipeRepo.findEquipeByResponsable(utilisateur);
-        if (equipe != null) {
-            List<Utilisateur> membres = equipe.getMembres();
-            model.addAttribute("membres", membres);
-        } else {
-            List<Utilisateur> membres=null;
-            model.addAttribute("membres",membres);
-        }
-        //les taches de mon equipe
-        //List<Tache> equipeTaches=tacheRepo.findAllByUtilisateurInAndIsmemoire(Recepteurs,false);
-        List<Tache> equipeTaches=tacheRepo.findAllByRecepteurInAndIsmemoire(Recepteurs,false);
-        model.addAttribute("equipeTaches",equipeTaches);
-         */
-
-
+        //tacheService.loadRelationType(model);
         return "creeTache";
     }
 
@@ -97,9 +78,10 @@ public class TacheControleur {
         model.addAttribute("tacheList",tacheList);
         //-----Cette partie a pour but d'obtenir les respo de l'utilisateur,
        tacheAdminService.loadReceivers(utilisateur,model);
-       notificationService.loadNotification(utilisateur,model);
-        prioriteService.loadPriorites(model);
-        utilisateurService.loadSocietieMembers(utilisateur,model);
+       notificationService.loadNotificationAndRelationType(utilisateur,model);
+       prioriteService.loadPriorites(model);
+       utilisateurService.loadSocietieMembers(utilisateur,model);
+       //tacheService.loadRelationType(model);
         return "/pages/mesTache";
     }
 

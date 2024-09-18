@@ -67,7 +67,9 @@ public interface TacheService {
 
     public void addSuccessMessage(RedirectAttributes redirectAttributes) ;
 
-    // public void UpdateTacheToRefair(Tache tache,RedirectAttributes redirectAttributes,Utilisateur utilisateurconnecte);
+    public void loadRelationType(Model model);
+
+        // public void UpdateTacheToRefair(Tache tache,RedirectAttributes redirectAttributes,Utilisateur utilisateurconnecte);
     //public void UpdateTacheToEnCours(Tache tache,RedirectAttributes redirectAttributes,Utilisateur utilisateurconnecte) ;
     //List<Tache> findAllEquipeTaches(List<Utilisateur> recepteurs, Utilisateur utilisateur);
     //public void UpdateTacheToEnAttente(Tache tache,RedirectAttributes redirectAttributes,Utilisateur utilisateurconnecte) ;

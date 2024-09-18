@@ -12,12 +12,11 @@ public interface NotificationsService {
     Notification creerNotificationDeCreationTache(Long idrecepteur, Tache tache);
 
     // pour envoyer un mail
-    @Async
-    public void sendTaskEmail(String recipientEmail,String setSubject,String msg) ;
+
     public void sendEmailValidation(Tache tache) ;
     public void sendEmailAnnulation(Tache tache);
     public void sendEmailForANewTask(Tache tache);
     public void sendEmailRefaire(Tache tache) ;
     public void sendEmailTerminee(Tache existingTache) ;
-    public void loadNotification(Utilisateur utilisateur, Model model);
+    public void loadNotificationAndRelationType(Utilisateur utilisateur, Model model);
     }

@@ -1,5 +1,6 @@
 package com.example.tachesapp.Model;
 
+import com.example.tachesapp.Utilité.RelationType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class Tache {
     private float performance;
     private boolean aunetachesuccessive;
     private boolean ismemoire;
+    private RelationType relationType;
 
     @ManyToOne
     @JoinColumn(name = "idrecepteur")

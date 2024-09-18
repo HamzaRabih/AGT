@@ -5,6 +5,7 @@ import com.example.tachesapp.Dao.UtilisateurRepo;
 import com.example.tachesapp.Model.Notification;
 import com.example.tachesapp.Model.Tache;
 import com.example.tachesapp.Model.Utilisateur;
+import com.example.tachesapp.Utilité.RelationType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,7 +24,7 @@ public class NotificationServiceImpl implements NotificationsService{
     @Autowired
     UtilisateurRepo utilisateurRepo;
     @Autowired
-    private JavaMailSender javaMailSender;
+    MailService mailService;
 
     @Override
     public Notification creerNotificationDeCreationTache(Long idrecepteur, Tache tache) {
@@ -48,23 +50,14 @@ public class NotificationServiceImpl implements NotificationsService{
        return notificationsRepo.save(notification);
     }
 
-    // pour envoyer un mail
-    @Async//@Async will make it execute in a separate thread
-    public void sendTaskEmail(String recipientEmail,String setSubject,String msg) {
-        // pour envoiyer un mail
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(recipientEmail);
-        message.setSubject(setSubject);
-        message.setText(msg+"\n");
-        javaMailSender.send(message);
-    }
+
 
     public void sendEmailValidation(Tache tache) {
         Utilisateur recepteur = tache.getRecepteur();
         String subject = "Tâche Validée: " + tache.getNomtache();
         String msg = "Votre tâche '" + tache.getNomtache() + "' a été validée par "
                 + tache.getUtilisateur().getNom() + " " + tache.getUtilisateur().getPrenom() + ".";
-        sendTaskEmail(recepteur.getMail(), subject, msg);
+        mailService.sendTaskEmail(recepteur.getMail(), subject, msg);
     }
 
     public void sendEmailAnnulation(Tache tache) {
@@ -72,7 +65,7 @@ public class NotificationServiceImpl implements NotificationsService{
         Utilisateur emetteur=utilisateurRepo.findByIdutilisateur(tache.getUtilisateur().getIdutilisateur());
         String Subject="Tâche annulée";
         String msg = "La tâche '" + tache.getNomtache() + "' soumise par " + emetteur.getNom() + " " + emetteur.getPrenom() + " a été annulée.";
-        sendTaskEmail(recepteur1.getMail(),Subject,msg);
+        mailService.sendTaskEmail(recepteur1.getMail(),Subject,msg);
     }
 
     public void sendEmailForANewTask(Tache tache) {
@@ -82,7 +75,7 @@ public class NotificationServiceImpl implements NotificationsService{
         String msg="";
         Subject = "Vous avez une nouvelle tâche de : " + emetteur.getNom() + " " + emetteur.getPrenom();
         msg = "nouvelle tâche :" + tache.getNomtache();
-        sendTaskEmail(recepteur.getMail(),Subject,msg);
+        mailService.sendTaskEmail(recepteur.getMail(),Subject,msg);
     }
 
     public void sendEmailRefaire(Tache tache) {
@@ -90,7 +83,7 @@ public class NotificationServiceImpl implements NotificationsService{
         Utilisateur emetteur=utilisateurRepo.findByIdutilisateur(tache.getUtilisateur().getIdutilisateur());
         String Subject="Tâche à refaire";
         String msg = "La tâche '" + tache.getNomtache() + "' soumise par " + emetteur.getNom() + " " + emetteur.getPrenom() + " nécessite des ajustements. Veuillez la revoir et effectuer les modifications nécessaires. Merci.";
-        sendTaskEmail(recepteur1.getMail(),Subject,msg);
+        mailService.sendTaskEmail(recepteur1.getMail(),Subject,msg);
     }
 
     public void sendEmailTerminee(Tache existingTache) {
@@ -98,10 +91,10 @@ public class NotificationServiceImpl implements NotificationsService{
         Utilisateur emetteur=utilisateurRepo.findByIdutilisateur(existingTache.getUtilisateur().getIdutilisateur());
         String Subject="Tâche terminée";
         String msg = "La tâche '" + existingTache.getNomtache() + "' de " + recepteur1.getNom() + " " + recepteur1.getPrenom() + " est terminée.";
-        sendTaskEmail(emetteur.getMail(),Subject,msg);
+        mailService.sendTaskEmail(emetteur.getMail(),Subject,msg);
     }
 
-    public void loadNotification(Utilisateur utilisateur,Model model){
+    public void loadNotificationAndRelationType(Utilisateur utilisateur,Model model){
         // Récupérer les notifications de l'utilisateur connecté
         List<Notification> notificationList = notificationsRepo.findByRecepteurOrderByDatenotifDesc(utilisateur);
         model.addAttribute("notificationList", notificationList);
@@ -111,6 +104,12 @@ public class NotificationServiceImpl implements NotificationsService{
         // Calculer le nombre de notifications non lues
         int nbrNotifNonLu = nonLuesNotificationList.size();
         model.addAttribute("nbrNotifNonLu", nbrNotifNonLu);
+
+        List<RelationType> relationTypes=new ArrayList<>();
+        relationTypes.add(RelationType.SUBORDONNE);
+        relationTypes.add(RelationType.COLLEGUE);
+        relationTypes.add(RelationType.SUPERIEUR);
+        model.addAttribute("relationTypes", relationTypes);   // Ajouter l'attribut "relationType" au modèle
 
     }
 }

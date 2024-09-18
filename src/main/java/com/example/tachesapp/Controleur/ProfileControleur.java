@@ -56,7 +56,7 @@ public class ProfileControleur {
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
         model.addAttribute("utilisateur",utilisateur);
 
-        notificationsService.loadNotification(utilisateur,model);
+        notificationsService.loadNotificationAndRelationType(utilisateur,model);
 
 
         //Cette fonction a pour but d'obtenir l'équipe et les sous-équipes(si l'un des membres est responsable d'une équipe) de l'utilisateur,

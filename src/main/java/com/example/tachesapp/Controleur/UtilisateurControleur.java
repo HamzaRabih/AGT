@@ -86,7 +86,7 @@ public class UtilisateurControleur {
         model.addAttribute("utilisateurList",utilisateurList);
 
 
-        notificationsService.loadNotification(utilisateur,model);
+        notificationsService.loadNotificationAndRelationType(utilisateur,model);
         tacheAdminService.loadReceivers(utilisateur,model);
         prioriteService.loadPriorites(model);
         utilisateurService.loadSocietieMembers(utilisateur,model);

@@ -172,14 +172,14 @@
           <li class="nav-item">
             <a class=" btn  Mycolor" th:href="@{/}" style="display: flex; align-items: center;">
               <i class="menu-icon tf-icons bx bx-task me-1" style="margin-right: 5px;"></i>
-              <div data-i18n="Analytics">Mes Tâches</div>
+              <div data-i18n="Analytics">Tâches à faire</div>
             </a>
           </li>
           <!--Suivie Des Tâches-->
           <li class="nav-item">
             <a class="btn  btn-light" th:href="@{/CreerTache}" style="display: flex; align-items: center;">
               <i class="menu-icon tf-icons bx bx-copy-alt me-1" style="margin-right: 5px;"></i>
-              <div data-i18n="Analytics">Suivie Des Tâches</div>
+              <div data-i18n="Analytics">Tâches demandées</div>
             </a>
           </li>
           <!--Button Créer Une Tâche-->
@@ -633,9 +633,21 @@
                           <div class="d-flex justify-content-evenly align-content-center">
                             <label for="idrecepteur" class="form-label align-content-center  "
                                    STYLE="margin-right: 15px;">Destinataire</label>
-                            <select id="idrecepteur" name="recepteur" class="select2 form-select w-px-250" required>
+                            <select id="idrecepteur" name="recepteur" class="select2 form-select w-px-160" required>
                               <option th:each="p:${Recepteurs}" th:value="${p.idutilisateur}"
                                       th:text="${p.prenom + ' ' + p.nom}"></option>
+                            </select>
+                          </div>
+
+                          <div class="d-flex justify-content-evenly align-content-center">
+                            <label for="idrecepteur" class="form-label align-content-center  "
+                                   STYLE="margin-right: 15px;">Statut</label>
+                            <select id="relationTypes" name="relationTypes" class="select2 form-select w-px-160" required>
+                              <option th:each="p : ${relationTypes}" th:value="${p}">
+                              <span th:text="${#strings.arrayContains(p.name(), 'SUBORDONNE') ? 'Subordonné' :
+                                       #strings.arrayContains(p.name(), 'COLLEGUE') ? 'Collègue' :
+                                       'Supérieur'}"></span>
+                              </option>
                             </select>
                           </div>
 
@@ -644,7 +656,7 @@
                           <div class="d-flex justify-content-evenly">
                             <label for="nomtache" class="form-label align-content-center"
                                    STYLE="margin-right: 15px;">Tâche à réaliser</label>
-                            <input type="text" class="form-control w-px-250" name="nomtache" id="nomtache" required>
+                            <input type="text" class="form-control w-px-170" autofocus name="nomtache" id="nomtache" required>
                           </div>
 
                           <!-- Troisième div pour la durée estimée -->
@@ -653,7 +665,7 @@
                                    STYLE="margin-right: 15px;">EN</label>
                             <div class="d-flex">
                               <input type="number" placeholder="Durée Estimée " id="dureeEstimee" required min="1"
-                                     name="dureestime" class="form-control"/>
+                                     name="dureestime" class="form-control w-50"/>
                               <label class="form-label align-content-center" for="dureeEstimee"
                                      STYLE="margin-left: 10px;">Jour(s)</label>
                             </div>
@@ -2363,16 +2375,13 @@
     var dateObjectif = new Date(tache.dateobjectif);
     var currentDateObj = new Date(currentDate); // Convertir la date actuelle en objet Date
     // Vérifier si les dates d'ouverture et d'objectif sont identiques
-    if (dateOuverture.getTime() === dateObjectif.getTime()) {
-      return 100;
-    }
+    if (dateOuverture.getTime() === dateObjectif.getTime()) {return 100;}
     // Si la date actuelle est supérieure ou égale à la date d'objectif
-    if (currentDateObj >= dateObjectif) {
-      return 100;
-    }
+    if (currentDateObj >= dateObjectif) {return 100;}
+    var jr=(24 * 60 * 60 * 1000);
     // Calculer le pourcentage de progression
-    var ecoule = currentDateObj.getTime() - dateOuverture.getTime();
-    var total = dateObjectif.getTime() - dateOuverture.getTime();
+    var ecoule = (currentDateObj.getTime() - dateOuverture.getTime())+jr;
+    var total = (dateObjectif.getTime() - dateOuverture.getTime())+jr;
     // Calculer le pourcentage et s'assurer qu'il ne dépasse pas 100%
     var pourcentage = (ecoule / total) * 100;
     return Math.min(Math.round(pourcentage), 100); // Arrondir et s'assurer que le pourcentage ne dépasse pas 100
@@ -2531,12 +2540,8 @@
     newRow.appendChild(cellPerformance);
 
     var cellTacheSucc = document.createElement("td");
-    if (tache.aunetachesuccessive) {
-      cellTacheSucc.innerText = '✔';
-    } else {
-      cellTacheSucc.innerText = '✘';
-    }
-    //cellTacheSucc.innerText = tache.aunetachesuccessive;
+    if (tache.aunetachesuccessive) {cellTacheSucc.innerText = '✔';}
+    else {cellTacheSucc.innerText = '✘';}
     newRow.appendChild(cellTacheSucc);
 
     var cellAction = creationTdAction(tache);
@@ -2565,9 +2570,9 @@
         //creer la Menu
         creerMenu(button,cellAction,divDropdown,tache);
       }
-
     return cellAction;
   }
+
   function creerMenu(button,cellAction,divDropdown,tache) {
     //creer la Menu
     var icon = document.createElement("i");
@@ -2580,20 +2585,7 @@
     MenuDiv.classList.add("dropdown-menu");
 
     // Créer le lienValider
-    if((tache.statut ==="Terminée" && tache.recepteur.idutilisateur!==utilisateurConnecte[0].idutilisateur
-             && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur && isMember(tache.recepteur))
-            ||
-            (tache.statut ==="Terminée"  && tache.recepteur.idutilisateur!==utilisateurConnecte[0].idutilisateur
-            && tache.utilisateur.idutilisateur!==utilisateurConnecte[0].idutilisateur &&  isMember(tache.recepteur)
-            && isMember(tache.utilisateur))
-            ||
-            ( utilisateurConnecte[0].role.role !== "Utilisateur"  && tache.statut ==="Terminée"
-            && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur)
-            ||
-            (utilisateurConnecte[0].role.role !== "Utilisateur" && tache.statut ==="Terminée" && isMember(tache.recepteur)
-            && tache.utilisateur.idutilisateur===tache.recepteur.idutilisateur
-            /*membres.includes(tache.recepteur)*/))
-    {
+    if(tache.statut ==="Terminée" && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur){
       var lienValider = document.createElement("a");
       lienValider.setAttribute("class", "dropdown-item");
       var iconeValider = document.createElement("i");
@@ -2606,19 +2598,7 @@
     }
 
     // Créer le lien lienRefaire
-    if((tache.statut ==="Terminée"  && tache.recepteur.idutilisateur!==utilisateurConnecte[0].idutilisateur
-        && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur &&  isMember(tache.recepteur))
-       ||
-        (tache.statut ==="Terminée"  && tache.recepteur.idutilisateur!==utilisateurConnecte[0].idutilisateur
-        && tache.utilisateur.idutilisateur!==utilisateurConnecte[0].idutilisateur &&  isMember(tache.recepteur)
-        && isMember(tache.utilisateur))
-       ||
-       ( utilisateurConnecte[0].role.role !== "Utilisateur"  && tache.statut ==="Terminée"
-       && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur )
-       ||
-       (utilisateurConnecte[0].role.role !== "Utilisateur" && tache.statut ==="Terminée" &&
-       tache.utilisateur.idutilisateur===tache.recepteur.idutilisateur && membres.includes(tache.recepteur) ))
-    {
+    if(tache.statut ==="Terminée" && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur) {
       var lienRefaire = document.createElement("a");
       lienRefaire.setAttribute("class", "dropdown-item");
       var iconeRefaire = document.createElement("i");
@@ -2633,13 +2613,8 @@
 
 
     // Créer le lien lienAnnuler
-    if (
-            (tache.statut !=="Validée"  && tache.statut !=="Terminée" &&  tache.statut !=="Annulée"
-                    && tache.recepteur.idutilisateur===tache.utilisateur.idutilisateur && isMember(tache.recepteur))
-            || (tache.statut !=="Validée"  && tache.statut !=="Terminée" &&  tache.statut !=="Annulée"
-                    && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur    )
-            || (tache.statut !=="Validée"  && tache.statut !=="Terminée" &&  tache.statut !=="Annulée"
-                    &&  utilisateurConnecte[0].role.role !== "Utilisateur" )
+    if ((tache.statut !=="Validée"  && tache.statut !=="Terminée" &&  tache.statut !=="Annulée"
+         && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur)
     ) {
       var lienAnnuler = document.createElement("a");
       lienAnnuler.setAttribute("class", "dropdown-item");
@@ -2668,13 +2643,10 @@
     }
 
     // Créer le lien lienIndexer
-    if (
-            (tache.statut !=="Validée"   &&  tache.statut !=="Annulée" )
-    ) {
+    if (tache.statut !=="Validée"   &&  tache.statut !=="Annulée" ) {
       var lienAnnuler = document.createElement("a");
       lienAnnuler.setAttribute("class", "dropdown-item");
-
-// Créer l'élément SVG
+      // Créer l'élément SVG
       var iconeAnnuler = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       iconeAnnuler.setAttribute("xmlns", "http://www.w3.org/2000/svg");
       iconeAnnuler.setAttribute("width", "16");
@@ -2682,41 +2654,26 @@
       iconeAnnuler.setAttribute("fill", "currentColor");
       iconeAnnuler.setAttribute("class", "bi bi-bezier2");
       iconeAnnuler.setAttribute("viewBox", "0 0 16 16");
-
-// Créer et ajouter le chemin à l'élément SVG
+      // Créer et ajouter le chemin à l'élément SVG
       var cheminSVG = document.createElementNS("http://www.w3.org/2000/svg", "path");
       cheminSVG.setAttribute("fill-rule", "evenodd");
       cheminSVG.setAttribute("d", "M1 2.5A1.5 1.5 0 0 1 2.5 1h1A1.5 1.5 0 0 1 5 2.5h4.134a1 1 0 1 1 0 1h-2.01q.269.27.484.605C8.246 5.097 8.5 6.459 8.5 8c0 1.993.257 3.092.713 3.7.356.476.895.721 1.787.784A1.5 1.5 0 0 1 12.5 11h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5H6.866a1 1 0 1 1 0-1h1.711a3 3 0 0 1-.165-.2C7.743 11.407 7.5 10.007 7.5 8c0-1.46-.246-2.597-.733-3.355-.39-.605-.952-1-1.767-1.112A1.5 1.5 0 0 1 3.5 5h-1A1.5 1.5 0 0 1 1 3.5zM2.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm10 10a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z");
-
       iconeAnnuler.appendChild(cheminSVG);
-
-// Ajouter l'élément SVG à l'élément <a>
+      // Ajouter l'élément SVG à l'élément <a>
       lienAnnuler.appendChild(iconeAnnuler);
-
-// Créer et ajouter le texte " Indexer" à l'élément <a>
+      // Créer et ajouter le texte " Indexer" à l'élément <a>
       var texteEditer = document.createTextNode(" Indexer");
       lienAnnuler.appendChild(texteEditer);
-
-// Définir les attributs supplémentaires
+      // Définir les attributs supplémentaires
       lienAnnuler.setAttribute("data-id", tache.idtache);
       lienAnnuler.addEventListener('click', () => indexeTache(tache.idtache));
-
-// Ajouter le lien à votre élément MenuDiv
+      // Ajouter le lien à votre élément MenuDiv
       MenuDiv.appendChild(lienAnnuler);
-
     }
 
     divDropdown.appendChild(MenuDiv);
     cellAction.appendChild(divDropdown);
   }
-
-
-
-
-
-
-
-
 
   //fonction pour valider une tache
   function valideTache(tacheId) {
@@ -2727,7 +2684,6 @@
       url: `ValiderStatut/${tacheId}`,
       method: 'GET',
       success: function (tache) {
-
         reinitialiserFiltre();
         //vider la liste
         AllMembersTask=[];
@@ -2736,8 +2692,6 @@
         getAllMembersTask();
         // Afficher le message de validation
         messageNotif();
-        // Mettre à jour l'élément HTML correspondant au statut
-        //updateStatutElement(tacheId, tache.statut);
       }
     });
   }
@@ -2771,8 +2725,7 @@
     $.ajax({
     url: `AnnulerTache/${tacheId}`,
     method: 'GET',
-    success: function (tache) {
-
+    success: function (tache){
       reinitialiserFiltre();
       //vider la liste
       AllMembersTask=[];
@@ -2781,11 +2734,8 @@
       getAllMembersTask();
       // Afficher le message de validation
       messageNotif();
-      // Mettre à jour l'élément HTML correspondant au statut
-      //updateStatutElement(tacheId, tache.statut);
     }
-  });
-  }
+  });}
 
   function indexeTache(tacheId) {
     $.ajax({
@@ -2802,11 +2752,10 @@
         tacheParentes();
         // Afficher le message de validation
         messageNotif();
-        // Mettre à jour l'élément HTML correspondant au statut
-        //updateStatutElement(tacheId, tache.statut);
       }
     });
   }
+
   //Pour afficher les taches parentes dans
   // la selelecte dans le formulaire qui permet de creer une tache et actualiser la liste lorsqu'une indexation
   tacheParentes();
@@ -2815,7 +2764,6 @@
       url: `tachesParentes/`,
       method: 'GET',
       success: function (taches) {
-
         var tachesParentSelect = $("#tacheparente");
         tachesParentSelect.empty(); // Efface toutes les options actuelles
         tachesParentSelect.append (new Option("Selectionner la tâche parente",-1));
@@ -2829,44 +2777,34 @@
 
   //Pour editer une tache dans la meme forme
   function editerTache(idtache1) {
-
-
     afficherFormulaireCreeTache();
-
     const idtache = idtache1;
     const form = document.getElementById("formAccountSettings");
     var   btnSubmit= document.getElementById('submit');
-
     // Set the idDepartement input field value and update the button text
     form.querySelector("input[name='idtache']").value = idtache;
     btnSubmit.textContent = "Mettre à jour";
-
     // Fetch Domaine details using AJAX
     $.ajax({
       type: "GET", // You may need to adjust this to your backend API
       url: `get-Tache/${idtache}`, // Replace with your API endpoint
       success: function(data) {//returns data in JSON format
-
         // Pre-fill the form fields
         form.querySelector("input[name='Utilisateur']").value = data.utilisateur.idutilisateur;
         form.querySelector("input[name='nomtache']").value = data.nomtache;
         form.querySelector("input[name='dureestime']").value = data.dureestime;
         form.querySelector("input[name='dateouverture']").value = data.dateouverture;
-
         //si la departement a une societé
         if(data.commentaire!=null)
         {form.querySelector("input[name='commentaire']").value = data.commentaire;}
-
         if (data.type != null)
         {form.querySelector("select[name='type']").value = data.type;}
-
         if (data.proprietaire != null) {
           // Pre-select the Proprietaire in the dropdown
           const select1 = form.querySelector("select[name='proprietaire']");
           const Proprietaire = data.proprietaire;
           const ProprietaireOption = select1.querySelector(`option[value="${Proprietaire.idutilisateur}"]`);
           ProprietaireOption.setAttribute("selected", "selected");
-
         }
 
         if (data.priorite != null) {

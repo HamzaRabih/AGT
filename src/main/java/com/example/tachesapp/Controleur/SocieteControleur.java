@@ -57,7 +57,7 @@ public class SocieteControleur {
         model.addAttribute("utilisateurC",utilisateur);
         List<Societe> societeList=societeService.findAllSociete();
         model.addAttribute("societeList",societeList);
-        notificationsService.loadNotification(utilisateur,model);
+        notificationsService.loadNotificationAndRelationType(utilisateur,model);
         tacheAdminService.loadReceivers(utilisateur,model);
         prioriteService.loadPriorites(model);
         utilisateurService.loadSocietieMembers(utilisateur,model);

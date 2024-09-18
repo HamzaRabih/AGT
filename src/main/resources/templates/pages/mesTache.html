@@ -181,14 +181,14 @@
           <li class="nav-item">
             <a class=" btn btn-light  " th:href="@{/}" style="display: flex; align-items: center;">
               <i class="menu-icon tf-icons bx bx-task me-1" style="margin-right: 5px;"></i>
-              <div data-i18n="Analytics">Mes Tâches</div>
+              <div data-i18n="Analytics">Tâches à faire</div>
             </a>
           </li>
           <!--Suivie Des Tâches-->
           <li class="nav-item">
             <a class="btn  Mycolor" th:href="@{/CreerTache}" style="display: flex; align-items: center;">
               <i class="menu-icon tf-icons bx bx-copy-alt me-1" style="margin-right: 5px;"></i>
-              <div data-i18n="Analytics">Suivie Des Tâches</div>
+              <div data-i18n="Analytics">Tâches demandées</div>
             </a>
           </li>
           <!--Button Créer Une Tâche-->
@@ -395,9 +395,21 @@
                               <div class="d-flex justify-content-evenly align-content-center">
                                 <label for="idrecepteur" class="form-label align-content-center  "
                                        STYLE="margin-right: 15px;">Destinataire</label>
-                                <select id="idrecepteur" name="recepteur" class="select2 form-select w-px-250" required>
+                                <select id="idrecepteur" name="recepteur" class="select2 form-select w-px-160" required>
                                   <option th:each="p:${Recepteurs}" th:value="${p.idutilisateur}"
                                           th:text="${p.prenom + ' ' + p.nom}"></option>
+                                </select>
+                              </div>
+
+                              <div class="d-flex justify-content-evenly align-content-center">
+                                <label for="idrecepteur" class="form-label align-content-center  "
+                                       STYLE="margin-right: 15px;">Statut</label>
+                                <select id="relationTypes" name="relationTypes" class="select2 form-select w-px-160" required>
+                                  <option th:each="p : ${relationTypes}" th:value="${p}">
+                              <span th:text="${#strings.arrayContains(p.name(), 'SUBORDONNE') ? 'Subordonné' :
+                                       #strings.arrayContains(p.name(), 'COLLEGUE') ? 'Collègue' :
+                                       'Supérieur'}"></span>
+                                  </option>
                                 </select>
                               </div>
 
@@ -406,7 +418,7 @@
                               <div class="d-flex justify-content-evenly">
                                 <label for="nomtache" class="form-label align-content-center"
                                        STYLE="margin-right: 15px;">Tâche à réaliser</label>
-                                <input type="text" class="form-control w-px-250" name="nomtache" id="nomtache" required>
+                                <input type="text" class="form-control w-px-170" autofocus name="nomtache" id="nomtache" required>
                               </div>
 
                               <!-- Troisième div pour la durée estimée -->
@@ -415,7 +427,7 @@
                                        STYLE="margin-right: 15px;">EN</label>
                                 <div class="d-flex">
                                   <input type="number" placeholder="Durée Estimée " id="dureeEstimee" required min="1"
-                                         name="dureestime" class="form-control"/>
+                                         name="dureestime" class="form-control w-50"/>
                                   <label class="form-label align-content-center" for="dureeEstimee"
                                          STYLE="margin-left: 10px;">Jour(s)</label>
                                 </div>
@@ -2108,21 +2120,18 @@
     var dateObjectif = new Date(tache.dateobjectif);
     var currentDateObj = new Date(currentDate); // Convertir la date actuelle en objet Date
     // Vérifier si les dates d'ouverture et d'objectif sont identiques
-    if (dateOuverture.getTime() === dateObjectif.getTime()) {
-      return 100;
-    }
+    if (dateOuverture.getTime() === dateObjectif.getTime()) {return 100;}
     // Si la date actuelle est supérieure ou égale à la date d'objectif
-    if (currentDateObj >= dateObjectif) {
-      return 100;
-    }
+    if (currentDateObj >= dateObjectif) {return 100;}
+    var jr=(24 * 60 * 60 * 1000);
     // Calculer le pourcentage de progression
-    var ecoule = currentDateObj.getTime() - dateOuverture.getTime();
-    var total = dateObjectif.getTime() - dateOuverture.getTime();
+    var ecoule = (currentDateObj.getTime() - dateOuverture.getTime())+jr;
+    var total = (dateObjectif.getTime() - dateOuverture.getTime())+jr;
     // Calculer le pourcentage et s'assurer qu'il ne dépasse pas 100%
     var pourcentage = (ecoule / total) * 100;
     return Math.min(Math.round(pourcentage), 100); // Arrondir et s'assurer que le pourcentage ne dépasse pas 100
+    //return Math.min(pourcentage, 100); // Arrondir et s'assurer que le pourcentage ne dépasse pas 100
   }
-
 
   //fonction pours creer les linges de tableau
   function createTableRow(tache) {
@@ -2135,7 +2144,6 @@
     cellNomTache.innerHTML = '     <p style="white-space: pre-wrap;margin: 0;max-width: 350px;min-height: 35px;height: auto">' + tache.nomtache + '</p>';
     newRow.appendChild(cellNomTache);
 
-
     var cellIdTache = document.createElement("td");
     cellIdTache.innerText = tache.idtache;
     newRow.appendChild(cellIdTache);
@@ -2147,16 +2155,6 @@
     var cellPriorite = document.createElement("td");
     cellPriorite.innerText = tache.priorite != null ? tache.priorite.nompriorite : 'Priorite nul';
     newRow.appendChild(cellPriorite);
-
-    /*    var cellDateOuverture = document.createElement("td");
-       var dateOuverture = new Date(tache.dateouverture);
-       // Formatage de la date au format "mm/dd/yy"
-       var formattedDate =  ('0' + dateOuverture.getDate()).slice(-2) + '/' +('0' + (dateOuverture.getMonth() + 1)).slice(-2) + '/' + dateOuverture.getFullYear().toString().slice(-2);
-       cellDateOuverture.innerText = formattedDate;
-       //cellDateOuverture.innerText = tache.dateouverture;
-       newRow.appendChild(cellDateOuverture);
-
-   */
 
     var cellDateOuverture = document.createElement("td");
     if (tache.dateouverture == null) {
@@ -2254,11 +2252,9 @@
       newRow.appendChild(cellDureeRetarde);
     }
 
-
     var cellPerformance = document.createElement("td");
     cellPerformance.innerText = tache.performance + '%';
     newRow.appendChild(cellPerformance);
-
 
     // Ajouter la nouvelle ligne au corps du tableau
     var tableBody = document.querySelector("#example tbody");
@@ -2284,52 +2280,6 @@
       }
     });
   }
-
-  /*  function annuler() {
-    // Récupérer l'élément du formulaire par son ID
-    var formulaire = document.getElementById('formAccountSettings');
-    var   btnSubmit= document.getElementById('submit');
-
-    // Vérifier si le formulaire a été trouvé
-    if (formulaire) {
-      // Réinitialiser le formulaire
-      formulaire.reset();
-
-      if ( btnSubmit.textContent === "Mettre à jour") {
-        btnSubmit.textContent = "envoyer";
-
-        // Pre-select the Proprietaire in the dropdown
-        const select1 = formulaire.querySelector("select[name='proprietaire']");
-        select1.removeAttribute("readonly");
-        select1.onmousedown = null;
-        select1.style.cursor = "default";
-
-        // Pre-select the Recepteur in the dropdown
-        const select = formulaire.querySelector("select[name='recepteur']");
-        select.removeAttribute("readonly");
-        select.onmousedown = null;
-        select.style.cursor = "default";
-
-        //remove Disable editing and selection for nomtache
-        const inputField = formulaire.querySelector(`input[name='nomtache']`);
-        inputField.removeAttribute("readonly");
-        inputField.onmousedown = null; // Supprimer l'événement onmousedown
-        inputField.style.cursor = "text"; // Changer le style du curseur en mode édition
-
-        const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
-        idTacheInput.value=null;
-        idTacheInput.textContent="";
-
-      }
-    } else {
-      console.error('Le formulaire n\'a pas été trouvé.');
-    }
-
-    //pour regler la douverture
-    dateOuvertureactuelle();
-
-  }
-*/
 
   function annuler() {
     // Récupérer l'élément du formulaire par son ID
@@ -2366,7 +2316,6 @@
       const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
       idTacheInput.value=null;
       idTacheInput.textContent="";
-
 
       // Disable editing and selection for tacheparente
       const selec = formulaire.querySelector("select[name='tacheparente']");

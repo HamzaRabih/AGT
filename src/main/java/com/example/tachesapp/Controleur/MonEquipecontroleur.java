@@ -62,7 +62,7 @@ public class MonEquipecontroleur {
         model.addAttribute("equipeTaches",equipeTaches);
 
         tacheAdminService.loadReceivers(utilisateur,model);
-        notificationsService.loadNotification(utilisateur,model);
+        notificationsService.loadNotificationAndRelationType(utilisateur,model);
         prioriteService.loadPriorites(model);
         utilisateurService.loadSocietieMembers(utilisateur,model);
 

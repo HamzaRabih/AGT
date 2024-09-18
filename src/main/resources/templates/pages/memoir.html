@@ -169,14 +169,14 @@
                     <li class="nav-item">
                         <a class=" btn  Mycolor" th:href="@{/}" style="display: flex; align-items: center;">
                             <i class="menu-icon tf-icons bx bx-task me-1" style="margin-right: 5px;"></i>
-                            <div data-i18n="Analytics">Mes Tâches</div>
+                            <div data-i18n="Analytics">Tâches à faire</div>
                         </a>
                     </li>
                     <!--Suivie Des Tâches-->
                     <li class="nav-item">
                         <a class="btn  Mycolor" th:href="@{/CreerTache}" style="display: flex; align-items: center;">
                             <i class="menu-icon tf-icons bx bx-copy-alt me-1" style="margin-right: 5px;"></i>
-                            <div data-i18n="Analytics">Suivie Des Tâches</div>
+                            <div data-i18n="Analytics">Tâches demandées</div>
                         </a>
                     </li>
                     <!--Button Créer Une Tâche-->
@@ -489,9 +489,21 @@
                                                         <div class="d-flex justify-content-evenly align-content-center">
                                                             <label for="idrecepteur" class="form-label align-content-center  "
                                                                    STYLE="margin-right: 15px;">Destinataire</label>
-                                                            <select id="idrecepteur" name="recepteur" class="select2 form-select w-px-250" required>
+                                                            <select id="idrecepteur" name="recepteur" class="select2 form-select w-px-160" required>
                                                                 <option th:each="p:${Recepteurs}" th:value="${p.idutilisateur}"
                                                                         th:text="${p.prenom + ' ' + p.nom}"></option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="d-flex justify-content-evenly align-content-center">
+                                                            <label for="idrecepteur" class="form-label align-content-center  "
+                                                                   STYLE="margin-right: 15px;">Statut</label>
+                                                            <select id="relationTypes" name="relationTypes" class="select2 form-select w-px-160" required>
+                                                                <option th:each="p : ${relationTypes}" th:value="${p}">
+                              <span th:text="${#strings.arrayContains(p.name(), 'SUBORDONNE') ? 'Subordonné' :
+                                       #strings.arrayContains(p.name(), 'COLLEGUE') ? 'Collègue' :
+                                       'Supérieur'}"></span>
+                                                                </option>
                                                             </select>
                                                         </div>
 
@@ -500,7 +512,7 @@
                                                         <div class="d-flex justify-content-evenly">
                                                             <label for="nomtache" class="form-label align-content-center"
                                                                    STYLE="margin-right: 15px;">Tâche à réaliser</label>
-                                                            <input type="text" class="form-control w-px-250" name="nomtache" id="nomtache" required>
+                                                            <input type="text" class="form-control w-px-170" autofocus name="nomtache" id="nomtache" required>
                                                         </div>
 
                                                         <!-- Troisième div pour la durée estimée -->
@@ -509,7 +521,7 @@
                                                                    STYLE="margin-right: 15px;">EN</label>
                                                             <div class="d-flex">
                                                                 <input type="number" placeholder="Durée Estimée " id="dureeEstimee" required min="1"
-                                                                       name="dureestime" class="form-control"/>
+                                                                       name="dureestime" class="form-control w-50"/>
                                                                 <label class="form-label align-content-center" for="dureeEstimee"
                                                                        STYLE="margin-left: 10px;">Jour(s)</label>
                                                             </div>

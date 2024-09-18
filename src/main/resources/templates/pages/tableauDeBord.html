@@ -1,17 +1,4 @@
 <!DOCTYPE html>
-
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
 <html
         lang="en"
         class="light-style layout-menu-fixed"
@@ -36,7 +23,10 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="img/LDFLOGO.png" />
 
+    <!-- Data table ikns-->
     <link href="css/datatables.min.css" rel="stylesheet">
+
+
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="css/boxicons.css" />
@@ -62,7 +52,6 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="js/config.js"></script>
 </head>
-
 
 <body>
 <!--/spinner div-->
@@ -157,9 +146,9 @@
                 <span class="app-brand-text demo menu-text fw-bolder orange ms-2 capitalize-first2">Dirha</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-list" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-        </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+                </svg>
             </button>
             <div class="collapse navbar-collapse  " id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto px-lg-5  mb-2 mb-lg-0"  >
@@ -343,15 +332,13 @@
 <!--/nav-->
 
 
-
 <div class="d-flex justify-content-between">
-
     <!--chemin-->
     <p class="fw-bold my-primary" style="margin-left: 20px;">
         <span class="text-muted fw-light my-primary">
          <i class="bx bx-cog" style="margin-right: 5px;"></i>
             Administration /</span>
-        <i class="bx bxs-institution me-1"></i>Departement
+        <i class="bx bx-buildings me-1"></i>Societes
     </p>
     <!--/chemin-->
     <ul class="nav nav-pills flex-column flex-md-row " style="margin-right: 20px;">
@@ -360,13 +347,13 @@
             <!-- Button trigger modal -->
             <button
                     type="button"
-                    class="btn btn-sm  me-1 mb-1 btn-primary"
+                    class="btn btn-sm me-1 mb-1 btn-primary"
                     data-bs-toggle="modal"
                     data-bs-target="#modalCenter"
-                    id="creerDepartement"
+                    id="creersociete"
 
             >
-                <i class="bx bx-add-to-queue me-1"></i> Créer un Departement
+                <i class="bx bx-add-to-queue me-1"></i> Créer une societe
             </button>
         </li>
 
@@ -384,7 +371,6 @@
 
             <div class="row">
                 <div class="col-md-12">
-
                     <!-- Modal -->
                     <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -398,46 +384,74 @@
                                     ></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="formAccountSettings"   th:action="@{CreateDepartement}"  th:object="${departement}" class="form-group" method="post">
-                                        <input type="hidden" class="form-control" name="iddepartement">
+                                    <form id="formAccountSettings"  th:action="@{CreateSociete}"  class="form-group" method="post">
+                                        <input type="hidden" class="form-control" name="idsociete">
+
                                         <div class="row mb-3">
-                                            <label class="col-sm-2 col-form-label my-primary" for="basic-icon-default-fullname">Société</label>
+                                            <label class="col-sm-2 col-form-label my-primary" for="basic-icon-default-fullname">Nom</label>
                                             <div class="col-sm-10">
                                                 <div class="input-group input-group-merge">
                                                     <span id="basic-icon-default-fullname2" class="input-group-text"><i class="bx bx-buildings"></i></span>
-                                                    <select class="form-select" id="basic-icon-default-fullname" name="societe.idsociete" >
-                                                        <option th:each="p:${societeList}" th:value="${p.idsociete}" th:text="${p.nomsociete}"></option>
-                                                    </select>
+                                                    <input type="text" class="form-control"
+                                                           id="basic-icon-default-fullname"
+                                                           placeholder="Gynebio"
+                                                           name="nomsociete" required>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label class="col-sm-2 col-form-label my-primary" for="basic-icon-default-company">Departement:</label>
+                                            <label class="col-sm-2 col-form-label my-primary" for="basic-icon-default-company">Adresse:</label>
                                             <div class="col-sm-10">
                                                 <div class="input-group input-group-merge">
-                                                    <span id="basic-icon-default-company2" class="input-group-text"><i class="bx bxs-institution"></i></span>
-                                                    <input    type="text"
-                                                              id="basic-icon-default-company"
-                                                              class="form-control"
-                                                              placeholder="Ex: informatique"
-                                                              name="nomdepartement">
+                                                    <span id="basic-icon-default-company2" class="input-group-text"><i class="bx bx-map"></i></span>
+                                                    <input type="text"
+                                                           id="basic-icon-default-company"
+                                                           class="form-control"
+                                                           placeholder="Casablanca AV..."
+                                                           name="adressesociete">
                                                 </div>
                                             </div>
                                         </div>
-
-
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 col-form-label my-primary" for="basic-icon-default-email">Email:</label>
+                                            <div class="col-sm-10">
+                                                <div class="input-group input-group-merge">
+                                                    <span class="input-group-text"><i class="bx bx-envelope"></i></span>
+                                                    <input type="email"
+                                                           id="basic-icon-default-email"
+                                                           class="form-control"
+                                                           placeholder="example@gmail.com"
+                                                           name="mailsociete">
+                                                    <span id="basic-icon-default-email2" class="input-group-text">example@gmail.com</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label class="col-sm-2 form-label" for="basic-icon-default-phone">Tél:</label>
+                                            <div class="col-sm-10">
+                                                <div class="input-group input-group-merge">
+                                                    <span id="basic-icon-default-phone2" class="input-group-text"><i class="bx bx-phone"></i></span>
+                                                    <input type="number"
+                                                           id="basic-icon-default-phone"
+                                                           class="form-control phone-mask"
+                                                           placeholder="06 79 98 94 11"
+                                                           name="telephone"
+                                                    >
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="row justify-content-end">
                                             <div class="col-sm-10">
                                                 <button type="submit" class="btn btn-primary">Créér</button>
                                                 <button type="reset"
-                                                    class="btn btn-outline-secondary"
-                                                    onclick="annuler()"
-                                                    data-bs-dismiss="modal"
-                                            >Annuler</button>
-                                            <!--<button type="button" class="btn btn-outline-secondary" >
-                                              Close
-                                            </button>-->
-                                        </div>
+                                                        class="btn btn-outline-secondary"
+                                                        onclick="annuler()"
+                                                        data-bs-dismiss="modal"
+                                                >Annuler</button>
+                                                <!--<button type="button" class="btn btn-outline-secondary" >
+                                                  Close
+                                                </button>-->
+                                            </div>
                                     </form>
                                 </div>
 
@@ -445,46 +459,45 @@
                         </div>
                     </div>
 
-
                 </div>
 
 
+                <!-- Basic Bootstrap Table -->
+                <div class="card">
+                    <div class="card-body">
+                        <div th:if="${not #strings.isEmpty(msg) or not #strings.isEmpty(msgError)  or not #strings.isEmpty(msg1) }" class="mb-3 col-md-12" id="messages">
+                            <div th:if="${not #strings.isEmpty(msg)}" class="form-group">
+                                <div class="alert alert-success" th:text="${msg}"></div>
+                            </div>
+                            <div th:if="${not #strings.isEmpty(msg1)}" class="form-group ">
+                                <div class="alert alert-success" th:text="${msg1}"></div>
+                            </div>
+                            <div th:if="${not #strings.isEmpty(msgError)}" class="form-group ">
+                                <div class="alert alert-danger" th:text="${msgError}"></div>
+                            </div>
+                        </div>
+                        <div class="table-responsive text-nowrap">
 
-            <!-- Basic Bootstrap Table -->
-            <div class="card">
-                <div class="card-body">
-                    <div th:if="${not #strings.isEmpty(msg) or not #strings.isEmpty(msgError)  or not #strings.isEmpty(msg1) }" id="messages" class="mb-3 col-md-12">
-                        <div th:if="${not #strings.isEmpty(msg)}" class="form-group">
-                            <div class="alert alert-success" th:text="${msg}"></div>
-                        </div>
-                        <div th:if="${not #strings.isEmpty(msg1)}" class="form-group ">
-                            <div class="alert alert-success" th:text="${msg1}"></div>
-                        </div>
-                        <div th:if="${not #strings.isEmpty(msgError)}" class="form-group ">
-                            <div class="alert alert-danger" th:text="${msgError}"></div>
-                        </div>
-                    </div>
-                    <div class="table-responsive text-nowrap">
-                        <!-- Extra Large Modal pour Creer une Tache -->
-                        <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true" style="padding-top: 170px">
-                            <div class="modal-dialog modal-xl" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button
-                                                type="button"
-                                                class="btn-close"
-                                                data-bs-dismiss="modal"
-                                                aria-label="Close"
-                                        ></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form id="formAccountSettings2" method="POST" th:action="@{CreateTache}">
-                                            <input type="hidden" class="form-control" name="idtache">
-                                            <input type="hidden" th:value="${utilisateurC.idutilisateur}" class="form-control"
-                                                   name="Utilisateur">
-                                            <input type="hidden" name="ismemoire" id="ismemoire" value="false" required/>
+                            <!-- Extra Large Modal pour Creer une Tache -->
+                            <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true" style="padding-top: 170px">
+                                <div class="modal-dialog modal-xl" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button
+                                                    type="button"
+                                                    class="btn-close"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close"
+                                            ></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="formAccountSettings2" method="POST" th:action="@{CreateTache}">
+                                                <input type="hidden" class="form-control" name="idtache">
+                                                <input type="hidden" th:value="${utilisateurC.idutilisateur}" class="form-control"
+                                                       name="Utilisateur">
+                                                <input type="hidden" name="ismemoire" id="ismemoire" value="false" required/>
 
-                                            <div class="d-flex align-content-between justify-content-between flex-wrap  pr-0 pl-0">
+                                                <div class="d-flex align-content-between justify-content-between flex-wrap  pr-0 pl-0">
                           <!-- Première div pour le destinataire -->
                           <div class="d-flex justify-content-evenly align-content-center">
                             <label for="idrecepteur" class="form-label align-content-center  "
@@ -528,382 +541,141 @@
                           </div>
                         </div>
 
-                                            <br>
-                                            <div class="row g-3">
+                                                <br>
+                                                <div class="row g-3">
 
-                                                <div class="col mb-0">
-                                                    <label for="Priorite" class="form-label">Priorité</label>
-                                                    <select id="Priorite" class="select2 form-select" name="priorite" required>
-                                                        <option th:each="p:${priorites}" th:value="${p.idpriorite}"
-                                                                th:text="${p.nompriorite}"></option>
-                                                    </select>
+                                                    <div class="col mb-0">
+                                                        <label for="Priorite" class="form-label">Priorité</label>
+                                                        <select id="Priorite" class="select2 form-select" name="priorite" required>
+                                                            <option th:each="p:${priorites}" th:value="${p.idpriorite}"
+                                                                    th:text="${p.nompriorite}"></option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col mb-0">
+                                                        <label for="DateOuverture" class="form-label">Date Ouverture</label>
+                                                        <input class="form-control" type="date" name="dateouverture" min="" id="DateOuverture"
+                                                               required>
+                                                    </div>
+
+                                                    <div class="col mb-0">
+                                                        <label for="Proprietaires" class="form-label">Propriétaire</label>
+                                                        <select id="Proprietaires" name="proprietaire" class="select2 form-select"
+                                                                required="required" th:with="selectedValue=${utilisateurC.idutilisateur}">
+                                                            <option th:each="p:${utilisateurList2}" th:value="${p.idutilisateur}"
+                                                                    th:selected="${selectedValue == p.idutilisateur}"
+                                                                    th:text="${p.prenom + ' ' + p.nom}"></option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col mb-0">
+                                                        <label for="tacheparente" class="form-label">Tâche parente</label>
+                                                        <select id="tacheparente" class="select2 form-select" name="tacheparente">
+                                                            <!-- <option  value="">Selectionner la tâche parente</option>
+                                                             <option th:each="TacheParents:${lesTacheParents}" th:value="${TacheParents.idtache}" th:text="${TacheParents.nomtache}"></option>-->
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col mb-0">
+                                                        <label for="type" class="form-label">Type</label>
+                                                        <select class="select2 form-select" required="required"  id="type" name="type">
+                                                            <option value="Opérationnel">Opérationnel</option>
+                                                            <option value="Projet">Projet</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col mb-0">
+                                                        <label class="form-label" for="Aunetachesuccessive">Tâche indexée</label>
+                                                        <select class="select2 form-select" required="required" id="Aunetachesuccessive" name="aunetachesuccessive">
+                                                            <option value="false">Non</option>
+                                                            <option value="true">Oui</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col mb-0" style="padding-top: 30px;">
+                                                        <button type="submit" id="submit2" class="btn btn-primary "> Envoyer</button>
+                                                        <button type="button"
+                                                                class="btn btn-outline-secondary"
+                                                                onclick="annuler2()"
+                                                        >Annuler
+                                                        </button>
+                                                    </div>
                                                 </div>
 
-                                                <div class="col mb-0">
-                                                    <label for="DateOuverture" class="form-label">Date Ouverture</label>
-                                                    <input class="form-control" type="date" name="dateouverture" min="" id="DateOuverture"
-                                                           required>
-                                                </div>
-
-                                                <div class="col mb-0">
-                                                    <label for="Proprietaires" class="form-label">Propriétaire</label>
-                                                    <select id="Proprietaires" name="proprietaire" class="select2 form-select"
-                                                            required="required" th:with="selectedValue=${utilisateurC.idutilisateur}">
-                                                        <option th:each="p:${utilisateurList2}" th:value="${p.idutilisateur}"
-                                                                th:selected="${selectedValue == p.idutilisateur}"
-                                                                th:text="${p.prenom + ' ' + p.nom}"></option>
-                                                    </select>
-                                                </div>
-                                                <div class="col mb-0">
-                                                    <label for="tacheparente" class="form-label">Tâche parente</label>
-                                                    <select id="tacheparente" class="select2 form-select" name="tacheparente">
-                                                        <!-- <option  value="">Selectionner la tâche parente</option>
-                                                         <option th:each="TacheParents:${lesTacheParents}" th:value="${TacheParents.idtache}" th:text="${TacheParents.nomtache}"></option>-->
-                                                    </select>
-                                                </div>
-
-                                                <div class="col mb-0">
-                                                    <label for="type" class="form-label">Type</label>
-                                                    <select class="select2 form-select" required="required"  id="type" name="type">
-                                                        <option value="Opérationnel">Opérationnel</option>
-                                                        <option value="Projet">Projet</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col mb-0">
-                                                    <label class="form-label" for="Aunetachesuccessive">Tâche indexée</label>
-                                                    <select class="select2 form-select" required="required" id="Aunetachesuccessive" name="aunetachesuccessive">
-                                                        <option value="false">Non</option>
-                                                        <option value="true">Oui</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="col mb-0" style="padding-top: 30px;">
-                                                    <button type="submit" id="submit2" class="btn btn-primary "> Envoyer</button>
-                                                    <button type="button"
-                                                            class="btn btn-outline-secondary"
-                                                            onclick="annuler2()"
-                                                    >Annuler
-                                                    </button>
-                                                </div>
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Les filtre
-                            <div class="col-3">
-                              <label for="membreSelect" class="form-label">Sélectionner un émetteur</label>
-                              <select  multiple="multiple" id="membreSelect1"  class=" form-select"  >
-                                <option value="" selected="selected">Tout sélectionner</option >
-                                <option th:each="p:${Emetteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
-                              </select>
-                            </div>
-                            <div class="col-3">
-                              <label for="statutSelect" class="form-label">Sélectionner un statut</label>
-                              <select  multiple="multiple" id="statutSelect1"  class=" form-select">
-                                <option value="" selected="selected">Tout sélectionner</option>
-                                <option value="Validée" >Validé</option>
-                                <option value="Terminée" >Terminé</option>
-                                <option value="En cours" >En cours</option>
-                                <option value="En attente" >En attente</option>
-                                <option value="Programmée" >Programme</option>
-                                <option value="À refaire" >Refaire</option>
-                                <option value="Annulée" >Annuleé</option>
-                              </select>
-                            </div>
-                            <div class="col-3">
-                              <label for="dateMinSelect" class="form-label">Sélectionner la date d'ouverture MIN</label>
-                              <input class="form-control" type="date"  id="dateMinSelect">
-                            </div>
-                            <div class="col-md-3">
-                              <label  for="dateMaxSelect" class="form-label">SÉLECTIONNER LA DATE d'ouverture MAX</label>
-                              <input class="form-control" type="date"  id="dateMaxSelect" >
-                            </div>-->
-                        </div>
-                        <!--/ Extra Large Modal pour Creer une Tache -->
-
-                        <table  id="example" class="table table-bordered table-sm table-secondary" style="width:100%">
-                            <thead>
-                            <tr>
-                                <th  class="capitalize-first Mycolor" >Société</th>
-                                <th  class="capitalize-first Mycolor"  >Departement</th>
-                                <th class="capitalize-first Mycolor"   >Action</th>
-                            </tr>
-                            </thead>
-                            <tbody class="table-border">
-                            <tr th:each="p:${departements}">
-                                <td th:text="${p.societe!=null? p.societe.nomsociete :'(Sans societe)'}"><i class="fab fa-vuejs fa-lg text-success me-3"></i><strong ></strong></td>
-                                <td th:text="${p.nomdepartement}"></td>
-
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" th:attr="data-id=${p.iddepartement}" onclick="editDepartement(this)"
-                                            ><i class="bx bx-edit-alt me-2"></i> Éditer</a>
-
-                                            <a class="dropdown-item"  onclick="confirmDelete(event)" th:href="@{/deleteDepartement/{id}(id=${p.iddepartement})}">
-                                                <i class="bx bx-trash me-2"></i> Supprimer</a>
+                                            </form>
                                         </div>
                                     </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                                </div>
+                                <!-- Les filtre
+                                <div class="col-3">
+                                  <label for="membreSelect" class="form-label">Sélectionner un émetteur</label>
+                                  <select  multiple="multiple" id="membreSelect1"  class=" form-select"  >
+                                    <option value="" selected="selected">Tout sélectionner</option >
+                                    <option th:each="p:${Emetteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                                  </select>
+                                </div>
+                                <div class="col-3">
+                                  <label for="statutSelect" class="form-label">Sélectionner un statut</label>
+                                  <select  multiple="multiple" id="statutSelect1"  class=" form-select">
+                                    <option value="" selected="selected">Tout sélectionner</option>
+                                    <option value="Validée" >Validé</option>
+                                    <option value="Terminée" >Terminé</option>
+                                    <option value="En cours" >En cours</option>
+                                    <option value="En attente" >En attente</option>
+                                    <option value="Programmée" >Programme</option>
+                                    <option value="À refaire" >Refaire</option>
+                                    <option value="Annulée" >Annuleé</option>
+                                  </select>
+                                </div>
+                                <div class="col-3">
+                                  <label for="dateMinSelect" class="form-label">Sélectionner la date d'ouverture MIN</label>
+                                  <input class="form-control" type="date"  id="dateMinSelect">
+                                </div>
+                                <div class="col-md-3">
+                                  <label  for="dateMaxSelect" class="form-label">SÉLECTIONNER LA DATE d'ouverture MAX</label>
+                                  <input class="form-control" type="date"  id="dateMaxSelect" >
+                                </div>-->
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-
+                <!--/ Basic Bootstrap Table -->
             </div>
-            <!--/ Basic Bootstrap Table -->
+            <!-- /content-->
         </div>
-        <!-- /content-->
-    </div>
-    <!--/ content div-->
+        <!--/ content div-->
 
 
-<!-- Core JS -->
-<!-- build:js assets/vendor/js/core.js -->
-<script src="js/jquery.js"></script>
-<script src="js/popper.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/perfect-scrollbar.js"></script>
+        <!-- Core JS -->
+        <!-- build:js assets/vendor/js/core.js -->
+        <script src="js/jquery.js"></script>
+        <script src="js/popper.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/perfect-scrollbar.js"></script>
 
-<script src="js/menu.js"></script>
-<!-- endbuild -->
+        <script src="js/menu.js"></script>
+        <!-- endbuild -->
 
-<!-- Vendors JS -->
-<script src="js/apexcharts.js"></script>
+        <!-- Vendors JS -->
+        <script src="js/apexcharts.js"></script>
 
-<!-- Main JS -->
-<script src="js/main.js"></script>
+        <!-- Main JS -->
+        <script src="js/main.js"></script>
 
-<!-- Page JS -->
-<script src="js/dashboards-analytics.js"></script>
-<script src="js/pages-account-settings-account.js"></script>
-<!-- liens pour les websoket + Stom . -->
-<script src="js/sockjs.min.js"></script>
-<script src="js/stomp.min.js" ></script>
-<!-- le script des websoket notification. -->
-<script src="js/notifWebSocket.js"></script>
-<!-- Place this tag in your head or just before your close body tag. -->
-<script src="js/myJs.js"></script>
-<!-- Data table -->
+        <!-- Page JS -->
+        <script src="js/dashboards-analytics.js"></script>
+        <script src="js/pages-account-settings-account.js"></script>
+        <!-- liens pour les websoket + Stom . -->
+        <script src="js/sockjs.min.js"></script>
+        <script src="js/stomp.min.js" ></script>
+        <!-- le script des websoket notification. -->
+        <script src="js/notifWebSocket.js"></script>
+        <!-- Place this tag in your head or just before your close body tag. -->
 
-<script src="js/jquery.min.js"></script>
-<script src="js/datatables.min.js"></script>
+        <script src="js/myJs.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/datatables.min.js"></script>
         <script src="js/MyDatatableConf.js"></script>
-
-        <script>
-    //Pour editer une departement dans la meme forme
-    function editDepartement(button) {
-        const idDepartement = button.getAttribute("data-id");
-        const form = document.getElementById("formAccountSettings");
-
-        // Set the idDepartement input field value and update the button text
-        form.querySelector("input[name='iddepartement']").value = idDepartement;
-        form.querySelector("button[type='submit']").textContent = "Mettre à jour";
-
-        // Fetch Domaine details using AJAX
-        $.ajax({
-            type: "GET", // You may need to adjust this to your backend API
-            url: `get-Departement/${idDepartement}`, // Replace with your API endpoint
-            success: function(data) {
-                // Assuming your API returns data in JSON format
-
-                const nomDepartement = data.nomdepartement;
-                console.log(data);
-
-                // Pre-fill the form fields
-                form.querySelector("input[name='nomdepartement']").value = nomDepartement;
-
-                //si la departement a une societé
-                if(data.societe!=null)
-                {
-                    // Pre-select the Societe in the dropdown
-                    const select = form.querySelector("select[name='societe.idsociete']");
-                    const societeId = data.societe.idsociete;
-                    const societeOption = select.querySelector(`option[value="${societeId}"]`);
-                    societeOption.setAttribute("selected", "selected");
-                }
-
-                },
-            error: function(err) {
-                // Handle the error if needed
-                console.error(err);
-            }
-        });
-
-        //pour afficher le form
-        // Récupérer l'élément du bouton par son attribut 'class'
-        var bouton = document.getElementById("creerDepartement");
-
-        // Vérifier si le bouton a été trouvé
-        if (bouton) {
-            // Déclencher le clic sur le bouton
-            bouton.click();
-        } else {
-            console.error('Le bouton n\'a pas été trouvé.');
-        }
-
-
-        //srcipt permet de défiler la page vers le haut lorsque l'utilisateur clique sur un bouton
-        // Faites défiler la page vers le haut
-        window.scrollTo({
-            top: 0, // La position en pixels en haut de la page
-            behavior: "smooth" // Option pour un défilement fluide
-        });
-
-    }
-
-
-    function annuler()
-    {
-        // Récupérer l'élément du formulaire par son ID
-        var formulaire = document.getElementById('formAccountSettings');
-
-        // Vérifier si le formulaire a été trouvé
-        if (formulaire) {
-            // Réinitialiser le formulaire
-            formulaire.reset();
-
-            if ( formulaire.querySelector("button[type='submit']").textContent === "Mettre à jour") {
-                formulaire.querySelector("button[type='submit']").textContent = "Créer";
-
-
-                const idTacheInput = formulaire.querySelector(`input[name='iddepartement']`);
-                idTacheInput.value=null;
-                idTacheInput.textContent="";
-
-            }
-            dateOuvertureactuelle();
-        } else {
-            console.error('Le formulaire n\'a pas été trouvé.');
-        }
-    }
-
-
-    // Sélectionnez tous les éléments avec la classe "show-message"
-    var messageElements = document.querySelectorAll('.show-message');
-
-    // Parcourir chaque élément et ajouter la classe "show" (pour l'animation)
-    messageElements.forEach(function(element) {
-        element.classList.add('show');
-
-        // Supprimer la classe "show" après 5 secondes
-        setTimeout(function() {
-            element.classList.remove('show');
-        }, 5000);
-    });
-    // Sélectionnez l'élément avec l'id "messages"
-    var messagesDiv = document.getElementById("messages");
-
-    // Supprimez la div après 5 secondes (5000 millisecondes)
-    setTimeout(function() {
-        if (messagesDiv) {
-            messagesDiv.remove();
-        }
-    }, 5500);
-
-
-
-    //--------------------pour le formulaire Creer une tâche
-    //Pour afficher les taches parentes dans
-    // la selelecte dans le formulaire qui permet de creer une tache et actualiser la liste lorsqu'une indexation
-    tacheParentes();
-    function tacheParentes() {
-        $.ajax({
-            url: `tachesParentes/`,
-            method: 'GET',
-            success: function (taches) {
-
-                var tachesParentSelect = $("#tacheparente");
-                tachesParentSelect.empty(); // Efface toutes les options actuelles
-                tachesParentSelect.append (new Option("Selectionner la tâche parente",-1));
-                for (var i = 0; i < taches.length; i++) {
-                    var option = new Option(taches[i].nomtache, taches[i].idtache);
-                    tachesParentSelect.append(option);
-                }
-            }
-        });
-    }
-
-    function annuler2() {
-        // Récupérer l'élément du formulaire par son ID
-        var formulaire = document.getElementById('formAccountSettings2');
-        var   btnSubmit= document.getElementById('submit2');
-        var inputEDateOuverture = document.getElementById("DateOuverture");
-
-        // Vérifier si le formulaire a été trouvé
-        if (formulaire) {
-            // Réinitialiser le formulaire
-            formulaire.reset();
-
-            if ( btnSubmit.textContent === "Mettre à jour") {btnSubmit.textContent = "Envoyer";}
-
-            // Pre-select the Proprietaire in the dropdown
-            const select1 = formulaire.querySelector("select[name='proprietaire']");
-            select1.removeAttribute("readonly");
-            select1.onmousedown = null;
-            select1.style.cursor = "default";
-
-            // Pre-select the Recepteur in the dropdown
-            const select = formulaire.querySelector("select[name='recepteur']");
-            select.removeAttribute("readonly");
-            select.onmousedown = null;
-            select.style.cursor = "default";
-
-            //remove Disable editing and selection for nomtache
-            const inputField = formulaire.querySelector(`input[name='nomtache']`);
-            inputField.removeAttribute("readonly");
-            inputField.onmousedown = null; // Supprimer l'événement onmousedown
-            inputField.style.cursor = "text"; // Changer le style du curseur en mode édition
-
-            const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
-            idTacheInput.value=null;
-            idTacheInput.textContent="";
-
-
-            // Disable editing and selection for tacheparente
-            const selec = formulaire.querySelector("select[name='tacheparente']");
-            selec.removeAttribute("readonly");
-            selec.onmousedown = null;
-            selec.style.cursor = "default";
-
-            //Date d ouverture
-            const inputEDateOuverture = formulaire.querySelector(`input[name='dateouverture']`);
-            inputEDateOuverture.removeAttribute("readonly");
-            inputEDateOuverture.onmousedown = null;
-            inputEDateOuverture.style.cursor = "default";
-            inputEDateOuverture.disabled=false;
-            inputEDateOuverture.onmousedown = null; // Supprimer l'événement onmousedown
-            //inputEDateOuverture.style.cursor = "text"; // Changer le style du curseur en mode édition
-            dateOuvertureactuelle();
-        } else {
-            console.error('Le formulaire n\'a pas été trouvé.');
-        }
-
-    }
-
-    //pour regler la douverture
-    dateOuvertureactuelle();
-    function dateOuvertureactuelle(){
-        //pour la date douverture
-        // Obtenez la date actuelle au format YYYY-MM-DD
-        var currentDate = new Date().toISOString().split('T')[0];
-
-        // Mettez à jour l'attribut 'min' du champ de saisie de date avec la date actuelle
-        document.getElementById('DateOuverture').min = currentDate;
-
-        // Mettez à jour l'attribut 'value' du champ de saisie de date avec la date actuelle
-        document.getElementById('DateOuverture').value = currentDate;
-    }
-
-
-</script>
 </body>
 </html>
 

@@ -62,7 +62,7 @@ public class MemoirControleur {
         model.addAttribute("utilisateurList",utilisateurList);
         model.addAttribute("Idutilisateur",Idutilisateur);
         model.addAttribute("utilisateur",utilisateur);
-        notificationsService.loadNotification(utilisateur,model);
+        notificationsService.loadNotificationAndRelationType(utilisateur,model);
         model.addAttribute("utilisateurC",utilisateur);
         tacheAdminService.loadReceivers(utilisateur,model);
         prioriteService.loadPriorites(model);

@@ -5,6 +5,7 @@ import com.example.tachesapp.Dao.NotificationsRepo;
 import com.example.tachesapp.Dao.TacheRepo;
 import com.example.tachesapp.Dao.UtilisateurRepo;
 import com.example.tachesapp.Model.*;
+import com.example.tachesapp.Utilité.RelationType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -603,139 +604,13 @@ public class TacheServiceImpl implements TacheService {
         return Emetteurs;
     }
 
-    /*
-    public void UpdateTacheToEnAttente(Tache tache,RedirectAttributes redirectAttributes,Utilisateur utilisateurconnecte) {
-        //Tache tacheExist = tacheRepo.findByIdtache(tache.getIdtache());
-         Tache tacheExist = tacheRepo.findTacheByIdtache(tache.getIdtache());
-        Utilisateur ancienRecepteur=tacheExist.getRecepteur();
-        // enregistré le modificateur de la statut
-        mettreAJourProprietesTache(tache,utilisateurconnecte);
-        //Effacer la date de fin si le statut précédent était 'Terminé'
-        tacheExist.setDateTermineTache(null);
-        tacheExist.setTacheparente(null);
-        tacheExist.setDureretarde(0);
-        tacheExist.setPerformance(0);
-        //calculer la date d'objectif
-        tacheExist.setDateobjectif( calculerDateObjectif(tache));
-        tacheExist.setStatut("En attente");
-
-        if (ancienRecepteur!=tache.getRecepteur()) {
-            //------------------envoiyer un mail
-            // Envoyer des e-mails
-            Utilisateur recepteur = tache.getRecepteur();
-            Utilisateur emetteur=utilisateurRepo.findByIdutilisateur(tache.getUtilisateur().getIdutilisateur());
-            String Subject="Vous avez une nouvelle tâche de : "+emetteur.getNom()+" "+emetteur.getPrenom();
-            String msg="nouvelle tache :"+tache.getNomtache();
-            sendTaskEmail(recepteur.getMail(),Subject,msg);
-        }
-        tacheRepo.save(tacheExist);
+    public void loadRelationType(Model model) {
+        List<RelationType> relationTypes=new ArrayList<>();
+        relationTypes.add(RelationType.SUBORDONNE);
+        relationTypes.add(RelationType.COLLEGUE);
+        relationTypes.add(RelationType.SUPERIEUR);
+        model.addAttribute("relationTypes", relationTypes);   // Ajouter l'attribut "relationType" au modèle
     }
 
- */
-
-   /*
-    public void UpdateTacheToTermine(Tache tache,RedirectAttributes redirectAttributes,Utilisateur utilisateurconnecte) {
-        Tache tacheExist = tacheRepo.findByIdtache(tache.getIdtache());
-
-        //Si l'utilisateur clique sur un statut "En cours" : modifier le statut à "terminé"
-        tacheExist.setStatut("Terminée");
-        // enregistré le modificateur de la statut
-        tacheExist.setModifierpar(utilisateurconnecte);
-        tacheExist.setDateTermineTache(null);
-        tacheExist.setPerformance(0);
-        //calculer la date d'objectif
-        tacheExist.setDateobjectif(calculerDateObjectif(tache));
-        tacheRepo.save(tacheExist);
-       // redirectAttributes.addFlashAttribute("msg1", "La tâche a été modifiée avec succès.");
-    }
-    */
-    /*
-      //pour obtenir tous les tache de l equipe de l utilisateur connecté et les tache envoye par l utilisateur connecté
-    @Override
-    public List<Tache> findAllEquipeTaches(List<Utilisateur> recepteurs, Utilisateur utilisateurConnecté) {
-
-        List<Tache> tacheList = new ArrayList<>();
-
-        // Parcourez la liste des utilisateurs
-        for (Utilisateur u : recepteurs) {
-            if (u==utilisateurConnecté) {
-                List<Tache> taches = tacheRepo.findTacheByUtilisateurAndIsmemoire(u,false);
-                // Ajoutez la liste des taches de l'utilisateur à la liste globale
-                tacheList.addAll(taches);
-
-            }else {
-                // Obtenez la liste des taches du utilisateurs
-                List<Tache> tachesutilisateurList = tacheRepo.findTacheByRecepteurAndIsmemoire(u,false);
-                // Ajoutez la liste des taches de l'utilisateur à la liste globale
-                tacheList.addAll(tachesutilisateurList);
-            }
-        }
-
-        // Retournez la liste des utilisateurs
-        return tacheList;
-    }
-     */
-    /*
-    public void UpdateTacheToEnCours(Tache tache,RedirectAttributes redirectAttributes,Utilisateur utilisateurconnecte) {
-        //Tache tacheExist = tacheRepo.findByIdtache(tache.getIdtache());
-        Tache tacheExist = tacheRepo.findTacheByIdtache(tache.getIdtache());
-        Utilisateur ancienRecepteur=tacheExist.getRecepteur();
-
-        // enregistré le modificateur de la statut
-        tacheExist.setModifierpar(utilisateurconnecte);
-        //
-        tacheExist.setNomtache(tache.getNomtache());
-        tacheExist.setRecepteur(tache.getRecepteur());
-        tacheExist.setDureestime(tache.getDureestime());
-        tacheExist.setPriorite(tache.getPriorite());
-        tacheExist.setDateouverture(tache.getDateouverture());
-        tacheExist.setTacheparente(tache.getTacheparente());
-        tacheExist.setAunetachesuccessive(tache.isAunetachesuccessive());
-        //Effacer la date de fin si le statut précédent était 'Terminé'
-        tacheExist.setDateTermineTache(null);
-        //tacheExist.setTacheparente(null);
-        tacheExist.setDureretarde(0);
-        tacheExist.setPerformance(0);
-        //calculer la date d'objectif
-        tacheExist.setDateobjectif( calculerDateObjectif(tache));
-        //changer le statut
-        tacheExist.setStatut("En cours");
-
-        if (ancienRecepteur!=tache.getRecepteur()) {
-            //------------------envoiyer un mail
-            // Envoyer des e-mails
-            Utilisateur recepteur = tache.getRecepteur();
-            Utilisateur emetteur=utilisateurRepo.findByIdutilisateur(tache.getUtilisateur().getIdutilisateur());
-            String Subject="Vous avez une nouvelle tâche de : "+emetteur.getNom()+" "+emetteur.getPrenom();
-            String msg="nouvelle tache :"+tache.getNomtache();
-            sendTaskEmail(recepteur.getMail(),Subject,msg);
-        }
-        tacheRepo.save(tacheExist);
-    }
-
-    public void UpdateTacheToRefair(Tache tache,RedirectAttributes redirectAttributes,Utilisateur utilisateurconnecte) {
-        Tache tacheExist = tacheRepo.findByIdtache(tache.getIdtache());
-
-        // enregistré le modificateur de la statut
-        tacheExist.setModifierpar(utilisateurconnecte);
-
-        //calculer la date d'objectif
-        calculerDateObjectif(tache);
-        tacheExist.setDateTermineTache(null);
-        tacheExist.setPerformance(0);
-        tacheExist.setDateobjectif(tache.getDateobjectif());
-        //envoiyer un mail
-        Utilisateur recepteur1 =tache.getRecepteur();
-        Utilisateur emetteur=utilisateurRepo.findByIdutilisateur(tache.getUtilisateur().getIdutilisateur());
-        String Subject="Tâche à refaire";
-        String msg = "La tâche '" + tache.getNomtache() + "' soumise par " + emetteur.getNom() + " " + emetteur.getPrenom() + " nécessite des ajustements. Veuillez la revoir et effectuer les modifications nécessaires. Merci.";
-        sendTaskEmail(recepteur1.getMail(),Subject,msg);
-
-        //changer le statut
-        tacheExist.setStatut("refaire");
-        tacheRepo.save(tacheExist);
-        // redirectAttributes.addFlashAttribute("msg1", "La tâche a été modifiée avec succès.");
-    }
- */
 
 }

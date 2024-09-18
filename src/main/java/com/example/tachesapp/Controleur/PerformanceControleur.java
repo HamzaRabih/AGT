@@ -36,7 +36,7 @@ public class PerformanceControleur {
         String login = authentication.getName();
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
 
-        notificationsService.loadNotification(utilisateur,model);
+        notificationsService.loadNotificationAndRelationType(utilisateur,model);
 
         return "/pages/performance";
     }
