@@ -140,4 +140,33 @@ public class MonEquipecontroleur {
         return ResponseEntity.ok(finalTasks);
     }
 
+
+    // Fonction pour récupérer tous les taches d utilisateur et de l equipe de l utilisateur
+    // utilise a par ajax et javascript  dans equipe.html
+    // ResponseEntity, qui est une classe de Spring qui permet de contrôler la réponse HTTP.
+    //ResponseEntity<List<taches>> : Cette déclaration de type indique que la méthode de contrôleur renverra une réponse HTTP contenant une liste d'objets de type Tache
+    //ResponseEntity.ok(taches):signifie que les utilisateurs seront renvoyés au client en tant que réponse HTTP avec un statut de succès (200 OK).
+    @GetMapping(value = "/getAllMembersTaskWithoutValideeAndAnnulee")
+    public ResponseEntity<List<Tache>> getAllMembersTaskWithoutValideeAndAnnulee(Authentication authentication)
+    {
+        // Récupérer l'utilisateur connecté
+        String login = authentication.getName();
+        Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
+        List<String> excludedStatuts = Arrays.asList("Validée", "Annulée");
+        // Tâches envoyées par l'utilisateur connecté
+        List<Tache> sentTasks=tacheRepo.findAllByUtilisateurAndIsmemoireAndStatutNotIn(utilisateur,false,excludedStatuts);
+        // l'équipe, y compris l'utilisateur connecté
+        List<Utilisateur> teamReceivers =tacheService.findRecepteurs(utilisateur);
+        // Tâches de l'équipe sans les tâches validées et annulées
+        List<Tache> teamTasks =tacheRepo.findAllByRecepteurInAndIsmemoireAndStatutNotIn(teamReceivers,false,excludedStatuts);
+        // Créer un ensemble pour éliminer les doublons
+        Set<Tache> uniqueTaskSet = new HashSet<>();
+        uniqueTaskSet.addAll(sentTasks);
+        uniqueTaskSet.addAll(teamTasks);
+        // Convert the set to a list
+        List<Tache> finalTasks = new ArrayList<>(uniqueTaskSet);
+        return ResponseEntity.ok(finalTasks);
+    }
+
+
 }
