@@ -126,6 +126,7 @@ public class TacheAdminServiceImpl implements TacheAdminService{
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
         //Lister les tâches
         List<Tache> tacheList=tacheRepo.findAllByIsmemoire(false);
+       tacheList.sort(Comparator.comparing(Tache::getIdtache).reversed());
         return ResponseEntity.ok(tacheList);
     }
 

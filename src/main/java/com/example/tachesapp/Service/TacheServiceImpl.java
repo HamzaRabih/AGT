@@ -21,10 +21,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.Temporal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class TacheServiceImpl implements TacheService {
@@ -256,6 +253,7 @@ public class TacheServiceImpl implements TacheService {
             // Ajoutez la liste des taches de l'utilisateur à la liste globale
             tacheList.addAll(tachesutilisateurList);
         }
+        tacheList.sort(Comparator.comparing(Tache::getIdtache).reversed());
         // Retournez la liste des utilisateurs
         return tacheList;
     }
@@ -281,6 +279,7 @@ public class TacheServiceImpl implements TacheService {
         String login = authentication.getName();
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
         List<Tache> tacheList=tacheRepo.findAllByRecepteur(utilisateur);
+        tacheList.sort(Comparator.comparing(Tache::getIdtache).reversed());
         model.addAttribute("tacheList",tacheList);
         return ResponseEntity.ok(tacheList);
     }
@@ -523,6 +522,7 @@ public class TacheServiceImpl implements TacheService {
             ajouterTachesUniques(tacheList, tacheRepo.findTacheByUtilisateurAndIsmemoire(utilisateur, false));
             ajouterTachesUniques(tacheList, tacheRepo.findTacheByRecepteurAndIsmemoire(utilisateur, false));
         }
+        tacheList.sort(Comparator.comparing(Tache::getIdtache).reversed());
         // Retournez la liste des utilisateurs
         return tacheList;
     }
@@ -544,6 +544,7 @@ public class TacheServiceImpl implements TacheService {
                 tacheList.addAll(tachesutilisateurList);
             }
         }
+        tacheList.sort(Comparator.comparing(Tache::getIdtache).reversed());
         // Retournez la liste des utilisateurs
         return tacheList;
     }

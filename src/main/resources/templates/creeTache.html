@@ -200,20 +200,15 @@
 
         <div class="navbar-nav d-flex">
           <ul class="navbar-nav d-flex align-items-center">
-
-
             <!--Menu-->
-            <!--Menu-->
-            <!--Menu-->
+            <li><a class="btn Mycolor" th:href="@{/Memoir}">
+              <i class='bx bx-notepad'></i> Mémo
+            </a></li>
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
               <button type="button" class="btn btn-icon Mycolor  dropdown-toggle " data-bs-auto-close="outside" data-bs-toggle="dropdown">
                 <i class="bx bx-list-ul me-2" style="font-size: 25px;color: #FFFFFF"></i>
-
               </button>
               <ul class="dropdown-menu dropdown-menu-sm-end py-0  mb-4">
-                <li><a class="dropdown-item" th:href="@{/Memoir}">
-                  <i class='bx bx-notepad'></i> Mémoire
-                </a></li>
                 <!-- Mon Equipe -->
                 <li class="nav-item">
                   <a class="dropdown-item" th:href="@{/MonEquipe}">
@@ -253,8 +248,6 @@
                 </li>
               </ul>
             </li>
-            <!--/Menu-->
-            <!--/Menu-->
             <!--Menu-->
 
             <!--notif-->
@@ -719,7 +712,6 @@
                             </select>
                           </div>
 
-
                           <div class="col mb-0" style="padding-top: 30px;">
                             <button type="submit" id="submit" class="btn btn-primary "> Envoyer</button>
                             <button type="button"
@@ -728,9 +720,7 @@
                             >Annuler
                             </button>
                           </div>
-
                         </div>
-
                       </form>
                     </div>
                   </div>
@@ -1076,17 +1066,11 @@
 <!-- Data table -->
 <script src="js/datatables.min.js"></script>
 <style>
-
-
-
-
   /* Réduisez la largeur de l'entrée de recherche */
   div.dataTables_wrapper div.dataTables_filter input {
     width: 122px; /* Ajustez la largeur selon vos besoins */
     margin-top: 5px;!important; /* Ajustez la largeur selon vos besoins */
     color: #5A8DEE!important;
-
-
   }
 
 
@@ -1206,6 +1190,7 @@
           }
         },
         dom: '<"top">t<"bottom"lp>',
+        order: [] // Désactiver le tri initial
       });
 
       $('#rechercher').on('keyup', function() {
@@ -2344,8 +2329,6 @@
             }
           }
         }
-
-
       });
     }
     // Redraw the table
@@ -2864,7 +2847,6 @@
       //pour afficher le form
       // Récupérer l'élément du bouton par son attribut 'class'
       var bouton = document.getElementById("creertache");
-
       // Vérifier si le bouton a été trouvé
       if (bouton) {
         // Déclencher le clic sur le bouton
@@ -2872,7 +2854,6 @@
       } else {
         console.error('Le bouton n\'a pas été trouvé.');
       }
-
       //srcipt permet de défiler la page vers le haut lorsque l'utilisateur clique sur un bouton
       // Faites défiler la page vers le haut
       window.scrollTo({

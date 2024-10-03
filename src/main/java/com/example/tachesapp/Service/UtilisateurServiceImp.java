@@ -69,7 +69,7 @@ public class UtilisateurServiceImp implements UtilisateurService {
         {//cas ou l utilisateur pas un respo
             //verifier si l utilisateur est un membre dans un equipe
             Equipe equipe = utilisateur.getEquipes();
-            // Vérifier si l'utilisateur a créé des tâches, a reçu des tâches,est propriétaire d'une mémoire ou a des mémoires
+            // Vérifier si l'utilisateur a créé des tâches, a reçu des tâches,est propriétaire d'une Mémo ou a des mémoires
             boolean TachExisteByRecept = tacheRepo.existsByRecepteur(utilisateur);
             boolean existsByUtilisateur = tacheRepo.existsByUtilisateur(utilisateur);
             boolean existsByProprietaire = tacheRepo.existsByProprietaire(utilisateur);

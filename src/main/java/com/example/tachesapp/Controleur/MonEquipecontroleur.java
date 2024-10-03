@@ -137,6 +137,7 @@ public class MonEquipecontroleur {
         uniqueTaskSet.addAll(teamTasks);
         // Convert the set to a list
         List<Tache> finalTasks = new ArrayList<>(uniqueTaskSet);
+        finalTasks.sort(Comparator.comparing(Tache::getIdtache).reversed());
         return ResponseEntity.ok(finalTasks);
     }
 
