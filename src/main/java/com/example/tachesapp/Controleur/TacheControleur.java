@@ -91,6 +91,11 @@ public class TacheControleur {
         return tacheService.getAllMyTask( authentication, model);
     }
 
+    @GetMapping(value = "/getMyTasksExcludingValidatedAndCancelled")
+    public ResponseEntity<List<Tache>> getMyTasksExcludingValidatedAndCancelled(Authentication authentication, Model model) {
+        return tacheService.getTasksExcludingValidatedAndCancelled( authentication, model);
+    }
+
     // -----------------------------------
 // Créer ou mettre à jour une tâche
 // -----------------------------------

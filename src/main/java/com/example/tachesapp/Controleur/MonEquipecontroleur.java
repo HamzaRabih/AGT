@@ -60,17 +60,10 @@ public class MonEquipecontroleur {
         //List<Tache> equipeTaches=tacheRepo.findAllByUtilisateurInAndIsmemoire(Recepteurs,false);
         List<Tache> equipeTaches=tacheRepo.findAllByRecepteurInAndIsmemoire(Recepteurs,false);
         model.addAttribute("equipeTaches",equipeTaches);
-
         tacheAdminService.loadReceivers(utilisateur,model);
         notificationsService.loadNotificationAndRelationType(utilisateur,model);
         prioriteService.loadPriorites(model);
         utilisateurService.loadSocietieMembers(utilisateur,model);
-
-
-
-
-
-
         return "/pages/equipe";
     }
 
@@ -98,17 +91,13 @@ public class MonEquipecontroleur {
     }
 
 
-
-
     @GetMapping(value = "/tachesEmeteur")
     public ResponseEntity<List<Tache>> getTacheByEmetteur(@RequestParam("utilisateur") List<Long> idemetteur,Authentication authentication) {
-
         // Récupérer l'utilisateur connecté
         String login = authentication.getName();
         Utilisateur recepteur = utilisateurRepo.findUtilisateursByMail(login);
         List<Tache>  taches=tacheService.findTachesByIdEmetteur(idemetteur,recepteur);
         return ResponseEntity.ok(taches);
-
     }
 
     // Fonction pour récupérer tous les taches d utilisateur et de l equipe de l utilisateur
@@ -123,7 +112,7 @@ public class MonEquipecontroleur {
         String login = authentication.getName();
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
         // Tâches où l'utilisateur est à la fois récepteur et émetteur
-        List<Tache> directTasks =tacheRepo.findTacheByRecepteurAndUtilisateurAndIsmemoire(utilisateur,utilisateur,false);
+        //List<Tache> directTasks =tacheRepo.findTacheByRecepteurAndUtilisateurAndIsmemoire(utilisateur,utilisateur,false);
         // Tâches envoyées par l'utilisateur connecté
         List<Tache> sentTasks=tacheRepo.findTacheByUtilisateurAndIsmemoire(utilisateur,false);
         // l'équipe, y compris l'utilisateur connecté
@@ -132,7 +121,7 @@ public class MonEquipecontroleur {
         List<Tache> teamTasks =tacheRepo.findAllByRecepteurInAndIsmemoire(teamReceivers,false);
         // Créer un ensemble pour éliminer les doublons
         Set<Tache> uniqueTaskSet = new HashSet<>();
-        uniqueTaskSet.addAll(directTasks);
+        //uniqueTaskSet.addAll(directTasks);
         uniqueTaskSet.addAll(sentTasks);
         uniqueTaskSet.addAll(teamTasks);
         // Convert the set to a list
@@ -141,7 +130,42 @@ public class MonEquipecontroleur {
         return ResponseEntity.ok(finalTasks);
     }
 
+    @GetMapping(value = "/getMembersTasksExcludingValidatedAndCancelled")
+    public ResponseEntity<List<Tache>> getMembersTasksExcludingValidatedAndCancelled(Authentication authentication)
+    {
+        // Récupérer l'utilisateur connecté
+        String login = authentication.getName();
+        Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
+        List<String> excludedStatuts = Arrays.asList("Validée", "Annulée");
+        // Tâches où l'utilisateur est à la fois récepteur et émetteur
+        //List<Tache> directTasks =tacheRepo.findTacheByRecepteurAndUtilisateurAndIsmemoire(utilisateur,utilisateur,false);
+        // Tâches envoyées par l'utilisateur connecté
+        List<Tache> sentTasks=tacheRepo.findAllByUtilisateurAndIsmemoireAndStatutNotIn(utilisateur,false,excludedStatuts);
+        // l'équipe, y compris l'utilisateur connecté
+        List<Utilisateur> teamReceivers =tacheService.findRecepteurs(utilisateur);
+        // Tâches de l'équipe
+        List<Tache> teamTasks =tacheRepo.findAllByRecepteurInAndIsmemoireAndStatutNotIn(teamReceivers,false,excludedStatuts);
+        // Créer un ensemble pour éliminer les doublons
+        Set<Tache> uniqueTaskSet = new HashSet<>();
+        //uniqueTaskSet.addAll(directTasks);
+        uniqueTaskSet.addAll(sentTasks);
+        uniqueTaskSet.addAll(teamTasks);
+        // Convert the set to a list
+        List<Tache> finalTasks = new ArrayList<>(uniqueTaskSet);
+        finalTasks.sort(Comparator.comparing(Tache::getIdtache).reversed());
+        return ResponseEntity.ok(finalTasks);
+    }
 
+    @GetMapping(value = "/getAllTasksExcludingValidatedAndCancelled")
+    public ResponseEntity<List<Tache>> getAllTasksExcludingValidatedAndCancelled() {
+        List<String> excludedStatuts = Arrays.asList("Validée", "Annulée");
+        // Tâches de l'équipe
+        List<Tache> AllTasks =tacheRepo.findAllByIsmemoireAndStatutNotIn(false,excludedStatuts);
+        AllTasks.sort(Comparator.comparing(Tache::getIdtache).reversed());
+        return ResponseEntity.ok(AllTasks);
+    }
+
+ /*
     // Fonction pour récupérer tous les taches d utilisateur et de l equipe de l utilisateur
     // utilise a par ajax et javascript  dans equipe.html
     // ResponseEntity, qui est une classe de Spring qui permet de contrôler la réponse HTTP.
@@ -159,7 +183,7 @@ public class MonEquipecontroleur {
         // l'équipe, y compris l'utilisateur connecté
         List<Utilisateur> teamReceivers =tacheService.findRecepteurs(utilisateur);
         // Tâches de l'équipe sans les tâches validées et annulées
-        List<Tache> teamTasks =tacheRepo.findAllByRecepteurInAndIsmemoireAndStatutNotIn(teamReceivers,false,excludedStatuts);
+        List<Tache> teamTasks = tacheRepo.findAllByRecepteurInAndIsmemoireAndStatutNotIn(teamReceivers,false,excludedStatuts);
         // Créer un ensemble pour éliminer les doublons
         Set<Tache> uniqueTaskSet = new HashSet<>();
         uniqueTaskSet.addAll(sentTasks);
@@ -169,5 +193,6 @@ public class MonEquipecontroleur {
         return ResponseEntity.ok(finalTasks);
     }
 
+  */
 
 }

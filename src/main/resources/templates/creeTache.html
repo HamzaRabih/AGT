@@ -760,7 +760,7 @@
               <!--filtre-->
               <div class="d-flex align-content-between justify-content-between flex-wrap  pr-0 pl-0 ">
                 <div class=" align-content-center d-flex align-content-between justify-content-between flex-wrap">
-                  <div><label for="membreSelect" class="form-label-sm my-primary" STYLE="margin-right: 15px;font-weight: 700">Utilisateur</label></div>
+                  <div><label for="membreSelect" class="form-label-sm my-primary" STYLE="margin-right: 15px;font-weight: 700">Récepteur</label></div>
                   <div>
                     <select id="membreSelect" class=" form-select form-select-sm Mycolor">
                       <option value="" selected="selected">Tout sélectionner</option>
@@ -1048,19 +1048,13 @@
 <script src="js/pages-account-settings-account.js"></script>
 
 <!-- Place this tag in your head or just before your close body tag. -->
-
 <script src="js/myJs.js"></script>
 <!-- liens pour les websoket + Stom +Jquery. -->
 <script src="js/jquery.min.js"></script>
 <script src="js/sockjs.min.js"></script>
 <script src="js/stomp.min.js" ></script>
-
 <!--notif Js-->
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
-
-
-
-
   <!-- le script des websoket notification. -->
 <script src="js/notifWebSocket.js"></script>
 <!-- Data table -->
@@ -1088,7 +1082,6 @@
 
 </style>
 <script>
-
   //----- script pour les filtres et la validation , Refair et editer les taches
   var membreSelect = document.getElementById('membreSelect');
   const statutSelect = document.getElementById('statutSelect');
@@ -1097,82 +1090,89 @@
   var dateMaxSelect = document.querySelector("#dateMaxSelect");
   var dateselect = document.querySelector("#dateSelected");
   var AllMembersTask=[];
+  var membersTasksExcludingValidatedAndCancelled=[];
   var selectedStatuts=[""];
-  var selectedMembres;
-  var tacheOfselectedMembres=AllMembersTask;
-  var dateMin="";
   var dateMax="";
   var utilisateurConnecte=[];
   var membres=[];
   var selectedDate="ouverture";
 
-
- // console.log(new Date());
-  //Trouver le role d utilisateur connecté
-  function getRole() {
-    $.ajax({
-      url: `Role`,
-      method: 'GET',
-      success: function (data) {
-        utilisateurConnecte.push(data);
-      },
-      error: function (error) {
-        console.error("Une erreur s'est produite lors de la récupération du rôle :", error);
-      }
-    });
-  }
   getRole();
-
-
-  // Appel de la fonction fetch pour récupérer les membres de l'équipe de l'utilisateur connecté
-  fetch('membresDeLequipeDutilisateur', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      // Vous pouvez également ajouter des en-têtes supplémentaires si nécessaire
-    },
-  })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Erreur de réseau');
-            }
-            return response.json();
-          })
-          .then(data => {
-
-            // Les données récupérées (liste de membres) sont stockées dans la variable data
-            data.forEach(user=>{
-              membres.push(user)
-              console.log(user)
-            })
-          })
-          .catch(error => {
-            console.error('Erreur lors de la récupération des membres:', error);
-          });
-
-  //pour l affichage initial du table
-  // getAllMembersTask
-  // fetch(`taches?utilisateur=${selectedMembres.join(',')}`)
+  getAllMembersTask();
+  getTasksExcludingValidatedAndCancelled()
+  tacheParentes();
+  dateOuvertureactuelle();
 
   function getAllMembersTask(){
     fetch('getAllMembersTask')
+            .then(response => response.json())
+            .then(data => {
+              // Update the table with the new data
+              data.forEach(tache => {
+                AllMembersTask.push(tache);
+              });
+            })
+  }
+
+  //pour l affichage initial du table
+  function getTasksExcludingValidatedAndCancelled(){
+    fetch('getMembersTasksExcludingValidatedAndCancelled')
             .then(response => response.json())
             .then(data => {
               // Redraw the table
               $('#example').DataTable().destroy();
               // For example, you can clear the table content
               tbody.innerHTML = '';
-              // Update the table with the new data
               data.forEach(tache => {
-                AllMembersTask.push(tache);
-                createTableRow(tache);
+                membersTasksExcludingValidatedAndCancelled.push(tache);
               });
-              // Redraw the table
-              datatableConf()
+              createTableRow(membersTasksExcludingValidatedAndCancelled);
+              datatableConf();
             })
   }
-  //affichage initial du tableau
-  getAllMembersTask();
+
+  // Fonction pour appliquer les filtres
+  function applyFilters() {
+    //update DataTable
+    $('#example').DataTable().destroy();
+    // supprimer le contenu du tableau
+    tbody.innerHTML = '';
+    const utilisateur = document.getElementById('membreSelect').value;
+    const statut = document.getElementById('statutSelect').value;
+    const dateType = document.getElementById('dateSelected').value;
+    const dateMin = document.getElementById('dateMinSelect').value;
+    const dateMax = document.getElementById('dateMaxSelect').value;
+    var data =[];
+
+    data =membersTasksExcludingValidatedAndCancelled;
+    if (statut) {
+      data =[]
+      data = AllMembersTask;
+    }
+    // Filtrer les données
+    const filteredData = data.filter(item => {
+      const matchesUtilisateur = utilisateur ? item.recepteur.idutilisateur == utilisateur : true;
+      const matchesStatut = statut ? item.statut === statut : true;
+      const matchesDate = dateType === "ouverture" ? item.dateouverture :
+              dateType === "objectif" ? item.dateobjectif :
+                      item.dateTermineTache;
+      const matchesDateMin = dateMin ? new Date(matchesDate) >= new Date(dateMin) : true;
+      const matchesDateMax = dateMax ? new Date(matchesDate) <= new Date(dateMax) : true;
+
+      return matchesUtilisateur && matchesStatut && matchesDateMin && matchesDateMax;
+    });
+    // Mettre à jour l'affichage avec les données filtrées
+    createTableRow(filteredData);
+    datatableConf();
+  }
+
+  // Écoutez les changements sur les filtres
+  document.getElementById('membreSelect').addEventListener('change', applyFilters);
+  document.getElementById('statutSelect').addEventListener('change', applyFilters);
+  document.getElementById('dateSelected').addEventListener('change', applyFilters);
+  document.getElementById('dateMinSelect').addEventListener('change', applyFilters);
+  document.getElementById('dateMaxSelect').addEventListener('change', applyFilters);
+  document.getElementById('rechercher').addEventListener('input', applyFilters);
 
   function datatableConf(){
     $(document).ready(function () {
@@ -1199,9 +1199,657 @@
     });
   }
 
+  function progressPercentage(tache) {
+    var currentDate = new Date().toISOString().split('T')[0]; // Obtenir la date actuelle en format 'YYYY-MM-DD'
+    var dateOuverture = new Date(tache.dateouverture);
+    var dateObjectif = new Date(tache.dateobjectif);
+    var currentDateObj = new Date(currentDate); // Convertir la date actuelle en objet Date
+    // Vérifier si les dates d'ouverture et d'objectif sont identiques
+    if (dateOuverture.getTime() === dateObjectif.getTime()) {return 100;}
+    // Si la date actuelle est supérieure ou égale à la date d'objectif
+    if (currentDateObj >= dateObjectif) {return 100;}
+    var jr=(24 * 60 * 60 * 1000);
+    // Calculer le pourcentage de progression
+    var ecoule = (currentDateObj.getTime() - dateOuverture.getTime())+jr;
+    var total = (dateObjectif.getTime() - dateOuverture.getTime())+jr;
+    // Calculer le pourcentage et s'assurer qu'il ne dépasse pas 100%
+    var pourcentage = (ecoule / total) * 100;
+    return Math.min(Math.round(pourcentage), 100); // Arrondir et s'assurer que le pourcentage ne dépasse pas 100
+  }
 
-  //______________________script:pour filtré les Taches Par utilisateurs___________________
-  // Function to handle the change event on membreSelect
+  //fonction pours creer les linges de tableau
+  function createTableRow(filteredData) {
+    for (let i = 0; i < filteredData.length; i++) {
+    // Créer une nouvelle ligne pour chaque tâche
+    var newRow = document.createElement("tr");
+    // Ajouter les cellules avec les données de la tâche à la nouvelle ligne
+    var cellNomTache = document.createElement("td");
+    cellNomTache.setAttribute("style"," display: flex;")
+    cellNomTache.innerHTML = '     <p style="white-space: pre-wrap;margin: 0;min-width: 350px;max-width: 350px;min-height: 35px;height: auto">' + filteredData[i].nomtache + '</p>';
+    newRow.appendChild(cellNomTache);
+
+    var cellRecepteur = document.createElement("td");
+    cellRecepteur.innerText = filteredData[i].recepteur != null ? filteredData[i].recepteur.prenom + ' ' + filteredData[i].recepteur.nom : '';
+    newRow.appendChild(cellRecepteur);
+
+    newRow.appendChild(createCelluleStatut(filteredData[i]));
+
+    var cellAction = creationTdAction(filteredData[i]);
+    newRow.appendChild(cellAction);
+
+    var cellDureeRetarde = document.createElement("td");
+    if (filteredData[i].dureretarde > 0) {
+      cellDureeRetarde.innerText = filteredData[i].dureretarde;
+      newRow.appendChild(cellDureeRetarde);
+    } else {
+      cellDureeRetarde.innerText = "";
+      newRow.appendChild(cellDureeRetarde);
+    }
+
+    var cellPerformance = document.createElement("td");
+    cellPerformance.innerText = filteredData[i].performance + '%';
+    newRow.appendChild(cellPerformance);
+
+    var cellIdTache = document.createElement("td");
+    cellIdTache.innerText = filteredData[i].idtache;
+    newRow.appendChild(cellIdTache);
+
+    var cellIdTacheMere = document.createElement("td");
+    cellIdTacheMere.innerText = filteredData[i].tacheparente!=null?filteredData[i].tacheparente.idtache:'';
+    newRow.appendChild(cellIdTacheMere);
+
+    var cellEmetteur = document.createElement("td");
+    cellEmetteur.innerText = filteredData[i].utilisateur != null ? filteredData[i].utilisateur.prenom + ' ' + filteredData[i].utilisateur.nom : '';
+    newRow.appendChild(cellEmetteur);
+
+    var cellPiorite = document.createElement("td");
+    cellPiorite.innerText = filteredData[i].priorite != null ? filteredData[i].priorite.nompriorite : '';
+    newRow.appendChild(cellPiorite);
+
+    var cellDateOuverture = document.createElement("td");
+    if (filteredData[i].dateouverture == null) {
+      cellDateOuverture.innerText = '';
+      newRow.appendChild(cellDateOuverture);
+    } else {
+      var dateOuverture = new Date(filteredData[i].dateouverture);
+      var formattedDate =  ('0' + dateOuverture.getDate()).slice(-2) + '/' +('0' + (dateOuverture.getMonth() + 1)).slice(-2) + '/' + dateOuverture.getFullYear().toString().slice(-2);
+      cellDateOuverture.innerText = formattedDate;
+      newRow.appendChild(cellDateOuverture);
+    }
+
+    var cellDateObjectif = document.createElement("td");
+    if (filteredData[i].dateobjectif == null) {
+      cellDateObjectif.innerText = '';
+      newRow.appendChild(cellDateObjectif);
+    } else {
+      var dateObjectif = new Date(filteredData[i].dateobjectif);
+      var formattedDate =  ('0' + dateObjectif.getDate()).slice(-2) + '/' +('0' + (dateObjectif.getMonth() + 1)).slice(-2) + '/' + dateObjectif.getFullYear().toString().slice(-2);
+      cellDateObjectif.innerText = formattedDate;
+      newRow.appendChild(cellDateObjectif);
+    }
+
+    var cellDureeEstimee = document.createElement("td");
+    cellDureeEstimee.innerText = filteredData[i].dureestime;
+    newRow.appendChild(cellDureeEstimee);
+
+    var cellDateCloture = document.createElement("td");
+    if (filteredData[i].dateTermineTache == null) {
+      cellDateCloture.innerText = '';
+      newRow.appendChild(cellDateCloture);
+    } else {
+      var dateCloture = new Date(filteredData[i].dateTermineTache);
+      var formattedDate =  ('0' + dateCloture.getDate()).slice(-2) +'/'+('0' + (dateCloture.getMonth() + 1)).slice(-2) +'/' +dateCloture.getFullYear().toString().slice(-2);
+      cellDateCloture.innerText = formattedDate;
+      newRow.appendChild(cellDateCloture);
+    }
+
+    var cellAvancement = document.createElement("td");
+    cellAvancement.innerText = progressPercentage(filteredData[i]) + '%';
+    newRow.appendChild(cellAvancement);
+
+    var cellTacheSucc = document.createElement("td");
+    if (filteredData[i].aunetachesuccessive) {cellTacheSucc.innerText = '✔';}
+    else {cellTacheSucc.innerText = '✘';}
+    newRow.appendChild(cellTacheSucc);
+
+    // Ajouter la nouvelle ligne au corps du tableau
+    var tableBody = document.querySelector("#example tbody");
+    tableBody.appendChild(newRow);
+    }
+  }
+
+  function createCelluleStatut(tache) {
+    var cellStatut = document.createElement("td");
+    cellStatut.classList.add("text-sm-center")
+    var statutBadge = document.createElement("span");
+    statutBadge.setAttribute("style","width: 100px !important");
+    statutBadge.setAttribute("data-id", tache.idtache);
+    statutBadge.className = "";
+
+    switch (tache.statut) {
+      case "En cours":
+        statutBadge.classList.add("bg-info","badge","rounded-pill","capitalize-first");
+        statutBadge.innerText = "En cours";
+        break;
+      case "Terminée":
+        statutBadge.classList.add("bg-success","badge","rounded-pill","capitalize-first");
+        statutBadge.innerText = "Terminée";
+        break;
+      case "Programmée":
+        statutBadge.classList.add("bg-primary","badge","rounded-pill","capitalize-first");
+        statutBadge.innerText = "Programmée";
+        break;
+      case "Validée":
+        statutBadge.classList.add("bg-secondary","badge","rounded-pill","capitalize-first");
+        statutBadge.innerText = "Validée";
+        break;
+      case "À refaire":
+        statutBadge.classList.add("bg-danger","badge","rounded-pill","capitalize-first");
+        statutBadge.innerText = "À refaire";
+        break;
+      case "En attente":
+        statutBadge.classList.add("bg-warning","badge","rounded-pill","capitalize-first");
+        statutBadge.innerText = "En attente";
+        break;
+      case "Annulée":
+        statutBadge.classList.add("bg-dark","badge","rounded-pill","capitalize-first");
+        statutBadge.setAttribute("style","color: white !important;width: 100px !important");
+        statutBadge.innerText = "Annulée";
+        break;
+      default:
+        statutBadge.innerText = "Statut inconnu";
+    }
+    statutBadge.classList.add("statutsClasse");
+    cellStatut.appendChild(statutBadge);
+    return cellStatut;
+  }
+
+    //pour creer le champ action (les trois butons)
+  function creationTdAction(tache) {
+    //console.log(tache.utilisateur.role.role)
+    var cellAction = document.createElement("td");
+    //dropdown div
+    var divDropdown=document.createElement("div");
+    divDropdown.classList.add("dropdown");
+    var button = document.createElement("button");
+    button.setAttribute("type", "button");
+    button.setAttribute("class", "btn p-0 dropdown-toggle hide-arrow");
+    button.setAttribute("data-bs-toggle", "dropdown");
+
+      if ( tache.statut !=="Annulée" && tache.statut !== "Validée"){
+        //creer la Menu
+        creerMenu(button,cellAction,divDropdown,tache);
+      }
+    return cellAction;
+  }
+
+  function creerMenu(button,cellAction,divDropdown,tache) {
+    //creer la Menu
+    var icon = document.createElement("i");
+    icon.setAttribute("class", "bx bx-dots-vertical-rounded");
+    button.appendChild(icon);
+    divDropdown.appendChild(button);
+
+    //Menu
+    var MenuDiv=document.createElement("div");
+    MenuDiv.classList.add("dropdown-menu");
+
+    // Créer le lienValider
+    if(tache.statut ==="Terminée" && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur){
+      var lienValider = document.createElement("a");
+      lienValider.setAttribute("class", "dropdown-item");
+      var iconeValider = document.createElement("i");
+      iconeValider.setAttribute("class", "bx bx-check");
+      lienValider.appendChild(iconeValider);
+      lienValider.appendChild(document.createTextNode(" Valider"));
+      lienValider.setAttribute("data-id", tache.idtache);
+      lienValider.addEventListener('click', () => valideTache(tache.idtache));
+      MenuDiv.appendChild(lienValider);
+    }
+
+    // Créer le lien lienRefaire
+    if(tache.statut ==="Terminée" && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur) {
+      var lienRefaire = document.createElement("a");
+      lienRefaire.setAttribute("class", "dropdown-item");
+      var iconeRefaire = document.createElement("i");
+      iconeRefaire.setAttribute("class", "bx bx-refresh");
+      lienRefaire.appendChild(iconeRefaire);
+      var texteRefaire = document.createTextNode("À refaire");
+      lienRefaire.appendChild(texteRefaire);
+      lienRefaire.setAttribute("data-id", tache.idtache);
+      lienRefaire.addEventListener('click', () => refaireTache(tache.idtache));
+      MenuDiv.appendChild(lienRefaire);
+    }
+
+
+    // Créer le lien lienAnnuler
+    if ((tache.statut !=="Validée"  && tache.statut !=="Terminée" &&  tache.statut !=="Annulée"
+         && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur)
+    ) {
+      var lienAnnuler = document.createElement("a");
+      lienAnnuler.setAttribute("class", "dropdown-item");
+      var iconeAnnuler = document.createElement("i");
+      iconeAnnuler.setAttribute("class", "bx bx-message-alt-x");
+      lienAnnuler.appendChild(iconeAnnuler);
+      var texteEditer = document.createTextNode(" Annuler");
+      lienAnnuler.appendChild(texteEditer);
+      lienAnnuler.setAttribute("data-id", tache.idtache);
+      lienAnnuler.addEventListener('click', () => annulerTache(tache.idtache));
+      MenuDiv.appendChild(lienAnnuler);
+    }
+
+    // Créer le lien lienEditer
+    if (utilisateurConnecte[0].role.role !== "Utilisateur" && tache.statut !== "Terminée" && tache.statut !== "Validée" && tache.statut !=="Programmée") {
+      var lienEditer = document.createElement("a");
+      lienEditer.setAttribute("class", "dropdown-item");
+      var iconeEditer = document.createElement("i");
+      iconeEditer.setAttribute("class", "bx bx-edit-alt");
+      lienEditer.appendChild(iconeEditer);
+      var texteEditer = document.createTextNode("  Éditer");
+      lienEditer.appendChild(texteEditer);
+      lienEditer.setAttribute("data-id", tache.idtache);
+      lienEditer.addEventListener('click', () => editerTache(tache.idtache));
+      MenuDiv.appendChild(lienEditer);
+    }
+
+    // Créer le lien lienIndexer
+    if (tache.statut !=="Validée"   &&  tache.statut !=="Annulée" ) {
+      var lienAnnuler = document.createElement("a");
+      lienAnnuler.setAttribute("class", "dropdown-item");
+      // Créer l'élément SVG
+      var iconeAnnuler = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      iconeAnnuler.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+      iconeAnnuler.setAttribute("width", "16");
+      iconeAnnuler.setAttribute("height", "16");
+      iconeAnnuler.setAttribute("fill", "currentColor");
+      iconeAnnuler.setAttribute("class", "bi bi-bezier2");
+      iconeAnnuler.setAttribute("viewBox", "0 0 16 16");
+      // Créer et ajouter le chemin à l'élément SVG
+      var cheminSVG = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      cheminSVG.setAttribute("fill-rule", "evenodd");
+      cheminSVG.setAttribute("d", "M1 2.5A1.5 1.5 0 0 1 2.5 1h1A1.5 1.5 0 0 1 5 2.5h4.134a1 1 0 1 1 0 1h-2.01q.269.27.484.605C8.246 5.097 8.5 6.459 8.5 8c0 1.993.257 3.092.713 3.7.356.476.895.721 1.787.784A1.5 1.5 0 0 1 12.5 11h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5H6.866a1 1 0 1 1 0-1h1.711a3 3 0 0 1-.165-.2C7.743 11.407 7.5 10.007 7.5 8c0-1.46-.246-2.597-.733-3.355-.39-.605-.952-1-1.767-1.112A1.5 1.5 0 0 1 3.5 5h-1A1.5 1.5 0 0 1 1 3.5zM2.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm10 10a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z");
+      iconeAnnuler.appendChild(cheminSVG);
+      // Ajouter l'élément SVG à l'élément <a>
+      lienAnnuler.appendChild(iconeAnnuler);
+      // Créer et ajouter le texte " Indexer" à l'élément <a>
+      var texteEditer = document.createTextNode(" Indexer");
+      lienAnnuler.appendChild(texteEditer);
+      // Définir les attributs supplémentaires
+      lienAnnuler.setAttribute("data-id", tache.idtache);
+      lienAnnuler.addEventListener('click', () => indexeTache(tache.idtache));
+      // Ajouter le lien à votre élément MenuDiv
+      MenuDiv.appendChild(lienAnnuler);
+    }
+
+    divDropdown.appendChild(MenuDiv);
+    cellAction.appendChild(divDropdown);
+  }
+
+  //fonction pour valider une tache
+  function valideTache(tacheId) {
+    // Obtenir l'ID de la tâche et le statut actuel à partir des attributs data
+    // const tacheId = button.getAttribute("data-id");
+    // Envoyer une requête AJAX pour mettre à jour le statut de la tâche
+    $.ajax({
+      url: `ValiderStatut/${tacheId}`,
+      method: 'GET',
+      success: function (tache) {
+        reinitialiserFiltre();
+        //vider la liste
+        membersTasksExcludingValidatedAndCancelled=[];
+        //affichage initial du tableau
+        getTasksExcludingValidatedAndCancelled();
+        // Afficher le message de validation
+        messageNotif();
+      }
+    });
+  }
+
+  //fonction pour Refair une tache
+  function refaireTache(tacheId) {
+    // Obtenir l'ID de la tâche et le statut actuel à partir des attributs data
+    // const tacheId = button.getAttribute("data-id");
+    // Envoyer une requête AJAX pour mettre à jour le statut de la tâche
+    $.ajax({
+      url: `RefaireTache/${tacheId}`,
+      method: 'GET',
+      success: function (tache) {
+        reinitialiserFiltre();
+        //vider la liste
+        membersTasksExcludingValidatedAndCancelled=[];
+        //affichage initial du tableau
+        getTasksExcludingValidatedAndCancelled();
+        // Afficher le message de validation
+        messageNotif();
+      }
+    });
+  }
+
+  function annulerTache(tacheId) {
+    $.ajax({
+    url: `AnnulerTache/${tacheId}`,
+    method: 'GET',
+    success: function (tache){
+      reinitialiserFiltre();
+      //vider la liste
+      membersTasksExcludingValidatedAndCancelled=[];
+      //affichage initial du tableau
+      getTasksExcludingValidatedAndCancelled();
+      // Afficher le message de validation
+      messageNotif();
+    }
+  });}
+
+  function indexeTache(tacheId) {
+    $.ajax({
+      url: `indexerTache/${tacheId}`,
+      method: 'GET',
+      success: function (tache) {
+        reinitialiserFiltre();
+        //vider la liste
+        membersTasksExcludingValidatedAndCancelled=[];
+        tacheParentes();
+        // Afficher le message de validation
+        messageNotif();
+      }
+    });
+  }
+
+  //Pour afficher les taches parentes dans la liste déroulante
+  // dans le formulaire qui permet de créer une tâche
+  // et actualiser la liste lorsqu'une indexation
+  function tacheParentes() {
+    $.ajax({
+      url: `tachesParentes/`,
+      method: 'GET',
+      success: function (taches) {
+        var tachesParentSelect = $("#tacheparente");
+        tachesParentSelect.empty(); // Efface toutes les options actuelles
+        tachesParentSelect.append (new Option("Selectionner la tâche parente",-1));
+        for (var i = 0; i < taches.length; i++) {
+          var option = new Option(taches[i].nomtache, taches[i].idtache);
+          tachesParentSelect.append(option);
+        }
+      }
+    });
+  }
+
+  //Pour editer une tache dans la meme forme
+  function editerTache(idtache1) {
+    afficherFormulaireCreeTache();
+    const idtache = idtache1;
+    const form = document.getElementById("formAccountSettings");
+    var   btnSubmit= document.getElementById('submit');
+    // Set the idDepartement input field value and update the button text
+    form.querySelector("input[name='idtache']").value = idtache;
+    btnSubmit.textContent = "Mettre à jour";
+    // Fetch Domaine details using AJAX
+    $.ajax({
+      type: "GET", // You may need to adjust this to your backend API
+      url: `get-Tache/${idtache}`, // Replace with your API endpoint
+      success: function(data) {//returns data in JSON format
+        // Pre-fill the form fields
+        form.querySelector("input[name='Utilisateur']").value = data.utilisateur.idutilisateur;
+        form.querySelector("input[name='nomtache']").value = data.nomtache;
+        form.querySelector("input[name='dureestime']").value = data.dureestime;
+        form.querySelector("input[name='dateouverture']").value = data.dateouverture;
+        //si la departement a une societé
+        if(data.commentaire!=null)
+        {form.querySelector("input[name='commentaire']").value = data.commentaire;}
+        if (data.type != null)
+        {form.querySelector("select[name='type']").value = data.type;}
+        if (data.proprietaire != null) {
+          // Pre-select the Proprietaire in the dropdown
+          const select1 = form.querySelector("select[name='proprietaire']");
+          const Proprietaire = data.proprietaire;
+          const ProprietaireOption = select1.querySelector(`option[value="${Proprietaire.idutilisateur}"]`);
+          ProprietaireOption.setAttribute("selected", "selected");
+        }
+
+        if (data.priorite != null) {
+          // Pre-select the Proprietaire in the dropdown
+          const select1 = form.querySelector("select[name='priorite']");
+          const PrioriteOption = select1.querySelector(`option[value="${data.priorite.idpriorite}"]`);
+          PrioriteOption.setAttribute("selected", "selected");
+        }
+
+        if (data.recepteur != null) {
+          // Pre-select the Recepteur in the dropdown
+          const select = form.querySelector("select[name='recepteur']");
+          const recepteurId = data.recepteur;
+          const recepteurOption = select.querySelector(`option[value="${recepteurId.idutilisateur}"]`);
+          recepteurOption.setAttribute("selected", "selected");
+
+          select.setAttribute("readonly", "readonly");
+          select.onmousedown = function () { return false; };
+          select.style.cursor = "default";
+          select.style.backgroundColor='rgba(239,239,239,0.77)'
+        }
+
+        // Disable editing and selection for tacheparente
+        const select = form.querySelector("select[name='tacheparente']");
+          select.setAttribute("readonly", "readonly");
+          select.onmousedown = function () { return false; };
+          select.style.cursor = "default";
+          select.style.backgroundColor='rgba(239,239,239,0.77)'
+
+        // Disable editing and selection for nomtache
+        const inputField = form.querySelector(`input[name='nomtache']`);
+        inputField.setAttribute("readonly", "readonly");
+        inputField.onmousedown = function () { return false; };
+        inputField.style.cursor = "default";
+        inputField.style.backgroundColor='rgba(239,239,239,0.77)'
+
+        if (data.aunetachesuccessive != null) {
+          // Pre-select the Proprietaire in the dropdown
+          const select1 = form.querySelector("select[name='aunetachesuccessive']");
+          const TacheSucc = data.aunetachesuccessive;
+          const TacheSuccOption = select1.querySelector(`option[value="${TacheSucc}"]`);
+          TacheSuccOption.setAttribute("selected", "selected");
+
+        }
+
+      },
+      error: function(err) {
+        // Handle the error if needed
+        console.error(err);
+      }
+    });
+
+
+
+  }
+
+  function afficherFormulaireCreeTache(){
+      //pour afficher le form
+      // Récupérer l'élément du bouton par son attribut 'class'
+      var bouton = document.getElementById("creertache");
+      // Vérifier si le bouton a été trouvé
+      if (bouton) {
+        // Déclencher le clic sur le bouton
+        bouton.click();
+      } else {
+        console.error('Le bouton n\'a pas été trouvé.');
+      }
+      //srcipt permet de défiler la page vers le haut lorsque l'utilisateur clique sur un bouton
+      // Faites défiler la page vers le haut
+      window.scrollTo({
+        top: 0, // La position en pixels en haut de la page
+        behavior: "smooth" // Option pour un défilement fluide
+      });
+    }
+  //fonction pour afficher les msgs
+  function messageNotif(){
+    // Create an instance of Notyf
+    var notyf = new Notyf();
+    // Display a success notification
+    notyf.success('Opération terminée avec succès.');
+  }
+
+  function annuler() {
+    // Récupérer l'élément du formulaire par son ID
+    var formulaire = document.getElementById('formAccountSettings');
+    var   btnSubmit= document.getElementById('submit');
+    var inputEDateOuverture = document.getElementById("DateOuverture");
+
+    // Vérifier si le formulaire a été trouvé
+    if (formulaire) {
+      // Réinitialiser le formulaire
+      formulaire.reset();
+
+      if ( btnSubmit.textContent === "Mettre à jour") {btnSubmit.textContent = "Envoyer";}
+
+        // Pre-select the Proprietaire in the dropdown
+        const select1 = formulaire.querySelector("select[name='proprietaire']");
+        select1.removeAttribute("readonly");
+        select1.onmousedown = null;
+        select1.style.cursor = "default";
+
+        // Pre-select the Recepteur in the dropdown
+        const select = formulaire.querySelector("select[name='recepteur']");
+        select.removeAttribute("readonly");
+        select.onmousedown = null;
+        select.style.cursor = "default";
+
+        //remove Disable editing and selection for nomtache
+        const inputField = formulaire.querySelector(`input[name='nomtache']`);
+        inputField.removeAttribute("readonly");
+        inputField.onmousedown = null; // Supprimer l'événement onmousedown
+        inputField.style.cursor = "text"; // Changer le style du curseur en mode édition
+
+        const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
+        idTacheInput.value=null;
+        idTacheInput.textContent="";
+
+
+        // Disable editing and selection for tacheparente
+        const selec = formulaire.querySelector("select[name='tacheparente']");
+        selec.removeAttribute("readonly");
+        selec.onmousedown = null;
+        selec.style.cursor = "default";
+
+        //Date d ouverture
+        const inputEDateOuverture = formulaire.querySelector(`input[name='dateouverture']`);
+        inputEDateOuverture.removeAttribute("readonly");
+        inputEDateOuverture.onmousedown = null;
+        inputEDateOuverture.style.cursor = "default";
+        inputEDateOuverture.disabled=false;
+       inputEDateOuverture.onmousedown = null; // Supprimer l'événement onmousedown
+       //inputEDateOuverture.style.cursor = "text"; // Changer le style du curseur en mode édition
+      dateOuvertureactuelle();
+    } else {
+      console.error('Le formulaire n\'a pas été trouvé.');
+    }
+  }
+
+  function reinitialiserFiltre() {
+    //----/reselectionné les premieres valeurs des filtres
+    // Parcourez toutes les options de la liste déroulante
+    for (var i = 0; i < membreSelect.options.length; i++) {
+      // Définissez la propriété selected de chaque option sur false
+      membreSelect.options[i].selected = false;
+    }
+    // Définissez la première option comme sélectionnée
+    membreSelect.options[0].selected = true;
+
+    // Parcourez toutes les options de la liste déroulante
+    for (var i = 0; i < statutSelect.options.length; i++) {
+      // Définissez la propriété selected de chaque option sur false
+      statutSelect.options[i].selected = false;
+    }
+    // Définissez la première option comme sélectionnée
+    statutSelect.options[0].selected = true;
+    //----/reselectionné les premieres valeurs des filtres
+  }
+
+  //Trouver le role d utilisateur connecté
+  function getRole() {
+    $.ajax({
+      url: `Role`,
+      method: 'GET',
+      success: function (data) {
+        utilisateurConnecte.push(data);
+      },
+      error: function (error) {
+        console.error("Une erreur s'est produite lors de la récupération du rôle :", error);
+      }
+    });
+  }
+
+  // Sélectionnez tous les éléments avec la classe "show-message"
+  var messageElements = document.querySelectorAll('.show-message');
+
+  // Parcourir chaque élément et ajouter la classe "show" (pour l'animation)
+  messageElements.forEach(function(element) {
+    // Ajouter la classe "show" pour les rendre visibles avec l'animation CSS
+    element.classList.add('show');
+
+    // Supprimer la classe "show" après 5 secondes
+    setTimeout(function() {
+      element.classList.remove('show');
+    }, 5000);
+  });
+
+  // Sélectionnez l'élément avec l'id "messages"
+  var messagesDiv = document.getElementById("messages");
+
+  // Supprimez la div après 5 secondes (5000 millisecondes)
+  setTimeout(function() {
+    if (messagesDiv) {
+      messagesDiv.remove();
+    }
+  }, 5500);
+
+  //pour afficher la date d'ouverture
+  function dateOuvertureactuelle(){
+    //pour la date douverture
+    // Obtenez la date actuelle au format YYYY-MM-DD
+    var currentDate = new Date().toISOString().split('T')[0];
+
+    // Mettez à jour l'attribut 'min' du champ de saisie de date avec la date actuelle
+    document.getElementById('DateOuverture').min = currentDate;
+
+    // Mettez à jour l'attribut 'value' du champ de saisie de date avec la date actuelle
+    document.getElementById('DateOuverture').value = currentDate;
+  }
+
+
+  /*
+
+ // Appel de la fonction fetch pour récupérer les membres de l'équipe de l'utilisateur connecté
+  fetch('membresDeLequipeDutilisateur', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      // Vous pouvez également ajouter des en-têtes supplémentaires si nécessaire
+    },
+  })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Erreur de réseau');
+            }
+            return response.json();
+          })
+          .then(data => {
+            // Les données récupérées (liste de membres) sont stockées dans la variable data
+            data.forEach(user=>{
+              membres.push(user)
+            })
+          })
+          .catch(error => {
+            console.error('Erreur lors de la récupération des membres:', error);
+          });
+
+  //pour verifier si l'utilisateur donneé est un membre de l'equipe de l'utilisateur connecté ou non
+  function isMember(utilisateur){
+    // Utilisation d'une boucle for pour itérer sur les éléments du tableau
+    for (var i = 0; i < membres.length; i++) {
+      if (membres[i].idutilisateur===utilisateur.idutilisateur) {
+        return true
+      };
+    }
+    return false
+  }
 
   membreSelect.addEventListener('change', () => {
     // Check if "tout sélectionner" is selected
@@ -1406,20 +2054,15 @@
         });
       }// Redraw the table
       datatableConf()
-
     } else {
-
       // Récupérer les départements sélectionnés
       //membreSelect.selectedOptions: est une propriété de l'élément <select> qui renvoie une collection de toutes les options sélectionnées.
       //Array.from(): est utilisé pour convertir la collection renvoyée par selectedOptions en un tableau JavaScript.
       // Les collections d'éléments DOM ne sont pas des tableaux
       // (option => option.value). Elle prend chaque élément (dans ce cas, une option) de la collection selectedOptions et renvoie la valeur de l'attribut value de cet élément.
       // Cela permet d'extraire la valeur de chaque option sélectionnée et de la stocker dans un nouveau tableau.
-
       //selectedMembres: un tableau des id valeur sélectionnées
       selectedMembres = Array.from(membreSelect.selectedOptions).map(option => option.value);
-
-      //
       fetch(`taches?utilisateur=${selectedMembres.join(',')}`)
               .then(response => response.json())
               .then(data => {
@@ -1635,9 +2278,7 @@
 
               })
     }
-
   });
-
 
   //pour filtrer les taches par statuts
   statutSelect.addEventListener('change',()=>{
@@ -2199,8 +2840,6 @@
     datatableConf()
   })
 
-
-
   //pour filtrer les taches par datemin
   dateMinSelect.addEventListener('change',()=>{
     // Redraw the table
@@ -2335,6 +2974,7 @@
     datatableConf()
   })
 
+
   //fonction verifier si une liste contient valeur vide
   function contientValeurVide(liste) {
     // Vérifie chaque élément de la liste
@@ -2348,656 +2988,7 @@
     return false;
   }
 
-  function progressPercentage(tache) {
-    var currentDate = new Date().toISOString().split('T')[0]; // Obtenir la date actuelle en format 'YYYY-MM-DD'
-    var dateOuverture = new Date(tache.dateouverture);
-    var dateObjectif = new Date(tache.dateobjectif);
-    var currentDateObj = new Date(currentDate); // Convertir la date actuelle en objet Date
-    // Vérifier si les dates d'ouverture et d'objectif sont identiques
-    if (dateOuverture.getTime() === dateObjectif.getTime()) {return 100;}
-    // Si la date actuelle est supérieure ou égale à la date d'objectif
-    if (currentDateObj >= dateObjectif) {return 100;}
-    var jr=(24 * 60 * 60 * 1000);
-    // Calculer le pourcentage de progression
-    var ecoule = (currentDateObj.getTime() - dateOuverture.getTime())+jr;
-    var total = (dateObjectif.getTime() - dateOuverture.getTime())+jr;
-    // Calculer le pourcentage et s'assurer qu'il ne dépasse pas 100%
-    var pourcentage = (ecoule / total) * 100;
-    return Math.min(Math.round(pourcentage), 100); // Arrondir et s'assurer que le pourcentage ne dépasse pas 100
-  }
-
-
-  //fonction pours creer les linges de tableau
-  function createTableRow(tache) {
-    // Créer une nouvelle ligne pour chaque tâche
-    var newRow = document.createElement("tr");
-
-   //ID TACHE
-   /* var cellId = document.createElement("td");
-    cellId.innerText = tache.utilisateur != null ? tache.idtache:'';
-    newRow.appendChild(cellId);
-    */
-    // Ajouter les cellules avec les données de la tâche à la nouvelle ligne
-    var cellNomTache = document.createElement("td");
-    cellNomTache.setAttribute("style"," display: flex;")
-    cellNomTache.innerHTML = '     <p style="white-space: pre-wrap;margin: 0;min-width: 350px;max-width: 350px;min-height: 35px;height: auto">' + tache.nomtache + '</p>';
-    newRow.appendChild(cellNomTache);
-
-    var cellRecepteur = document.createElement("td");
-    cellRecepteur.innerText = tache.recepteur != null ? tache.recepteur.prenom + ' ' + tache.recepteur.nom : '';
-    newRow.appendChild(cellRecepteur);
-
-    var cellStatut = document.createElement("td");
-    cellStatut.classList.add("text-sm-center")
-    var statutBadge = document.createElement("span");
-    statutBadge.setAttribute("style","width: 100px !important");
-    statutBadge.setAttribute("data-id", tache.idtache);
-    statutBadge.className = "";
-
-    switch (tache.statut) {
-      case "En cours":
-        statutBadge.classList.add("bg-info","badge","rounded-pill","capitalize-first");
-        statutBadge.innerText = "En cours";
-        break;
-      case "Terminée":
-        statutBadge.classList.add("bg-success","badge","rounded-pill","capitalize-first");
-        statutBadge.innerText = "Terminée";
-        break;
-      case "Programmée":
-        statutBadge.classList.add("bg-primary","badge","rounded-pill","capitalize-first");
-        statutBadge.innerText = "Programmée";
-        break;
-      case "Validée":
-        statutBadge.classList.add("bg-secondary","badge","rounded-pill","capitalize-first");
-        statutBadge.innerText = "Validée";
-        break;
-      case "À refaire":
-        statutBadge.classList.add("bg-danger","badge","rounded-pill","capitalize-first");
-        statutBadge.innerText = "À refaire";
-        break;
-      case "En attente":
-        statutBadge.classList.add("bg-warning","badge","rounded-pill","capitalize-first");
-        statutBadge.innerText = "En attente";
-        break;
-      case "Annulée":
-        statutBadge.classList.add("bg-dark","badge","rounded-pill","capitalize-first");
-        statutBadge.setAttribute("style","color: white !important;width: 100px !important");
-        statutBadge.innerText = "Annulée";
-        break;
-      default:
-        statutBadge.innerText = "Statut inconnu";
-    }
-    statutBadge.classList.add("statutsClasse");
-    cellStatut.appendChild(statutBadge);
-    newRow.appendChild(cellStatut);
-
-    var cellAction = creationTdAction(tache);
-    newRow.appendChild(cellAction);
-
-
-    var cellDureeRetarde = document.createElement("td");
-    if (tache.dureretarde > 0) {
-      cellDureeRetarde.innerText = tache.dureretarde;
-      newRow.appendChild(cellDureeRetarde);
-    } else {
-      cellDureeRetarde.innerText = "";
-      newRow.appendChild(cellDureeRetarde);
-    }
-
-    var cellPerformance = document.createElement("td");
-    cellPerformance.innerText = tache.performance + '%';
-    newRow.appendChild(cellPerformance);
-
-    var cellIdTache = document.createElement("td");
-    cellIdTache.innerText = tache.idtache;
-    newRow.appendChild(cellIdTache);
-
-    var cellIdTacheMere = document.createElement("td");
-    cellIdTacheMere.innerText = tache.tacheparente!=null?tache.tacheparente.idtache:'';
-    newRow.appendChild(cellIdTacheMere);
-
-    var cellEmetteur = document.createElement("td");
-    cellEmetteur.innerText = tache.utilisateur != null ? tache.utilisateur.prenom + ' ' + tache.utilisateur.nom : '';
-    newRow.appendChild(cellEmetteur);
-
-
-    var cellPiorite = document.createElement("td");
-    cellPiorite.innerText = tache.priorite != null ? tache.priorite.nompriorite : '';
-    newRow.appendChild(cellPiorite);
-
-
-    var cellDateOuverture = document.createElement("td");
-    if (tache.dateouverture == null) {
-      cellDateOuverture.innerText = '';
-      newRow.appendChild(cellDateOuverture);
-    } else {
-      var dateOuverture = new Date(tache.dateouverture);
-      var formattedDate =  ('0' + dateOuverture.getDate()).slice(-2) + '/' +('0' + (dateOuverture.getMonth() + 1)).slice(-2) + '/' + dateOuverture.getFullYear().toString().slice(-2);
-      cellDateOuverture.innerText = formattedDate;
-      newRow.appendChild(cellDateOuverture);
-    }
-
-
-    var cellDateObjectif = document.createElement("td");
-    if (tache.dateobjectif == null) {
-      cellDateObjectif.innerText = '';
-      newRow.appendChild(cellDateObjectif);
-    } else {
-      var dateObjectif = new Date(tache.dateobjectif);
-      var formattedDate =  ('0' + dateObjectif.getDate()).slice(-2) + '/' +('0' + (dateObjectif.getMonth() + 1)).slice(-2) + '/' + dateObjectif.getFullYear().toString().slice(-2);
-      cellDateObjectif.innerText = formattedDate;
-      newRow.appendChild(cellDateObjectif);
-    }
-
-
-    var cellDureeEstimee = document.createElement("td");
-    cellDureeEstimee.innerText = tache.dureestime;
-    newRow.appendChild(cellDureeEstimee);
-
-
-    var cellDateCloture = document.createElement("td");
-    if (tache.dateTermineTache == null) {
-      cellDateCloture.innerText = '';
-      newRow.appendChild(cellDateCloture);
-    } else {
-      var dateCloture = new Date(tache.dateTermineTache);
-      var formattedDate =  ('0' + dateCloture.getDate()).slice(-2) +'/'+('0' + (dateCloture.getMonth() + 1)).slice(-2) +'/' +dateCloture.getFullYear().toString().slice(-2);
-      cellDateCloture.innerText = formattedDate;
-      newRow.appendChild(cellDateCloture);
-    }
-
-
-    var cellAvancement = document.createElement("td");
-    cellAvancement.innerText = progressPercentage(tache) + '%';
-    newRow.appendChild(cellAvancement);
-
-    var cellTacheSucc = document.createElement("td");
-    if (tache.aunetachesuccessive) {cellTacheSucc.innerText = '✔';}
-    else {cellTacheSucc.innerText = '✘';}
-    newRow.appendChild(cellTacheSucc);
-
-
-
-    // Ajouter la nouvelle ligne au corps du tableau
-    var tableBody = document.querySelector("#example tbody");
-    tableBody.appendChild(newRow);
-
-
-  }
-
-  /**/
-
-  //pour creer le champ action (les trois butons)
-  function creationTdAction(tache) {
-    //console.log(tache.utilisateur.role.role)
-    var cellAction = document.createElement("td");
-    //dropdown div
-    var divDropdown=document.createElement("div");
-    divDropdown.classList.add("dropdown");
-    var button = document.createElement("button");
-    button.setAttribute("type", "button");
-    button.setAttribute("class", "btn p-0 dropdown-toggle hide-arrow");
-    button.setAttribute("data-bs-toggle", "dropdown");
-
-      if ( tache.statut !=="Annulée" && tache.statut !== "Validée"){
-        //creer la Menu
-        creerMenu(button,cellAction,divDropdown,tache);
-      }
-    return cellAction;
-  }
-
-  function creerMenu(button,cellAction,divDropdown,tache) {
-    //creer la Menu
-    var icon = document.createElement("i");
-    icon.setAttribute("class", "bx bx-dots-vertical-rounded");
-    button.appendChild(icon);
-    divDropdown.appendChild(button);
-
-    //Menu
-    var MenuDiv=document.createElement("div");
-    MenuDiv.classList.add("dropdown-menu");
-
-    // Créer le lienValider
-    if(tache.statut ==="Terminée" && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur){
-      var lienValider = document.createElement("a");
-      lienValider.setAttribute("class", "dropdown-item");
-      var iconeValider = document.createElement("i");
-      iconeValider.setAttribute("class", "bx bx-check");
-      lienValider.appendChild(iconeValider);
-      lienValider.appendChild(document.createTextNode(" Valider"));
-      lienValider.setAttribute("data-id", tache.idtache);
-      lienValider.addEventListener('click', () => valideTache(tache.idtache));
-      MenuDiv.appendChild(lienValider);
-    }
-
-    // Créer le lien lienRefaire
-    if(tache.statut ==="Terminée" && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur) {
-      var lienRefaire = document.createElement("a");
-      lienRefaire.setAttribute("class", "dropdown-item");
-      var iconeRefaire = document.createElement("i");
-      iconeRefaire.setAttribute("class", "bx bx-refresh");
-      lienRefaire.appendChild(iconeRefaire);
-      var texteRefaire = document.createTextNode("À refaire");
-      lienRefaire.appendChild(texteRefaire);
-      lienRefaire.setAttribute("data-id", tache.idtache);
-      lienRefaire.addEventListener('click', () => refaireTache(tache.idtache));
-      MenuDiv.appendChild(lienRefaire);
-    }
-
-
-    // Créer le lien lienAnnuler
-    if ((tache.statut !=="Validée"  && tache.statut !=="Terminée" &&  tache.statut !=="Annulée"
-         && tache.utilisateur.idutilisateur===utilisateurConnecte[0].idutilisateur)
-    ) {
-      var lienAnnuler = document.createElement("a");
-      lienAnnuler.setAttribute("class", "dropdown-item");
-      var iconeAnnuler = document.createElement("i");
-      iconeAnnuler.setAttribute("class", "bx bx-message-alt-x");
-      lienAnnuler.appendChild(iconeAnnuler);
-      var texteEditer = document.createTextNode(" Annuler");
-      lienAnnuler.appendChild(texteEditer);
-      lienAnnuler.setAttribute("data-id", tache.idtache);
-      lienAnnuler.addEventListener('click', () => annulerTache(tache.idtache));
-      MenuDiv.appendChild(lienAnnuler);
-    }
-
-    // Créer le lien lienEditer
-    if (utilisateurConnecte[0].role.role !== "Utilisateur" && tache.statut !== "Terminée" && tache.statut !== "Validée" && tache.statut !=="Programmée") {
-      var lienEditer = document.createElement("a");
-      lienEditer.setAttribute("class", "dropdown-item");
-      var iconeEditer = document.createElement("i");
-      iconeEditer.setAttribute("class", "bx bx-edit-alt");
-      lienEditer.appendChild(iconeEditer);
-      var texteEditer = document.createTextNode("  Éditer");
-      lienEditer.appendChild(texteEditer);
-      lienEditer.setAttribute("data-id", tache.idtache);
-      lienEditer.addEventListener('click', () => editerTache(tache.idtache));
-      MenuDiv.appendChild(lienEditer);
-    }
-
-    // Créer le lien lienIndexer
-    if (tache.statut !=="Validée"   &&  tache.statut !=="Annulée" ) {
-      var lienAnnuler = document.createElement("a");
-      lienAnnuler.setAttribute("class", "dropdown-item");
-      // Créer l'élément SVG
-      var iconeAnnuler = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      iconeAnnuler.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-      iconeAnnuler.setAttribute("width", "16");
-      iconeAnnuler.setAttribute("height", "16");
-      iconeAnnuler.setAttribute("fill", "currentColor");
-      iconeAnnuler.setAttribute("class", "bi bi-bezier2");
-      iconeAnnuler.setAttribute("viewBox", "0 0 16 16");
-      // Créer et ajouter le chemin à l'élément SVG
-      var cheminSVG = document.createElementNS("http://www.w3.org/2000/svg", "path");
-      cheminSVG.setAttribute("fill-rule", "evenodd");
-      cheminSVG.setAttribute("d", "M1 2.5A1.5 1.5 0 0 1 2.5 1h1A1.5 1.5 0 0 1 5 2.5h4.134a1 1 0 1 1 0 1h-2.01q.269.27.484.605C8.246 5.097 8.5 6.459 8.5 8c0 1.993.257 3.092.713 3.7.356.476.895.721 1.787.784A1.5 1.5 0 0 1 12.5 11h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5H6.866a1 1 0 1 1 0-1h1.711a3 3 0 0 1-.165-.2C7.743 11.407 7.5 10.007 7.5 8c0-1.46-.246-2.597-.733-3.355-.39-.605-.952-1-1.767-1.112A1.5 1.5 0 0 1 3.5 5h-1A1.5 1.5 0 0 1 1 3.5zM2.5 2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm10 10a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5z");
-      iconeAnnuler.appendChild(cheminSVG);
-      // Ajouter l'élément SVG à l'élément <a>
-      lienAnnuler.appendChild(iconeAnnuler);
-      // Créer et ajouter le texte " Indexer" à l'élément <a>
-      var texteEditer = document.createTextNode(" Indexer");
-      lienAnnuler.appendChild(texteEditer);
-      // Définir les attributs supplémentaires
-      lienAnnuler.setAttribute("data-id", tache.idtache);
-      lienAnnuler.addEventListener('click', () => indexeTache(tache.idtache));
-      // Ajouter le lien à votre élément MenuDiv
-      MenuDiv.appendChild(lienAnnuler);
-    }
-
-    divDropdown.appendChild(MenuDiv);
-    cellAction.appendChild(divDropdown);
-  }
-
-  //fonction pour valider une tache
-  function valideTache(tacheId) {
-    // Obtenir l'ID de la tâche et le statut actuel à partir des attributs data
-    // const tacheId = button.getAttribute("data-id");
-    // Envoyer une requête AJAX pour mettre à jour le statut de la tâche
-    $.ajax({
-      url: `ValiderStatut/${tacheId}`,
-      method: 'GET',
-      success: function (tache) {
-        reinitialiserFiltre();
-        //vider la liste
-        AllMembersTask=[];
-        tacheOfselectedMembres=[];
-        //affichage initial du tableau
-        getAllMembersTask();
-        // Afficher le message de validation
-        messageNotif();
-      }
-    });
-  }
-
-
-  //fonction pour Refair une tache
-  function refaireTache(tacheId) {
-    // Obtenir l'ID de la tâche et le statut actuel à partir des attributs data
-    // const tacheId = button.getAttribute("data-id");
-    // Envoyer une requête AJAX pour mettre à jour le statut de la tâche
-    $.ajax({
-      url: `RefaireTache/${tacheId}`,
-      method: 'GET',
-      success: function (tache) {
-
-        reinitialiserFiltre();
-        //vider la liste
-        AllMembersTask=[];
-        tacheOfselectedMembres=[];
-        //affichage initial du tableau
-        getAllMembersTask();
-        // Afficher le message de validation
-        messageNotif();
-        // Mettre à jour l'élément HTML correspondant au statut
-        //updateStatutElement(tacheId, tache.statut);
-      }
-    });
-  }
-
-  function annulerTache(tacheId) {
-    $.ajax({
-    url: `AnnulerTache/${tacheId}`,
-    method: 'GET',
-    success: function (tache){
-      reinitialiserFiltre();
-      //vider la liste
-      AllMembersTask=[];
-      tacheOfselectedMembres=[];
-      //affichage initial du tableau
-      getAllMembersTask();
-      // Afficher le message de validation
-      messageNotif();
-    }
-  });}
-
-  function indexeTache(tacheId) {
-    $.ajax({
-      url: `indexerTache/${tacheId}`,
-      method: 'GET',
-      success: function (tache) {
-
-        reinitialiserFiltre();
-        //vider la liste
-        AllMembersTask = [];
-        tacheOfselectedMembres = [];
-        //affichage initial du tableau
-        //getAllMembersTask();
-        tacheParentes();
-        // Afficher le message de validation
-        messageNotif();
-      }
-    });
-  }
-
-  //Pour afficher les taches parentes dans
-  // la selelecte dans le formulaire qui permet de creer une tache et actualiser la liste lorsqu'une indexation
-  tacheParentes();
-  function tacheParentes() {
-    $.ajax({
-      url: `tachesParentes/`,
-      method: 'GET',
-      success: function (taches) {
-        var tachesParentSelect = $("#tacheparente");
-        tachesParentSelect.empty(); // Efface toutes les options actuelles
-        tachesParentSelect.append (new Option("Selectionner la tâche parente",-1));
-        for (var i = 0; i < taches.length; i++) {
-          var option = new Option(taches[i].nomtache, taches[i].idtache);
-          tachesParentSelect.append(option);
-        }
-      }
-    });
-  }
-
-  //Pour editer une tache dans la meme forme
-  function editerTache(idtache1) {
-    afficherFormulaireCreeTache();
-    const idtache = idtache1;
-    const form = document.getElementById("formAccountSettings");
-    var   btnSubmit= document.getElementById('submit');
-    // Set the idDepartement input field value and update the button text
-    form.querySelector("input[name='idtache']").value = idtache;
-    btnSubmit.textContent = "Mettre à jour";
-    // Fetch Domaine details using AJAX
-    $.ajax({
-      type: "GET", // You may need to adjust this to your backend API
-      url: `get-Tache/${idtache}`, // Replace with your API endpoint
-      success: function(data) {//returns data in JSON format
-        // Pre-fill the form fields
-        form.querySelector("input[name='Utilisateur']").value = data.utilisateur.idutilisateur;
-        form.querySelector("input[name='nomtache']").value = data.nomtache;
-        form.querySelector("input[name='dureestime']").value = data.dureestime;
-        form.querySelector("input[name='dateouverture']").value = data.dateouverture;
-        //si la departement a une societé
-        if(data.commentaire!=null)
-        {form.querySelector("input[name='commentaire']").value = data.commentaire;}
-        if (data.type != null)
-        {form.querySelector("select[name='type']").value = data.type;}
-        if (data.proprietaire != null) {
-          // Pre-select the Proprietaire in the dropdown
-          const select1 = form.querySelector("select[name='proprietaire']");
-          const Proprietaire = data.proprietaire;
-          const ProprietaireOption = select1.querySelector(`option[value="${Proprietaire.idutilisateur}"]`);
-          ProprietaireOption.setAttribute("selected", "selected");
-        }
-
-        if (data.priorite != null) {
-          // Pre-select the Proprietaire in the dropdown
-          const select1 = form.querySelector("select[name='priorite']");
-          const PrioriteOption = select1.querySelector(`option[value="${data.priorite.idpriorite}"]`);
-          PrioriteOption.setAttribute("selected", "selected");
-
-        }
-
-        if (data.recepteur != null) {
-          // Pre-select the Recepteur in the dropdown
-          const select = form.querySelector("select[name='recepteur']");
-          const recepteurId = data.recepteur;
-          const recepteurOption = select.querySelector(`option[value="${recepteurId.idutilisateur}"]`);
-          recepteurOption.setAttribute("selected", "selected");
-
-          select.setAttribute("readonly", "readonly");
-          select.onmousedown = function () { return false; };
-          select.style.cursor = "default";
-          select.style.backgroundColor='rgba(239,239,239,0.77)'
-        }
-
-
-
-        // Disable editing and selection for tacheparente
-        const select = form.querySelector("select[name='tacheparente']");
-          select.setAttribute("readonly", "readonly");
-          select.onmousedown = function () { return false; };
-          select.style.cursor = "default";
-          select.style.backgroundColor='rgba(239,239,239,0.77)'
-
-
-
-
-        // Disable editing and selection for nomtache
-        const inputField = form.querySelector(`input[name='nomtache']`);
-        inputField.setAttribute("readonly", "readonly");
-        inputField.onmousedown = function () { return false; };
-        inputField.style.cursor = "default";
-        inputField.style.backgroundColor='rgba(239,239,239,0.77)'
-
-
-
-
-        if (data.aunetachesuccessive != null) {
-          // Pre-select the Proprietaire in the dropdown
-          const select1 = form.querySelector("select[name='aunetachesuccessive']");
-          const TacheSucc = data.aunetachesuccessive;
-          const TacheSuccOption = select1.querySelector(`option[value="${TacheSucc}"]`);
-          TacheSuccOption.setAttribute("selected", "selected");
-
-        }
-
-      },
-      error: function(err) {
-        // Handle the error if needed
-        console.error(err);
-      }
-    });
-
-
-
-  }
-
-    function afficherFormulaireCreeTache(){
-      //pour afficher le form
-      // Récupérer l'élément du bouton par son attribut 'class'
-      var bouton = document.getElementById("creertache");
-      // Vérifier si le bouton a été trouvé
-      if (bouton) {
-        // Déclencher le clic sur le bouton
-        bouton.click();
-      } else {
-        console.error('Le bouton n\'a pas été trouvé.');
-      }
-      //srcipt permet de défiler la page vers le haut lorsque l'utilisateur clique sur un bouton
-      // Faites défiler la page vers le haut
-      window.scrollTo({
-        top: 0, // La position en pixels en haut de la page
-        behavior: "smooth" // Option pour un défilement fluide
-      });
-    }
-//fonction pour afficher les msgs
-  function messageNotif(){
-    // Create an instance of Notyf
-    var notyf = new Notyf();
-    // Display a success notification
-    notyf.success('Opération terminée avec succès.');
-  }
-
-//pour verifier si l'utilisateur donneé est un membre de l'equipe de l'utilisateur connecté ou non
-  function isMember(utilisateur){
-    // Utilisation d'une boucle for pour itérer sur les éléments du tableau
-    for (var i = 0; i < membres.length; i++) {
-      if (membres[i].idutilisateur===utilisateur.idutilisateur) {
-        return true
-      };
-    }
-    return false
-  }
-
-  function annuler() {
-    // Récupérer l'élément du formulaire par son ID
-    var formulaire = document.getElementById('formAccountSettings');
-    var   btnSubmit= document.getElementById('submit');
-    var inputEDateOuverture = document.getElementById("DateOuverture");
-
-    // Vérifier si le formulaire a été trouvé
-    if (formulaire) {
-      // Réinitialiser le formulaire
-      formulaire.reset();
-
-      if ( btnSubmit.textContent === "Mettre à jour") {btnSubmit.textContent = "Envoyer";}
-
-        // Pre-select the Proprietaire in the dropdown
-        const select1 = formulaire.querySelector("select[name='proprietaire']");
-        select1.removeAttribute("readonly");
-        select1.onmousedown = null;
-        select1.style.cursor = "default";
-
-        // Pre-select the Recepteur in the dropdown
-        const select = formulaire.querySelector("select[name='recepteur']");
-        select.removeAttribute("readonly");
-        select.onmousedown = null;
-        select.style.cursor = "default";
-
-        //remove Disable editing and selection for nomtache
-        const inputField = formulaire.querySelector(`input[name='nomtache']`);
-        inputField.removeAttribute("readonly");
-        inputField.onmousedown = null; // Supprimer l'événement onmousedown
-        inputField.style.cursor = "text"; // Changer le style du curseur en mode édition
-
-        const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
-        idTacheInput.value=null;
-        idTacheInput.textContent="";
-
-
-        // Disable editing and selection for tacheparente
-        const selec = formulaire.querySelector("select[name='tacheparente']");
-        selec.removeAttribute("readonly");
-        selec.onmousedown = null;
-        selec.style.cursor = "default";
-
-        //Date d ouverture
-        const inputEDateOuverture = formulaire.querySelector(`input[name='dateouverture']`);
-        inputEDateOuverture.removeAttribute("readonly");
-        inputEDateOuverture.onmousedown = null;
-        inputEDateOuverture.style.cursor = "default";
-        inputEDateOuverture.disabled=false;
-       inputEDateOuverture.onmousedown = null; // Supprimer l'événement onmousedown
-       //inputEDateOuverture.style.cursor = "text"; // Changer le style du curseur en mode édition
-      dateOuvertureactuelle();
-    } else {
-      console.error('Le formulaire n\'a pas été trouvé.');
-    }
-  }
-
-  function reinitialiserFiltre() {
-    //----/reselectionné les premieres valeurs des filtres
-    // Parcourez toutes les options de la liste déroulante
-    for (var i = 0; i < membreSelect.options.length; i++) {
-      // Définissez la propriété selected de chaque option sur false
-      membreSelect.options[i].selected = false;
-    }
-    // Définissez la première option comme sélectionnée
-    membreSelect.options[0].selected = true;
-
-    // Parcourez toutes les options de la liste déroulante
-    for (var i = 0; i < statutSelect.options.length; i++) {
-      // Définissez la propriété selected de chaque option sur false
-      statutSelect.options[i].selected = false;
-    }
-    // Définissez la première option comme sélectionnée
-    statutSelect.options[0].selected = true;
-    //----/reselectionné les premieres valeurs des filtres
-  }
-
-
-  // Sélectionnez tous les éléments avec la classe "show-message"
-  var messageElements = document.querySelectorAll('.show-message');
-
-  // Parcourir chaque élément et ajouter la classe "show" (pour l'animation)
-  messageElements.forEach(function(element) {
-    // Ajouter la classe "show" pour les rendre visibles avec l'animation CSS
-    element.classList.add('show');
-
-    // Supprimer la classe "show" après 5 secondes
-    setTimeout(function() {
-      element.classList.remove('show');
-    }, 5000);
-  });
-
-  // Sélectionnez l'élément avec l'id "messages"
-  var messagesDiv = document.getElementById("messages");
-
-  // Supprimez la div après 5 secondes (5000 millisecondes)
-  setTimeout(function() {
-    if (messagesDiv) {
-      messagesDiv.remove();
-    }
-  }, 5500);
-
-
-  //pour regler la douverture
-  dateOuvertureactuelle();
-  function dateOuvertureactuelle(){
-    //pour la date douverture
-    // Obtenez la date actuelle au format YYYY-MM-DD
-    var currentDate = new Date().toISOString().split('T')[0];
-
-    // Mettez à jour l'attribut 'min' du champ de saisie de date avec la date actuelle
-    document.getElementById('DateOuverture').min = currentDate;
-
-    // Mettez à jour l'attribut 'value' du champ de saisie de date avec la date actuelle
-    document.getElementById('DateOuverture').value = currentDate;
-  }
-
-
-
+   */
 
 </script>
 </body>

@@ -285,6 +285,17 @@ public class TacheServiceImpl implements TacheService {
     }
 
     @Override
+    public ResponseEntity<List<Tache>> getTasksExcludingValidatedAndCancelled(Authentication authentication, Model model) {
+        String login = authentication.getName();
+        Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
+        List<String> excludedStatuts = Arrays.asList("Validée", "Annulée");
+        // Tâches de l'équipe sans les tâches validées et annulées
+        List<Tache> teamTasks = tacheRepo.findAllByRecepteurAndIsmemoireAndStatutNotIn(utilisateur,false,excludedStatuts);
+        teamTasks.sort(Comparator.comparing(Tache::getIdtache).reversed());
+        return ResponseEntity.ok(teamTasks);
+    }
+
+    @Override
     public void CreateTache(Tache tache, RedirectAttributes redirectAttributes, Authentication authentication) {
         // Récupérer l'utilisateur recepteur de la tache
         Utilisateur utilisateurRecepeur = tache.getRecepteur();
