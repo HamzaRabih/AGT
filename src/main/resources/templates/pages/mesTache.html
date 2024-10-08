@@ -387,19 +387,6 @@
                                 </select>
                               </div>
 
-                              <div class="d-flex justify-content-evenly align-content-center">
-                                <label for="idrecepteur" class="form-label align-content-center  "
-                                       STYLE="margin-right: 15px;">Statut</label>
-                                <select id="relationTypes" name="relationTypes" class="select2 form-select w-px-160" required>
-                                  <option th:each="p : ${relationTypes}" th:value="${p}">
-                              <span th:text="${#strings.arrayContains(p.name(), 'SUBORDONNE') ? 'Subordonné' :
-                                       #strings.arrayContains(p.name(), 'COLLEGUE') ? 'Collègue' :
-                                       'Supérieur'}"></span>
-                                  </option>
-                                </select>
-                              </div>
-
-
                               <!-- Deuxième div pour la tâche à réaliser -->
                               <div class="d-flex justify-content-evenly">
                                 <label for="nomtache" class="form-label align-content-center"
@@ -422,6 +409,30 @@
 
                             <br>
                             <div class="row g-3">
+
+                              <div class="col mb-0">
+                                <label for="idrecepteur" class="form-label align-content-center  "
+                                       STYLE="margin-right: 15px;">Statut</label>
+                                <select id="relationTypes" name="relationTypes" class="select2 form-select w-px-160" required>
+                                  <option th:each="p : ${relationTypes}" th:value="${p}">
+                              <span th:text="${#strings.arrayContains(p.name(), 'SUBORDONNE') ? 'Subordonné' :
+                                       #strings.arrayContains(p.name(), 'COLLEGUE') ? 'Collègue' :
+                                       'Supérieur'}"></span>
+                                  </option>
+                                </select>
+                              </div>
+
+                              <div class="col mb-0">
+                                <label for="idrecepteur" class="form-label align-content-center  "
+                                       STYLE="margin-right: 15px;">étape</label>
+                                <select id="etape" name="etape" class="select2 form-select w-px-160" required>
+                                  <option value="Aucune" >Aucune</option>
+                                  <option value="Cadrage">Cadrage</option>
+                                  <option value="Livraison">Livraison</option>
+                                  <option value="Embauche">Embauche</option>
+                                  <option value="Encaissement">Encaissement</option>
+                                </select>
+                              </div>
 
                               <div class="col mb-0">
                                 <label for="Priorite" class="form-label">Priorité</label>
@@ -486,8 +497,8 @@
                     </div>
                   </div>
 
-                  <!--filtre-->
-                  <div class="d-flex align-content-between justify-content-between flex-wrap dataTables_filter  pr-0 pl-0 ">
+                  <!--filtre
+                   <div class="d-flex align-content-between justify-content-between flex-wrap dataTables_filter  pr-0 pl-0 ">
                     <div class=" align-content-center d-flex align-content-between justify-content-between flex-wrap">
                       <div><label  for="membreSelect" class="form-label-sm my-primary" STYLE="margin-right: 15px;font-weight: 700">Émetteur</label></div>
                       <div>
@@ -537,6 +548,68 @@
                       <div><label for="rechercher" class="form-label-sm my-primary" STYLE="margin-right: 10px;font-weight: 700">Rechercher:</label></div>
                       <div><input class="form-control form-control-sm Mycolor" type="text" id="rechercher"></div>
                     </div>
+                  </div>-->
+                  <!--/filtre-->
+
+                  <!--filtre-->
+                  <div class="d-flex align-items-center justify-content-start flex-nowrap pr-0 pl-0">
+                    <div class="d-flex align-items-center mr-2" style="margin-right: 10px!important;">
+                      <label for="membreSelect" class="form-label-sm my-primary" style="margin-right: 5px; font-weight: 700;">Récepteur</label>
+                      <select id="membreSelect" class="form-select form-select-sm Mycolor">
+                        <option value="" selected="selected">Tout sélectionner</option>
+                        <option th:each="p:${Recepteurs}" th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                      </select>
+                    </div>
+
+                    <div class="d-flex align-items-center mr-2"  style="margin-right: 10px!important;">
+                      <label for="statutSelect" class="form-label-sm my-primary" style="margin-right: 5px; font-weight: 700;">Statut</label>
+                      <select id="statutSelect" class="form-select form-select-sm Mycolor">
+                        <option value="" selected="selected">Tout sélectionner</option>
+                        <option value="Validée">Validé</option>
+                        <option value="Terminée">Terminé</option>
+                        <option value="En cours">En cours</option>
+                        <option value="En attente">En attente</option>
+                        <option value="Programmée">Programmé</option>
+                        <option value="À refaire">À refaire</option>
+                        <option value="Annulée">Annulé</option>
+                      </select>
+                    </div>
+
+                    <div class="d-flex align-items-center mr-2"  style="margin-right: 10px!important;">
+                      <label for="etapeSelect" class="form-label-sm my-primary" style="margin-right: 5px; font-weight: 700;">Étape</label>
+                      <select id="etapeSelect" class="form-select form-select-sm Mycolor">
+                        <option value="" selected="selected">Tout sélectionner</option>
+                        <option value="Aucune">Aucune</option>
+                        <option value="Cadrage">Cadrage</option>
+                        <option value="Livraison">Livraison</option>
+                        <option value="Embauche">Embauche</option>
+                        <option value="Encaissement">Encaissement</option>
+                      </select>
+                    </div>
+
+                    <div class="d-flex align-items-center mr-2"  style="margin-right: 10px!important;">
+                      <label class="form-label-sm my-primary" style="margin-right: 5px; font-weight: 700;">Date</label>
+                      <select id="dateSelected" class="form-select form-select-sm Mycolor">
+                        <option value="ouverture" selected="selected"> Date ouverture</option>
+                        <option value="objectif"> Date objectif</option>
+                        <option value="cloture"> Date clôture</option>
+                      </select>
+                    </div>
+
+                    <div class="d-flex align-items-center mr-2"  style="margin-right: 10px!important;">
+                      <label for="dateMinSelect" class="form-label-sm my-primary" style="margin-right: 5px; font-weight: 700;">De</label>
+                      <input class="form-control form-control-sm Mycolor" type="date" id="dateMinSelect">
+                    </div>
+
+                    <div class="d-flex align-items-center mr-2"  style="margin-right: 10px!important;">
+                      <label for="dateMaxSelect" class="form-label-sm my-primary" style="margin-right: 5px; font-weight: 700;">À</label>
+                      <input class="form-control form-control-sm Mycolor" type="date" id="dateMaxSelect">
+                    </div>
+
+                    <div class="d-flex align-items-center mr-2"  style="margin-right: 10px!important;">
+                      <label for="rechercher" class="form-label-sm my-primary" style="margin-right: 5px; font-weight: 700;">Rechercher</label>
+                      <input class="form-control form-control-sm Mycolor" type="text" id="rechercher">
+                    </div>
                   </div>
                   <!--/filtre-->
                   <table id="example" style="width:100%" class="table table-bordered table-sm table-secondary ">
@@ -559,6 +632,17 @@
                         </svg>
                        <label class="capitalize-first">Tâches</label>
                         <!--Tache-->
+                      </th>
+                      <th class="text-center Mycolor"
+                          data-bs-toggle="tooltip"
+                          data-bs-offset="0,4"
+                          data-bs-placement="top"
+                          data-bs-html="true"
+                          title="<span>Étape</span>"
+                      > <!--Étape-->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart-steps" viewBox="0 0 16 16">
+                          <path d="M.5 0a.5.5 0 0 1 .5.5v15a.5.5 0 0 1-1 0V.5A.5.5 0 0 1 .5 0M2 1.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5zm2 4a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm2 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5zm2 4a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
                       </th>
                       <th class="text-center Mycolor"
                           data-bs-toggle="tooltip"
@@ -609,6 +693,17 @@
                           <path d="M2 4h4.332l-.94 1H2a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h2.38l-.308 1H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2"/>
                           <path d="M2 6h2.45L2.908 7.639A1.5 1.5 0 0 0 3.313 10H2zm8.595-2-.308 1H12a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H9.276l-.942 1H12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
                           <path d="M12 10h-1.783l1.542-1.639q.146-.156.241-.34zm0-3.354V6h-.646a1.5 1.5 0 0 1 .646.646M16 8a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8"/>
+                        </svg>
+                      </th>
+                      <th class="text-center Mycolor"
+                          data-bs-toggle="tooltip"
+                          data-bs-offset="0,4"
+                          data-bs-placement="top"
+                          data-bs-html="true"
+                          title="<span>progression</span>"><!--progression-->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-battery-half" viewBox="0 0 16 16">
+                          <path d="M2 6h5v4H2z"/>
+                          <path d="M2 4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm10 1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm4 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8"/>
                         </svg>
                       </th>
                       <th class="text-center Mycolor"
@@ -682,17 +777,6 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
                           <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
-                        </svg>
-                      </th>
-                      <th class="text-center Mycolor"
-                          data-bs-toggle="tooltip"
-                          data-bs-offset="0,4"
-                          data-bs-placement="top"
-                          data-bs-html="true"
-                          title="<span>progression</span>"><!--progression-->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-battery-half" viewBox="0 0 16 16">
-                          <path d="M2 6h5v4H2z"/>
-                          <path d="M2 4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm10 1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm4 3a1.5 1.5 0 0 1-1.5 1.5v-3A1.5 1.5 0 0 1 16 8"/>
                         </svg>
                       </th>
                     </tr>
@@ -802,6 +886,7 @@
     tbody.innerHTML = '';
     const utilisateur = document.getElementById('membreSelect').value;
     const statut = document.getElementById('statutSelect').value;
+    const etape = document.getElementById('etapeSelect').value;
     const dateType = document.getElementById('dateSelected').value;
     const dateMin = document.getElementById('dateMinSelect').value;
     const dateMax = document.getElementById('dateMaxSelect').value;
@@ -816,13 +901,14 @@
     const filteredData = data.filter(item => {
       const matchesUtilisateur = utilisateur ? item.utilisateur.idutilisateur == utilisateur : true;
       const matchesStatut = statut ? item.statut === statut : true;
+      const matchesEtape = etape ? item.etape === etape : true;
       const matchesDate = dateType === "ouverture" ? item.dateouverture :
               dateType === "objectif" ? item.dateobjectif :
                       item.dateTermineTache;
       const matchesDateMin = dateMin ? new Date(matchesDate) >= new Date(dateMin) : true;
       const matchesDateMax = dateMax ? new Date(matchesDate) <= new Date(dateMax) : true;
 
-      return matchesUtilisateur && matchesStatut && matchesDateMin && matchesDateMax;
+      return matchesUtilisateur && matchesStatut && matchesEtape && matchesDateMin && matchesDateMax;
     });
     // Mettre à jour l'affichage avec les données filtrées
     createTableRow(filteredData);
@@ -832,6 +918,7 @@
   // Écoutez les changements sur les filtres
   document.getElementById('membreSelect').addEventListener('change', applyFilters);
   document.getElementById('statutSelect').addEventListener('change', applyFilters);
+  document.getElementById('etapeSelect').addEventListener('change', applyFilters);
   document.getElementById('dateSelected').addEventListener('change', applyFilters);
   document.getElementById('dateMinSelect').addEventListener('change', applyFilters);
   document.getElementById('dateMaxSelect').addEventListener('change', applyFilters);
@@ -868,6 +955,10 @@
       cellNomTache.innerHTML = '     <p style="white-space: pre-wrap;margin: 0;max-width: 350px;min-height: 35px;height: auto">' + filteredData[i].nomtache + '</p>';
       newRow.appendChild(cellNomTache);
 
+      var cellEtape = document.createElement("td");
+      cellEtape.innerText = filteredData[i].etape != null ? filteredData[i].etape: 'Aucune';
+      newRow.appendChild(cellEtape);
+
       var cellEmetteur = document.createElement("td");
       cellEmetteur.innerText = filteredData[i].utilisateur != null ? filteredData[i].utilisateur.prenom + ' ' + filteredData[i].utilisateur.nom : 'émetteur nul';
       newRow.appendChild(cellEmetteur);
@@ -886,6 +977,10 @@
       var cellPerformance = document.createElement("td");
       cellPerformance.innerText = filteredData[i].performance + '%';
       newRow.appendChild(cellPerformance);
+
+      var cellProgression = document.createElement("td");
+      cellProgression.innerText = progressPourcentage(filteredData[i]) + '%';
+      newRow.appendChild(cellProgression);
 
       var cellIdTache = document.createElement("td");
       cellIdTache.innerText = filteredData[i].idtache;
@@ -932,9 +1027,6 @@
         newRow.appendChild(cellDateCloture);
       }
 
-      var cellAvancement = document.createElement("td");
-      cellAvancement.innerText = progressPourcentage(filteredData[i]) + '%';
-      newRow.appendChild(cellAvancement);
 
       // Ajouter la nouvelle ligne au corps du tableau
       var tableBody = document.querySelector("#example tbody");

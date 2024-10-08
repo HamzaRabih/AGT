@@ -161,11 +161,7 @@ public class TacheAdminServiceImpl implements TacheAdminService{
     @Override
     public List<Utilisateur> getDestinatairByIdUtilisateur(Long idUtilisateur) {
         Utilisateur utilisateur=utilisateurRepo.findByIdutilisateur(idUtilisateur);
-        //Cette fonction a pour but d'obtenir l'équipe et les sous-équipes(si l'un des membres est responsable d'une équipe) de l'utilisateur,
-        // afin que l'utilisateur puisse envoyer les tâches uniquement à ses équipes.
-        List<Utilisateur> Recepteurs=tacheService.findRecepteurs(utilisateur);
-        //Pour mettre la liste en ordre alphabétique
-        // Utilisation de la méthode sort de Collections avec un comparateur ignorant la casse
+        List<Utilisateur> Recepteurs=utilisateurRepo.findUtilisateursBySociete(utilisateur.getSociete());
         Collections.sort(Recepteurs, new Comparator<Utilisateur>() {
             @Override
             public int compare(Utilisateur utilisateur1, Utilisateur utilisateur2) {
@@ -173,7 +169,6 @@ public class TacheAdminServiceImpl implements TacheAdminService{
                 return utilisateur1.getNom().compareToIgnoreCase(utilisateur2.getNom());
             }
         });
-        Recepteurs.add(0, utilisateur);
         return Recepteurs;
     }
 

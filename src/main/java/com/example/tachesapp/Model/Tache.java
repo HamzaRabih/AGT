@@ -20,6 +20,7 @@ public class Tache {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idtache;
     private String nomtache;
+    private String etape;
     private String type;
     private String statut;
     private String commentaire;

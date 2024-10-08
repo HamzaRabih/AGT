@@ -140,6 +140,7 @@ public class TacheServiceImpl implements TacheService {
         tacheExist.setDateouverture(tache.getDateouverture());
         tacheExist.setAunetachesuccessive(tache.isAunetachesuccessive());
         tacheExist.setType(tache.getType());
+        tacheExist.setEtape(tache.getEtape());
     }
 
     public int calculerDureeRetard(Tache tache) {
@@ -361,6 +362,7 @@ public class TacheServiceImpl implements TacheService {
             tacheExist.setType(tache.getType());
             tacheExist.setAunetachesuccessive(tache.isAunetachesuccessive());
             tacheExist.setProprietaire(tache.getProprietaire());
+            tacheExist.setEtape(tache.getEtape());
             // Mettre à jour le reste des champs
             tacheExist.setModifierpar(utilisateurConnecte);
             tacheRepo.save(tacheExist);

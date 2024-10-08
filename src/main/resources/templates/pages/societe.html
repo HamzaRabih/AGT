@@ -503,19 +503,6 @@
                             </select>
                           </div>
 
-                          <div class="d-flex justify-content-evenly align-content-center">
-                            <label for="idrecepteur" class="form-label align-content-center  "
-                                   STYLE="margin-right: 15px;">Statut</label>
-                            <select id="relationTypes" name="relationTypes" class="select2 form-select w-px-160" required>
-                              <option th:each="p : ${relationTypes}" th:value="${p}">
-                              <span th:text="${#strings.arrayContains(p.name(), 'SUBORDONNE') ? 'Subordonné' :
-                                       #strings.arrayContains(p.name(), 'COLLEGUE') ? 'Collègue' :
-                                       'Supérieur'}"></span>
-                              </option>
-                            </select>
-                          </div>
-
-
                           <!-- Deuxième div pour la tâche à réaliser -->
                           <div class="d-flex justify-content-evenly">
                             <label for="nomtache" class="form-label align-content-center"
@@ -535,9 +522,32 @@
                             </div>
                           </div>
                         </div>
-
                                             <br>
                                             <div class="row g-3">
+
+                                                <div class="col mb-0">
+                                                    <label for="idrecepteur" class="form-label align-content-center  "
+                                                           STYLE="margin-right: 15px;">Statut</label>
+                                                    <select id="relationTypes" name="relationTypes" class="select2 form-select w-px-160" required>
+                                                        <option th:each="p : ${relationTypes}" th:value="${p}">
+                              <span th:text="${#strings.arrayContains(p.name(), 'SUBORDONNE') ? 'Subordonné' :
+                                       #strings.arrayContains(p.name(), 'COLLEGUE') ? 'Collègue' :
+                                       'Supérieur'}"></span>
+                                                        </option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col mb-0">
+                                                    <label for="idrecepteur" class="form-label align-content-center  "
+                                                           STYLE="margin-right: 15px;">étape</label>
+                                                    <select id="etape" name="etape" class="select2 form-select w-px-160" required>
+                                                        <option>Aucune</option>
+                                                        <option value="Cadrage">Cadrage</option>
+                                                        <option value="Livraison">Livraison</option>
+                                                        <option value="Embauche">Embauche</option>
+                                                        <option value="Encaissement">Encaissement</option>
+                                                    </select>
+                                                </div>
 
                                                 <div class="col mb-0">
                                                     <label for="Priorite" class="form-label">Priorité</label>
