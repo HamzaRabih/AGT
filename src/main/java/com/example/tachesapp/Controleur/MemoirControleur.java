@@ -42,6 +42,8 @@ public class MemoirControleur {
     TacheAdminService tacheAdminService;
     @Autowired
     MemoireService memoireService;
+    @Autowired
+    UtilisateurService utilisateurService;
 
 
     //--Memoir
@@ -60,12 +62,13 @@ public class MemoirControleur {
         List<Tache> tacheList=tacheRepo.findAllByUtilisateurAndIsmemoire(utilisateur,true);
         model.addAttribute("tacheList",tacheList);
         model.addAttribute("utilisateurList",utilisateurList);
-        model.addAttribute("Idutilisateur",Idutilisateur);
         model.addAttribute("utilisateur",utilisateur);
         notificationsService.loadNotificationAndRelationType(utilisateur,model);
         model.addAttribute("utilisateurC",utilisateur);
         tacheAdminService.loadReceivers(utilisateur,model);
         prioriteService.loadPriorites(model);
+        utilisateurService.loadSocietieMembers(utilisateur,model);
+
         return "/pages/memoir";
     }
 

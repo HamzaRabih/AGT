@@ -62,6 +62,7 @@ public class TacheControleur {
         tacheAdminService.loadReceivers(utilisateur,model);
         notificationService.loadNotificationAndRelationType(utilisateur,model);
         prioriteService.loadPriorites(model);
+        model.addAttribute("utilisateurListPR",utilisateurRepo.findUtilisateursBySociete(societeRepo.findAllByUtilisateurs(utilisateur)));
         //tacheService.loadRelationType(model);
         return "creeTache";
     }
@@ -81,7 +82,6 @@ public class TacheControleur {
        notificationService.loadNotificationAndRelationType(utilisateur,model);
        prioriteService.loadPriorites(model);
        utilisateurService.loadSocietieMembers(utilisateur,model);
-       //tacheService.loadRelationType(model);
         return "/pages/mesTache";
     }
 

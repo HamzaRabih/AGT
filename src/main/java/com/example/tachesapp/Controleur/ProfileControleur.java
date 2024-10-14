@@ -55,9 +55,9 @@ public class ProfileControleur {
         String login = authentication.getName();
         Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(login);
         model.addAttribute("utilisateur",utilisateur);
+        model.addAttribute("utilisateurC",utilisateur);
 
         notificationsService.loadNotificationAndRelationType(utilisateur,model);
-
 
         //Cette fonction a pour but d'obtenir l'équipe et les sous-équipes(si l'un des membres est responsable d'une équipe) de l'utilisateur,
         // afin que l'utilisateur puisse envoyer les tâches uniquement à ses équipes.
@@ -78,7 +78,6 @@ public class ProfileControleur {
         model.addAttribute("Recepteurs",Recepteurs);
 
         prioriteService.loadPriorites(model);
-
         utilisateurService.loadSocietieMembers(utilisateur,model);
 
 

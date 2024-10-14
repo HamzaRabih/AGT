@@ -244,5 +244,6 @@ public class UtilisateurServiceImp implements UtilisateurService {
         Societe societe= societeRepo.findAllByUtilisateurs(utilisateur);
         List<Utilisateur> utilisateurList=utilisateurRepo.findUtilisateursBySociete(societe);
         model.addAttribute("utilisateurList2",utilisateurList);
+        model.addAttribute("utilisateurListPR",utilisateurRepo.findUtilisateursBySociete(societeRepo.findAllByUtilisateurs(utilisateur)));
     }
 }

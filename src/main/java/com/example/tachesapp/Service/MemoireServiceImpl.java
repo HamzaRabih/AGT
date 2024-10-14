@@ -29,6 +29,9 @@ public class MemoireServiceImpl implements MemoireService{
         // Convertissez la date d'objectif en java.sql.Date et mettez à jour la tâche
         tache.setDateobjectif(Date.valueOf(dateObjectif));
         tache.setIsmemoire(true);
+        tache.setProprietaire(tache.getProprietaire());
+        tache.setRecepteur(null);
+        tache.setUtilisateur(tache.getUtilisateur());
         // Enregistrer la tâche memoire
         tacheRepo.save(tache);
         redirectAttributes.addFlashAttribute("msg", "Tâche créée avec succès");

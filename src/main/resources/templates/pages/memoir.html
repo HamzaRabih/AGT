@@ -1,17 +1,4 @@
 <!DOCTYPE html>
-
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
 <html
         lang="en"
         class="light-style layout-menu-fixed"
@@ -19,7 +6,8 @@
         data-theme="theme-default"
         data-assets-path="../assets/"
         data-template="vertical-menu-template-free"
-
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout.html}"
         xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <head>
@@ -67,957 +55,321 @@
 
 </head>
 
-<!--/spinner div-->
-<div class="spinner-wrapper">
-    <div id="loading-spinner" class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-</div>
-<!--/spinner div-->
+<section layout:fragment="content">
 
-<!--nav-->
-<div class="container-fluid h-px-75   px-0" >
-    <nav class="navbar navbar-expand-lg Mycolor fixed-top">
-        <div class="container-fluid " STYLE="padding-left: 6px!important;">
-            <a href="https://www.ledirecteurfinancier.ma/" class="app-brand-link gap-1 " >
-              <span class=" bg-body" >
-                <svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                     width="50px" height="50px"  x="0px" y="0px"
-                     viewBox="0 0 336.9 336.9" style="enable-background:new 0 0 336.9 336.9;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:#057050;}
-    .st1{fill:#A6A6A6;}
-    .st2{fill:#A6A6A6;stroke:#057050;stroke-width:0.5;stroke-miterlimit:10;}
-    .st3{fill:#057050;stroke:#057050;stroke-width:0.5;stroke-miterlimit:10;}
-</style>
-<g id="Calque_2_00000180335086302922040240000006952645069349629334_">
-	<g id="Calque_1-2">
-		<polygon class="st0" points="199.2,211 104.8,211 153.2,38.8 247.6,38.8 		"/>
-		<polygon class="st1" points="57.8,197.4 24.9,197.4 24.9,202.5 56.4,202.5 58.5,202.5 102.8,202.5 137.9,77.7 91.4,77.7 		"/>
-		<polygon class="st1" points="254.1,197.4 287.8,77.7 241.3,77.7 206.3,202.5 249.3,202.5 252.7,202.5 312,202.5 312,197.4 		"/>
-		<path class="st2" d="M84.5,260.7H68.2l4.5-27.1H78l-3.8,22.9h11.1L84.5,260.7z"/>
-		<path class="st2" d="M105.6,255c-1.9,4.1-4.8,6.2-8.8,6.2c-2.3,0.1-4.6-0.8-6.2-2.4c-1.6-1.8-2.4-4.1-2.3-6.5
-			c-0.1-3.2,0.9-6.2,2.9-8.7c1.8-2.3,4.5-3.6,7.4-3.5c2.3-0.2,4.6,0.8,6.1,2.6c1.5,2,2.2,4.5,2.1,7c0,0.5,0,1-0.1,1.6H92.7
-			c-0.1,0.5-0.1,1-0.1,1.5c-0.1,1.3,0.3,2.6,1.1,3.7c0.8,0.9,1.9,1.5,3.1,1.4c2.1,0,3.7-1.2,4.8-3.8L105.6,255z M102.5,248.2
-			c0-3.4-1.3-5.1-4-5.1s-4.5,1.7-5.3,5.1H102.5z"/>
-		<path class="st2" d="M119.5,260.7l4.5-27.1h8c1.5,0,3,0.1,4.4,0.5c1.2,0.4,2.3,1,3.3,1.9c1.1,1.1,2,2.4,2.6,3.9
-			c0.7,1.8,1,3.8,1,5.7c0,2.4-0.5,4.9-1.4,7.1c-0.8,1.9-1.9,3.7-3.5,5.1c-1.1,1.1-2.5,1.9-4,2.3c-1.8,0.4-3.7,0.6-5.5,0.5H119.5z
-			 M125.2,256.6h4.3c1.2,0,2.4-0.1,3.5-0.6c1-0.5,1.8-1.1,2.5-1.9c0.9-1.2,1.6-2.5,1.9-3.9c0.5-1.7,0.7-3.5,0.7-5.3
-			c0-1.4-0.2-2.7-0.7-4c-0.4-1.1-1.2-2-2.2-2.5c-1.2-0.6-2.6-0.8-3.9-0.8h-2.9L125.2,256.6z"/>
-		<path class="st2" d="M150,260.7h-4.7l3.4-20.2h4.7L150,260.7z M153.8,238.2h-4.7l0.8-4.9h4.7L153.8,238.2z"/>
-		<path class="st2" d="M159.9,260.7h-4.5l3.4-20.2h4.1L162,246c1.7-4,4.1-6.1,7-6.1c0.1,0,0.3,0,0.5,0l-0.6,5h-1
-			c-1.1,0-2.2,0.3-3.1,0.9c-1,0.6-1.7,1.4-2.3,2.4c-0.7,1.5-1.2,3.2-1.4,4.9L159.9,260.7z"/>
-		<path class="st2" d="M187.2,255c-1.9,4.1-4.8,6.2-8.8,6.2c-2.3,0.1-4.6-0.8-6.2-2.4c-1.6-1.8-2.4-4.1-2.3-6.5
-			c-0.1-3.2,0.9-6.2,2.9-8.7c1.8-2.3,4.5-3.6,7.4-3.6c2.3-0.2,4.6,0.8,6.1,2.6c1.5,2,2.2,4.5,2.1,7c0,0.5,0,1-0.1,1.6h-13.9
-			c-0.1,0.5-0.1,1-0.1,1.5c-0.1,1.3,0.3,2.6,1.1,3.7c0.8,0.9,1.9,1.5,3.1,1.4c2.1,0,3.7-1.2,4.8-3.8L187.2,255z M184.1,248.2
-			c0-3.4-1.3-5.1-4-5.1s-4.5,1.7-5.3,5.1H184.1z"/>
-		<path class="st2" d="M207.8,254.7c-1.9,4.3-4.8,6.4-8.6,6.4c-2.2,0.1-4.3-0.8-5.8-2.4c-1.6-1.9-2.4-4.3-2.2-6.7
-			c-0.1-3.1,0.9-6.1,2.8-8.5c1.6-2.3,4.2-3.6,6.9-3.6c1.9-0.1,3.8,0.6,5.3,1.8c1.5,1.4,2.4,3.2,2.7,5.2l-3.8,0.7c-0.5-2.7-1.9-4-4-4
-			c-1.6,0-2.8,0.9-3.8,2.7c-1,1.9-1.5,4-1.5,6.1c-0.1,1.3,0.3,2.7,1.1,3.7c0.7,0.7,1.6,1.1,2.6,1.1c2,0,3.5-1.3,4.5-4L207.8,254.7z"
-        />
-		<path class="st2" d="M219.7,260.8c-0.9,0.2-1.9,0.3-2.8,0.3c-1.5,0.1-3-0.3-4.1-1.3c-0.8-0.8-1.3-1.9-1.3-3.1
-			c0.1-1.2,0.2-2.4,0.5-3.6l1.5-8.9h-3l0.6-3.6h3l1.2-5.4l4.1-0.3l-1,5.7h4.4l-0.6,3.6h-4.4l-1.5,9c-0.1,0.7-0.2,1.4-0.3,2.1
-			c0,1.3,1,1.9,2.9,1.9c0.5,0,1-0.1,1.4-0.1L219.7,260.8z"/>
-		<path class="st2" d="M240.4,255c-1.9,4.1-4.8,6.2-8.8,6.2c-2.3,0.1-4.6-0.8-6.2-2.4c-1.6-1.8-2.4-4.1-2.3-6.5
-			c-0.1-3.2,0.9-6.2,2.9-8.7c1.7-2.3,4.5-3.6,7.4-3.6c2.3-0.2,4.6,0.8,6.1,2.6c1.5,2,2.2,4.5,2.1,7c0,0.5,0,1-0.1,1.6h-13.9
-			c-0.1,0.5-0.1,1-0.1,1.5c-0.1,1.3,0.3,2.6,1.1,3.7c0.8,0.9,1.9,1.5,3.1,1.4c2.1,0,3.7-1.2,4.8-3.8L240.4,255z M237.2,248.2
-			c0-3.4-1.3-5.1-4-5.1s-4.5,1.7-5.3,5.1H237.2z"/>
-		<path class="st2" d="M260,260.7h-4.1l0.7-4.4c-1.7,3.2-4,4.8-6.9,4.8c-1.4,0.1-2.7-0.5-3.7-1.5c-0.8-0.9-1.3-2.2-1.3-3.4
-			c0.1-1.3,0.3-2.7,0.5-4l1.9-11.6h4.5l-2.1,12.5c-0.1,0.7-0.2,1.4-0.3,2.1c0,0.6,0.2,1.1,0.6,1.6c0.4,0.4,1,0.6,1.6,0.6
-			c1,0,2-0.5,2.8-1.1c0.9-0.7,1.6-1.6,2-2.6c0.5-1.4,0.9-2.9,1.1-4.5l1.4-8.6h4.5L260,260.7z"/>
-		<path class="st2" d="M269.9,260.7h-4.5l3.4-20.2h4.1L272,246c1.7-4,4.1-6.1,7-6.1c0.1,0,0.3,0,0.5,0l-0.6,5h-1
-			c-1.1,0-2.2,0.3-3.1,0.9c-1,0.6-1.7,1.4-2.3,2.4c-0.7,1.5-1.2,3.2-1.4,4.9L269.9,260.7z"/>
-		<path class="st3" d="M98.6,297.6h-5l4.5-27.1h16.7l-0.7,4.3h-11.7l-1.2,7.3h9.8l-0.7,4h-9.7L98.6,297.6z"/>
-		<path class="st2" d="M118.3,297.6h-4.7l3.4-20.2h4.7L118.3,297.6z M122,275.1h-4.7l0.8-4.9h4.7L122,275.1z"/>
-		<path class="st2" d="M140.1,297.6h-4.4l2.1-12.1c0.1-0.8,0.2-1.6,0.2-2.4c0-0.7-0.2-1.3-0.6-1.9c-0.5-0.5-1.2-0.8-1.9-0.8
-			c-1.5,0.1-2.8,0.8-3.6,2.1c-1.2,1.8-1.9,3.9-2.2,6l-1.5,9.1h-4.5l3.4-20.2h4.1l-0.8,4.7c1.3-2.4,2.4-3.8,3.5-4.4
-			c1-0.5,2-0.8,3.1-0.9c2.9-0.1,5.4,2.3,5.5,5.2c0,0.2,0,0.3,0,0.5c0,1.1-0.2,2.3-0.4,3.4L140.1,297.6z"/>
-		<path class="st2" d="M162.3,297.6H158c0-0.4,0-0.6,0-0.9c0-1.2,0.1-2.3,0.4-3.5c-0.6,1.4-1.6,2.7-2.9,3.6
-			c-1.2,0.9-2.6,1.3-4.1,1.3c-1.6,0.1-3.2-0.5-4.4-1.7c-1.1-1.1-1.7-2.6-1.7-4.1c0-2.2,1.1-4.3,3-5.4c2-1.3,5.2-2,9.5-2
-			c0.6,0,1.2,0,1.9,0.1c0.1-0.5,0.1-1,0.1-1.5c0.1-1-0.4-1.9-1.1-2.5c-0.8-0.6-1.8-0.9-2.8-0.8c-2-0.1-3.8,1-4.7,2.8l-4-1.2
-			c1.7-3.3,4.6-4.9,8.9-4.9c2.1-0.1,4.3,0.5,6,1.7c1.4,1.1,2.2,2.8,2.2,4.5c-0.2,2.2-0.5,4.3-1,6.4c-0.5,2.3-0.8,4.6-1,6.9
-			C162.3,296.8,162.3,297.2,162.3,297.6z M159.3,287.3c-3.5,0.2-5.9,0.6-7.2,1.4c-1.2,0.6-2,1.8-2,3.2c0,0.8,0.3,1.5,0.8,2
-			c0.6,0.5,1.4,0.8,2.2,0.8c1.4,0,2.8-0.7,3.8-1.8C158.2,291.3,159,289.3,159.3,287.3z"/>
-		<path class="st2" d="M183.8,297.6h-4.4l2.1-12.1c0.1-0.8,0.2-1.6,0.2-2.4c0-0.7-0.2-1.3-0.6-1.9c-0.5-0.5-1.2-0.8-1.9-0.8
-			c-1.5,0.1-2.8,0.8-3.6,2.1c-1.2,1.8-2,3.9-2.2,6l-1.5,9.1h-4.4l3.4-20.2h4.1l-0.8,4.7c1.2-2.4,2.4-3.8,3.5-4.4
-			c1-0.5,2-0.8,3.1-0.9c3-0.1,5.4,2.3,5.5,5.2c0,0.2,0,0.3,0,0.5c0,1.1-0.2,2.3-0.4,3.4L183.8,297.6z"/>
-		<path class="st2" d="M206.2,291.6c-1.9,4.3-4.8,6.4-8.6,6.4c-2.2,0.1-4.3-0.8-5.8-2.4c-1.6-1.9-2.4-4.3-2.2-6.7
-			c-0.1-3.1,0.9-6.1,2.8-8.5c1.6-2.3,4.2-3.6,6.9-3.6c1.9-0.1,3.8,0.6,5.3,1.8c1.5,1.4,2.4,3.2,2.7,5.2l-3.8,0.7c-0.5-2.7-1.9-4-4-4
-			c-1.6,0-2.8,0.9-3.8,2.7c-1,1.9-1.5,4-1.5,6.1c-0.1,1.3,0.3,2.7,1.1,3.8c0.7,0.7,1.6,1.1,2.6,1.1c2,0,3.5-1.3,4.5-4L206.2,291.6z"
-        />
-		<path class="st2" d="M213.4,297.6h-4.7l3.4-20.2h4.7L213.4,297.6z M217.1,275.1h-4.7l0.8-4.9h4.7L217.1,275.1z"/>
-		<path class="st2" d="M236.5,291.9c-1.9,4.1-4.8,6.2-8.8,6.2c-2.3,0.1-4.6-0.8-6.2-2.5c-1.6-1.8-2.4-4.1-2.3-6.5
-			c-0.1-3.2,0.9-6.2,2.9-8.7c1.8-2.3,4.5-3.6,7.4-3.6c2.3-0.2,4.6,0.8,6.1,2.6c1.5,2,2.2,4.5,2.1,7c0,0.5,0,1-0.1,1.6h-13.9
-			c-0.1,0.5-0.1,1-0.1,1.5c-0.1,1.3,0.3,2.6,1.1,3.7c0.8,0.9,1.9,1.5,3.1,1.4c2.1,0,3.7-1.2,4.8-3.8L236.5,291.9z M233.4,285.1
-			c0-3.4-1.3-5.1-4-5.1c-2.7,0-4.5,1.7-5.3,5.1H233.4z"/>
-		<path class="st2" d="M244.5,297.6H240l3.4-20.2h4.1l-0.9,5.5c1.7-4,4.1-6.1,7-6.1h0.5l-0.6,5h-1c-1.1,0-2.2,0.3-3.1,0.9
-			c-1,0.6-1.7,1.4-2.3,2.4c-0.7,1.5-1.2,3.2-1.4,4.9L244.5,297.6z"/>
-	</g>
-</g>
-</svg>
-              </span>
-                <span class="app-brand-text demo menu-text fw-bolder orange ms-2 capitalize-first">Do-it4me</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-list" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
-        </svg>
-            </button>
-            <div class="collapse navbar-collapse  " id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto px-lg-5  mb-2 mb-lg-0"  >
-                    <!--Mes Tâches-->
-                    <li class="nav-item">
-                        <a class=" btn  Mycolor" th:href="@{/}" style="display: flex; align-items: center;">
-                            <i class="menu-icon tf-icons bx bx-task me-1" style="margin-right: 5px;"></i>
-                            <div data-i18n="Analytics">Tâches à faire</div>
-                        </a>
-                    </li>
-                    <!--Suivie Des Tâches-->
-                    <li class="nav-item">
-                        <a class="btn  Mycolor" th:href="@{/CreerTache}" style="display: flex; align-items: center;">
-                            <i class="menu-icon tf-icons bx bx-copy-alt me-1" style="margin-right: 5px;"></i>
-                            <div data-i18n="Analytics">Tâches demandées</div>
-                        </a>
-                    </li>
-                    <!--Button Créer Une Tâche-->
-                    <li class="nav-item">
-                        <!-- Vertically Centered Modal -->
-                        <!-- Button trigger modal -->
-                        <button
-                                type="button"
-                                class="btn Mycolor"
-                                data-bs-toggle="modal"
-                                data-bs-target="#exLargeModal"
-                                id="creertache"
-                                onclick="annuler()"
-                        >
-                            <i class="bx bx-add-to-queue me-1"></i> Créer Une Tâche
-                        </button>
-                    </li>
-                    <!---->
+    <!-- content div-->
+    <div class="container-fluid h-auto">
+        <div class="content-wrapper">
 
-                </ul>
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 " STYLE="padding-top: 0px;margin-top: 2px;padding:0px;">
 
-                <div class="navbar-nav d-flex">
-                    <ul class="navbar-nav d-flex align-items-center">
-                        <li>
-                            <a class="btn btn-light" style="margin-right: 10px!important;" th:href="@{/Memoir}">
-                             <i class='bx bx-notepad'></i> Mémo
-                            </a>
-                        </li>
-                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                            <button type="button" class="btn btn-icon Mycolor  dropdown-toggle " data-bs-auto-close="outside" data-bs-toggle="dropdown">
-                                <i class="bx bx-list-ul me-2" style="font-size: 25px;color: #FFFFFF"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-sm-end py-0  mb-4">
-                                <!-- Mon Equipe -->
-                                <li class="nav-item">
-                                    <a class="dropdown-item" th:href="@{/MonEquipe}">
-                                        <i class="bx bxs-user-account"></i> Mon Équipe
-                                    </a>
-                                </li>
-                                <!-- Admin -->
-                                <li class="dropdown-submenu" sec:authorize="hasAnyRole('ADMIN')">
-                                    <a class="dropdown-item dropdown-toggle"  data-bs-toggle="dropdown" href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear-fill" viewBox="0 0 16 16">
-                                            <path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/>
-                                        </svg> Admin
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" th:href="@{/gestUtilisateur}">
-                                            <i class="bx bx-group me-1"></i> Comptes
-                                        </a></li>
-                                        <li><a class="dropdown-item" th:href="@{/societe}">
-                                            <i class="bx bx-buildings me-1"></i> Societes
-                                        </a></li>
-                                        <li><a class="dropdown-item" th:href="@{/domaine}">
-                                            <i class="bx bx-briefcase me-1"></i> Services
-                                        </a></li>
-                                        <li><a class="dropdown-item" th:href="@{/departement}">
-                                            <i class="bx bxs-institution me-1"></i> Departements
-                                        </a></li>
-                                        <li><a class="dropdown-item" th:href="@{/gestionEquipe}">
-                                            <i class="bx bxs-user-account me-1"></i> Equipes
-                                        </a></li>
-                                        <li><a class="dropdown-item" th:href="@{/GestionTacheAdmin}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ui-checks" viewBox="0 0 16 16">
-                                                <path d="M7 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zM2 1a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2zm0 8a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2zm.854-3.646a.5.5 0 0 1-.708 0l-1-1a.5.5 0 1 1 .708-.708l.646.647 1.646-1.647a.5.5 0 1 1 .708.708zm0 8a.5.5 0 0 1-.708 0l-1-1a.5.5 0 0 1 .708-.708l.646.647 1.646-1.647a.5.5 0 0 1 .708.708zM7 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
-                                            </svg> Tâches
-                                        </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <!--/Menu-->
-                        <!--/Menu-->
-                        <!--Menu-->
-
-                        <!--notif-->
-                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                            <button onclick="readNotif()" type="button" class="btn btn-icon Mycolor position-relative dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                <i class="bx bxs-bell-ring me-2" style="font-size: 25px;color: #FFFFFF"></i>
-                                <span id="spanNotifNum" class="badge nav-pills badge-notification bg-danger" th:value="${nbrNotifNonLu}" th:text="${nbrNotifNonLu}"></span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end py-0 overflow-auto mb-4" id="vertical-example" style="width: 400px; max-height: 500px;">
-                                <li class="dropdown-menu-header border-bottom">
-                                    <div class="dropdown-header d-flex align-items-center py-3">
-                                        <h5 class="text-body mb-0 me-auto">notifications</h5>
-                                        <a href="javascript:void(0);" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Mark All as read" data-bs-original-title="Mark All as read">
-                                            <i class="bx bx-envelope-open"></i>
-                                        </a>
-                                    </div>
-                                </li>
-                                <div class="notification-list-wrapper"> <!-- Wrapper with fixed height for scroll -->
-                                    <li class="dropdown-notifications-list scrollable-container ps" th:each="p, iterStat : ${notificationList}">
-                                        <ul class="list-group list-group-flush">
-                                            <li th:class="${p.estLu == true ? 'list-group-item list-group-item-action dropdown-notifications-item marked-as-read' : 'list-group-item list-group-item-action dropdown-notifications-item marked-as-read bg-secondary text-white '}">
-                                                <div class="d-flex">
-                                                    <div class="flex-shrink-0 me-3">
-                                                        <div class="avatar">
-                                                            <img src="img/1.png" alt="" class="w-px-40 h-auto rounded-circle">
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex-grow-1">
-                                                        <h6 th:class="${p.estLu == true ? 'mb-1' : ' mb-1 text-white '}" th:text="${p.emetteur.prenom+' '+p.emetteur.nom+' 🔔'}"> </h6>
-                                                        <p class="mb-0" th:text="${p.detail}"></p>
-                                                        <small th:class="${p.estLu == true ? 'text-muted' : ' text-white '}" th:utext="${#temporals.format(p.datenotif, 'dd-MM-yyyy HH:mm:ss')}"></small>
-                                                    </div>
-                                                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </div>
-                            </ul>
-                        </li>
-                        <!--/notif-->
-
-                        <!-- User -->
-                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                                <div class="avatar avatar-online">
-                                    <img src="img/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li>
-                                    <a class="dropdown-item" th:href="@{/MonProfile}">
-                                        <div class="d-flex">
-                                            <div class="flex-shrink-0 me-3">
-                                                <div class="avatar avatar-online">
-                                                    <img src="img/1.png" alt class="w-px-40 h-auto rounded-circle" />
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <span class="fw-semibold d-block" sec:authentication="name"></span>
-                                                <small class="text-muted" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Administrateur</small>
-                                                <small class="text-muted" th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Utilisateur</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="dropdown-divider"></div>
-                                </li>
-                                <li>
-                                    <form class="dropdown-item" th:action="@{/logout}" method="post">
-                                        <button class="btn btn-primary float-right w-100" type="submit"> <i class="bx bx-power-off me-2"></i>Déconnexion</button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-                        <!--/ User -->
-                    </ul>
-                </div>
-
-
-            </div>
-        </div>
-    </nav>
-
-</div>
-<!--/nav-->
-
-<div class="d-flex justify-content-between">
-    <!--chemin-->
-    <p class="fw-bold my-primary " style="margin-left: 20px;">
-        <span class="text-muted my-primary fw-light">
-          /</span>
-        <i class='bx bx-notepad me-1'></i> Mémo
-    </p>
-    <!--/chemin-->
-
-    <ul class="nav nav-pills flex-column flex-md-row " style="margin-right: 20px;">
-        <li>
-            <!-- Vertically Centered Modal -->
-            <!-- Button trigger modal -->
-            <button
-                    type="button"
-                    class="btn btn-sm  me-1 mb-1 btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exLargeModal1"
-                    id="creermemo"
-
-            >
-                <i class="bx bx-add-to-queue me-1"></i> Créer une Mémo
-            </button>
-        </li>
-
-    </ul>
-
-</div>
-
-<!-- content div-->
-<div class="container-fluid h-auto">
-    <div class="content-wrapper">
-
-        <!-- Content -->
-        <div class="container-xxl flex-grow-1 " STYLE="padding-top: 0px;margin-top: 2px;padding:0px;">
-            <div class="row">
-                <div class="col-md-12">
-
-                    <!-- Extra Large Modal pour Creer une Tache -->
-                  <!-- Extra Large Modal 1 pour creer une memo-->
-                    <div class="modal fade" id="exLargeModal1" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-xl" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button
-                                            type="button"
-                                            class="btn-close"
-                                            data-bs-dismiss="modal"
-                                            aria-label="Close"
-                                    ></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form id="formAccountSettings1" method="POST" th:action="@{CreateMemoire}" >
-                                        <input type="hidden" class="form-control" name="idtache">
-                                        <input type="hidden" th:value="${Idutilisateur}"  class="form-control" name="Utilisateur.idutilisateur">
-                                        <input type="hidden"  name="ismemoire" id="ismemoire1" value="true" required />
-                                        <div class="row">
-                                            <div class="col mb-3">
-                                                <label for="nomtache1" class="form-label">Mémo</label>
-                                                <input type="text" class="form-control"  name="nomtache" id="nomtache1" required>
-                                            </div>
-                                        </div>
-                                        <div class="row g-3">
-                                            <div class="col mb-0">
-                                                <label class="form-label" for="Durée Estimée1">Durée Estimée</label>
-                                                <div class="input-group input-group-merge">
-                                                    <input type="number" id="Durée Estimée1" required
-                                                           min="0"  name="dureestime" class="form-control"/>
-                                                </div>
-                                            </div>
-                                            <div class="col mb-0">
-                                                <label  for="DateOuverture1" class="form-label">Date Ouverture</label>
-                                                <input required class="form-control" type="date" name="dateouverture" min="" id="DateOuverture1" >
-                                            </div>
-
-                                        </div>
-                                        <div class="row g-3">
-                                            <div class="col mb-0">
-                                                <label  for="Proprietaires1" class="form-label">Propriétaire</label>
-                                                <select  id="Proprietaires1" name="proprietaire" class="select2 form-select"  required  th:with="selectedValue=${utilisateur.idutilisateur}">
-                                                    <option th:each="p:${utilisateurList}" th:value="${p.idutilisateur}"  th:selected="${selectedValue == p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
-                                                </select>
-                                            </div>
-                                            <div class="col mb-0">
-                                                <label for="type1" class="form-label">Type</label>
-                                                <select  id="type1" name="type" class="select2 form-select"  >
-                                                    <option value="Projet" >Projet</option>
-                                                    <option value="Opérationnel">Opérationnel</option>
-                                                </select>
-                                            </div>
-
-                                        </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" id="submit1" class="btn btn-primary me-2"> Créer</button>
-                                    <button type="button"
-                                            class="btn btn-outline-secondary"
-                                            onclick="annuler1()"
-                                    >Annuler</button>
-                                </div>
-                                </form>
+                <!-- Basic Bootstrap Table -->
+                <div class="card">
+                    <!--<h5 class="card-header">Table Basic</h5>-->
+                    <div class="card-body">
+                        <div id="messages" th:if="${not #strings.isEmpty(msg) or not #strings.isEmpty(msg1) }" class="mb-3 col-md-12">
+                            <div th:if="${not #strings.isEmpty(msg)}">
+                                <div class="alert alert-success" th:text="${msg}"></div>
+                            </div>
+                            <div th:if="${not #strings.isEmpty(msg1)}">
+                                <div class="alert alert-success" th:text="${msg1}"></div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                        <div class="table-responsive text-nowrap">
+                            <!-- Extra Large Modal nouv -->
+                            <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true" style="padding-top: 170px">
+                                <div class="modal-dialog modal-xl" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button
+                                                    type="button"
+                                                    class="btn-close"
+                                                    data-bs-dismiss="modal"
+                                                    aria-label="Close"
+                                            ></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="formAccountSettings" method="POST" th:action="@{CreateTache}">
+                                                <input type="hidden" class="form-control" name="idtache">
+                                                <input type="hidden" th:value="${utilisateurC.idutilisateur}" class="form-control"
+                                                       name="Utilisateur">
+                                                <input type="hidden" name="ismemoire" id="ismemoire" value="false" required/>
 
-                </div>
-
-                    <!-- Basic Bootstrap Table -->
-                    <div class="card">
-                        <!--<h5 class="card-header">Table Basic</h5>-->
-                        <div class="card-body">
-                            <div id="messages" th:if="${not #strings.isEmpty(msg) or not #strings.isEmpty(msg1) }" class="mb-3 col-md-12">
-                                <div th:if="${not #strings.isEmpty(msg)}">
-                                    <div class="alert alert-success" th:text="${msg}"></div>
-                                </div>
-                                <div th:if="${not #strings.isEmpty(msg1)}">
-                                    <div class="alert alert-success" th:text="${msg1}"></div>
-                                </div>
-                            </div>
-                            <div class="table-responsive text-nowrap">
-                                <!-- Extra Large Modal nouv -->
-                                <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true" style="padding-top: 170px">
-                                    <div class="modal-dialog modal-xl" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button
-                                                        type="button"
-                                                        class="btn-close"
-                                                        data-bs-dismiss="modal"
-                                                        aria-label="Close"
-                                                ></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form id="formAccountSettings" method="POST" th:action="@{CreateTache}">
-                                                    <input type="hidden" class="form-control" name="idtache">
-                                                    <input type="hidden" th:value="${utilisateurC.idutilisateur}" class="form-control"
-                                                           name="Utilisateur">
-                                                    <input type="hidden" name="ismemoire" id="ismemoire" value="false" required/>
-
-                                                    <div class="d-flex align-content-between justify-content-between flex-wrap  pr-0 pl-0">
-                                                        <!-- Première div pour le destinataire -->
-                                                        <div class="d-flex justify-content-evenly align-content-center">
-                                                            <label for="idrecepteur" class="form-label align-content-center  "
-                                                                   STYLE="margin-right: 15px;">Destinataire</label>
-                                                            <select id="idrecepteur" name="recepteur" class="select2 form-select w-px-160" required>
-                                                                <option th:each="p:${Recepteurs}" th:value="${p.idutilisateur}"
-                                                                        th:text="${p.prenom + ' ' + p.nom}"></option>
-                                                            </select>
-                                                        </div>
-
-
-                                                        <!-- Deuxième div pour la tâche à réaliser -->
-                                                        <div class="d-flex justify-content-evenly">
-                                                            <label for="nomtache" class="form-label align-content-center"
-                                                                   STYLE="margin-right: 15px;">Tâche à réaliser</label>
-                                                            <input type="text" class="form-control w-px-170" autofocus name="nomtache" id="nomtache" required>
-                                                        </div>
-
-                                                        <!-- Troisième div pour la durée estimée -->
-                                                        <div class="d-flex justify-content-evenly">
-                                                            <label class="form-label align-content-center" for="dureeEstimee"
-                                                                   STYLE="margin-right: 15px;">EN</label>
-                                                            <div class="d-flex">
-                                                                <input type="number" placeholder="Durée Estimée " id="dureeEstimee" required min="1"
-                                                                       name="dureestime" class="form-control w-50"/>
-                                                                <label class="form-label align-content-center" for="dureeEstimee"
-                                                                       STYLE="margin-left: 10px;">Jour(s)</label>
-                                                            </div>
-                                                        </div>
+                                                <div class="d-flex align-content-between justify-content-between flex-wrap  pr-0 pl-0">
+                                                    <!-- Première div pour le destinataire -->
+                                                    <div class="d-flex justify-content-evenly align-content-center">
+                                                        <label for="idrecepteur" class="form-label align-content-center  "
+                                                               STYLE="margin-right: 15px;">Destinataire</label>
+                                                        <select id="idrecepteur" name="recepteur" class="select2 form-select w-px-160" required>
+                                                            <option th:each="p:${Recepteurs}" th:value="${p.idutilisateur}"
+                                                                    th:text="${p.prenom + ' ' + p.nom}"></option>
+                                                        </select>
                                                     </div>
 
-                                                    <br>
-                                                    <div class="row g-3">
 
-                                                        <div class="col mb-0">
-                                                            <label for="idrecepteur" class="form-label align-content-center  "
-                                                                   STYLE="margin-right: 15px;">Statut</label>
-                                                            <select id="relationTypes" name="relationTypes" class="select2 form-select w-px-160" required>
-                                                                <option th:each="p : ${relationTypes}" th:value="${p}">
+                                                    <!-- Deuxième div pour la tâche à réaliser -->
+                                                    <div class="d-flex justify-content-evenly">
+                                                        <label for="nomtache" class="form-label align-content-center"
+                                                               STYLE="margin-right: 15px;">Tâche à réaliser</label>
+                                                        <input type="text" class="form-control w-px-170" autofocus name="nomtache" id="nomtache" required>
+                                                    </div>
+
+                                                    <!-- Troisième div pour la durée estimée -->
+                                                    <div class="d-flex justify-content-evenly">
+                                                        <label class="form-label align-content-center" for="dureeEstimee"
+                                                               STYLE="margin-right: 15px;">EN</label>
+                                                        <div class="d-flex">
+                                                            <input type="number" placeholder="Durée Estimée " id="dureeEstimee" required min="1"
+                                                                   name="dureestime" class="form-control w-50"/>
+                                                            <label class="form-label align-content-center" for="dureeEstimee"
+                                                                   STYLE="margin-left: 10px;">Jour(s)</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <br>
+                                                <div class="row g-3">
+
+                                                    <div class="col mb-0">
+                                                        <label for="idrecepteur" class="form-label align-content-center  "
+                                                               STYLE="margin-right: 15px;">Statut</label>
+                                                        <select id="relationTypes" name="relationTypes" class="select2 form-select w-px-160" required>
+                                                            <option th:each="p : ${relationTypes}" th:value="${p}">
                                                                       <span th:text="${#strings.arrayContains(p.name(), 'SUBORDONNE') ? 'Subordonné' :
                                                                                #strings.arrayContains(p.name(), 'COLLEGUE') ? 'Collègue' :
                                                                                'Supérieur'}"></span>
-                                                                </option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="col mb-0">
-                                                            <label for="idrecepteur" class="form-label align-content-center  "
-                                                                   STYLE="margin-right: 15px;">étape</label>
-                                                            <select id="etape" name="etape" class="select2 form-select w-px-160" required>
-                                                                <option>Aucune</option>
-                                                                <option value="Cadrage">Cadrage</option>
-                                                                <option value="Livraison">Livraison</option>
-                                                                <option value="Embauche">Embauche</option>
-                                                                <option value="Encaissement">Encaissement</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col mb-0">
-                                                            <label for="Priorite" class="form-label">Priorité</label>
-                                                            <select id="Priorite" class="select2 form-select" name="priorite" required>
-                                                                <option th:each="p:${priorites}" th:value="${p.idpriorite}"
-                                                                        th:text="${p.nompriorite}"></option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="col mb-0">
-                                                            <label for="DateOuverture" class="form-label">Date Ouverture</label>
-                                                            <input class="form-control" type="date" name="dateouverture" min="" id="DateOuverture"
-                                                                   required>
-                                                        </div>
-
-                                                        <div class="col mb-0">
-                                                            <label for="Proprietaires" class="form-label">Propriétaire</label>
-                                                            <select id="Proprietaires" name="proprietaire" class="select2 form-select"
-                                                                    required="required" th:with="selectedValue=${utilisateurC.idutilisateur}">
-                                                                <option th:each="p:${utilisateurList}" th:value="${p.idutilisateur}"
-                                                                        th:selected="${selectedValue == p.idutilisateur}"
-                                                                        th:text="${p.prenom + ' ' + p.nom}"></option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col mb-0">
-                                                            <label for="tacheparente" class="form-label">Tâche parente</label>
-                                                            <select id="tacheparente" class="select2 form-select" name="tacheparente">
-                                                                <!-- <option  value="">Selectionner la tâche parente</option>
-                                                                 <option th:each="TacheParents:${lesTacheParents}" th:value="${TacheParents.idtache}" th:text="${TacheParents.nomtache}"></option>-->
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="col mb-0">
-                                                            <label for="type" class="form-label">Type</label>
-                                                            <select class="select2 form-select" required="required"  id="type" name="type">
-                                                                <option value="Opérationnel">Opérationnel</option>
-                                                                <option value="Projet">Projet</option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="col mb-0">
-                                                            <label class="form-label" for="Aunetachesuccessive">Tâche indexée</label>
-                                                            <select class="select2 form-select" required="required" id="Aunetachesuccessive" name="aunetachesuccessive">
-                                                                <option value="false">Non</option>
-                                                                <option value="true">Oui</option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="col mb-0" style="padding-top: 30px;">
-                                                            <button type="submit" id="submit" class="btn btn-primary "> Envoyer</button>
-                                                            <button type="button"
-                                                                    class="btn btn-outline-secondary"
-                                                                    onclick="annuler()"
-                                                            >Annuler
-                                                            </button>
-                                                        </div>
+                                                            </option>
+                                                        </select>
                                                     </div>
 
-                                                </form>
-                                            </div>
+                                                    <div class="col mb-0">
+                                                        <label for="idrecepteur" class="form-label align-content-center  "
+                                                               STYLE="margin-right: 15px;">étape</label>
+                                                        <select id="etape" name="etape" class="select2 form-select w-px-160" required>
+                                                            <option>Aucune</option>
+                                                            <option value="Cadrage">Cadrage</option>
+                                                            <option value="Livraison">Livraison</option>
+                                                            <option value="Embauche">Embauche</option>
+                                                            <option value="Encaissement">Encaissement</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col mb-0">
+                                                        <label for="Priorite" class="form-label">Priorité</label>
+                                                        <select id="Priorite" class="select2 form-select" name="priorite" required>
+                                                            <option th:each="p:${priorites}" th:value="${p.idpriorite}"
+                                                                    th:text="${p.nompriorite}"></option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col mb-0">
+                                                        <label for="DateOuverture" class="form-label">Date Ouverture</label>
+                                                        <input class="form-control" type="date" name="dateouverture" min="" id="DateOuverture"
+                                                               required>
+                                                    </div>
+
+                                                    <div class="col mb-0">
+                                                        <label for="Proprietaires" class="form-label">Propriétaire</label>
+                                                        <select id="Proprietaires" name="proprietaire" class="select2 form-select"
+                                                                required="required" th:with="selectedValue=${utilisateurC.idutilisateur}">
+                                                            <option th:each="p:${utilisateurList}" th:value="${p.idutilisateur}"
+                                                                    th:selected="${selectedValue == p.idutilisateur}"
+                                                                    th:text="${p.prenom + ' ' + p.nom}"></option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col mb-0">
+                                                        <label for="tacheparente" class="form-label">Tâche parente</label>
+                                                        <select id="tacheparente" class="select2 form-select" name="tacheparente">
+                                                            <!-- <option  value="">Selectionner la tâche parente</option>
+                                                             <option th:each="TacheParents:${lesTacheParents}" th:value="${TacheParents.idtache}" th:text="${TacheParents.nomtache}"></option>-->
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col mb-0">
+                                                        <label for="type" class="form-label">Type</label>
+                                                        <select class="select2 form-select" required="required"  id="type" name="type">
+                                                            <option value="Opérationnel">Opérationnel</option>
+                                                            <option value="Projet">Projet</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col mb-0">
+                                                        <label class="form-label" for="Aunetachesuccessive">Tâche indexée</label>
+                                                        <select class="select2 form-select" required="required" id="Aunetachesuccessive" name="aunetachesuccessive">
+                                                            <option value="false">Non</option>
+                                                            <option value="true">Oui</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col mb-0" style="padding-top: 30px;">
+                                                        <button type="submit" id="submit" class="btn btn-primary "> Envoyer</button>
+                                                        <button type="button"
+                                                                class="btn btn-outline-secondary"
+                                                                onclick="annuler()"
+                                                        >Annuler
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                            </form>
                                         </div>
                                     </div>
-                                    <!-- Les filtre
-                                    <div class="col-3">
-                                      <label for="membreSelect" class="form-label">Sélectionner un émetteur</label>
-                                      <select  multiple="multiple" id="membreSelect1"  class=" form-select"  >
-                                        <option value="" selected="selected">Tout sélectionner</option >
-                                        <option th:each="p:${Emetteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
-                                      </select>
-                                    </div>
-                                    <div class="col-3">
-                                      <label for="statutSelect" class="form-label">Sélectionner un statut</label>
-                                      <select  multiple="multiple" id="statutSelect1"  class=" form-select">
-                                        <option value="" selected="selected">Tout sélectionner</option>
-                                        <option value="Validée" >Validé</option>
-                                        <option value="Terminée" >Terminé</option>
-                                        <option value="En cours" >En cours</option>
-                                        <option value="En attente" >En attente</option>
-                                        <option value="Programmée" >Programme</option>
-                                        <option value="À refaire" >Refaire</option>
-                                        <option value="Annulée" >Annuleé</option>
-                                      </select>
-                                    </div>
-                                    <div class="col-3">
-                                      <label for="dateMinSelect" class="form-label">Sélectionner la date d'ouverture MIN</label>
-                                      <input class="form-control" type="date"  id="dateMinSelect">
-                                    </div>
-                                    <div class="col-md-3">
-                                      <label  for="dateMaxSelect" class="form-label">SÉLECTIONNER LA DATE d'ouverture MAX</label>
-                                      <input class="form-control" type="date"  id="dateMaxSelect" >
-                                    </div>-->
                                 </div>
-                                <table  id="example" style="width:100%" class="table table-bordered table-sm">
-                                                  <thead>
-                                                    <tr>
-                                                        <th style="width: 100%;"
-                                                            class="text-center Mycolor"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-offset="0,4"
-                                                            data-bs-placement="top"
-                                                            data-bs-html="true"
-                                                            title="<span>Tâches</span>">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-task" viewBox="0 0 16 16">
-                                                                <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5zM3 3H2v1h1z"/>
-                                                                <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1z"/>
-                                                                <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5zM2 7h1v1H2zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm1 .5H2v1h1z"/>
-                                                            </svg>
-                                                            <label class="capitalize-first">Mémo</label>
 
-                                                            <!--Tache-->
-                                                        </th>
-                                                        <th  class="text-center Mycolor"
-                                                             data-bs-toggle="tooltip"
-                                                             data-bs-offset="0,4"
-                                                             data-bs-placement="top"
-                                                             data-bs-html="true"
-                                                             title="<span>Propriétaire</span>"><!--Proprietaire-->
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
-                                                                <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
-                                                            </svg>
-                                                        </th>
-                                                        <th class="text-center Mycolor"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-offset="0,4"
-                                                            data-bs-placement="top"
-                                                            data-bs-html="true"
-                                                            title="<span>Date ouverture</span>"
-                                                        ><!--date ouverture-->
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-open" viewBox="0 0 16 16">
-                                                                <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882zM15 7.383l-4.778 2.867L15 13.117zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765z"/>
-                                                            </svg>
-                                                        </th>
-                                                        <th class="text-center Mycolor"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-offset="0,4"
-                                                            data-bs-placement="top"
-                                                            data-bs-html="true"
-                                                            title="<span>Date objectif</span>"
-                                                        ><!--date objectif-->
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar4-event" viewBox="0 0 16 16">
-                                                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
-                                                                <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
-                                                            </svg>
-                                                        </th>
-                                                        <th  class="text-center Mycolor"
-                                                             data-bs-toggle="tooltip"
-                                                             data-bs-offset="0,4"
-                                                             data-bs-placement="top"
-                                                             data-bs-html="true"
-                                                             title="<span>Durée estimée</span>"
-                                                        ><!--dure estime-->
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16">
-                                                                <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/>
-                                                            </svg>
-                                                        </th>
-                                                        <th class="text-center Mycolor"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-offset="0,4"
-                                                            data-bs-placement="top"
-                                                            data-bs-html="true"
-                                                            title="<span>Actions</span>"
-                                                        > <!--Actions-->
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
-                                                                <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
-                                                                <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
-                                                            </svg>
-                                                        </th>
-                                                          </tr>
-                                                          </thead>
-                                                          <tbody class="table-border table-secondary" id="tbody">
-                                                          <tr th:each="p:${tacheList}">
-                                                              <td style=" display: flex;">
-                                                                  <p th:text="${p.nomtache}" style="white-space: pre-wrap;margin: 0;max-width: 350px;min-height: 35px;height: auto"></p>
-                                                              </td>
+                            </div>
+                            <table  id="example" style="width:100%" class="table table-bordered table-sm">
+                                <thead>
+                                <tr>
+                                    <th style="width: 100%;"
+                                        class="text-center Mycolor"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-offset="0,4"
+                                        data-bs-placement="top"
+                                        data-bs-html="true"
+                                        title="<span>Tâches</span>">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-task" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5zM3 3H2v1h1z"/>
+                                            <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1z"/>
+                                            <path fill-rule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5zM2 7h1v1H2zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm1 .5H2v1h1z"/>
+                                        </svg>
+                                        <label class="capitalize-first">Mémo</label>
 
-                                                              <td th:text="${p.proprietaire!=null?p.proprietaire.prenom+' '+p.proprietaire.nom:'(sans proprietaire)'}"></td>
-                                                              <td th:text="${p.dateouverture != null ? #dates.format(p.dateouverture, 'dd/MM/yy') : ''}"></td>
-                                                              <td th:text="${p.dateobjectif != null ? #dates.format(p.dateobjectif, 'dd/MM/yy') : ''}"></td>
-                                                              <td th:text="${p.dureestime}"></td>
-                                                              <td>
-                                                                  <div class="dropdown">
-                                                                      <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                                          <i class="bx bx-dots-vertical-rounded"></i>
-                                                                      </button>
-                                                                      <div class="dropdown-menu">
-                                                                          <a class="dropdown-item" th:attr="data-id=${p.idtache}" onclick="editMemo(this)"
-                                                                          ><i class="bx bx-edit-alt me-2"></i> Éditer</a
-                                                                          >
-                                                                          <a class="dropdown-item"  onclick="confirmDelete(event)" th:href="@{/deleteMemo/{id}(id=${p.idtache})}">
-                                                                              <i class="bx bx-trash me-2"></i> Supprimer</a>
-                                                                      </div>
-                                                                  </div>
-                                                              </td>
-                                                          </tr>
-                                                          </tbody>
-                                                      </table>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <!--/ Basic Bootstrap Table -->
+                                        <!--Tache-->
+                                    </th>
+                                    <th  class="text-center Mycolor"
+                                         data-bs-toggle="tooltip"
+                                         data-bs-offset="0,4"
+                                         data-bs-placement="top"
+                                         data-bs-html="true"
+                                         title="<span>Propriétaire</span>"><!--Proprietaire-->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
+                                            <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
+                                        </svg>
+                                    </th>
+                                    <th class="text-center Mycolor"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-offset="0,4"
+                                        data-bs-placement="top"
+                                        data-bs-html="true"
+                                        title="<span>Date ouverture</span>"
+                                    ><!--date ouverture-->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-open" viewBox="0 0 16 16">
+                                            <path d="M8.47 1.318a1 1 0 0 0-.94 0l-6 3.2A1 1 0 0 0 1 5.4v.817l5.75 3.45L8 8.917l1.25.75L15 6.217V5.4a1 1 0 0 0-.53-.882zM15 7.383l-4.778 2.867L15 13.117zm-.035 6.88L8 10.082l-6.965 4.18A1 1 0 0 0 2 15h12a1 1 0 0 0 .965-.738ZM1 13.116l4.778-2.867L1 7.383v5.734ZM7.059.435a2 2 0 0 1 1.882 0l6 3.2A2 2 0 0 1 16 5.4V14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5.4a2 2 0 0 1 1.059-1.765z"/>
+                                        </svg>
+                                    </th>
+                                    <th class="text-center Mycolor"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-offset="0,4"
+                                        data-bs-placement="top"
+                                        data-bs-html="true"
+                                        title="<span>Date objectif</span>"
+                                    ><!--date objectif-->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar4-event" viewBox="0 0 16 16">
+                                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                                            <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z"/>
+                                        </svg>
+                                    </th>
+                                    <th  class="text-center Mycolor"
+                                         data-bs-toggle="tooltip"
+                                         data-bs-offset="0,4"
+                                         data-bs-placement="top"
+                                         data-bs-html="true"
+                                         title="<span>Durée estimée</span>"
+                                    ><!--dure estime-->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16">
+                                            <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z"/>
+                                        </svg>
+                                    </th>
+                                    <th class="text-center Mycolor"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-offset="0,4"
+                                        data-bs-placement="top"
+                                        data-bs-html="true"
+                                        title="<span>Actions</span>"
+                                    > <!--Actions-->
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
+                                            <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"/>
+                                            <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"/>
+                                        </svg>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody class="table-border table-secondary" id="tbody">
+                                <tr th:each="p:${tacheList}">
+                                    <td style=" display: flex;">
+                                        <p th:text="${p.nomtache}" style="white-space: pre-wrap;margin: 0;max-width: 350px;min-height: 35px;height: auto"></p>
+                                    </td>
+
+                                    <td th:text="${p.proprietaire!=null?p.proprietaire.prenom+' '+p.proprietaire.nom:'(sans proprietaire)'}"></td>
+                                    <td th:text="${p.dateouverture != null ? #dates.format(p.dateouverture, 'dd/MM/yy') : ''}"></td>
+                                    <td th:text="${p.dateobjectif != null ? #dates.format(p.dateobjectif, 'dd/MM/yy') : ''}"></td>
+                                    <td th:text="${p.dureestime}"></td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" th:attr="data-id=${p.idtache}" onclick="editMemo(this)"
+                                                ><i class="bx bx-edit-alt me-2"></i> Éditer</a
+                                                >
+                                                <a class="dropdown-item"  onclick="confirmDelete(event)" th:href="@{/deleteMemo/{id}(id=${p.idtache})}">
+                                                    <i class="bx bx-trash me-2"></i> Supprimer</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
+                <!--/ Basic Bootstrap Table -->
             </div>
         </div>
-        <!-- /content-->
     </div>
     <!--/ content div-->
 
-    </body>
 
 
-<!-- Core JS -->
-<!-- build:js assets/vendor/js/core.js -->
-<script src="js/jquery.js"></script>
-<script src="js/popper.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/perfect-scrollbar.js"></script>
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="js/jquery.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/perfect-scrollbar.js"></script>
 
-<script src="js/menu.js"></script>
-<!-- endbuild -->
+    <script src="js/menu.js"></script>
+    <!-- endbuild -->
 
-<!-- Vendors JS -->
-<script src="js/apexcharts.js"></script>
+    <!-- Vendors JS -->
+    <script src="js/apexcharts.js"></script>
 
-<!-- Main JS -->
-<script src="js/main.js"></script>
+    <!-- Main JS -->
+    <script src="js/main.js"></script>
 
-<!-- Page JS -->
-<script src="js/dashboards-analytics.js"></script>
-<script src="js/pages-account-settings-account.js"></script>
+    <!-- Page JS -->
+    <script src="js/dashboards-analytics.js"></script>
+    <script src="js/pages-account-settings-account.js"></script>
 
-<!-- Place this tag in your head or just before your close body tag. -->
+    <!-- Place this tag in your head or just before your close body tag. -->
 
-<script src="js/myJs.js"></script>
-<!-- liens pour les websoket + Stom +Jquery. -->
-<script src="js/jquery.min.js"></script>
-<script src="js/sockjs.min.js"></script>
-<script src="js/stomp.min.js" ></script>
-<!-- le script des websoket notification. -->
-<script src="js/notifWebSocket.js"></script>
-<!-- Data table -->
-<script src="js/datatables.min.js"></script>
-<script src="js/MyDatatableConf.js"></script>
+    <script src="js/myJs.js"></script>
+    <!-- liens pour les websoket + Stom +Jquery. -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/sockjs.min.js"></script>
+    <script src="js/stomp.min.js" ></script>
+    <!-- le script des websoket notification. -->
+    <script src="js/notifWebSocket.js"></script>
+    <!-- Data table -->
+    <script src="js/datatables.min.js"></script>
+    <script src="js/MyDatatableConf.js"></script>
 
-<script>
-
-    //pour la date douverture
-    // Obtenez la date actuelle au format YYYY-MM-DD
-    var currentDate = new Date().toISOString().split('T')[0];
-
-    // Mettez à jour l'attribut 'min' du champ de saisie de date avec la date actuelle
-    document.getElementById('DateOuverture1').min = currentDate;
-
-    // Mettez à jour l'attribut 'value' du champ de saisie de date avec la date actuelle
-    document.getElementById('DateOuverture1').value = currentDate;
-
-    // Mettez à jour l'attribut 'min' du champ de saisie de date avec la date actuelle
-    document.getElementById('DateOuverture').min = currentDate;
-
-    // Mettez à jour l'attribut 'value' du champ de saisie de date avec la date actuelle
-    document.getElementById('DateOuverture').value = currentDate;
-
-    //Pour editer une memo dans la meme forme
-    function editMemo(button) {
-
-        afficherFormulaireCreeMemo();
-
-        const idTache = button.getAttribute("data-id");
-        const form = document.getElementById("formAccountSettings1");
-
-        // Set the idTache input field value and update the button text
-        form.querySelector("input[name='idtache']").value = idTache;
-        //form.querySelector("button[id='submit']").textContent = "Mettre à jour";
-        document.getElementById('submit1').textContent="Mettre à jour"
-
-        // Fetch Tache details using AJAX
-        $.ajax({
-            type: "GET", // You may need to adjust this to your backend API
-            url: `get-Memo/${idTache}`, // Replace with your API endpoint
-            success: function(data) {
-                // Assuming your API returns data in JSON format
-
-                const nomTache = data.nomtache;
-                //console.log(data.societe.idsociete);
-
-                // Pre-fill the form fields
-                form.querySelector("input[name='nomtache']").value = nomTache;
-                form.querySelector("input[name='dureestime']").value = data.dureestime;
-                form.querySelector("input[name='dateouverture']").value = data.dateouverture;
-                form.querySelector("select[name='type']").value = data.type;
-
-                //si la departement a une societé
-                if(data.proprietaire!=null)
-                {
-                    // Pre-select the Societe in the dropdown
-                    const select = form.querySelector("select[name='proprietaire']");
-                    const Proprietaire = data.proprietaire;
-                    const societeOption = select.querySelector(`option[value="${Proprietaire.idutilisateur}"]`);
-                    societeOption.setAttribute("selected", "selected");
-                }
-
-            },
-            error: function(err) {
-                // Handle the error if needed
-                console.error(err);
-            }
-        });
-
-    }
-
-    function afficherFormulaireCreeMemo(){
-        //pour afficher le form
-        // Récupérer l'élément du bouton par son attribut 'class'
-        var bouton = document.getElementById("creermemo");
-
-        // Vérifier si le bouton a été trouvé
-        if (bouton) {
-            // Déclencher le clic sur le bouton
-            bouton.click();
-        } else {
-            console.error('Le bouton n\'a pas été trouvé.');
-        }
-
-        //srcipt permet de défiler la page vers le haut lorsque l'utilisateur clique sur un bouton
-        // Faites défiler la page vers le haut
-        window.scrollTo({
-            top: 0, // La position en pixels en haut de la page
-            behavior: "smooth" // Option pour un défilement fluide
-        });
-    }
+</section>
 
 
-    function annuler() {
-        // Récupérer l'élément du formulaire par son ID
-        var formulaire = document.getElementById('formAccountSettings');
-        var   btnSubmit= document.getElementById('submit');
-        var inputEDateOuverture = document.getElementById("DateOuverture");
 
-        // Vérifier si le formulaire a été trouvé
-        if (formulaire) {
-            // Réinitialiser le formulaire
-            formulaire.reset();
+</body>
 
-            if ( btnSubmit.textContent === "Mettre à jour") {btnSubmit.textContent = "Envoyer";}
-
-            // Pre-select the Proprietaire in the dropdown
-            const select1 = formulaire.querySelector("select[name='proprietaire']");
-            select1.removeAttribute("readonly");
-            select1.onmousedown = null;
-            select1.style.cursor = "default";
-
-            // Pre-select the Recepteur in the dropdown
-            const select = formulaire.querySelector("select[name='recepteur']");
-            select.removeAttribute("readonly");
-            select.onmousedown = null;
-            select.style.cursor = "default";
-
-            //remove Disable editing and selection for nomtache
-            const inputField = formulaire.querySelector(`input[name='nomtache']`);
-            inputField.removeAttribute("readonly");
-            inputField.onmousedown = null; // Supprimer l'événement onmousedown
-            inputField.style.cursor = "text"; // Changer le style du curseur en mode édition
-
-            const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
-            idTacheInput.value=null;
-            idTacheInput.textContent="";
-
-
-            // Disable editing and selection for tacheparente
-            const selec = formulaire.querySelector("select[name='tacheparente']");
-            selec.removeAttribute("readonly");
-            selec.onmousedown = null;
-            selec.style.cursor = "default";
-
-            //Date d ouverture
-            const inputEDateOuverture = formulaire.querySelector(`input[name='dateouverture']`);
-            inputEDateOuverture.removeAttribute("readonly");
-            inputEDateOuverture.onmousedown = null;
-            inputEDateOuverture.style.cursor = "default";
-            inputEDateOuverture.disabled=false;
-            inputEDateOuverture.onmousedown = null; // Supprimer l'événement onmousedown
-            //inputEDateOuverture.style.cursor = "text"; // Changer le style du curseur en mode édition
-            dateOuvertureactuelle();
-        } else {
-            console.error('Le formulaire n\'a pas été trouvé.');
-        }
-
-        //pour regler la douverture
-        dateOuvertureactuelle();
-
-    }
-
-    //pour regler la douverture
-    dateOuvertureactuelle();
-    function dateOuvertureactuelle(){
-        //pour la date douverture
-        // Obtenez la date actuelle au format YYYY-MM-DD
-        var currentDate = new Date().toISOString().split('T')[0];
-
-        // Mettez à jour l'attribut 'min' du champ de saisie de date avec la date actuelle
-        document.getElementById('DateOuverture').min = currentDate;
-
-        // Mettez à jour l'attribut 'value' du champ de saisie de date avec la date actuelle
-        document.getElementById('DateOuverture').value = currentDate;
-        // Mettez à jour l'attribut 'min' du champ de saisie de date avec la date actuelle
-        document.getElementById('DateOuverture1').min = currentDate;
-
-        // Mettez à jour l'attribut 'value' du champ de saisie de date avec la date actuelle
-        document.getElementById('DateOuverture1').value = currentDate;
-    }
-
-
-    function annuler1()
-    {
-        // Récupérer l'élément du formulaire par son ID
-        var formulaire = document.getElementById('formAccountSettings1');
-        var   btnSubmit= document.getElementById('submit1');
-
-        // Vérifier si le formulaire a été trouvé
-        if (formulaire) {
-            // Réinitialiser le formulaire
-            formulaire.reset();
-
-            if ( btnSubmit.textContent === "Mettre à jour") {
-
-                btnSubmit.textContent = "Créer";
-
-
-                const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
-                idTacheInput.value=null;
-                idTacheInput.textContent="";
-
-            }
-        } else {
-            console.error('Le formulaire na pas été trouvé.');
-        }
-        dateOuvertureactuelle()
-    }
-    //Pour afficher les taches parentes dans
-    // la selelecte dans le formulaire qui permet de creer une tache et actualiser la liste lorsqu'une indexation
-    tacheParentes();
-    function tacheParentes() {
-        $.ajax({
-            url: `tachesParentes/`,
-            method: 'GET',
-            success: function (taches) {
-
-                var tachesParentSelect = $("#tacheparente");
-                tachesParentSelect.empty(); // Efface toutes les options actuelles
-                tachesParentSelect.append (new Option("Selectionner la tâche parente",-1));
-                for (var i = 0; i < taches.length; i++) {
-                    var option = new Option(taches[i].nomtache, taches[i].idtache);
-                    tachesParentSelect.append(option);
-                }
-            }
-        });
-    }
-
-
-    // Sélectionnez tous les éléments avec la classe "show-message"
-    var messageElements = document.querySelectorAll('.show-message');
-
-    // Parcourir chaque élément et ajouter la classe "show" (pour l'animation)
-    messageElements.forEach(function(element) {
-        element.classList.add('show');
-
-        // Supprimer la classe "show" après 5 secondes
-        setTimeout(function() {
-            element.classList.remove('show');
-        }, 5000);
-    });
-    // Sélectionnez l'élément avec l'id "messages"
-    var messagesDiv = document.getElementById("messages");
-
-    // Supprimez la div après 5 secondes (5000 millisecondes)
-    setTimeout(function() {
-        if (messagesDiv) {
-            messagesDiv.remove();
-        }
-    }, 5500);
-
-
-</script>
 </body>
 </html>
