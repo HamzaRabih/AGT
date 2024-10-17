@@ -32,6 +32,7 @@ public class MemoireServiceImpl implements MemoireService{
         tache.setProprietaire(tache.getProprietaire());
         tache.setRecepteur(null);
         tache.setUtilisateur(tache.getUtilisateur());
+        tache.setStatut("Non validé");
         // Enregistrer la tâche memoire
         tacheRepo.save(tache);
         redirectAttributes.addFlashAttribute("msg", "Tâche créée avec succès");
@@ -55,6 +56,14 @@ public class MemoireServiceImpl implements MemoireService{
         // Mettre à jour la tâche existante
         redirectAttributes.addFlashAttribute("msg1", "La tâche a été modifiée avec succès.");
     }
+
+    @Override
+    public void validateMemo(Long id) {
+        Tache tache=tacheRepo.findByIdtache(id);
+        tache.setStatut("Validée");
+        tacheRepo.save(tache);
+    }
+
 
 
 }

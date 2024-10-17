@@ -73,7 +73,7 @@
                         type="button"
                         class="btn btn-sm  me-1 mb-1 btn-primary"
                         data-bs-toggle="modal"
-                        data-bs-target="#modalCenter"
+                        data-bs-target="#modelCreateDepartement"
                         id="creerDepartement"
 
                 >
@@ -95,7 +95,7 @@
                     <div class="col-md-12">
 
                         <!-- Modal -->
-                        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
+                        <div class="modal fade" id="modelCreateDepartement" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -107,7 +107,7 @@
                                         ></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="formAccountSettings"   th:action="@{CreateDepartement}"  th:object="${departement}" class="form-group" method="post">
+                                        <form id="formCreateDepartement"   th:action="@{CreateDepartement}"  th:object="${departement}" class="form-group" method="post">
                                             <input type="hidden" class="form-control" name="iddepartement">
                                             <div class="row mb-3">
                                                 <label class="col-sm-2 col-form-label my-primary" for="basic-icon-default-fullname">Société</label>
@@ -174,175 +174,6 @@
                                 </div>
                             </div>
                             <div class="table-responsive text-nowrap">
-                                <!-- Extra Large Modal pour Creer une Tache -->
-                                <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true" style="padding-top: 170px">
-                                    <div class="modal-dialog modal-xl" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button
-                                                        type="button"
-                                                        class="btn-close"
-                                                        data-bs-dismiss="modal"
-                                                        aria-label="Close"
-                                                ></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form id="formAccountSettings2" method="POST" th:action="@{CreateTache}">
-                                                    <input type="hidden" class="form-control" name="idtache">
-                                                    <input type="hidden" th:value="${utilisateurC.idutilisateur}" class="form-control"
-                                                           name="Utilisateur">
-                                                    <input type="hidden" name="ismemoire" id="ismemoire" value="false" required/>
-
-                                                    <div class="d-flex align-content-between justify-content-between flex-wrap  pr-0 pl-0">
-                                                        <!-- Première div pour le destinataire -->
-                                                        <div class="d-flex justify-content-evenly align-content-center">
-                                                            <label for="idrecepteur" class="form-label align-content-center  "
-                                                                   STYLE="margin-right: 15px;">Destinataire</label>
-                                                            <select id="idrecepteur" name="recepteur" class="select2 form-select w-px-160" required>
-                                                                <option th:each="p:${Recepteurs}" th:value="${p.idutilisateur}"
-                                                                        th:text="${p.prenom + ' ' + p.nom}"></option>
-                                                            </select>
-                                                        </div>
-
-                                                        <!-- Deuxième div pour la tâche à réaliser -->
-                                                        <div class="d-flex justify-content-evenly">
-                                                            <label for="nomtache" class="form-label align-content-center"
-                                                                   STYLE="margin-right: 15px;">Tâche à réaliser</label>
-                                                            <input type="text" class="form-control w-px-170" autofocus name="nomtache" id="nomtache" required>
-                                                        </div>
-
-                                                        <!-- Troisième div pour la durée estimée -->
-                                                        <div class="d-flex justify-content-evenly">
-                                                            <label class="form-label align-content-center" for="dureeEstimee"
-                                                                   STYLE="margin-right: 15px;">EN</label>
-                                                            <div class="d-flex">
-                                                                <input type="number" placeholder="Durée Estimée " id="dureeEstimee" required min="1"
-                                                                       name="dureestime" class="form-control w-50"/>
-                                                                <label class="form-label align-content-center" for="dureeEstimee"
-                                                                       STYLE="margin-left: 10px;">Jour(s)</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <br>
-                                                    <div class="row g-3">
-
-                                                        <div class="col mb-0">
-                                                            <label for="idrecepteur" class="form-label align-content-center  "
-                                                                   STYLE="margin-right: 15px;">Statut</label>
-                                                            <select id="relationTypes" name="relationTypes" class="select2 form-select w-px-160" required>
-                                                                <option th:each="p : ${relationTypes}" th:value="${p}">
-                              <span th:text="${#strings.arrayContains(p.name(), 'SUBORDONNE') ? 'Subordonné' :
-                                       #strings.arrayContains(p.name(), 'COLLEGUE') ? 'Collègue' :
-                                       'Supérieur'}"></span>
-                                                                </option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="col mb-0">
-                                                            <label for="idrecepteur" class="form-label align-content-center  "
-                                                                   STYLE="margin-right: 15px;">étape</label>
-                                                            <select id="etape" name="etape" class="select2 form-select w-px-160" required>
-                                                                <option>Aucune</option>
-                                                                <option value="Cadrage">Cadrage</option>
-                                                                <option value="Livraison">Livraison</option>
-                                                                <option value="Embauche">Embauche</option>
-                                                                <option value="Encaissement">Encaissement</option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="col mb-0">
-                                                            <label for="Priorite" class="form-label">Priorité</label>
-                                                            <select id="Priorite" class="select2 form-select" name="priorite" required>
-                                                                <option th:each="p:${priorites}" th:value="${p.idpriorite}"
-                                                                        th:text="${p.nompriorite}"></option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="col mb-0">
-                                                            <label for="DateOuverture" class="form-label">Date Ouverture</label>
-                                                            <input class="form-control" type="date" name="dateouverture" min="" id="DateOuverture"
-                                                                   required>
-                                                        </div>
-
-                                                        <div class="col mb-0">
-                                                            <label for="Proprietaires" class="form-label">Propriétaire</label>
-                                                            <select id="Proprietaires" name="proprietaire" class="select2 form-select"
-                                                                    required="required" th:with="selectedValue=${utilisateurC.idutilisateur}">
-                                                                <option th:each="p:${utilisateurList2}" th:value="${p.idutilisateur}"
-                                                                        th:selected="${selectedValue == p.idutilisateur}"
-                                                                        th:text="${p.prenom + ' ' + p.nom}"></option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col mb-0">
-                                                            <label for="tacheparente" class="form-label">Tâche parente</label>
-                                                            <select id="tacheparente" class="select2 form-select" name="tacheparente">
-                                                                <!-- <option  value="">Selectionner la tâche parente</option>
-                                                                 <option th:each="TacheParents:${lesTacheParents}" th:value="${TacheParents.idtache}" th:text="${TacheParents.nomtache}"></option>-->
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="col mb-0">
-                                                            <label for="type" class="form-label">Type</label>
-                                                            <select class="select2 form-select" required="required"  id="type" name="type">
-                                                                <option value="Opérationnel">Opérationnel</option>
-                                                                <option value="Projet">Projet</option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="col mb-0">
-                                                            <label class="form-label" for="Aunetachesuccessive">Tâche indexée</label>
-                                                            <select class="select2 form-select" required="required" id="Aunetachesuccessive" name="aunetachesuccessive">
-                                                                <option value="false">Non</option>
-                                                                <option value="true">Oui</option>
-                                                            </select>
-                                                        </div>
-
-                                                        <div class="col mb-0" style="padding-top: 30px;">
-                                                            <button type="submit" id="submit2" class="btn btn-primary "> Envoyer</button>
-                                                            <button type="button"
-                                                                    class="btn btn-outline-secondary"
-                                                                    onclick="annuler2()"
-                                                            >Annuler
-                                                            </button>
-                                                        </div>
-                                                    </div>
-
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Les filtre
-                                    <div class="col-3">
-                                      <label for="membreSelect" class="form-label">Sélectionner un émetteur</label>
-                                      <select  multiple="multiple" id="membreSelect1"  class=" form-select"  >
-                                        <option value="" selected="selected">Tout sélectionner</option >
-                                        <option th:each="p:${Emetteurs}"   th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
-                                      </select>
-                                    </div>
-                                    <div class="col-3">
-                                      <label for="statutSelect" class="form-label">Sélectionner un statut</label>
-                                      <select  multiple="multiple" id="statutSelect1"  class=" form-select">
-                                        <option value="" selected="selected">Tout sélectionner</option>
-                                        <option value="Validée" >Validé</option>
-                                        <option value="Terminée" >Terminé</option>
-                                        <option value="En cours" >En cours</option>
-                                        <option value="En attente" >En attente</option>
-                                        <option value="Programmée" >Programme</option>
-                                        <option value="À refaire" >Refaire</option>
-                                        <option value="Annulée" >Annuleé</option>
-                                      </select>
-                                    </div>
-                                    <div class="col-3">
-                                      <label for="dateMinSelect" class="form-label">Sélectionner la date d'ouverture MIN</label>
-                                      <input class="form-control" type="date"  id="dateMinSelect">
-                                    </div>
-                                    <div class="col-md-3">
-                                      <label  for="dateMaxSelect" class="form-label">SÉLECTIONNER LA DATE d'ouverture MAX</label>
-                                      <input class="form-control" type="date"  id="dateMaxSelect" >
-                                    </div>-->
-                                </div>
-                                <!--/ Extra Large Modal pour Creer une Tache -->
 
                                 <table  id="example" class="table table-bordered table-sm table-secondary" style="width:100%">
                                     <thead>
@@ -421,7 +252,7 @@
                 //Pour editer une departement dans la meme forme
                 function editDepartement(button) {
                     const idDepartement = button.getAttribute("data-id");
-                    const form = document.getElementById("formAccountSettings");
+                    const form = document.getElementById("formCreateDepartement");
 
                     // Set the idDepartement input field value and update the button text
                     form.querySelector("input[name='iddepartement']").value = idDepartement;
@@ -483,7 +314,7 @@
                 function annuler()
                 {
                     // Récupérer l'élément du formulaire par son ID
-                    var formulaire = document.getElementById('formAccountSettings');
+                    var formulaire = document.getElementById('formCreateDepartement');
 
                     // Vérifier si le formulaire a été trouvé
                     if (formulaire) {
@@ -551,62 +382,7 @@
                     });
                 }
 
-                function annuler2() {
-                    // Récupérer l'élément du formulaire par son ID
-                    var formulaire = document.getElementById('formAccountSettings2');
-                    var   btnSubmit= document.getElementById('submit2');
-                    var inputEDateOuverture = document.getElementById("DateOuverture");
-
-                    // Vérifier si le formulaire a été trouvé
-                    if (formulaire) {
-                        // Réinitialiser le formulaire
-                        formulaire.reset();
-
-                        if ( btnSubmit.textContent === "Mettre à jour") {btnSubmit.textContent = "Envoyer";}
-
-                        // Pre-select the Proprietaire in the dropdown
-                        const select1 = formulaire.querySelector("select[name='proprietaire']");
-                        select1.removeAttribute("readonly");
-                        select1.onmousedown = null;
-                        select1.style.cursor = "default";
-
-                        // Pre-select the Recepteur in the dropdown
-                        const select = formulaire.querySelector("select[name='recepteur']");
-                        select.removeAttribute("readonly");
-                        select.onmousedown = null;
-                        select.style.cursor = "default";
-
-                        //remove Disable editing and selection for nomtache
-                        const inputField = formulaire.querySelector(`input[name='nomtache']`);
-                        inputField.removeAttribute("readonly");
-                        inputField.onmousedown = null; // Supprimer l'événement onmousedown
-                        inputField.style.cursor = "text"; // Changer le style du curseur en mode édition
-
-                        const idTacheInput = formulaire.querySelector(`input[name='idtache']`);
-                        idTacheInput.value=null;
-                        idTacheInput.textContent="";
-
-
-                        // Disable editing and selection for tacheparente
-                        const selec = formulaire.querySelector("select[name='tacheparente']");
-                        selec.removeAttribute("readonly");
-                        selec.onmousedown = null;
-                        selec.style.cursor = "default";
-
-                        //Date d ouverture
-                        const inputEDateOuverture = formulaire.querySelector(`input[name='dateouverture']`);
-                        inputEDateOuverture.removeAttribute("readonly");
-                        inputEDateOuverture.onmousedown = null;
-                        inputEDateOuverture.style.cursor = "default";
-                        inputEDateOuverture.disabled=false;
-                        inputEDateOuverture.onmousedown = null; // Supprimer l'événement onmousedown
-                        //inputEDateOuverture.style.cursor = "text"; // Changer le style du curseur en mode édition
-                        dateOuvertureactuelle();
-                    } else {
-                        console.error('Le formulaire n\'a pas été trouvé.');
-                    }
-
-                }
+             
 
                 //pour regler la douverture
                 dateOuvertureactuelle();

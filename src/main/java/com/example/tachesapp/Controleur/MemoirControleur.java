@@ -72,7 +72,7 @@ public class MemoirControleur {
         return "/pages/memoir";
     }
 
-    // -----------------------------------
+// -----------------------------------
 // Créer ou mettre à jour une Memoire
 // -----------------------------------
     @PostMapping("/CreateMemoire")
@@ -95,6 +95,14 @@ public class MemoirControleur {
     public String deleteMemo(@PathVariable Long id,RedirectAttributes redirectAttributes) {
          tacheRepo.deleteByIdtache(id);
             redirectAttributes.addFlashAttribute("msg", "La Memoir a été suprimée  avec succès");
+        return "redirect:/Memoir";
+    }
+
+    //Valider une Memo
+    @GetMapping(value = "/validateMemo/{id}")
+    public String validateMemo(@PathVariable Long id,RedirectAttributes redirectAttributes) {
+         memoireService.validateMemo(id);
+            redirectAttributes.addFlashAttribute("msg", "La Memoir a été validée  avec succès");
         return "redirect:/Memoir";
     }
 }

@@ -86,146 +86,6 @@
 
               <div class="table-responsive text-nowrap">
 
-                <!--collapseExample-->
-                <!-- Extra Large Modal nouv -->
-                <div class="modal fade" id="exLargeModal" tabindex="-1" aria-hidden="true" style="padding-top: 170px">
-                  <div class="modal-dialog modal-xl" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        <form id="formAccountSettings" method="POST" th:action="@{CreateTache}">
-                          <input type="hidden" class="form-control" name="idtache">
-                          <input type="hidden" th:value="${utilisateurC.idutilisateur}" class="form-control"
-                                 name="Utilisateur">
-                          <input type="hidden" name="ismemoire" id="ismemoire" value="false" required/>
-
-                          <div class="d-flex align-content-between justify-content-between flex-wrap  pr-0 pl-0">
-                            <!-- Première div pour le destinataire -->
-                            <div class="d-flex justify-content-evenly align-content-center">
-                              <label for="idrecepteur" class="form-label align-content-center  "
-                                     STYLE="margin-right: 15px;">Destinataire</label>
-                              <select id="idrecepteur" name="recepteur" class="select2 form-select w-px-160" required>
-                                <option th:each="p:${Recepteurs}" th:value="${p.idutilisateur}"
-                                        th:text="${p.prenom + ' ' + p.nom}"></option>
-                              </select>
-                            </div>
-
-                            <!-- Deuxième div pour la tâche à réaliser -->
-                            <div class="d-flex justify-content-evenly">
-                              <label for="nomtache" class="form-label align-content-center"
-                                     STYLE="margin-right: 15px;">Tâche à réaliser</label>
-                              <input type="text" class="form-control w-px-170" autofocus name="nomtache" id="nomtache" required>
-                            </div>
-
-                            <!-- Troisième div pour la durée estimée -->
-                            <div class="d-flex justify-content-evenly">
-                              <label class="form-label align-content-center" for="dureeEstimee"
-                                     STYLE="margin-right: 15px;">EN</label>
-                              <div class="d-flex">
-                                <input type="number" placeholder="Durée Estimée " id="dureeEstimee" required min="1"
-                                       name="dureestime" class="form-control w-50"/>
-                                <label class="form-label align-content-center" for="dureeEstimee"
-                                       STYLE="margin-left: 10px;">Jour(s)</label>
-                              </div>
-                            </div>
-                          </div>
-
-                          <br>
-                          <div class="row g-3">
-
-                            <div class="col mb-0">
-                              <label for="idrecepteur" class="form-label align-content-center  "
-                                     STYLE="margin-right: 15px;">Statut</label>
-                              <select id="relationTypes" name="relationTypes" class="select2 form-select w-px-160" required>
-                                <option th:each="p : ${relationTypes}" th:value="${p}">
-                              <span th:text="${#strings.arrayContains(p.name(), 'SUBORDONNE') ? 'Subordonné' :
-                                       #strings.arrayContains(p.name(), 'COLLEGUE') ? 'Collègue' :
-                                       'Supérieur'}"></span>
-                                </option>
-                              </select>
-                            </div>
-
-                            <div class="col mb-0">
-                              <label for="idrecepteur" class="form-label align-content-center  "
-                                     STYLE="margin-right: 15px;">étape</label>
-                              <select id="etape" name="etape" class="select2 form-select w-px-160" >
-                                <option value="Aucune" >Aucune</option>
-                                <option value="Cadrage">Cadrage</option>
-                                <option value="Livraison">Livraison</option>
-                                <option value="Embauche">Embauche</option>
-                                <option value="Encaissement">Encaissement</option>
-                              </select>
-                            </div>
-
-                            <div class="col mb-0">
-                              <label for="Priorite" class="form-label">Priorité</label>
-                              <select id="Priorite" class="select2 form-select" name="priorite" required>
-                                <option th:each="p:${priorites}" th:value="${p.idpriorite}"
-                                        th:text="${p.nompriorite}"></option>
-                              </select>
-                            </div>
-
-                            <div class="col mb-0">
-                              <label for="DateOuverture" class="form-label">Date Ouverture</label>
-                              <input class="form-control" type="date" name="dateouverture" min="" id="DateOuverture"
-                                     required>
-                            </div>
-
-                            <div class="col mb-0">
-                              <label for="Proprietaires" class="form-label">Propriétaire</label>
-                              <select id="Proprietaires" name="proprietaire" class="select2 form-select"
-                                      required="required" th:with="selectedValue=${utilisateurC.idutilisateur}">
-                                <option th:each="p:${utilisateurList2}" th:value="${p.idutilisateur}"
-                                        th:selected="${selectedValue == p.idutilisateur}"
-                                        th:text="${p.prenom + ' ' + p.nom}"></option>
-                              </select>
-                            </div>
-                            <div class="col mb-0">
-                              <label for="tacheparente" class="form-label">Tâche parente</label>
-                              <select id="tacheparente" class="select2 form-select" name="tacheparente">
-                                <!-- <option  value="">Selectionner la tâche parente</option>
-                                 <option th:each="TacheParents:${lesTacheParents}" th:value="${TacheParents.idtache}" th:text="${TacheParents.nomtache}"></option>-->
-                              </select>
-                            </div>
-
-                            <div class="col mb-0">
-                              <label for="type" class="form-label">Type</label>
-                              <select class="select2 form-select" required="required"  id="type" name="type">
-                                <option value="Opérationnel">Opérationnel</option>
-                                <option value="Projet">Projet</option>
-                              </select>
-                            </div>
-
-                            <div class="col mb-0">
-                              <label class="form-label" for="Aunetachesuccessive">Tâche indexée</label>
-                              <select class="select2 form-select" required="required" id="Aunetachesuccessive" name="aunetachesuccessive">
-                                <option value="false">Non</option>
-                                <option value="true">Oui</option>
-                              </select>
-                            </div>
-
-                            <div class="col mb-0" style="padding-top: 30px;">
-                              <button type="submit" id="submit" class="btn btn-primary "> Envoyer</button>
-                              <button type="button"
-                                      class="btn btn-outline-secondary"
-                                      onclick="annuler()"
-                              >Annuler
-                              </button>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
                 <!--filtre-->
                 <div class="d-flex align-items-center justify-content-start flex-nowrap pr-0 pl-0">
                   <div class="d-flex align-items-center mr-2" style="margin-right: 10px!important;">
@@ -233,6 +93,22 @@
                     <select id="membreSelect" class="form-select form-select-sm Mycolor">
                       <option value="" selected="selected">Tout sélectionner</option>
                       <option th:each="p:${Recepteurs}" th:value="${p.idutilisateur}" th:text="${p.prenom + ' ' + p.nom}"></option>
+                    </select>
+                  </div>
+
+                  <div class="d-flex align-items-center mr-2"  style="margin-right: 10px!important;">
+                    <label for="etapeSelect" class="form-label-sm my-primary" style="margin-right: 5px; font-weight: 700;">Étape</label>
+                    <select id="etapeSelect" class="form-select form-select-sm Mycolor">
+                      <option value="" selected="selected">Tout sélectionner</option>
+                      <option value="Aucune">Aucune</option>
+                      <option value="Prospection" >Prospection</option>
+                      <option value="Cadrage">Cadrage</option>
+                      <option value="Livraison">Livraison</option>
+                      <option value="Embauche">Embauche</option>
+                      <option value="Encaissement">Encaissement</option>
+                      <option value="Suivi">Suivi</option>
+                      <option value="Formation">Formation</option>
+                      <option value="Conseil">Conseil</option>
                     </select>
                   </div>
 
@@ -250,17 +126,6 @@
                     </select>
                   </div>
 
-                  <div class="d-flex align-items-center mr-2"  style="margin-right: 10px!important;">
-                    <label for="etapeSelect" class="form-label-sm my-primary" style="margin-right: 5px; font-weight: 700;">Étape</label>
-                    <select id="etapeSelect" class="form-select form-select-sm Mycolor">
-                      <option value="" selected="selected">Tout sélectionner</option>
-                      <option value="Aucune">Aucune</option>
-                      <option value="Cadrage">Cadrage</option>
-                      <option value="Livraison">Livraison</option>
-                      <option value="Embauche">Embauche</option>
-                      <option value="Encaissement">Encaissement</option>
-                    </select>
-                  </div>
 
                   <div class="d-flex align-items-center mr-2"  style="margin-right: 10px!important;">
                     <label class="form-label-sm my-primary" style="margin-right: 5px; font-weight: 700;">Date</label>
@@ -655,6 +520,42 @@
     document.getElementById('dateMaxSelect').addEventListener('change', applyFilters);
     document.getElementById('rechercher').addEventListener('input', applyFilters);
 
+    function datatableConf() {
+      $(document).ready(function () {
+        // Récupérer la pagination sauvegardée (ou utiliser 10 par défaut si aucune valeur)
+        const savedLength = localStorage.getItem('datatableLength') || 10;
+
+        var table = $('#example').DataTable({
+          info: false,
+          lengthMenu: [10, 25, 50],
+          pageLength: parseInt(savedLength), // Appliquer la pagination sauvegardée
+          language: {
+            "lengthMenu": "Afficher _MENU_ entrées",
+            "search": "Rechercher :",
+            "paginate": {
+              "first": "Première",
+              "last": "Dernière",
+              "next": "Suivant",
+              "previous": "Précédent"
+            }
+          },
+          dom: '<"top">t<"bottom"lp>',
+          order: []
+        });
+
+        // Événement lorsque l'utilisateur change la pagination
+        table.on('length.dt', function (e, settings, len) {
+          localStorage.setItem('datatableLength', len); // Sauvegarder la pagination choisie
+        });
+
+        // Recherche en direct
+        $('#rechercher').on('keyup', function () {
+          table.search(this.value).draw();
+        });
+      });
+    }
+
+    /*
     function datatableConf(){
       $(document).ready(function () {
         var table = $('#example').DataTable({
@@ -679,6 +580,7 @@
         });
       });
     }
+     */
 
     function progressPercentage(tache) {
       var currentDate = new Date().toISOString().split('T')[0]; // Obtenir la date actuelle en format 'YYYY-MM-DD'
@@ -1052,7 +954,7 @@
           tachesParentSelect.empty(); // Efface toutes les options actuelles
           tachesParentSelect.append (new Option("Selectionner la tâche parente",-1));
           for (var i = 0; i < taches.length; i++) {
-            var option = new Option(taches[i].nomtache, taches[i].idtache);
+            var option = new Option(taches[i].etape+"-"+taches[i].nomtache+"-"+taches[i].idtache, taches[i].idtache);
             tachesParentSelect.append(option);
           }
         }

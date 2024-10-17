@@ -30,25 +30,4 @@ public class SecuriteControleur {
         return "/pages/403";
     }
 
-    @GetMapping("/forgetPasseWord")
-    public String forgetPasseWord() {
-        return "/pages/motDePasseObliee";
-    }
-
-    @PostMapping("/forgetPasseWordProcess")
-    public String forgetPasseWordProcess(@RequestParam("mail")String mail, RedirectAttributes redirectAttributes) {
-
-        Utilisateur utilisateur = utilisateurRepo.findUtilisateursByMail(mail);
-        String output="";
-        if (utilisateur == null)
-        {// Gérer le cas où l'utilisateur n'existe pas
-          redirectAttributes.addFlashAttribute("error", "l'utilisateur n'existe pas");
-        }
-        if (utilisateur != null)
-        {output=utilisateurService.sendMail(utilisateur);}
-        if(output.equals("success"))
-        {redirectAttributes.addFlashAttribute("msg", "vous trouver le lien de modification dans votre boit mail");}
-
-       return "redirect:/forgetPasseWord";
-    }
 }
